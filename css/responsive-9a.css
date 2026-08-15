@@ -1,0 +1,713 @@
+
+/* STEP 9A — RESPONSIVE REFINEMENT
+   Scope: mobile + tablet typography, spacing, composition and touch comfort.
+   The desktop visual direction is intentionally preserved. */
+
+@media (min-width: 761px) and (max-width: 1050px){
+  :root{--gutter:clamp(24px,4vw,40px)}
+
+  h1{
+    font-size:clamp(56px,7vw,86px);
+    line-height:.93;
+  }
+
+  .hero-inner{
+    gap:clamp(28px,5vw,55px);
+  }
+
+  .positioning h2,
+  .services h2,
+  .portfolio h2,
+  .founder-section .founder-copy h2,
+  .testimonials h2{
+    font-size:clamp(48px,6vw,66px);
+    line-height:.95;
+    text-wrap:balance;
+  }
+
+  .contact-intro h2{
+    font-size:clamp(52px,6.5vw,76px);
+    text-wrap:balance;
+  }
+
+  .section-heading,
+  .portfolio-heading,
+  .testimonials-head,
+  .contact-intro{
+    gap:clamp(28px,5vw,48px);
+  }
+}
+
+@media (max-width: 760px){
+  :root{--gutter:20px}
+
+  .container{
+    width:min(calc(100% - 40px),var(--max));
+  }
+
+  /* Global heading rhythm */
+  .eyebrow{
+    margin-bottom:16px;
+    font-size:10px;
+    letter-spacing:.12em;
+  }
+
+  .section-heading h2,
+  .positioning h2,
+  .services h2,
+  .portfolio h2,
+  .founder-section .founder-copy h2,
+  .testimonials h2,
+  .contact-intro h2{
+    padding-inline:8px;
+    text-wrap:balance;
+  }
+
+  /* HERO */
+  .hero{
+    min-height:calc(100svh - 68px);
+  }
+
+  .hero-inner{
+    gap:20px;
+    padding-top:40px;
+    padding-bottom:48px;
+  }
+
+  .hero-copy{
+    padding-inline:4px;
+  }
+
+  .hero h1{
+    max-width:13ch;
+    font-size:clamp(42px,11vw,58px);
+    line-height:.94;
+    letter-spacing:-.045em;
+    text-wrap:balance;
+  }
+
+  .hero-subtitle{
+    max-width:34ch;
+    margin-top:24px;
+    font-size:15px;
+    line-height:1.55;
+  }
+
+  .hero-actions{
+    margin-top:24px;
+    gap:10px;
+  }
+
+  .hero-actions .button{
+    min-height:46px;
+    padding-inline:16px;
+  }
+
+  .hero-actions .text-link{
+    min-height:42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+  }
+
+  .hero-visual{
+    min-height:300px;
+    margin-top:0;
+  }
+
+  .frame{
+    width:min(56vw,220px);
+  }
+
+  .front{
+    padding:18px;
+    box-shadow:18px 18px 0 var(--coral);
+  }
+
+  .symbol{
+    font-size:clamp(54px,17vw,84px);
+  }
+
+  .front strong{
+    font-size:clamp(20px,6vw,30px);
+  }
+
+  .frame small,
+  .stamp{
+    font-size:8px;
+  }
+
+  .hero-bottom{
+    width:min(calc(100% - 40px),var(--max));
+    margin-top:-8px;
+    gap:10px;
+    font-size:7px;
+  }
+
+  .hero-bottom i{
+    width:100%;
+  }
+
+  /* SECTION RHYTHM */
+  .positioning,
+  .services,
+  .portfolio,
+  .founder-section,
+  .testimonials,
+  .contact-section{
+    padding-block:clamp(70px,17vw,88px);
+  }
+
+  .positioning-grid,
+  .section-heading,
+  .portfolio-heading,
+  .testimonials-head,
+  .contact-intro{
+    gap:28px;
+  }
+
+  .positioning h2,
+  .services h2,
+  .portfolio h2,
+  .founder-section .founder-copy h2,
+  .testimonials h2{
+    font-size:clamp(36px,9.6vw,52px);
+    line-height:.96;
+    letter-spacing:-.035em;
+  }
+
+  .positioning-copy{
+    padding-top:0;
+  }
+
+  .positioning-copy .lead{
+    font-size:18px;
+    line-height:1.45;
+  }
+
+  .positioning-copy p:not(.lead){
+    font-size:15px;
+    line-height:1.65;
+  }
+
+  .positioning-tags{
+    gap:7px;
+    margin-top:22px;
+  }
+
+  .positioning-tags span{
+    padding:7px 10px;
+    font-size:9px;
+  }
+
+  /* SERVICES */
+  .section-heading{
+    margin-bottom:40px;
+  }
+
+  .section-intro,
+  .portfolio-heading>p,
+  .testimonials-intro,
+  .contact-lead{
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  .service-card,
+  .service-card:hover{
+    grid-template-columns:34px minmax(0,1fr);
+    gap:12px;
+    padding:24px 0;
+  }
+
+  .service-number{
+    font-size:10px;
+  }
+
+  .service-kicker{
+    margin-bottom:6px;
+    font-size:9px;
+  }
+
+  .service-main h3{
+    font-size:clamp(23px,6vw,30px);
+    line-height:1.02;
+    letter-spacing:-.04em;
+  }
+
+  .service-main p{
+    margin-top:10px;
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .services-note{
+    grid-template-columns:38px minmax(0,1fr);
+    gap:12px;
+    margin-top:30px;
+    padding:18px;
+  }
+
+  .note-symbol{
+    width:36px;
+    height:36px;
+    font-size:21px;
+  }
+
+  .services-note p{
+    font-size:13px;
+  }
+
+  .services-note .text-link{
+    grid-column:2;
+    justify-self:start;
+    font-size:12px;
+  }
+
+  /* PORTFOLIO */
+  .portfolio-heading{
+    margin-bottom:32px;
+  }
+
+  .portfolio-filters{
+    gap:7px;
+    margin-bottom:24px;
+  }
+
+  .filter{
+    min-height:40px;
+    padding:8px 11px;
+    font-size:10px;
+  }
+
+  .portfolio-grid{
+    gap:14px;
+  }
+
+  .portfolio-placeholder-art{
+    padding:14px;
+  }
+
+  .portfolio-placeholder-art span{
+    font-size:8px;
+  }
+
+  .portfolio-placeholder-art i{
+    font-size:clamp(22px,6vw,30px);
+  }
+
+  .portfolio-card-meta{
+    padding-top:10px;
+    font-size:10px;
+  }
+
+  .portfolio-note{
+    margin-top:32px;
+    grid-template-columns:36px minmax(0,1fr);
+    gap:12px;
+    padding-block:18px;
+  }
+
+  .portfolio-note>span{
+    width:32px;
+    height:32px;
+    font-size:18px;
+  }
+
+  .portfolio-note p{
+    font-size:12px;
+  }
+
+  /* FOUNDER */
+  .founder-section .founder-grid{
+    gap:42px;
+  }
+
+  .founder-section .founder-photo-wrap{
+    width:min(100%,310px);
+  }
+
+  .founder-section .founder-copy h2{
+    font-size:clamp(38px,10vw,54px);
+  }
+
+  .founder-lead{
+    margin-top:20px;
+    font-size:17px;
+  }
+
+  .founder-section .founder-placeholder{
+    margin-top:14px;
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .founder-section .founder-details{
+    margin-top:22px;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-head{
+    margin-bottom:34px;
+  }
+
+  .testimonial-card{
+    min-height:0;
+    padding:24px 0;
+  }
+
+  .testimonial-stars{
+    margin-top:24px;
+  }
+
+  .testimonial-quote{
+    margin:20px 0 24px;
+    font-size:16px;
+    line-height:1.5;
+  }
+
+  .testimonial-quote::before{
+    font-size:44px;
+  }
+
+  /* CONTACT */
+  .contact-intro{
+    margin-bottom:40px;
+  }
+
+  .contact-intro h2{
+    font-size:clamp(40px,10.5vw,58px);
+    line-height:.94;
+    letter-spacing:-.04em;
+  }
+
+  .contact-direct{
+    gap:28px;
+    padding:24px;
+  }
+
+  .contact-direct a{
+    font-size:18px;
+  }
+
+  .contact-direct p:not(.contact-label){
+    font-size:15px;
+  }
+
+  .brief-panel{
+    padding:22px;
+  }
+
+  .brief-heading{
+    margin-bottom:24px;
+  }
+
+  .brief-heading h3{
+    font-size:clamp(28px,7.5vw,38px);
+    line-height:1;
+    text-wrap:balance;
+  }
+
+  .brief-heading p:last-child{
+    font-size:13px;
+  }
+
+  .field{
+    margin-bottom:16px;
+  }
+
+  .field label{
+    margin-bottom:6px;
+    font-size:10px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea{
+    font-size:14px;
+  }
+
+  .field textarea{
+    min-height:120px;
+  }
+
+  /* FOOTER */
+  .site-footer{
+    padding-top:64px;
+  }
+
+  .footer-main{
+    gap:28px;
+    padding-bottom:44px;
+  }
+
+  .footer-slogan{
+    font-size:14px;
+  }
+
+  .footer-cta{
+    margin-top:24px;
+  }
+
+  .footer-label{
+    margin-bottom:12px;
+    font-size:9px;
+  }
+
+  .footer-nav a,
+  .footer-contact a,
+  .footer-local a{
+    margin-bottom:6px;
+    font-size:13px;
+  }
+
+  .footer-socials{
+    padding-block:24px;
+    gap:24px;
+  }
+
+  .social-link{
+    min-height:48px;
+    padding:8px 9px;
+    font-size:9px;
+  }
+
+  .footer-bottom{
+    padding-top:20px;
+    font-size:9px;
+  }
+}
+
+@media (max-width: 480px){
+  :root{--gutter:18px}
+
+  .container{
+    width:min(calc(100% - 36px),var(--max));
+  }
+
+  .hero-inner{
+    padding-top:34px;
+  }
+
+  .hero-copy{
+    padding-inline:2px;
+  }
+
+  .hero h1{
+    max-width:14ch;
+    font-size:clamp(40px,10.6vw,52px);
+    line-height:.95;
+  }
+
+  .hero-subtitle{
+    margin-top:21px;
+    font-size:14px;
+  }
+
+  .hero-actions .button{
+    width:100%;
+  }
+
+  .hero-actions .text-link{
+    width:100%;
+  }
+
+  .hero-visual{
+    min-height:275px;
+  }
+
+  .frame{
+    width:min(57vw,205px);
+  }
+
+  .front{
+    padding:16px;
+    box-shadow:15px 15px 0 var(--coral);
+  }
+
+  .positioning h2,
+  .services h2,
+  .portfolio h2,
+  .founder-section .founder-copy h2,
+  .testimonials h2{
+    font-size:clamp(34px,9.2vw,46px);
+  }
+
+  .contact-intro h2{
+    font-size:clamp(38px,9.8vw,50px);
+  }
+
+  .section-heading,
+  .portfolio-heading,
+  .testimonials-head,
+  .contact-intro{
+    gap:22px;
+  }
+
+  .positioning-copy .lead{
+    font-size:17px;
+  }
+
+  .service-main h3{
+    font-size:23px;
+  }
+
+  .portfolio-grid{
+    
+    gap:20px;
+  }
+
+  .portfolio-card-meta{
+    padding-top:8px;
+  }
+
+  .founder-section .founder-photo-wrap{
+    width:min(100%,290px);
+  }
+
+  .brief-panel{
+    padding:20px;
+  }
+
+  .contact-direct{
+    padding:22px;
+  }
+
+  .footer-main{
+    gap:26px;
+  }
+}
+
+@media (max-width: 380px){
+  .hero h1{
+    font-size:40px;
+  }
+
+  .positioning h2,
+  .services h2,
+  .portfolio h2,
+  .founder-section .founder-copy h2,
+  .testimonials h2{
+    font-size:34px;
+  }
+
+  .contact-intro h2{
+    font-size:38px;
+  }
+
+  .filter{
+    padding-inline:9px;
+    font-size:9px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .portfolio-card-button:hover .portfolio-visual,
+  .testimonial-card:hover{
+    transform:none;
+  }
+}
+
+
+/* HERO — SECTION-BY-SECTION REFINEMENT
+   Desktop: keep the existing art direction, but make the composition fit
+   normal laptop/desktop viewport heights without clipping the headline.
+   Mobile: preserve the current stacked composition and only tighten the
+   vertical rhythm where necessary. */
+@media (min-width: 1051px){
+  .hero{
+    min-height:calc(100svh - 76px);
+  }
+
+  .hero-inner{
+    gap:clamp(36px,5vw,80px);
+    padding-block:clamp(24px,3.2vw,50px);
+  }
+
+  .hero-copy{
+    min-width:0;
+  }
+
+  .hero h1{
+    font-size:clamp(64px,6.8vw,112px);
+    line-height:.91;
+  }
+
+  .hero-subtitle{
+    margin-top:30px;
+  }
+
+  .hero-actions{
+    margin-top:24px;
+  }
+
+  .hero-visual{
+    min-height:min(58vh,520px);
+  }
+
+  .frame{
+    width:min(25vw,350px);
+  }
+
+  .front{
+    right:5%;
+    bottom:2%;
+  }
+
+  .hero-bottom{
+    bottom:14px;
+  }
+}
+
+@media (max-width: 1050px) and (min-width: 761px){
+  .hero-inner{
+    padding-block:clamp(36px,5vw,64px);
+  }
+
+  .hero h1{
+    font-size:clamp(56px,7vw,82px);
+    line-height:.92;
+  }
+
+  .hero-subtitle{
+    margin-top:28px;
+  }
+
+  .hero-actions{
+    margin-top:22px;
+  }
+}
+
+@media (max-width: 760px){
+  .hero-inner{
+    padding-top:34px;
+    padding-bottom:48px;
+  }
+
+  .hero h1{
+    max-width:12.5ch;
+    line-height:.93;
+  }
+
+  .hero-subtitle{
+    margin-top:22px;
+  }
+
+  .hero-actions{
+    margin-top:22px;
+  }
+
+  .hero-visual{
+    margin-top:-2px;
+  }
+}
+
+
+/* LNK_DT — Portfolio mobile layout: 2 columns / 3 rows */
+@media screen and (max-width: 767px) {
+  .portfolio-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}

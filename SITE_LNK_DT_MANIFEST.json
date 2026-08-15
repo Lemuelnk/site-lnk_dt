@@ -1,0 +1,15 @@
+{
+  "package_name": "site lnk_dt",
+  "status": "final provisoire",
+  "source_archive": "LNK_Design_Touch_FORMSPREE_TESTIMONIAL_TAGGED.zip",
+  "checks": {
+    "index.html": true,
+    "Formspree endpoint xljrbrnk present": true,
+    "testimonial form_type present": true,
+    "Turnstile site key present": true,
+    "Cloudflare legacy preserved": true,
+    "Formspree migration note present": true,
+    "Turnstile update note present": true
+  },
+  "file_count": 126
+}

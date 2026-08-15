@@ -1,0 +1,80 @@
+/* HERO — subtle kinetic graphic motion
+   Keeps the approved composition intact. Text, CTA, navigation and hero-bottom stay still.
+*/
+.hero-visual{
+  --parallax-x: 0px;
+  --parallax-y: 0px;
+  transform: translate3d(var(--parallax-x), var(--parallax-y), 0);
+  will-change: transform;
+}
+
+.hero-visual .back{
+  animation: hero-back-float 9s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-visual .front{
+  animation: hero-front-float 10s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-visual .one{
+  animation: hero-orbit-one 11s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-visual .two{
+  animation: hero-orbit-two 8s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.hero-visual .stamp{
+  animation: hero-stamp-float 7s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes hero-back-float{
+  0%   { transform: translate3d(-2px, 2px, 0) rotate(-7deg); }
+  100% { transform: translate3d(3px, -3px, 0) rotate(-6.4deg); }
+}
+@keyframes hero-front-float{
+  0%   { transform: translate3d(2px, 2px, 0) rotate(5deg); }
+  100% { transform: translate3d(-3px, -3px, 0) rotate(5.6deg); }
+}
+@keyframes hero-orbit-one{
+  0%   { transform: translate3d(-2px, 2px, 0); }
+  100% { transform: translate3d(3px, -2px, 0); }
+}
+@keyframes hero-orbit-two{
+  0%   { transform: translate3d(2px, -1px, 0); }
+  100% { transform: translate3d(-3px, 2px, 0); }
+}
+@keyframes hero-stamp-float{
+  0%   { transform: translate3d(-1px, 2px, 0) rotate(12deg); }
+  100% { transform: translate3d(2px, -2px, 0) rotate(12.8deg); }
+}
+
+/* Pointer parallax is intentionally limited to a few pixels and is applied to the
+   visual group only, preserving the approved internal composition. */
+@media (hover:hover) and (pointer:fine){
+  .hero-visual{transition:transform 700ms cubic-bezier(.22,1,.36,1);}
+}
+
+@media (max-width:760px){
+  .hero-visual{
+    animation: hero-mobile-breathe 12s ease-in-out infinite alternate;
+  }
+  @keyframes hero-mobile-breathe{
+    0%   { transform: translate3d(0, 1px, 0); }
+    100% { transform: translate3d(0, -2px, 0); }
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-visual,
+  .hero-visual .back,
+  .hero-visual .front,
+  .hero-visual .one,
+  .hero-visual .two,
+  .hero-visual .stamp{
+    animation:none !important;
+    transition:none !important;
+    transform:none !important;
+  }
+}

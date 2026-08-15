@@ -1,0 +1,48 @@
+{
+  "categories": [
+    {
+      "id": "affiches",
+      "label": "Affiches",
+      "visual": "sample",
+      "variant": "teal",
+      "folder": "affiches"
+    },
+    {
+      "id": "branding",
+      "label": "Branding",
+      "visual": "sample",
+      "variant": "dark",
+      "folder": "branding"
+    },
+    {
+      "id": "bannieres",
+      "label": "Bannières",
+      "visual": "sample",
+      "variant": "coral",
+      "folder": "bannieres"
+    },
+    {
+      "id": "social-media",
+      "label": "Social Media",
+      "visual": "sample",
+      "variant": "light",
+      "folder": "social-media"
+    },
+    {
+      "id": "calendriers",
+      "label": "Calendriers",
+      "visual": "sample",
+      "variant": "dark",
+      "folder": "calendriers"
+    },
+    {
+      "id": "plus",
+      "label": "Et plus encore",
+      "visual": "sample",
+      "variant": "coral",
+      "folder": "et-plus-encore"
+    }
+  ],
+  "projects": [],
+  "_instructions": "Ajouter uniquement des réalisations réelles. Un projet doit avoir category, title et image. Le premier projet d'une catégorie peut servir d'échantillon dans la vue Tout."
+}

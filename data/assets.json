@@ -1,0 +1,27 @@
+{
+  "brand": {
+    "primary": "assets/images/brand/logo-primary.svg",
+    "primaryDark": "assets/images/brand/logo-primary-dark.svg",
+    "primaryLight": "assets/images/brand/logo-primary-light.svg",
+    "secondary": "assets/images/brand/logo-secondary.svg",
+    "secondaryDark": "assets/images/brand/logo-secondary-dark.svg",
+    "secondaryLight": "assets/images/brand/logo-secondary-light.svg",
+    "vertical": "assets/images/brand/logo-vertical.svg",
+    "verticalDark": "assets/images/brand/logo-vertical-dark.svg",
+    "verticalLight": "assets/images/brand/logo-vertical-light.svg",
+    "verticalSecondary": "assets/images/brand/logo-vertical-secondary.svg",
+    "verticalSecondaryDark": "assets/images/brand/logo-vertical-secondary-dark.svg",
+    "verticalSecondaryLight": "assets/images/brand/logo-vertical-secondary-light.svg",
+    "mark": "assets/images/brand/logo-mark.svg",
+    "markDark": "assets/images/brand/logo-mark-dark.svg",
+    "markLight": "assets/images/brand/logo-mark-light.svg",
+    "favicon": "assets/images/brand/favicon.svg",
+    "favicon16": "assets/images/brand/favicon-16.png",
+    "favicon32": "assets/images/brand/favicon-32.png",
+    "faviconIco": "assets/images/brand/favicon.ico",
+    "appleTouchIcon": "assets/images/brand/apple-touch-icon.png",
+    "openGraph": "assets/images/brand/og-image.jpg"
+  },
+  "founder": "assets/images/founder/founder.webp",
+  "portfolioRoot": "assets/images/portfolio/"
+}
