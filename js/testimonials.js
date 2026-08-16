@@ -1,5 +1,3 @@
-const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
-
 (function(){
   const grid = document.getElementById('testimonials-grid');
   const summary = document.getElementById('testimonials-summary');
@@ -65,7 +63,7 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
   }
 
   async function submitReview(payload){
-    const response=await fetch(FORMSPREE_REVIEWS_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({...payload,form_type:'testimonial'})});
+    const response=await fetch('/api/testimonials',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
     const result=await response.json().catch(()=>({}));
     if(!response.ok) throw new Error(result.error||result.message||'Impossible d’envoyer votre avis.');
     return result;
@@ -79,6 +77,9 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
       const data=Object.fromEntries(new FormData(form).entries());
       if(!data.rating){status.textContent='Choisissez une note de 1 à 5 étoiles.';status.className='testimonial-form-status is-error';return;}
       if(!String(data.name||'').trim()||!String(data.review||'').trim()){status.textContent='Merci de renseigner votre nom et votre témoignage.';status.className='testimonial-form-status is-error';return;}
+      const turnstileToken = data['cf-turnstile-response'] || '';
+      if(!turnstileToken){status.textContent='Veuillez patienter pendant la vérification anti-spam, puis réessayez.';status.className='testimonial-form-status is-error';return;}
+      data.turnstileToken = turnstileToken;
       const button=form.querySelector('button[type="submit"]'); if(button)button.disabled=true;
       status.textContent='Envoi en cours…';status.className='testimonial-form-status';
       try{
@@ -96,7 +97,7 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 
   async function load(){
     try{
-      const response=await fetch('data/testimonials.json',{headers:{'Accept':'application/json'}});
+      const response=await fetch('/api/testimonials',{headers:{'Accept':'application/json'}});
       if(!response.ok)throw new Error('Impossible de charger les avis.');
       const data=await response.json();
       state.approved=Array.isArray(data.testimonials)?data.testimonials.filter(item=>item.status==='approved'&&item.review):[];
@@ -106,11 +107,3 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 
   setupModal(); setupRating(); setupForm(); load();
 })();
-
-window.LNK_DEMO_TESTIMONIALS = [
-  {name:"Amina K.",organization:"Projet exemple",project:"Identité visuelle",rating:5,review:"Très bonne expérience. Le rendu correspond parfaitement à nos attentes.",approved:true},
-  {name:"David M.",organization:"Projet exemple",project:"Affiche",rating:4,review:"Une collaboration claire et un résultat propre.",approved:true},
-  {name:"Sarah L.",organization:"Projet exemple",project:"Branding",rating:5,review:"Créatif, attentif aux détails et à l'écoute du besoin.",approved:true},
-  {name:"Patrick N.",organization:"Projet exemple",project:"Flyer",rating:5,review:"Travail soigné et communication efficace.",approved:true},
-  {name:"Chris B.",organization:"Projet exemple",project:"Design social media",rating:4,review:"Une identité visuelle cohérente et un bon accompagnement.",approved:true}
-];

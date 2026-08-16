@@ -1,0 +1,22 @@
+# Secrets et environnement local
+.env
+.env.*
+!.env.example
+.wrangler/
+.dev.vars
+
+# Fichiers système et logs
+.DS_Store
+*.log
+
+# Fichiers temporaires d'éditeur
+.vscode/
+.idea/
+
+# Artefacts de build
+node_modules/
+dist/
+build/
+
+# Secrets Cloudflare locaux
+.secrets/

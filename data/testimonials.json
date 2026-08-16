@@ -4,56 +4,5 @@
     "title": "Ce que disent ceux qui ont travaillé avec nous.",
     "intro": "Découvrez les expériences de ceux qui nous ont confié leurs projets."
   },
-  "testimonials": [
-    {
-      "id": "demo-001",
-      "name": "Client Démo 01",
-      "organization": "Entreprise Démo",
-      "project": "Identité visuelle",
-      "rating": 5,
-      "review": "Une identité visuelle soignée et un accompagnement très professionnel. Le résultat correspond parfaitement à notre vision.",
-      "status": "approved",
-      "demo": true
-    },
-    {
-      "id": "demo-002",
-      "name": "Client Démo 02",
-      "organization": "Projet Créatif",
-      "project": "Affiche",
-      "rating": 5,
-      "review": "L'équipe a su transformer notre idée en un visuel clair, moderne et impactant. Très belle réalisation.",
-      "status": "approved",
-      "demo": true
-    },
-    {
-      "id": "demo-003",
-      "name": "Client Démo 03",
-      "organization": "Créateur de contenu",
-      "project": "Social Media Design",
-      "rating": 4,
-      "review": "Une collaboration fluide, des propositions pertinentes et une attention appréciable aux détails.",
-      "status": "approved",
-      "demo": true
-    },
-    {
-      "id": "demo-004",
-      "name": "Client Démo 04",
-      "organization": "Porteur de projet",
-      "project": "Branding",
-      "rating": 5,
-      "review": "Le rendu final est professionnel et fidèle à ce que nous avions imaginé. Merci pour le travail réalisé.",
-      "status": "approved",
-      "demo": true
-    },
-    {
-      "id": "demo-005",
-      "name": "Client Démo 05",
-      "organization": "Petite entreprise",
-      "project": "Supports professionnels",
-      "rating": 5,
-      "review": "Très bonne expérience. L'identité proposée donne une vraie personnalité à notre projet.",
-      "status": "approved",
-      "demo": true
-    }
-  ]
+  "testimonials": []
 }
