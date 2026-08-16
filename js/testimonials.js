@@ -1,3 +1,5 @@
+const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
+
 (function(){
   const grid = document.getElementById('testimonials-grid');
   const summary = document.getElementById('testimonials-summary');
@@ -64,6 +66,12 @@
 
   async function submitReview(payload){
     const response=await fetch('/api/testimonials',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(response.status===404){
+      const fallback=await fetch(FORMSPREE_REVIEWS_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({...payload,form_type:'testimonial'})});
+      const fallbackResult=await fallback.json().catch(()=>({}));
+      if(!fallback.ok) throw new Error(fallbackResult.error||fallbackResult.message||'Impossible d’envoyer votre avis.');
+      return fallbackResult;
+    }
     const result=await response.json().catch(()=>({}));
     if(!response.ok) throw new Error(result.error||result.message||'Impossible d’envoyer votre avis.');
     return result;
@@ -77,9 +85,7 @@
       const data=Object.fromEntries(new FormData(form).entries());
       if(!data.rating){status.textContent='Choisissez une note de 1 à 5 étoiles.';status.className='testimonial-form-status is-error';return;}
       if(!String(data.name||'').trim()||!String(data.review||'').trim()){status.textContent='Merci de renseigner votre nom et votre témoignage.';status.className='testimonial-form-status is-error';return;}
-      const turnstileToken = data['cf-turnstile-response'] || '';
-      if(!turnstileToken){status.textContent='Veuillez patienter pendant la vérification anti-spam, puis réessayez.';status.className='testimonial-form-status is-error';return;}
-      data.turnstileToken = turnstileToken;
+      data.turnstileToken = data['cf-turnstile-response'] || '';
       const button=form.querySelector('button[type="submit"]'); if(button)button.disabled=true;
       status.textContent='Envoi en cours…';status.className='testimonial-form-status';
       try{
