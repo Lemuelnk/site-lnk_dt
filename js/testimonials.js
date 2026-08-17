@@ -116,5 +116,7 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
     computeStats(); renderAll();
   }
 
-  setupModal(); setupRating(); setupForm(); load();
+  setupModal(); setupRating(); setupForm();
+  new MutationObserver(()=>renderAll()).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+  load();
 })();
