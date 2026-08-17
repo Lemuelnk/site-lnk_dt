@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets/images/portfolio"
 OUTPUT = ROOT / "data/portfolio.json"
+JS_OUTPUT = ROOT / "js/portfolio-catalog.js"
 
 CATEGORIES = [
     {"id": "affiches", "label": "Affiches", "visual": "sample", "variant": "teal", "folder": "affiches"},
@@ -61,7 +62,13 @@ def main() -> None:
             "dans ce fichier ou utiliser le format recommandé dans le README du dossier."
         ),
     }
+    serialized = json.dumps(output, ensure_ascii=False, separators=(",", ":"))
     OUTPUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    JS_OUTPUT.write_text(
+        "/* Generated from assets/images/portfolio — do not edit manually. */\n"
+        f"window.LNK_PORTFOLIO_CATALOG = {serialized};\n",
+        encoding="utf-8",
+    )
     print(f"Generated {len(projects)} portfolio project(s).")
 
 

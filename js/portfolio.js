@@ -3,6 +3,9 @@
   const grid = document.querySelector('#portfolio-grid');
   if (!filters.length || !grid) return;
 
+  const generatedProjects = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.projects)
+    ? window.LNK_PORTFOLIO_CATALOG.projects
+    : [];
   const data = {
     categories: [
       { id: 'affiches', label: 'Affiches', variant: 'teal' },
@@ -12,7 +15,7 @@
       { id: 'calendriers', label: 'Calendriers', variant: 'dark' },
       { id: 'plus', label: 'Et plus encore', variant: 'coral' }
     ],
-    projects: []
+    projects: generatedProjects
   };
 
   const categoryMap = Object.fromEntries(data.categories.map(c => [c.id, c]));
@@ -316,8 +319,8 @@
 
   render('all');
 
-  // The catalog is generated from assets/images/portfolio during publication.
-  fetch('data/portfolio.json', { cache: 'force-cache' })
+  // The catalog is generated into the bundle; fetch only supports older previews.
+  if (!generatedProjects.length) fetch('data/portfolio.json', { cache: 'force-cache' })
     .then(response => {
       if (!response.ok) throw new Error(`Portfolio catalog unavailable (${response.status})`);
       return response.json();

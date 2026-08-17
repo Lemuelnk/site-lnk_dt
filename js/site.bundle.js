@@ -113,12 +113,19 @@
   else mobileQuery.addListener(syncBreakpoint);
 })();
 
+/* ===== js/portfolio-catalog.js ===== */
+/* Generated from assets/images/portfolio — do not edit manually. */
+window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches","visual":"sample","variant":"teal","folder":"affiches"},{"id":"branding","label":"Branding","visual":"sample","variant":"dark","folder":"branding"},{"id":"bannieres","label":"Bannières","visual":"sample","variant":"coral","folder":"bannieres"},{"id":"social-media","label":"Social Media","visual":"sample","variant":"light","folder":"social-media"},{"id":"calendriers","label":"Calendriers","visual":"sample","variant":"dark","folder":"calendriers"},{"id":"plus","label":"Et plus encore","visual":"sample","variant":"coral","folder":"et-plus-encore"}],"projects":[{"category":"affiches","title":"20 matins de prière — Mission Évangélique La Restauration","image":"assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp","alt":"Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration"},{"category":"affiches","title":"La Grande Retraite — Août 2026","image":"assets/images/portfolio/affiches/affiche-la-grande-retraite-aout-2026-mission-evangelique-la-restauration-01.webp","alt":"Affiche sombre et dorée pour La Grande Retraite d’août 2026 de la Mission Évangélique La Restauration"}],"_instructions":"Les projets sont générés automatiquement depuis assets/images/portfolio. Pour un titre ou un texte alternatif personnalisé, conserver les métadonnées dans ce fichier ou utiliser le format recommandé dans le README du dossier."};
+
 /* ===== js/portfolio.js ===== */
 (() => {
   const filters = [...document.querySelectorAll('.filter')];
   const grid = document.querySelector('#portfolio-grid');
   if (!filters.length || !grid) return;
 
+  const generatedProjects = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.projects)
+    ? window.LNK_PORTFOLIO_CATALOG.projects
+    : [];
   const data = {
     categories: [
       { id: 'affiches', label: 'Affiches', variant: 'teal' },
@@ -128,7 +135,7 @@
       { id: 'calendriers', label: 'Calendriers', variant: 'dark' },
       { id: 'plus', label: 'Et plus encore', variant: 'coral' }
     ],
-    projects: []
+    projects: generatedProjects
   };
 
   const categoryMap = Object.fromEntries(data.categories.map(c => [c.id, c]));
@@ -432,8 +439,8 @@
 
   render('all');
 
-  // The catalog is generated from assets/images/portfolio during publication.
-  fetch('data/portfolio.json', { cache: 'force-cache' })
+  // The catalog is generated into the bundle; fetch only supports older previews.
+  if (!generatedProjects.length) fetch('data/portfolio.json', { cache: 'force-cache' })
     .then(response => {
       if (!response.ok) throw new Error(`Portfolio catalog unavailable (${response.status})`);
       return response.json();

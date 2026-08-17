@@ -22,10 +22,13 @@ jobs:
       - name: Generate catalog
         run: python3 tools/generate-portfolio-catalog.py
 
-      - name: Commit generated catalog
+      - name: Build portfolio bundle
+        run: python3 tools/build-bundles.py
+
+      - name: Commit generated catalog and bundle
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/portfolio.json
+          git add data/portfolio.json js/portfolio-catalog.js js/site.bundle.js
           git diff --cached --quiet || git commit -m "chore: regenerate portfolio catalog"
           git push
