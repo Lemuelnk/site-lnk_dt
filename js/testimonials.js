@@ -69,6 +69,10 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
     }));
   }
 
+  function resetTurnstile(){
+    if(window.turnstile && typeof window.turnstile.reset==='function') window.turnstile.reset();
+  }
+
   async function submitReview(payload){
     const response=await fetch('/api/testimonials',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
     if(response.status===404){
@@ -91,15 +95,23 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
       if(!data.rating){status.textContent='Choisissez une note de 1 à 5 étoiles.';status.className='testimonial-form-status is-error';return;}
       if(!String(data.name||'').trim()||!String(data.review||'').trim()){status.textContent='Merci de renseigner votre nom et votre témoignage.';status.className='testimonial-form-status is-error';return;}
       data.turnstileToken = data['cf-turnstile-response'] || '';
+      if(!data.turnstileToken){
+        status.textContent='Veuillez confirmer la vérification anti-spam avant l’envoi.';
+        status.className='testimonial-form-status is-error';
+        resetTurnstile();
+        return;
+      }
       const button=form.querySelector('button[type="submit"]'); if(button)button.disabled=true;
       status.textContent='Envoi en cours…';status.className='testimonial-form-status';
       try{
         await submitReview(data);
         form.reset();
+        resetTurnstile();
         document.querySelectorAll('.star-choice').forEach(star=>{star.classList.remove('is-selected');star.setAttribute('aria-checked','false');});
         status.textContent='Merci ! Votre avis a bien été reçu et sera publié après validation.';
         status.className='testimonial-form-status is-success';
       }catch(err){
+        resetTurnstile();
         status.textContent=err.message||'Une erreur est survenue. Réessayez plus tard.';
         status.className='testimonial-form-status is-error';
       }finally{if(button)button.disabled=false;}

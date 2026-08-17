@@ -40,7 +40,7 @@ Le formulaire contient `_next=#contact`, mais le JavaScript intercepte la soumis
 Action : soit supprimer `_next`, soit décider explicitement d'utiliser la redirection native de Formspree au lieu du flux AJAX.
 
 ### 7. Email professionnel
-Le site utilise encore `lnk_dt@yahoo.com` dans les contacts et pages légales.
+Le site utilise encore `contact@lnk-studio.com` dans les contacts et pages légales.
 
 Action : remplacer partout par l'adresse professionnelle définitive une fois Google Workspace configuré.
 
