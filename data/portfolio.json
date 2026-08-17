@@ -43,6 +43,19 @@
       "folder": "et-plus-encore"
     }
   ],
-  "projects": [],
+  "projects": [
+    {
+      "category": "affiches",
+      "title": "20 matins de prière — Mission Évangélique La Restauration",
+      "image": "assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp",
+      "alt": "Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration"
+    },
+    {
+      "category": "affiches",
+      "title": "La Grande Retraite — Août 2026",
+      "image": "assets/images/portfolio/affiches/affiche-la-grande-retraite-aout-2026-mission-evangelique-la-restauration-01.webp",
+      "alt": "Affiche sombre et dorée pour La Grande Retraite d’août 2026 de la Mission Évangélique La Restauration"
+    }
+  ],
   "_instructions": "Ajouter uniquement des réalisations réelles. Un projet doit avoir category, title et image. Le premier projet d'une catégorie peut servir d'échantillon dans la vue Tout."
 }
