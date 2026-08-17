@@ -836,7 +836,7 @@
 
   function applyLanguage(lang){
     currentLang = lang;
-    document.documentElement.lang = lang;
+    if (document.documentElement.lang !== lang) document.documentElement.lang = lang;
     document.documentElement.dir = 'ltr';
     document.querySelectorAll('.language-option').forEach(btn => {
       const active = btn.dataset.lang === lang;
