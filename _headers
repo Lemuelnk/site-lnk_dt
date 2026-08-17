@@ -5,7 +5,17 @@
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
+/
+  Cache-Control: public, max-age=300, must-revalidate
 /index.html
+  Cache-Control: public, max-age=300, must-revalidate
+/brand
+  Cache-Control: public, max-age=300, must-revalidate
+/brand.html
+  Cache-Control: public, max-age=300, must-revalidate
+/mentions-legales.html
+  Cache-Control: public, max-age=300, must-revalidate
+/politique-confidentialite.html
   Cache-Control: public, max-age=300, must-revalidate
 
 /assets/*
