@@ -41,7 +41,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
     const viewAll=document.getElementById('testimonials-view-all');
     if(viewAll){viewAll.disabled=!state.approved.length;viewAll.textContent=`${isEnglish?'View all reviews':'Voir tous les avis'}${state.stats.count?` (${state.stats.count})`:''}`;}
     renderSummary(document);
-    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function renderModal(){
@@ -50,7 +49,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
     const isEnglish=document.documentElement.lang==='en';
     all.innerHTML=state.approved.length?state.approved.map(card).join(''):`<p class="testimonials-empty">${isEnglish?'No reviews have been published yet.':'Aucun avis publié pour le moment.'}</p>`;
     if(modalSummary) modalSummary.innerHTML=`<strong>${state.stats.count?formatAverage(state.stats.average):'—'} / 5</strong><span>${ratingStars(state.stats.count?Math.round(state.stats.average):0)}</span><em>${state.stats.count} ${document.documentElement.lang==='en'?'reviews':'avis'}</em>`;
-    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function setupModal(){
