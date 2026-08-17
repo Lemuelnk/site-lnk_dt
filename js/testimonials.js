@@ -36,9 +36,10 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
   }
 
   function renderAll(){
-    grid.innerHTML=state.approved.length?state.approved.slice(0,3).map(card).join(''):'<p class="testimonials-empty">Les premiers témoignages apparaîtront ici après validation.</p>';
+    const isEnglish=document.documentElement.lang==='en';
+    grid.innerHTML=state.approved.length?state.approved.slice(0,3).map(card).join(''):`<p class="testimonials-empty">${isEnglish?'The first testimonials will appear here after approval.':'Les premiers témoignages apparaîtront ici après validation.'}</p>`;
     const viewAll=document.getElementById('testimonials-view-all');
-    if(viewAll){viewAll.disabled=!state.approved.length;viewAll.textContent=`Voir tous les avis${state.stats.count?` (${state.stats.count})`:''}`;}
+    if(viewAll){viewAll.disabled=!state.approved.length;viewAll.textContent=`${isEnglish?'View all reviews':'Voir tous les avis'}${state.stats.count?` (${state.stats.count})`:''}`;}
     renderSummary(document);
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
@@ -46,7 +47,8 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
   function renderModal(){
     const all=document.getElementById('testimonials-all-grid'), modalSummary=document.getElementById('testimonials-modal-summary');
     if(!all) return;
-    all.innerHTML=state.approved.length?state.approved.map(card).join(''):'<p class="testimonials-empty">Aucun avis publié pour le moment.</p>';
+    const isEnglish=document.documentElement.lang==='en';
+    all.innerHTML=state.approved.length?state.approved.map(card).join(''):`<p class="testimonials-empty">${isEnglish?'No reviews have been published yet.':'Aucun avis publié pour le moment.'}</p>`;
     if(modalSummary) modalSummary.innerHTML=`<strong>${state.stats.count?formatAverage(state.stats.average):'—'} / 5</strong><span>${ratingStars(state.stats.count?Math.round(state.stats.average):0)}</span><em>${state.stats.count} ${document.documentElement.lang==='en'?'reviews':'avis'}</em>`;
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
