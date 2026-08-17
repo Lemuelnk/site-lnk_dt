@@ -57,5 +57,5 @@
       "alt": "Affiche sombre et dorée pour La Grande Retraite d’août 2026 de la Mission Évangélique La Restauration"
     }
   ],
-  "_instructions": "Ajouter uniquement des réalisations réelles. Un projet doit avoir category, title et image. Le premier projet d'une catégorie peut servir d'échantillon dans la vue Tout."
+  "_instructions": "Les projets sont générés automatiquement depuis assets/images/portfolio. Pour un titre ou un texte alternatif personnalisé, conserver les métadonnées dans ce fichier ou utiliser le format recommandé dans le README du dossier."
 }

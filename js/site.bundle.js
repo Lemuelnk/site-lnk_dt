@@ -128,7 +128,6 @@
       { id: 'calendriers', label: 'Calendriers', variant: 'dark' },
       { id: 'plus', label: 'Et plus encore', variant: 'coral' }
     ],
-    // Real portfolio records are added here when the media are available.
     projects: []
   };
 
@@ -432,6 +431,21 @@
   });
 
   render('all');
+
+  // The catalog is generated from assets/images/portfolio during publication.
+  fetch('data/portfolio.json', { cache: 'no-cache' })
+    .then(response => {
+      if (!response.ok) throw new Error(`Portfolio catalog unavailable (${response.status})`);
+      return response.json();
+    })
+    .then(catalog => {
+      if (!Array.isArray(catalog.projects)) return;
+      data.projects = catalog.projects.filter(project => (
+        project && categoryMap[project.category] && project.image
+      ));
+      render(currentCategory);
+    })
+    .catch(error => console.warn('[portfolio] Catalog loading failed:', error));
 })();
 
 /* ===== js/testimonials.js ===== */
@@ -571,7 +585,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 })();
 
 /* ===== js/contact.js ===== */
-
 (() => {
   const form = document.querySelector('#project-brief-form');
   if (!form) return;
@@ -689,7 +702,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 })();
 
 /* ===== js/footer.js ===== */
-
 (() => {
   const year = document.querySelector('#footer-year');
   if (year) year.textContent = String(new Date().getFullYear());
