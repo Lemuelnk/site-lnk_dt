@@ -31,7 +31,8 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
   function card(item,index){
     const rating=Math.max(1,Math.min(5,Number(item.rating)||0));
     const photo=item.photo?`<img src="${escapeHtml(item.photo)}" alt="" loading="lazy">`:`<span aria-hidden="true">${initials(item.name)}</span>`;
-    return `<article class="testimonial-card"><span class="testimonial-number">${String(index+1).padStart(2,'0')}</span><div class="testimonial-stars" aria-label="Note : ${rating} sur 5">${ratingStars(rating)}</div><blockquote class="testimonial-quote">${escapeHtml(item.review)}</blockquote><div class="testimonial-meta"><div class="testimonial-avatar">${photo}</div><div><p class="testimonial-name">${escapeHtml(item.name)}</p>${item.organization?`<p class="testimonial-org">${escapeHtml(item.organization)}</p>`:''}${item.project?`<span class="testimonial-project">${escapeHtml(item.project)}</span>`:''}</div></div></article>`;
+    const isEnglish=document.documentElement.lang==='en';
+    return `<article class="testimonial-card"><span class="testimonial-number">${String(index+1).padStart(2,'0')}</span><div class="testimonial-stars" aria-label="${isEnglish?'Rating: '+rating+' out of 5':'Note : '+rating+' sur 5'}">${ratingStars(rating)}</div><blockquote class="testimonial-quote">${escapeHtml(item.review)}</blockquote><div class="testimonial-meta"><div class="testimonial-avatar">${photo}</div><div><p class="testimonial-name">${escapeHtml(item.name)}</p>${item.organization?`<p class="testimonial-org">${escapeHtml(item.organization)}</p>`:''}${item.project?`<span class="testimonial-project">${escapeHtml(item.project)}</span>`:''}</div></div></article>`;
   }
 
   function renderAll(){
@@ -39,13 +40,15 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
     const viewAll=document.getElementById('testimonials-view-all');
     if(viewAll){viewAll.disabled=!state.approved.length;viewAll.textContent=`Voir tous les avis${state.stats.count?` (${state.stats.count})`:''}`;}
     renderSummary(document);
+    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function renderModal(){
     const all=document.getElementById('testimonials-all-grid'), modalSummary=document.getElementById('testimonials-modal-summary');
     if(!all) return;
     all.innerHTML=state.approved.length?state.approved.map(card).join(''):'<p class="testimonials-empty">Aucun avis publié pour le moment.</p>';
-    if(modalSummary) modalSummary.innerHTML=`<strong>${state.stats.count?formatAverage(state.stats.average):'—'} / 5</strong><span>${ratingStars(state.stats.count?Math.round(state.stats.average):0)}</span><em>${state.stats.count} avis</em>`;
+    if(modalSummary) modalSummary.innerHTML=`<strong>${state.stats.count?formatAverage(state.stats.average):'—'} / 5</strong><span>${ratingStars(state.stats.count?Math.round(state.stats.average):0)}</span><em>${state.stats.count} ${document.documentElement.lang==='en'?'reviews':'avis'}</em>`;
+    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function setupModal(){
