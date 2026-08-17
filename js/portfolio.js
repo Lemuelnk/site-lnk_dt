@@ -127,6 +127,7 @@
     if (categoryId === 'all') {
       data.categories.forEach(category => grid.appendChild(sampleCard(category)));
       setActive('all');
+      window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
       return;
     }
 
@@ -140,6 +141,7 @@
     projects.slice(0, 5).forEach((project, index) => {
       grid.appendChild(projectCard(project, index + 2));
     });
+    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function ensureLightbox() {
@@ -243,6 +245,7 @@
     document.body.classList.add('portfolio-lightbox-open');
     dialog.querySelector('[data-stage]').focus({ preventScroll: true });
     updateLightbox(categoryLabel);
+    window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
   function updateLightbox(categoryLabel) {
