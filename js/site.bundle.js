@@ -1,6 +1,6 @@
 /* LNK_DT performance loader
-   Keeps the existing UI/structure intact while avoiding one large startup bundle.
-   Non-critical sections are loaded only when they are needed. */
+   Keeps the existing UI/structure intact while moving non-critical JavaScript
+   off the critical rendering path. */
 (() => {
   const loadScript = (src) => new Promise((resolve, reject) => {
     const existing = document.querySelector(`script[data-lnk-src="${src}"]`);
@@ -13,19 +13,29 @@
     document.head.appendChild(script);
   });
 
-  const loadAll = (files) => Promise.all(files.map(loadScript));
+  const loadAll = files => Promise.all(files.map(loadScript));
+  const idle = window.requestIdleCallback || (cb => window.setTimeout(cb, 1800));
 
-  // Small interaction scripts: load immediately after HTML parsing.
-  loadAll([
-    'js/navigation.js',
-    'js/hero-motion.js',
-    'js/services.js',
-    'js/contact.js',
-    'js/footer.js'
-  ]).catch(() => {});
+  // Critical interaction only: tiny scripts required immediately after first paint.
+  loadAll(['js/navigation.js', 'js/services.js']).catch(() => {});
 
-  // Portfolio is below the fold. Load it when the section approaches the viewport,
-  // with idle-time fallback for browsers without IntersectionObserver.
+  // Load a feature when it approaches the viewport. This preserves its behavior
+  // without making it part of the initial JavaScript critical path.
+  const observe = (selector, callback) => {
+    const target = document.querySelector(selector);
+    if (!target) return;
+    if (!('IntersectionObserver' in window)) {
+      window.setTimeout(callback, 1200);
+      return;
+    }
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      observer.disconnect();
+      callback();
+    }, { rootMargin: '700px 0px' });
+    observer.observe(target);
+  };
+
   let portfolioStarted = false;
   const loadPortfolio = async () => {
     if (portfolioStarted) return;
@@ -36,8 +46,6 @@
     } catch (_) {}
   };
 
-  // Testimonials are both below the fold and network-backed. Do not make the
-  // reviews API part of the initial page-load critical path.
   let testimonialsStarted = false;
   const loadTestimonials = async () => {
     if (testimonialsStarted) return;
@@ -45,26 +53,22 @@
     try { await loadScript('js/testimonials.js'); } catch (_) {}
   };
 
-  const observeSection = (selector, callback) => {
-    const target = document.querySelector(selector);
-    if (!target) return;
-    if (!('IntersectionObserver' in window)) {
-      window.setTimeout(callback, 1200);
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
-      observer.disconnect();
-      callback();
-    }, { rootMargin: '900px 0px' });
-    observer.observe(target);
+  let contactStarted = false;
+  const loadContact = async () => {
+    if (contactStarted) return;
+    contactStarted = true;
+    try { await loadScript('js/contact.js'); } catch (_) {}
   };
 
-  observeSection('#work', loadPortfolio);
-  observeSection('#testimonials', loadTestimonials);
+  observe('#work', loadPortfolio);
+  observe('#testimonials', loadTestimonials);
+  observe('#contact', loadContact);
 
-  // Safety net: idle-load deferred sections if the visitor never scrolls.
-  const idle = window.requestIdleCallback || ((cb) => window.setTimeout(cb, 2500));
+  // Visual-only and footer behavior can wait until the browser is idle.
+  idle(() => loadScript('js/hero-motion.js').catch(() => {}));
+  idle(() => loadScript('js/footer.js').catch(() => {}));
+
+  // Safety net: if a visitor never scrolls, initialize deferred features later.
   idle(() => loadPortfolio());
   idle(() => loadTestimonials());
 })();
