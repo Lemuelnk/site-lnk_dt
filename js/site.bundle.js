@@ -433,7 +433,7 @@
   render('all');
 
   // The catalog is generated from assets/images/portfolio during publication.
-  fetch('data/portfolio.json', { cache: 'no-cache' })
+  fetch('data/portfolio.json', { cache: 'force-cache' })
     .then(response => {
       if (!response.ok) throw new Error(`Portfolio catalog unavailable (${response.status})`);
       return response.json();
