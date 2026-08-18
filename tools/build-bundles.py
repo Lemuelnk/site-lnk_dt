@@ -32,23 +32,25 @@ css_file = bundle(CSS, css_order, 'site.bundle', 'CSS')
 secondary = {
     'css/brand.bundle.css': ['brand.html'],
     'css/legal.bundle.css': ['mentions-legales.html', 'politique-confidentialite.html', 'mentions-legales-en.html', 'politique-confidentialite-en.html'],
+    'css/admin-reviews.css': ['admin-reviews.html'],
 }
-for rel, htmls in secondary.items():
-    path = ROOT / rel
+for source_rel, htmls in secondary.items():
+    path = ROOT / source_rel
     if not path.exists():
         continue
     content = path.read_text(encoding='utf-8')
     h = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
-    base = rel.replace('.css', '')
-    target_name = f'{base}.{h}.css'
+    target_name = f'css/{path.stem}.{h}.css'
     (ROOT / target_name).write_text(content, encoding='utf-8')
-    print(f'{rel.split("/")[1]}: {target_name} (hash {h})')
+    print(f'{path.name}: {target_name} (hash {h})')
     for html_name in htmls:
         html = ROOT / html_name
         if not html.exists():
             continue
         t = html.read_text(encoding='utf-8')
         t = re.sub(rf'css/{path.name}\?v=[a-f0-9]+', f'css/{target_name}?v={h}', t)
+        # Références sans ?v= (ex: /css/admin-reviews.css)
+        t = re.sub(rf'css/{path.name}', f'css/{target_name}', t)
         html.write_text(t, encoding='utf-8')
 
 # Mettre à jour les références dans tous les fichiers HTML à la racine
