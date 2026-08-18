@@ -24,3 +24,4 @@ build/
 # Rapports de performance locaux
 perf/
 tools/read-lighthouse-report.js
+# secret REVIEW_ADMIN_TOKEN ajouté — redéploiement requis
