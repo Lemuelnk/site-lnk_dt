@@ -29,18 +29,18 @@ js_file = bundle(JS, js_order, 'site.bundle', 'JavaScript')
 css_file = bundle(CSS, css_order, 'site.bundle', 'CSS')
 
 # Bundles secondaires : brand (brand.html) et legal (pages légales)
-secondary = {
-    'css/brand.bundle.css': ['brand.html'],
-    'css/legal.bundle.css': ['mentions-legales.html', 'politique-confidentialite.html', 'mentions-legales-en.html', 'politique-confidentialite-en.html'],
-    'css/admin-reviews.css': ['admin-reviews.html'],
-}
-for source_rel, htmls in secondary.items():
+secondary = [
+    ('css/brand.bundle.css', 'css/brand.bundle', ['brand.html']),
+    ('css/legal.bundle.css', 'css/legal.bundle', ['mentions-legales.html', 'politique-confidentialite.html', 'mentions-legales-en.html', 'politique-confidentialite-en.html']),
+    ('css/admin-reviews.css', 'css/admin-reviews', ['admin-reviews.html']),
+]
+for source_rel, target_stem, htmls in secondary:
     path = ROOT / source_rel
     if not path.exists():
         continue
     content = path.read_text(encoding='utf-8')
     h = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
-    target_name = f'css/{path.stem}.{h}.css'
+    target_name = f'{target_stem}.{h}.css'
     (ROOT / target_name).write_text(content, encoding='utf-8')
     print(f'{path.name}: {target_name} (hash {h})')
     for html_name in htmls:
@@ -48,9 +48,11 @@ for source_rel, htmls in secondary.items():
         if not html.exists():
             continue
         t = html.read_text(encoding='utf-8')
-        t = re.sub(rf'css/{path.name}\?v=[a-f0-9]+', f'css/{target_name}?v={h}', t)
-        # Références sans ?v= (ex: /css/admin-reviews.css)
-        t = re.sub(rf'css/{path.name}', f'css/{target_name}', t)
+        # Normaliser les chemins cassés (doubles css/css/ introduits par une ancienne version)
+        t = t.replace('css/css/', 'css/')
+        # Remplacer toutes les références au fichier source par la cible fingerprintée
+        t = re.sub(rf'{re.escape(target_stem)}\.[a-f0-9]+\.css(\?v=[a-f0-9]+)?', target_name, t)
+        t = re.sub(rf'(css/)?{re.escape(path.name)}(\?v=[a-f0-9]+)?', target_name, t)
         html.write_text(t, encoding='utf-8')
 
 # Mettre à jour les références dans tous les fichiers HTML à la racine
