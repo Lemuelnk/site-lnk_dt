@@ -20,3 +20,7 @@ build/
 
 # Secrets Cloudflare locaux
 .secrets/
+
+# Rapports de performance locaux
+perf/
+tools/read-lighthouse-report.js
