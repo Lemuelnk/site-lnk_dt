@@ -46,12 +46,16 @@ def main() -> None:
             old = previous.get(image, {})
             title = old.get("title") or humanize(path.stem)
             alt = old.get("alt") or f"Réalisation {category['label']} — {title}"
-            projects.append({
+            project = {
                 "category": category["id"],
                 "title": title,
                 "image": image,
                 "alt": alt,
-            })
+            }
+            for desc_field in ("description_fr", "description_en"):
+                if old.get(desc_field):
+                    project[desc_field] = old[desc_field]
+            projects.append(project)
 
     # Ajouter sampleImage / sampleAlt à chaque catégorie (première image du dossier)
     for category in CATEGORIES:

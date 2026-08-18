@@ -82,6 +82,7 @@
 .portfolio-lightbox-topbar,.portfolio-lightbox-bottombar{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .portfolio-lightbox-kicker{margin:0 0 4px;color:var(--yellow);font:800 10px var(--heading);letter-spacing:.12em;text-transform:uppercase}
 .portfolio-lightbox-topbar h3{margin:0;font:800 clamp(18px,2.5vw,30px)/1 var(--heading);letter-spacing:-.04em}
+.portfolio-lightbox-desc{margin:4px 0 0;max-width:min(88vw,640px);color:rgba(255,249,240,.82);font:italic 400 clamp(13px,1.6vw,15px)/1.5 var(--body);text-align:left}
 .portfolio-lightbox-actions{display:flex;align-items:center;gap:7px}
 .portfolio-lightbox-control,.portfolio-lightbox-close,.portfolio-lightbox-nav{border:1px solid rgba(255,249,240,.28);background:rgba(255,249,240,.04);color:var(--cream);cursor:pointer}
 .portfolio-lightbox-control{min-width:42px;height:38px;border-radius:999px;font:700 12px var(--heading)}

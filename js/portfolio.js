@@ -189,6 +189,7 @@
           <div>
             <p class="portfolio-lightbox-kicker" id="portfolio-lightbox-category"></p>
             <h3 id="portfolio-lightbox-title"></h3>
+            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
           </div>
           <div class="portfolio-lightbox-actions">
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire">−</button>
@@ -401,6 +402,11 @@
     const title = item.title || 'Échantillon';
     dialog.querySelector('#portfolio-lightbox-category').textContent = category;
     dialog.querySelector('#portfolio-lightbox-title').textContent = title;
+    const lang = document.documentElement.lang || 'fr';
+    const description = lang.startsWith('en') ? (item.description_en || item.description_fr || '') : (item.description_fr || item.description_en || '');
+    const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');
+    descriptionElement.textContent = description;
+    descriptionElement.hidden = !description.trim();
     dialog.querySelector('[data-counter]').textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
 
     const media = dialog.querySelector('[data-media]');
