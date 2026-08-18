@@ -1,1 +1,0 @@
-CSP workflow test marker — ce fichier de test sera retiré après validation du workflow automatisé.
