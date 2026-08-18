@@ -5,7 +5,7 @@
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Report-To: {"group":"csp-endpoint","max_age":604800,"endpoints":[{"url":"https://lnk-studio.com/api/csp-report"}]}
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com 'sha256-8BHEYMhnTdgSYLinb2Q5ZMrxY/p2sH16iAGC+Gd8xos=' 'sha256-q1d6NYWTr+HiEweYy0OT3qJpCPNU5kGvPiftvUkWqws='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com 'sha256-/YzSxpMFoLj99AyHdbLGTg0xCaqrk1MROCOJAitn1bE=' 'sha256-1DjqsScoXg15NsxE+tH1Il27Lw+vCMpPFPd9XxclfeU='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
   NEL: {"report_to":"csp-endpoint","success_fraction":0,"max_age":604800}
 
 /
