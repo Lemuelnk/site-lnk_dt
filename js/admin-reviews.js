@@ -179,12 +179,12 @@
     const status = document.getElementById('admin-login-status');
     setStatus(status, str('loading'), false);
     try {
-      await api('status=pending');
       state.token = token;
+      await api('status=pending');
       sessionStorage.setItem(TOKEN_KEY, token);
       showPanel();
     } catch (err) {
-      // Diagnostic discret : indiquer la longueur attendue vs saisie pour détecter une erreur de copie
+      state.token = '';
       const len = token.length;
       status.textContent = str('wrongToken') + (len ? ` (${len} caractères saisis)` : '');
       showLogin(true);
