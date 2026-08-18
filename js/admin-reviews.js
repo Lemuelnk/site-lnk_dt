@@ -258,10 +258,11 @@
     list.innerHTML = `<p class="admin-status">${str('loading')}</p>`;
     try {
       const pending = await api('status=pending');
-      const others = await api('status=all');
+      const approved = await api('status=approved');
+      const rejected = await api('status=rejected');
       const trash = await api('status=trash');
       const pendingRows = pending.testimonials || [];
-      const historyRows = (others.testimonials || []).filter(item => item.status !== 'pending' && item.status !== 'deleted');
+      const historyRows = [...(approved.testimonials || []), ...(rejected.testimonials || [])];
       const trashRows = trash.testimonials || [];
       list.innerHTML = pendingRows.map(item => cardMarkup(item, 'pending')).join('');
       empty.hidden = pendingRows.length > 0;

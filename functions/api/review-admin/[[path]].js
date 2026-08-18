@@ -30,7 +30,7 @@ async function migrate(db){
  */
 async function purgeTrash(db){
   try {
-    await db.prepare(`DELETE FROM testimonials WHERE status = 'deleted' AND deleted_at <= datetime('now', '-30 days')`).run();
+    await db.prepare(`DELETE FROM testimonials WHERE status = 'rejected' AND deleted_at IS NOT NULL AND deleted_at <= datetime('now', '-30 days')`).run();
   } catch (_e) {}
 }
 
@@ -43,17 +43,22 @@ export async function onRequest(context){
   const url = new URL(context.request.url);
   if(context.request.method === 'GET'){
     const status = url.searchParams.get('status') || 'pending';
-    const allowed = ['pending','approved','rejected','deleted','all','trash'];
+    const allowed = ['pending','approved','rejected','all','trash'];
     if(!allowed.includes(status)) return json({message:'Invalid status.'},400);
     let query;
     let bind = [];
     if(status === 'all'){
       query = `SELECT * FROM testimonials ORDER BY created_at DESC`;
     } else if(status === 'trash'){
-      query = `SELECT * FROM testimonials WHERE status = 'deleted' ORDER BY deleted_at DESC`;
+      query = `SELECT * FROM testimonials WHERE status = 'rejected' AND deleted_at IS NOT NULL ORDER BY deleted_at DESC`;
     } else {
-      query = `SELECT * FROM testimonials WHERE status=? ORDER BY created_at DESC`;
-      bind = [status];
+      // Pour l'historique (all), exclure les éléments en corbeille (rejected + deleted_at non nul)
+      if(status === 'rejected') {
+         query = `SELECT * FROM testimonials WHERE status = 'rejected' AND deleted_at IS NULL ORDER BY created_at DESC`;
+      } else {
+         query = `SELECT * FROM testimonials WHERE status=? ORDER BY created_at DESC`;
+         bind = [status];
+      }
     }
     const result = bind.length
       ? await db.prepare(query).bind(...bind).all()
@@ -64,17 +69,25 @@ export async function onRequest(context){
     const payload = await context.request.json();
     const id = String(payload.id || '');
     const action = String(payload.action || '');
-    if(!id || !['approve','reject','reset','delete'].includes(action)) return json({message:'Invalid moderation request.'},400);
+    if(!id || !['approve','reject','reset','delete','deleteForever'].includes(action)) return json({message:'Invalid moderation request.'},400);
     const now = new Date().toISOString();
+    
+    if(action === 'deleteForever'){
+      const result = await db.prepare(`DELETE FROM testimonials WHERE id = ?`).bind(id).run();
+      return json({ok:true, deleted:true});
+    }
+
     let nextStatus = 'rejected';
-    let deletedAt = 'NULL';
-    if(action === 'approve') nextStatus = 'approved';
-    else if(action === 'reject') nextStatus = 'rejected';
-    else if(action === 'reset') { nextStatus = 'pending'; deletedAt = 'NULL'; }
-    else if(action === 'delete') { nextStatus = 'deleted'; deletedAt = `'${now}'`; }
-    const result = await db.prepare(`UPDATE testimonials SET status = ?, deleted_at = ${deletedAt} WHERE id = ?`).bind(nextStatus,id).run();
+    let deletedAt = null;
+    
+    if(action === 'approve') { nextStatus = 'approved'; }
+    else if(action === 'reject') { nextStatus = 'rejected'; }
+    else if(action === 'reset') { nextStatus = 'pending'; }
+    else if(action === 'delete') { nextStatus = 'rejected'; deletedAt = now; }
+    
+    const result = await db.prepare(`UPDATE testimonials SET status = ?, deleted_at = ? WHERE id = ?`).bind(nextStatus, deletedAt, id).run();
     if(!result.success) return json({message:'Unable to update review.'},500);
-    return json({ok:true,status:nextStatus,deleted_at: action === 'delete' ? now : null});
+    return json({ok:true,status:nextStatus,deleted_at: deletedAt});
   }
   return json({message:'Method not allowed.'},405);
 }
