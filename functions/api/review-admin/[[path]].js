@@ -13,28 +13,68 @@ function authorized(request, env){
   return qt === expected;
 }
 
+/**
+ * S'assure que la table contient les colonnes optionnelles (migration idempotente).
+ * Appelée une fois par requête admin ; très peu coûteuse car les PRAGMA sont des no-ops
+ * quand les colonnes existent déjà.
+ */
+async function migrate(db){
+  await db.prepare(`ALTER TABLE testimonials ADD COLUMN status TEXT NOT NULL DEFAULT 'pending'`).run().catch(() => {});
+  await db.prepare(`ALTER TABLE testimonials ADD COLUMN deleted_at TEXT`).run().catch(() => {});
+  await db.prepare(`UPDATE testimonials SET deleted_at = created_at WHERE status = 'deleted' AND deleted_at IS NULL`).run().catch(() => {});
+}
+
+/**
+ * Purge automatique de la corbeille : les avis supprimés depuis plus de 30 jours
+ * sont définitivement effacés.
+ */
+async function purgeTrash(db){
+  try {
+    await db.prepare(`DELETE FROM testimonials WHERE status = 'deleted' AND deleted_at <= datetime('now', '-30 days')`).run();
+  } catch (_e) {}
+}
+
 export async function onRequest(context){
   if(!authorized(context.request, context.env)) return json({message:'Unauthorized.'},401);
   const db = context.env.REVIEWS_DB;
   if(!db) return json({message:'Reviews database is not configured.'},503);
+  await migrate(db);
+  await purgeTrash(db);
   const url = new URL(context.request.url);
   if(context.request.method === 'GET'){
     const status = url.searchParams.get('status') || 'pending';
-    const allowed = ['pending','approved','rejected','all'];
+    const allowed = ['pending','approved','rejected','deleted','all','trash'];
     if(!allowed.includes(status)) return json({message:'Invalid status.'},400);
-    const query = status === 'all' ? `SELECT * FROM testimonials ORDER BY created_at DESC` : `SELECT * FROM testimonials WHERE status=? ORDER BY created_at DESC`;
-    const result = status === 'all' ? await db.prepare(query).all() : await db.prepare(query).bind(status).all();
+    let query;
+    let bind = [];
+    if(status === 'all'){
+      query = `SELECT * FROM testimonials ORDER BY created_at DESC`;
+    } else if(status === 'trash'){
+      query = `SELECT * FROM testimonials WHERE status = 'deleted' ORDER BY deleted_at DESC`;
+    } else {
+      query = `SELECT * FROM testimonials WHERE status=? ORDER BY created_at DESC`;
+      bind = [status];
+    }
+    const result = bind.length
+      ? await db.prepare(query).bind(...bind).all()
+      : await db.prepare(query).all();
     return json({testimonials:result.results || []});
   }
   if(context.request.method === 'POST'){
     const payload = await context.request.json();
     const id = String(payload.id || '');
     const action = String(payload.action || '');
-    if(!id || !['approve','reject'].includes(action)) return json({message:'Invalid moderation request.'},400);
-    const nextStatus = action === 'approve' ? 'approved' : 'rejected';
-    const result = await db.prepare(`UPDATE testimonials SET status=? WHERE id=?`).bind(nextStatus,id).run();
+    if(!id || !['approve','reject','reset','delete'].includes(action)) return json({message:'Invalid moderation request.'},400);
+    const now = new Date().toISOString();
+    let nextStatus = 'rejected';
+    let deletedAt = 'NULL';
+    if(action === 'approve') nextStatus = 'approved';
+    else if(action === 'reject') nextStatus = 'rejected';
+    else if(action === 'reset') { nextStatus = 'pending'; deletedAt = 'NULL'; }
+    else if(action === 'delete') { nextStatus = 'deleted'; deletedAt = `'${now}'`; }
+    const result = await db.prepare(`UPDATE testimonials SET status = ?, deleted_at = ${deletedAt} WHERE id = ?`).bind(nextStatus,id).run();
     if(!result.success) return json({message:'Unable to update review.'},500);
-    return json({ok:true,status:nextStatus});
+    return json({ok:true,status:nextStatus,deleted_at: action === 'delete' ? now : null});
   }
   return json({message:'Method not allowed.'},405);
 }

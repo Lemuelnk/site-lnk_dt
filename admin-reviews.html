@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modération des avis — LNK Design Touch</title>
   <link rel="icon" href="/assets/images/favicon.png">
-  <link rel="stylesheet" href="/css/admin-reviews.a4f13f4f61.css">
+  <link rel="stylesheet" href="/css/admin-reviews.6ad3917df0.css">
 </head>
 <body>
   <header class="admin-header">
@@ -32,12 +32,19 @@
         <p class="admin-panel-title" id="admin-panel-title">Avis en attente de validation</p>
         <button type="button" id="admin-refresh" class="admin-btn-secondary">Actualiser</button>
       </div>
+      <p id="admin-flash" class="admin-status" hidden></p>
       <p id="admin-empty" class="admin-empty" hidden>Aucun avis en attente de validation. Tous les avis ont été traités.</p>
       <div id="admin-list" class="admin-list"></div>
 
       <details class="admin-history">
-        <summary>Avis déjà publiés et refusés (historique)</summary>
+        <summary id="admin-history-summary">Avis déjà publiés et refusés (historique)</summary>
         <div id="admin-history-list" class="admin-list admin-list-history"></div>
+      </details>
+
+      <details class="admin-history admin-trash-details">
+        <summary id="admin-trash-summary">Corbeille</summary>
+        <p id="admin-trash-empty" class="admin-empty" hidden>La corbeille est vide.</p>
+        <div id="admin-trash-list" class="admin-list admin-list-trash"></div>
       </details>
     </section>
   </main>
