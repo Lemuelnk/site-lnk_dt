@@ -7,7 +7,7 @@ JS = ROOT / 'js'
 CSS = ROOT / 'css'
 
 js_order = ['navigation.js', 'hero-motion.js', 'services.js', 'portfolio-catalog.js', 'portfolio.js', 'testimonials.js', 'contact.js', 'footer.js', 'admin-gate.js']
-css_order = ['styles.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'footer.css', 'responsive-9a.css', 'hero-mobile-fix.css']
+css_order = ['styles.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'footer.css', 'step5.css', 'hero-motion.css', 'responsive-9a.css', 'hero-mobile-fix.css']
 
 def bundle(source_dir, names, base_name, label):
     chunks = []

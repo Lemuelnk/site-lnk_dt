@@ -53,6 +53,13 @@ def main() -> None:
                 "alt": alt,
             })
 
+    # Ajouter sampleImage / sampleAlt à chaque catégorie (première image du dossier)
+    for category in CATEGORIES:
+        cat_projects = [p for p in projects if p["category"] == category["id"]]
+        category["sampleImage"] = cat_projects[0]["image"] if cat_projects else None
+        category["sampleAlt"] = cat_projects[0]["alt"] if cat_projects else None
+        category["projectCount"] = len(cat_projects)
+
     output = {
         "categories": CATEGORIES,
         "projects": projects,

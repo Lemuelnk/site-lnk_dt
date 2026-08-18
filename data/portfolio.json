@@ -5,42 +5,60 @@
       "label": "Affiches",
       "visual": "sample",
       "variant": "teal",
-      "folder": "affiches"
+      "folder": "affiches",
+      "sampleImage": "assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp",
+      "sampleAlt": "Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration",
+      "projectCount": 2
     },
     {
       "id": "branding",
       "label": "Branding",
       "visual": "sample",
       "variant": "dark",
-      "folder": "branding"
+      "folder": "branding",
+      "sampleImage": null,
+      "sampleAlt": null,
+      "projectCount": 0
     },
     {
       "id": "bannieres",
       "label": "Bannières",
       "visual": "sample",
       "variant": "coral",
-      "folder": "bannieres"
+      "folder": "bannieres",
+      "sampleImage": null,
+      "sampleAlt": null,
+      "projectCount": 0
     },
     {
       "id": "social-media",
       "label": "Social Media",
       "visual": "sample",
       "variant": "light",
-      "folder": "social-media"
+      "folder": "social-media",
+      "sampleImage": null,
+      "sampleAlt": null,
+      "projectCount": 0
     },
     {
       "id": "calendriers",
       "label": "Calendriers",
       "visual": "sample",
       "variant": "dark",
-      "folder": "calendriers"
+      "folder": "calendriers",
+      "sampleImage": null,
+      "sampleAlt": null,
+      "projectCount": 0
     },
     {
       "id": "plus",
       "label": "Et plus encore",
       "visual": "sample",
       "variant": "coral",
-      "folder": "et-plus-encore"
+      "folder": "et-plus-encore",
+      "sampleImage": null,
+      "sampleAlt": null,
+      "projectCount": 0
     }
   ],
   "projects": [

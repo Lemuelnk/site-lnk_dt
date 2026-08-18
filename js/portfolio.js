@@ -6,14 +6,18 @@
   const generatedProjects = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.projects)
     ? window.LNK_PORTFOLIO_CATALOG.projects
     : [];
+  const generatedCategories = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.categories)
+    ? window.LNK_PORTFOLIO_CATALOG.categories
+    : [];
+
   const data = {
-    categories: [
-      { id: 'affiches', label: 'Affiches', variant: 'teal' },
-      { id: 'branding', label: 'Branding', variant: 'dark' },
-      { id: 'bannieres', label: 'Bannières', variant: 'coral' },
-      { id: 'social-media', label: 'Social Media', variant: 'light' },
-      { id: 'calendriers', label: 'Calendriers', variant: 'dark' },
-      { id: 'plus', label: 'Et plus encore', variant: 'coral' }
+    categories: generatedCategories.length ? generatedCategories : [
+      { id: 'affiches', label: 'Affiches', variant: 'teal', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'branding', label: 'Branding', variant: 'dark', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'bannieres', label: 'Bannières', variant: 'coral', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'social-media', label: 'Social Media', variant: 'light', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'calendriers', label: 'Calendriers', variant: 'dark', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'plus', label: 'Et plus encore', variant: 'coral', sampleImage: null, sampleAlt: null, projectCount: 0 }
     ],
     projects: generatedProjects
   };
@@ -31,6 +35,14 @@
   let pinchStartZoom = 1;
   let lastTap = 0;
   let lastTapTarget = null;
+  let pinchVelX = 0;
+  let pinchVelY = 0;
+  let lastPinchTime = 0;
+  let isDraggingImage = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let imageOffsetX = 0;
+  let imageOffsetY = 0;
 
   function getCategoryProjects(categoryId) {
     return data.projects.filter(project => project.category === categoryId).slice(0, 6);
@@ -44,38 +56,46 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'portfolio-card-button';
-    button.setAttribute('aria-label', `Ouvrir ${category.label} en grand`);
+    button.setAttribute('aria-label', `Voir les réalisations ${category.label}`);
 
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
 
-    const art = document.createElement('div');
-    art.className = `portfolio-placeholder-art ${category.variant === 'dark' ? 'alt' : ''} ${category.variant === 'coral' ? 'warm' : ''} ${category.variant === 'light' ? 'light' : ''}`;
+    // Badge "échantillon" avec l'image du premier projet si disponible
+    if (category.sampleImage) {
+      const image = document.createElement('img');
+      image.className = 'portfolio-image';
+      image.src = category.sampleImage;
+      image.alt = category.sampleAlt || `${category.label} — aperçu`;
+      image.loading = 'lazy';
+      visual.appendChild(image);
 
-    const index = document.createElement('span');
-    index.textContent = `${String(data.categories.indexOf(category) + 1).padStart(2, '0')} / SAMPLE`;
-
-    const title = document.createElement('i');
-    title.textContent = category.id === 'plus' ? 'ET PLUS' : category.label.toUpperCase();
-
-    art.append(index, title);
-    visual.appendChild(art);
+      const badge = document.createElement('div');
+      badge.className = 'portfolio-sample-badge';
+      badge.innerHTML = `<span class="sample-num">${String(data.categories.indexOf(category) + 1).padStart(2, '0')}</span><span class="sample-label">Échantillon</span>`;
+      visual.appendChild(badge);
+    } else {
+      const art = document.createElement('div');
+      art.className = `portfolio-placeholder-art ${category.variant === 'dark' ? 'alt' : ''} ${category.variant === 'coral' ? 'warm' : ''} ${category.variant === 'light' ? 'light' : ''}`;
+      const index = document.createElement('span');
+      index.textContent = `${String(data.categories.indexOf(category) + 1).padStart(2, '0')} / SAMPLE`;
+      const title = document.createElement('i');
+      title.textContent = category.id === 'plus' ? 'ET PLUS' : category.label.toUpperCase();
+      art.append(index, title);
+      visual.appendChild(art);
+    }
 
     const meta = document.createElement('div');
     meta.className = 'portfolio-card-meta';
-    meta.innerHTML = `<span>${category.label}</span><strong>Échantillon</strong>`;
+    meta.innerHTML = `<span>${category.label}</span><strong>${category.projectCount ? category.projectCount + ' projets' : 'Échantillon'}</strong>`;
 
     button.append(visual, meta);
     article.appendChild(button);
 
+    // Clic sur catégorie → déploie les travaux de cette catégorie
     button.addEventListener('click', () => {
       if (moved) return;
-      const projects = getCategoryProjects(category.id);
-      if (projects.length) {
-        openLightbox(projects, 0, category.label);
-      } else {
-        openLightbox([{ type: 'sample', category, title: 'Échantillon' }], 0, category.label);
-      }
+      render(category.id);
     });
     return article;
   }
@@ -108,6 +128,7 @@
     button.append(visual, meta);
     article.appendChild(button);
 
+    // Clic sur un travail → lightbox
     button.addEventListener('click', () => {
       if (moved) return;
       const projects = getCategoryProjects(project.category);
@@ -141,12 +162,17 @@
     if (!category) return;
 
     setActive(categoryId);
-    grid.appendChild(sampleCard(category));
 
+    // Afficher les travaux de la catégorie (jusqu'à 6)
     const projects = getCategoryProjects(categoryId);
-    projects.slice(0, 5).forEach((project, index) => {
-      grid.appendChild(projectCard(project, index + 2));
-    });
+    if (projects.length) {
+      projects.forEach((project, index) => {
+        grid.appendChild(projectCard(project, index + 1));
+      });
+    } else {
+      // Pas de projets → afficher le sample placeholder
+      grid.appendChild(sampleCard(category));
+    }
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
@@ -178,7 +204,7 @@
         </div>
         <div class="portfolio-lightbox-bottombar">
           <span data-counter></span>
-          <span>Glissez pour naviguer · double-tap ou pincez pour zoomer · + / − aussi disponibles</span>
+          <span>Pincez ou double-tapez pour zoomer</span>
         </div>
       </div>`;
     document.body.appendChild(dialog);
@@ -201,6 +227,7 @@
     });
 
     const stage = dialog.querySelector('[data-stage]');
+    const media = dialog.querySelector('[data-media]');
 
     function getTouchDistance(event) {
       const touches = event.touches;
@@ -210,45 +237,59 @@
       return Math.hypot(dx, dy);
     }
 
-    stage.addEventListener('pointerdown', event => {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-      isPointerDown = true;
-      moved = false;
-      startX = event.clientX;
-      startY = event.clientY;
-      if (event.pointerType === 'touch') pinchStartDistance = getTouchDistance(event);
-      stage.setPointerCapture?.(event.pointerId);
-    });
+    function getTouchCenter(event) {
+      const touches = event.touches;
+      if (!touches || touches.length < 2) return { x: 0, y: 0 };
+      return {
+        x: (touches[0].clientX + touches[1].clientX) / 2,
+        y: (touches[0].clientY + touches[1].clientY) / 2
+      };
+    }
+
+    // --- Touch events (mobile) ---
     stage.addEventListener('touchstart', event => {
+      if (event.touches.length === 1) {
+        isPointerDown = true;
+        moved = false;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        if (zoom > 1) {
+          isDraggingImage = true;
+          dragStartX = event.touches[0].clientX - imageOffsetX;
+          dragStartY = event.touches[0].clientY - imageOffsetY;
+        }
+      }
       if (event.touches.length === 2) {
         pinchStartDistance = getTouchDistance(event);
         pinchStartZoom = zoom;
+        isDraggingImage = false;
       }
     }, { passive: true });
-    stage.addEventListener('pointermove', event => {
-      if (!isPointerDown) return;
-      if (Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
-    });
+
     stage.addEventListener('touchmove', event => {
-      const distance = getTouchDistance(event);
-      if (event.touches.length === 2 && pinchStartDistance > 0 && distance > 0) {
+      if (event.touches.length === 2) {
         event.preventDefault();
-        const scale = distance / pinchStartDistance;
-        setZoom(pinchStartZoom * scale);
+        const distance = getTouchDistance(event);
+        if (pinchStartDistance > 0 && distance > 0) {
+          const scale = distance / pinchStartDistance;
+          setZoom(pinchStartZoom * scale, true);
+          lastPinchTime = Date.now();
+        }
+      } else if (event.touches.length === 1 && zoom > 1 && isDraggingImage) {
+        event.preventDefault();
+        imageOffsetX = event.touches[0].clientX - dragStartX;
+        imageOffsetY = event.touches[0].clientY - dragStartY;
+        applyImageTransform();
+      } else if (event.touches.length === 1) {
+        if (Math.abs(event.touches[0].clientX - startX) > 10 || Math.abs(event.touches[0].clientY - startY) > 10) moved = true;
       }
     }, { passive: false });
-    stage.addEventListener('pointerup', event => {
-      if (!isPointerDown) return;
-      const dx = event.clientX - startX;
-      const dy = event.clientY - startY;
-      isPointerDown = false;
-      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
-        navigate(dx < 0 ? 1 : -1);
-      }
-      window.setTimeout(() => { moved = false; }, 0);
-    });
 
     stage.addEventListener('touchend', event => {
+      isDraggingImage = false;
+      imageOffsetX = 0;
+      imageOffsetY = 0;
+      isPointerDown = false;
       if (event.changedTouches.length !== 1) return;
       const now = Date.now();
       const target = event.target;
@@ -262,17 +303,61 @@
       }
     }, { passive: true });
 
-    stage.addEventListener('dblclick', event => {
-      event.preventDefault();
-      setZoom(zoom >= 2 ? 1 : 2);
+    // --- Pointer events (desktop mouse) ---
+    stage.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      isPointerDown = true;
+      moved = false;
+      startX = event.clientX;
+      startY = event.clientY;
+      if (zoom > 1) {
+        isDraggingImage = true;
+        dragStartX = event.clientX - imageOffsetX;
+        dragStartY = event.clientY - imageOffsetY;
+      }
+      stage.setPointerCapture?.(event.pointerId);
     });
 
+    stage.addEventListener('pointermove', event => {
+      if (!isPointerDown) return;
+      if (zoom > 1 && isDraggingImage) {
+        imageOffsetX = event.clientX - dragStartX;
+        imageOffsetY = event.clientY - dragStartY;
+        applyImageTransform();
+        return;
+      }
+      if (Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
+    });
+
+    stage.addEventListener('pointerup', event => {
+      if (!isPointerDown) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      isPointerDown = false;
+      isDraggingImage = false;
+      imageOffsetX = 0;
+      imageOffsetY = 0;
+      if (zoom <= 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+        navigate(dx < 0 ? 1 : -1);
+      }
+      applyImageTransform();
+      window.setTimeout(() => { moved = false; }, 0);
+    });
+
+    // --- Wheel zoom (desktop) ---
     stage.addEventListener('wheel', event => {
       if (!dialog.open) return;
       event.preventDefault();
       setZoom(zoom + (event.deltaY < 0 ? .15 : -.15));
     }, { passive: false });
 
+    // --- Double click (desktop) ---
+    stage.addEventListener('dblclick', event => {
+      event.preventDefault();
+      setZoom(zoom >= 2 ? 1 : 2);
+    });
+
+    // --- Keyboard ---
     document.addEventListener('keydown', event => {
       if (!dialog.open) return;
       if (event.key === 'Escape') closeLightbox();
@@ -284,11 +369,22 @@
     });
   }
 
+  function applyImageTransform() {
+    const media = document.querySelector('#portfolio-lightbox [data-media]');
+    if (!media) return;
+    const image = media.querySelector('.portfolio-lightbox-image');
+    if (image) {
+      image.style.transform = `scale(${zoom}) translate3d(${imageOffsetX}px, ${imageOffsetY}px, 0)`;
+    }
+  }
+
   function openLightbox(items, index, categoryLabel) {
     ensureLightbox();
     lightboxItems = items;
     lightboxIndex = Math.max(0, Math.min(index, items.length - 1));
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
     const dialog = document.querySelector('#portfolio-lightbox');
     if (!dialog.open) dialog.showModal();
     document.body.classList.add('portfolio-lightbox-open');
@@ -309,23 +405,12 @@
 
     const media = dialog.querySelector('[data-media]');
     media.innerHTML = '';
-    if (item.type === 'sample') {
-      const categoryObj = item.category;
-      const art = document.createElement('div');
-      art.className = `portfolio-placeholder-art lightbox-sample ${categoryObj.variant === 'dark' ? 'alt' : ''} ${categoryObj.variant === 'coral' ? 'warm' : ''} ${categoryObj.variant === 'light' ? 'light' : ''}`;
-      const index = document.createElement('span');
-      index.textContent = `${String(data.categories.indexOf(categoryObj) + 1).padStart(2, '0')} / SAMPLE`;
-      const titleEl = document.createElement('i');
-      titleEl.textContent = categoryObj.id === 'plus' ? 'ET PLUS' : categoryObj.label.toUpperCase();
-      art.append(index, titleEl);
-      media.appendChild(art);
-    } else {
-      const image = document.createElement('img');
-      image.className = 'portfolio-lightbox-image';
-      image.src = item.image;
-      image.alt = item.alt || title;
-      media.appendChild(image);
-    }
+    const image = document.createElement('img');
+    image.className = 'portfolio-lightbox-image';
+    image.src = item.image;
+    image.alt = item.alt || title;
+    media.appendChild(image);
+
     dialog.querySelector('[data-action="prev"]').hidden = lightboxItems.length < 2;
     dialog.querySelector('[data-action="next"]').hidden = lightboxItems.length < 2;
     setZoom(1);
@@ -335,17 +420,17 @@
     if (lightboxItems.length < 2) return;
     lightboxIndex = (lightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
     updateLightbox();
   }
 
-  function setZoom(value) {
+  function setZoom(value, smooth = false) {
     zoom = Math.max(1, Math.min(3, Number(value) || 1));
     const media = document.querySelector('#portfolio-lightbox [data-media]');
     if (!media) return;
     const image = media.querySelector('.portfolio-lightbox-image');
-    const sample = media.querySelector('.lightbox-sample');
     if (image) image.style.transform = `scale(${zoom})`;
-    if (sample) sample.style.transform = `scale(${zoom})`;
     const reset = document.querySelector('#portfolio-lightbox [data-action="zoom-reset"]');
     if (reset) reset.textContent = `${Math.round(zoom * 100)}%`;
   }
@@ -358,6 +443,8 @@
     lightboxItems = [];
     lightboxIndex = 0;
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
   }
 
   filters.forEach(filter => {
@@ -377,6 +464,16 @@
       data.projects = catalog.projects.filter(project => (
         project && categoryMap[project.category] && project.image
       ));
+      // Mettre à jour les catégories avec sampleImage
+      if (Array.isArray(catalog.categories)) {
+        catalog.categories.forEach(cat => {
+          if (categoryMap[cat.id]) {
+            categoryMap[cat.id].sampleImage = cat.sampleImage || null;
+            categoryMap[cat.id].sampleAlt = cat.sampleAlt || null;
+            categoryMap[cat.id].projectCount = cat.projectCount || 0;
+          }
+        });
+      }
       render(currentCategory);
     })
     .catch(error => console.warn('[portfolio] Catalog loading failed:', error));

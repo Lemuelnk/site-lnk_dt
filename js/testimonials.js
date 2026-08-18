@@ -1,5 +1,3 @@
-const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
-
 (function(){
   const grid = document.getElementById('testimonials-grid');
   const summary = document.getElementById('testimonials-summary');
@@ -73,12 +71,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 
   async function submitReview(payload){
     const response=await fetch('/api/testimonials',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(response.status===404){
-      const fallback=await fetch(FORMSPREE_REVIEWS_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({...payload,form_type:'testimonial'})});
-      const fallbackResult=await fallback.json().catch(()=>({}));
-      if(!fallback.ok) throw new Error(fallbackResult.error||fallbackResult.message||'Impossible d’envoyer votre avis.');
-      return fallbackResult;
-    }
     const result=await response.json().catch(()=>({}));
     if(!response.ok) throw new Error(result.error||result.message||'Impossible d’envoyer votre avis.');
     return result;
