@@ -1,0 +1,42 @@
+# Recalcule automatiquement les empreintes SHA-256 CSP des scripts inline.
+# Déclenché à chaque push sur master. Si un script inline a été modifié,
+# _headers est mis à jour et un nouveau commit est poussé automatiquement.
+# Ainsi, une modification de script inline ne peut plus jamais casser la CSP.
+name: CSP inline hashes
+on:
+  push:
+    branches: [master]
+permissions:
+  contents: write
+jobs:
+  update-csp-hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vérifier et mettre à jour les hashes CSP si besoin
+        id: check
+        run: |
+          if python3 tools/update-csp-hashes.py --check > /tmp/csp_check.log; then
+            echo "status=clean" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=updated" >> "$GITHUB_OUTPUT"
+            python3 tools/update-csp-hashes.py
+            if ! git diff --quiet _headers; then
+              echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+      - name: Commiter et pousser les hashes mis à jour
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _headers
+          git commit -m "chore(csp): mettre à jour les empreintes SHA-256 des scripts inline [bot]"
+          git push origin master
