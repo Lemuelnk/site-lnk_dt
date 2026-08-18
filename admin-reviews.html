@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modération des avis — LNK Design Touch</title>
   <link rel="icon" href="/assets/images/favicon.png">
-  <link rel="stylesheet" href="/css/admin-reviews.5dbd7dda46.css">
+  <link rel="stylesheet" href="/css/admin-reviews.a78b70dba3.css">
 </head>
 <body>
   <header class="admin-header">
@@ -38,8 +38,9 @@
 
       <section id="admin-projects-section" class="admin-history" style="margin-top: 3rem; border-top: 1.5px solid var(--admin-border); padding-top: 2rem;">
         <div class="admin-toolbar">
-          <p class="admin-panel-title">Demandes de projets</p>
+          <p class="admin-panel-title">Demandes de projets <span id="admin-projects-new-badge" class="admin-projects-new-badge" hidden></span></p>
         </div>
+        <div id="admin-projects-filters" class="admin-projects-filters"></div>
         <p id="admin-projects-empty" class="admin-empty" hidden>Aucune demande de projet.</p>
         <div id="admin-projects-list" class="admin-list"></div>
       </section>
