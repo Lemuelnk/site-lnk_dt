@@ -182,6 +182,9 @@
       sessionStorage.setItem(TOKEN_KEY, token);
       showPanel();
     } catch (err) {
+      // Diagnostic discret : indiquer la longueur attendue vs saisie pour détecter une erreur de copie
+      const len = token.length;
+      status.textContent = str('wrongToken') + (len ? ` (${len} caractères saisis)` : '');
       showLogin(true);
     }
   }
@@ -192,9 +195,16 @@
     await tryLogin(document.getElementById('admin-token').value.trim());
   });
 
-  // Connexion directe par URL : admin-reviews.html?t=<clé>
-  const urlToken = new URLSearchParams(location.search).get('t');
+  // Connexion directe par URL : admin-reviews.html?t=<clé> ou #t=<clé> (le hash survive aux redirections)
+  const params = new URLSearchParams(location.search);
+  const urlToken = params.get('t') || new URLSearchParams(location.hash.replace(/^#/, '')).get('t');
   if (urlToken) tryLogin(urlToken);
+
+  // Gérer les changements de hash sans rechargement (ex. copie du lien après ouverture)
+  window.addEventListener('hashchange', () => {
+    const hashToken = new URLSearchParams(location.hash.replace(/^#/, '')).get('t');
+    if (hashToken && !state.token) tryLogin(hashToken);
+  });
 
   document.getElementById('admin-logout').addEventListener('click', () => showLogin(false));
   document.getElementById('admin-refresh').addEventListener('click', loadAll);
