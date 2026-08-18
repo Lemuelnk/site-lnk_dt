@@ -1,11 +1,9 @@
-
 (() => {
   const form = document.querySelector('#project-brief-form');
   if (!form) return;
 
   const status = document.querySelector('#brief-status');
   const submit = form.querySelector('button[type="submit"]');
-
 
   const attachmentInput = document.getElementById('brief-attachment');
   const fileName = document.getElementById('brief-file-name');
@@ -88,13 +86,40 @@
         throw new Error('attachment-too-large');
       }
 
-      const response = await fetch(form.action, {
+      // Récupérer le token Turnstile
+      const turnstileToken = window.turnstile?.getResponse();
+      if (!turnstileToken) {
+        status.textContent = 'Veuillez confirmer la vérification anti-spam.';
+        status.classList.add('error');
+        submit.disabled = false;
+        submit.querySelector('span').textContent = 'Envoyer le brief';
+        return;
+      }
+
+      const payload = {
+        'cf-turnstile-response': turnstileToken,
+        name: document.getElementById('brief-name').value.trim(),
+        email: document.getElementById('brief-email').value.trim(),
+        subject: `${document.getElementById('brief-project-type').value.trim()} — ${document.getElementById('brief-client-type').value.trim()}`,
+        message: [
+          `Description : ${document.getElementById('brief-description').value.trim()}`,
+          `Téléphone : ${document.getElementById('brief-phone').value.trim()}`
+        ].join('\n\n')
+      };
+
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Form submission failed');
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || 'Form submission failed');
+      }
+
+      // Reset Turnstile widget
+      if (window.turnstile) window.turnstile.reset();
 
       form.reset();
       if (fileName) fileName.textContent = 'Aucun fichier sélectionné.';
@@ -104,9 +129,12 @@
       status.textContent = 'Merci. Votre brief a bien été envoyé.';
       status.classList.add('success');
     } catch (error) {
+      if (window.turnstile) window.turnstile.reset();
       status.textContent = error.message === 'attachment-too-large'
         ? 'La pièce jointe dépasse 10 Mo. Merci de choisir un fichier plus léger ou de nous l’envoyer sur WhatsApp.'
-        : 'L’envoi n’a pas pu être confirmé. Vous pouvez aussi nous écrire directement sur WhatsApp.';
+        : error.message === 'Spam protection failed.'
+          ? 'Protection anti-spam échouée. Veuillez réessayer.'
+          : 'L’envoi n’a pas pu être confirmé. Vous pouvez aussi nous écrire directement sur WhatsApp.';
       status.classList.add('error');
     } finally {
       submit.disabled = false;

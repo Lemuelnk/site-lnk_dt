@@ -326,20 +326,3 @@ body {
   .admin-item-actions { flex-direction: column; }
   .admin-item-actions button { margin-bottom: 0.5rem; }
 }
-
-/* Badge pour les nouvelles demandes */
-.admin-badge {
-  background: var(--admin-accent);
-  color: #fff;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  margin-left: 0.5rem;
-  vertical-align: middle;
-}
-
-.admin-item.is-new {
-  border-left-color: var(--admin-accent);
-  background: linear-gradient(to right, var(--admin-accent-soft), var(--admin-card));
-}
