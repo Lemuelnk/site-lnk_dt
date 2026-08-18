@@ -173,9 +173,7 @@
     });
   }
 
-  document.getElementById('admin-login-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const token = document.getElementById('admin-token').value.trim();
+  async function tryLogin(token) {
     const status = document.getElementById('admin-login-status');
     setStatus(status, str('loading'), false);
     try {
@@ -186,7 +184,17 @@
     } catch (err) {
       showLogin(true);
     }
+  }
+
+  document.getElementById('admin-login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    e.stopPropagation();
+    await tryLogin(document.getElementById('admin-token').value.trim());
   });
+
+  // Connexion directe par URL : admin-reviews.html?t=<clé>
+  const urlToken = new URLSearchParams(location.search).get('t');
+  if (urlToken) tryLogin(urlToken);
 
   document.getElementById('admin-logout').addEventListener('click', () => showLogin(false));
   document.getElementById('admin-refresh').addEventListener('click', loadAll);
