@@ -1,0 +1,231 @@
+/* LNK_DT NEWS + SPOT D'ANNONCE */
+
+/* ---------- Spot d'annonce (accueil) ---------- */
+.lnk-announcement {
+  border-bottom: 1px solid rgba(0, 26, 23, 0.14);
+  background: var(--teal, #009688);
+  color: #fff;
+  overflow: hidden;
+}
+.lnk-announcement-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+.lnk-announcement-kicker {
+  flex: 0 0 auto;
+  font: 800 10px var(--heading, Montserrat, Arial, sans-serif);
+  letter-spacing: 0.14em;
+  background: rgba(0, 26, 23, 0.22);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.lnk-announcement-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lnk-announcement-title {
+  font: 800 clamp(13px, 1.6vw, 16px) var(--heading, Montserrat, Arial, sans-serif);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lnk-announcement-desc {
+  display: none;
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.92;
+}
+.lnk-announcement-link {
+  flex: 0 0 auto;
+  font: 800 12px var(--heading, Montserrat, Arial, sans-serif);
+  background: var(--cream, #fff9f0);
+  color: var(--dark, #001a17);
+  border-radius: 999px;
+  padding: 8px 16px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.lnk-announcement-link:hover { background: var(--yellow, #ffc107); }
+.lnk-announcement-close {
+  flex: 0 0 auto;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: 800 18px var(--heading, Montserrat, Arial, sans-serif);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  opacity: 0.8;
+}
+.lnk-announcement-close:hover { opacity: 1; }
+.lnk-announcement-preview {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.lnk-announcement-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Section news (brand.html) ---------- */
+.lnk-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.lnk-news-card {
+  position: relative;
+  text-align: left;
+  border: 1px solid rgba(0, 26, 23, 0.16);
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lnk-news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 26, 23, 0.14);
+}
+.lnk-news-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  font: 800 10px var(--heading, Montserrat, Arial, sans-serif);
+  letter-spacing: 0.1em;
+  background: var(--dark, #001a17);
+  color: var(--cream, #fff9f0);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.lnk-news-media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #eee;
+}
+.lnk-news-media img { width: 100%; height: 100%; object-fit: cover; }
+.lnk-news-title {
+  display: block;
+  padding: 14px 16px 18px;
+  font: 800 15px var(--heading, Montserrat, Arial, sans-serif);
+  line-height: 1.3;
+}
+
+/* ---------- Lightbox news + annonce ---------- */
+.lnk-news-lightbox, .lnk-ann-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 26, 23, 0.92);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 48px 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.lnk-news-lightbox.is-open, .lnk-ann-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lnk-news-lightbox-inner, .lnk-ann-lightbox-inner {
+  position: relative;
+  width: min(100%, 960px);
+  background: var(--cream, #fff9f0);
+  border-radius: 14px;
+  overflow: hidden;
+  transform: translateY(24px);
+  transition: transform 0.3s ease;
+}
+.lnk-news-lightbox.is-open .lnk-news-lightbox-inner,
+.lnk-ann-lightbox.is-open .lnk-ann-lightbox-inner { transform: translateY(0); }
+.lnk-news-lightbox-head, .lnk-ann-lightbox-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px 14px;
+}
+.lnk-news-lightbox-head h3, .lnk-ann-lightbox h3 {
+  margin: 0;
+  font: 900 clamp(20px, 3vw, 30px) var(--heading, Montserrat, Arial, sans-serif);
+  letter-spacing: -0.03em;
+}
+.lnk-news-lightbox-badge, .lnk-ann-lightbox-badge {
+  font: 800 10px var(--heading, Montserrat, Arial, sans-serif);
+  letter-spacing: 0.1em;
+  background: var(--teal, #009688);
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+.lnk-news-lightbox-close, .lnk-ann-lightbox-close {
+  margin-left: auto;
+  border: 0;
+  background: var(--dark, #001a17);
+  color: var(--cream, #fff9f0);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font: 800 20px Arial, sans-serif;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.lnk-news-lightbox-stage, .lnk-ann-lightbox-stage { padding: 6px 24px; }
+.lnk-news-lightbox-stage img, .lnk-ann-lightbox-stage img {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+}
+.lnk-news-lightbox-desc, .lnk-ann-lightbox-desc {
+  margin: 16px 24px 0;
+  font-size: 15px;
+  opacity: 0.85;
+  max-width: 64ch;
+}
+.lnk-news-lightbox-bar, .lnk-ann-lightbox-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px 24px;
+  font: 800 11px var(--heading, Montserrat, Arial, sans-serif);
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+.lnk-news-lightbox-link, .lnk-ann-lightbox-link {
+  font: 800 13px var(--heading, Montserrat, Arial, sans-serif);
+  background: var(--dark, #001a17);
+  color: var(--cream, #fff9f0);
+  border-radius: 999px;
+  padding: 11px 22px;
+  text-decoration: none;
+  opacity: 1;
+}
+.lnk-news-lightbox-link:hover, .lnk-ann-lightbox-link:hover { background: var(--coral, #ff7043); }
+
+@media (max-width: 640px) {
+  .lnk-announcement-body { gap: 8px; }
+  .lnk-announcement-preview { display: none; }
+  .lnk-announcement-link { padding: 7px 12px; font-size: 11px; }
+  .lnk-news-lightbox, .lnk-ann-lightbox { padding: 16px 8px; }
+  .lnk-news-lightbox-inner, .lnk-ann-lightbox-inner { border-radius: 10px; }
+  .lnk-news-lightbox-head, .lnk-ann-lightbox-head { padding: 16px 16px 10px; }
+  .lnk-news-lightbox-stage, .lnk-ann-lightbox-stage { padding: 4px 12px; }
+  .lnk-news-lightbox-desc, .lnk-ann-lightbox-desc { margin: 12px 16px 0; font-size: 14px; }
+  .lnk-news-lightbox-bar, .lnk-ann-lightbox-bar { padding: 12px 16px 20px; }
+}

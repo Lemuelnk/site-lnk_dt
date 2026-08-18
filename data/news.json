@@ -1,0 +1,18 @@
+{
+  "generated": true,
+  "publications": [
+    {
+      "file": "assets/images/news/news-presentation-lnk-design-touch-01.webp",
+      "kind": "news",
+      "badge": {
+        "fr": "Promotion",
+        "en": "Promotion"
+      },
+      "title_fr": "Ensemble, donnons vie à vos projets.",
+      "title_en": "Together, let's bring your projects to life.",
+      "description_fr": "Design graphique, branding, motion design et bientôt l'impression : des solutions créatives pour booster votre image. Suivez-nous sur les réseaux pour ne rien manquer.",
+      "description_en": "Graphic design, branding, motion design and soon printing: creative solutions to boost your image. Follow us on social media so you don't miss anything.",
+      "link": "https://www.instagram.com/lnkdt"
+    }
+  ]
+}
