@@ -27,6 +27,10 @@
   let startY = 0;
   let isPointerDown = false;
   let moved = false;
+  let pinchStartDistance = 0;
+  let pinchStartZoom = 1;
+  let lastTap = 0;
+  let lastTapTarget = null;
 
   function getCategoryProjects(categoryId) {
     return data.projects.filter(project => project.category === categoryId).slice(0, 6);
@@ -174,7 +178,7 @@
         </div>
         <div class="portfolio-lightbox-bottombar">
           <span data-counter></span>
-          <span>Glissez pour naviguer · pincez ou utilisez + / − pour zoomer</span>
+          <span>Glissez pour naviguer · double-tap ou pincez pour zoomer · + / − aussi disponibles</span>
         </div>
       </div>`;
     document.body.appendChild(dialog);
@@ -197,18 +201,42 @@
     });
 
     const stage = dialog.querySelector('[data-stage]');
+
+    function getTouchDistance(event) {
+      const touches = event.touches;
+      if (!touches || touches.length < 2) return 0;
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.hypot(dx, dy);
+    }
+
     stage.addEventListener('pointerdown', event => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       isPointerDown = true;
       moved = false;
       startX = event.clientX;
       startY = event.clientY;
+      if (event.pointerType === 'touch') pinchStartDistance = getTouchDistance(event);
       stage.setPointerCapture?.(event.pointerId);
     });
+    stage.addEventListener('touchstart', event => {
+      if (event.touches.length === 2) {
+        pinchStartDistance = getTouchDistance(event);
+        pinchStartZoom = zoom;
+      }
+    }, { passive: true });
     stage.addEventListener('pointermove', event => {
       if (!isPointerDown) return;
       if (Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
     });
+    stage.addEventListener('touchmove', event => {
+      const distance = getTouchDistance(event);
+      if (event.touches.length === 2 && pinchStartDistance > 0 && distance > 0) {
+        event.preventDefault();
+        const scale = distance / pinchStartDistance;
+        setZoom(pinchStartZoom * scale);
+      }
+    }, { passive: false });
     stage.addEventListener('pointerup', event => {
       if (!isPointerDown) return;
       const dx = event.clientX - startX;
@@ -218,6 +246,25 @@
         navigate(dx < 0 ? 1 : -1);
       }
       window.setTimeout(() => { moved = false; }, 0);
+    });
+
+    stage.addEventListener('touchend', event => {
+      if (event.changedTouches.length !== 1) return;
+      const now = Date.now();
+      const target = event.target;
+      const isSameTarget = target === lastTapTarget;
+      if (now - lastTap < 320 && isSameTarget && !moved) {
+        setZoom(zoom >= 2 ? 1 : 2);
+        lastTap = 0;
+      } else {
+        lastTap = now;
+        lastTapTarget = target;
+      }
+    }, { passive: true });
+
+    stage.addEventListener('dblclick', event => {
+      event.preventDefault();
+      setZoom(zoom >= 2 ? 1 : 2);
     });
 
     stage.addEventListener('wheel', event => {
