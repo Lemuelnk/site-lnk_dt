@@ -115,7 +115,7 @@
   async function api(path) {
     // Double authentification : Authorization + X-Admin-Token (certains réseaux/proxys suppriment le premier)
     const url = ADMIN_ENDPOINT + (path ? '?' + path : '') + '&token=' + encodeURIComponent(state.token);
-    const response = await fetch(url, {
+    const response = await fetch(url, { cache: 'no-store',
       headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}`, 'X-Admin-Token': state.token }
     });
     if (response.status === 401) throw new Error('unauthorized');
@@ -154,7 +154,7 @@
         const action = btn.dataset.action;
         btn.disabled = true;
         try {
-          const response = await fetch(ADMIN_ENDPOINT, {
+          const response = await fetch(ADMIN_ENDPOINT, { cache: 'no-store',
             method: 'POST',
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${state.token}` },
             body: JSON.stringify({ id, action })
