@@ -101,6 +101,15 @@
     'autre': '#9C27B0'
   };
 
+  function formatDate(isoString) {
+    if (!isoString) return '—';
+    try {
+      const d = new Date(isoString);
+      const opts = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      return d.toLocaleString(isEnglish() ? 'en' : 'fr', opts);
+    } catch (_e) { return isoString; }
+  }
+
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
   }
@@ -116,8 +125,10 @@
   }
 
   function extractField(message, prefix) {
+    const safe = String(message || '');
+    if (!safe) return '';
     const regex = new RegExp(`${prefix}\\s*:\\s*(.+?)(?:\\n\\n|$)`, 'is');
-    const match = message.match(regex);
+    const match = safe.match(regex);
     return match ? match[1].trim() : '';
   }
 
@@ -139,30 +150,34 @@
       ? `https://wa.me/${phone.replace(/[^0-9]/g, '')}`
       : '';
 
+    const safeName = String(item.name || 'Sans nom');
+    const safeEmail = String(item.email || '');
+    const safeSubject = String(item.project_type || item.type || item.subject || '');
+    const dateStr = formatDate(item.created_at);
+
     return (
       `<article class="admin-item${isNew ? ' is-new' : ''}" data-id="${escapeHtml(item.id)}">` +
       `<div class="admin-item-head">` +
       `<div class="admin-item-head-top">` +
-      `<p class="admin-item-name">${escapeHtml(item.name)}${isNew ? ` <span class="admin-badge">${str('newCount')(1)}</span>` : ''}</p>` +
+      `<p class="admin-item-name">${escapeHtml(safeName)}${isNew ? ` <span class="admin-badge">${str('newCount')(1)}</span>` : ''}</p>` +
       `${getTypeBadge(item)}` +
       `</div>` +
-      `<p class="admin-item-org">${escapeHtml(item.email)}</p>` +
-      `<p class="admin-item-rating">${escapeHtml(item.subject || '—')}</p>` +
-      `<p class="admin-item-date">${str('date')(item.created_at)}</p>` +
+      `<p class="admin-item-org">${escapeHtml(safeEmail)}</p>` +
+      (safeSubject ? `<p class="admin-item-rating">${escapeHtml(safeSubject)}</p>` : '') +
+      `<p class="admin-item-date">${dateStr}</p>` +
       `</div>` +
       `<div class="admin-item-details">` +
-      `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('phone')}</span><span class="admin-detail-value">${escapeHtml(phone)}</span></div>` +
-      `<div class="admin-item-detail-row"><span class="admin-detail-label">Email</span><span class="admin-detail-value admin-detail-value-copy" data-copy="${escapeHtml(item.email)}">${escapeHtml(item.email)} <button class="admin-copy-btn" type="button" data-copy="${escapeHtml(item.email)}" title="${str('copyEmail')}">📋</button></span></div>` +
+      (phone !== '—' ? `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('phone')}</span><span class="admin-detail-value">${escapeHtml(phone)}</span></div>` : '') +
+      `<div class="admin-item-detail-row"><span class="admin-detail-label">Email</span><span class="admin-detail-value admin-detail-value-copy">${escapeHtml(safeEmail)} <button class="admin-copy-btn" type="button" data-copy="${escapeHtml(safeEmail)}" title="${str('copyEmail')}">📋</button></span></div>` +
       `</div>` +
-      `<blockquote class="admin-item-review">${escapeHtml(desc)}</blockquote>` +
+      (desc ? `<blockquote class="admin-item-review">${escapeHtml(desc)}</blockquote>` : '') +
       `<div class="admin-item-actions">` +
       (whatsappLink ? `<a class="admin-btn-whatsapp" href="${whatsappLink}" target="_blank" rel="noopener">${str('whatsapp')}</a>` : '') +
       (isNew ? `<button type="button" class="admin-btn-restore" data-action="read">${str('markRead')}</button>` : '') +
       `<button type="button" class="admin-btn-reject" data-action="archive">${str('archive')}</button>` +
       `<button type="button" class="admin-btn-delete-forever" data-action="delete">${str('delete')}</button>` +
       `</div>` +
-      `</article>` +
-      `<button type="button" class="admin-copy-btn email" title="${str('copyEmail')}" data-copy="${escapeHtml(item.email)}">📋</button>`
+      `</article>`
     );
   }
 

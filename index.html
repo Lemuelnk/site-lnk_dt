@@ -843,7 +843,12 @@
     });
 
     document.querySelectorAll('[data-lang-fr][data-lang-en]').forEach(el => {
-      el.textContent = lang === 'en' ? el.dataset.langEn : el.dataset.langFr;
+      const text = lang === 'en' ? el.dataset.langEn : el.dataset.langFr;
+      if (text.includes('<')) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
     });
 
     localStorage.setItem('lnk-language', lang);
