@@ -121,7 +121,7 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
       const response=await fetch('/api/testimonials',{headers:{'Accept':'application/json'}});
       if(!response.ok)throw new Error('Impossible de charger les avis.');
       const data=await response.json();
-      state.approved=Array.isArray(data.testimonials)?data.testimonials.filter(item=>item.status==='approved'&&item.review):[];
+      state.approved=Array.isArray(data.testimonials)?data.testimonials.filter(item=>item.review):[];
     }catch(_){state.approved=[];}
     computeStats(); renderAll();
   }
