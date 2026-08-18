@@ -113,8 +113,10 @@
   }
 
   async function api(path) {
-    const response = await fetch(ADMIN_ENDPOINT + (path ? '?' + path : ''), {
-      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}` }
+    // Double authentification : Authorization + X-Admin-Token (certains réseaux/proxys suppriment le premier)
+    const url = ADMIN_ENDPOINT + (path ? '?' + path : '') + '&token=' + encodeURIComponent(state.token);
+    const response = await fetch(url, {
+      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}`, 'X-Admin-Token': state.token }
     });
     if (response.status === 401) throw new Error('unauthorized');
     if (!response.ok) throw new Error('network');

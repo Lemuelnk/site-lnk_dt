@@ -2,8 +2,15 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 
 function authorized(request, env){
   const expected = env.REVIEW_ADMIN_TOKEN;
+  if(!expected) return false;
   const header = request.headers.get('Authorization') || '';
-  return expected && header === `Bearer ${expected}`;
+  if(header === `Bearer ${expected}`) return true;
+  // Fallback : header X-Admin-Token ou paramètre ?token= (réseaux/proxys qui suppriment Authorization)
+  const alt = request.headers.get('X-Admin-Token') || '';
+  if(alt && alt.trim() === expected) return true;
+  const url = new URL(request.url);
+  const qt = url.searchParams.get('token') || '';
+  return qt === expected;
 }
 
 export async function onRequest(context){
