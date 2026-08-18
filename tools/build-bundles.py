@@ -1,20 +1,67 @@
 from pathlib import Path
+import hashlib
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 JS = ROOT / 'js'
 CSS = ROOT / 'css'
 
 js_order = ['navigation.js', 'hero-motion.js', 'services.js', 'portfolio-catalog.js', 'portfolio.js', 'testimonials.js', 'contact.js', 'footer.js']
-css_order = ['styles.css', 'hero.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'footer.css']
+css_order = ['styles.css', 'hero-motion.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'footer.css']
 
-def bundle(source_dir, names, target, label):
+def bundle(source_dir, names, base_name, label):
     chunks = []
     for name in names:
         path = source_dir / name
         if path.exists():
             chunks.append(f'/* ===== {source_dir.name}/{name} ===== */\n{path.read_text(encoding="utf-8").strip()}\n')
-    target.write_text('\n'.join(chunks).rstrip() + '\n', encoding='utf-8')
-    print(f'{label}: {target.name} ({len(chunks)} modules)')
+        else:
+            print(f'  (averti: {source_dir.name}/{name} introuvable, ignoré)')
+    content = '\n'.join(chunks).rstrip() + '\n'
+    digest = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
+    ext = 'css' if label == 'CSS' else 'js'
+    target = source_dir / f'{base_name}.{digest}.{ext}'
+    target.write_text(content, encoding='utf-8')
+    print(f'{label}: {target.name} ({len(chunks)} modules, hash {digest})')
+    return target.name
 
-bundle(JS, js_order, JS / 'site.bundle.js', 'JavaScript')
-bundle(CSS, css_order, CSS / 'site.bundle.css', 'CSS')
+js_file = bundle(JS, js_order, 'site.bundle', 'JavaScript')
+css_file = bundle(CSS, css_order, 'site.bundle', 'CSS')
+
+# Bundles secondaires : brand (brand.html) et legal (pages légales)
+secondary = {
+    'css/brand.bundle.css': ['brand.html'],
+    'css/legal.bundle.css': ['mentions-legales.html', 'politique-confidentialite.html', 'mentions-legales-en.html', 'politique-confidentialite-en.html'],
+}
+for rel, htmls in secondary.items():
+    path = ROOT / rel
+    if not path.exists():
+        continue
+    content = path.read_text(encoding='utf-8')
+    h = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
+    base = rel.replace('.css', '')
+    target_name = f'{base}.{h}.css'
+    (ROOT / target_name).write_text(content, encoding='utf-8')
+    print(f'{rel.split("/")[1]}: {target_name} (hash {h})')
+    for html_name in htmls:
+        html = ROOT / html_name
+        if not html.exists():
+            continue
+        t = html.read_text(encoding='utf-8')
+        t = re.sub(rf'css/{path.name}\?v=[a-f0-9]+', f'css/{target_name}?v={h}', t)
+        html.write_text(t, encoding='utf-8')
+
+# Mettre à jour les références dans tous les fichiers HTML à la racine
+# Ancien pattern : js/site.bundle.js?v=<commit-hash>  ->  js/site.bundle.<digest>.js?v=<digest>
+for html in ROOT.glob('*.html'):
+    text = html.read_text(encoding='utf-8')
+    js_digest = js_file.split('.')[1]
+    css_digest = css_file.split('.')[1]
+    new = re.sub(r'js/site\.bundle\.[a-f0-9]+\.js\?v=[a-f0-9]+', f'js/{js_file}?v={js_digest}', text)
+    new = re.sub(r'css/site\.bundle\.[a-f0-9]+\.css\?v=[a-f0-9]+', f'css/{css_file}?v={css_digest}', new)
+    # Fallback : références non fingerprintées
+    new = re.sub(r'js/site\.bundle\.js\?v=[a-f0-9]+', f'js/{js_file}?v={js_digest}', new)
+    new = re.sub(r'css/site\.bundle\.css\?v=[a-f0-9]+', f'css/{css_file}?v={css_digest}', new)
+    if new != text:
+        html.write_text(new, encoding='utf-8')
+        print(f'HTML mis à jour: {html.name}')

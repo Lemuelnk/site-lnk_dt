@@ -29,6 +29,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/portfolio.json js/portfolio-catalog.js js/site.bundle.js
+          git add data/portfolio.json js/portfolio-catalog.js
+          git add js/site.bundle.*.js css/site.bundle.*.css css/brand.bundle.*.css css/legal.bundle.*.css
+          git add index.html brand.html mentions-legales.html politique-confidentialite.html mentions-legales-en.html politique-confidentialite-en.html
           git diff --cached --quiet || git commit -m "chore: regenerate portfolio catalog"
           git push
