@@ -55,8 +55,8 @@ for rel, htmls in secondary.items():
 # Ancien pattern : js/site.bundle.js?v=<commit-hash>  ->  js/site.bundle.<digest>.js?v=<digest>
 for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
-    js_digest = js_file.split('.')[1]
-    css_digest = css_file.split('.')[1]
+    js_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.js$', js_file).group(1)
+    css_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.css$', css_file).group(1)
     new = re.sub(r'js/site\.bundle\.[a-z0-9]+\.js\?v=[a-z0-9]+', f'js/{js_file}?v={js_digest}', text)
     new = re.sub(r'css/site\.bundle\.[a-z0-9]+\.css\?v=[a-z0-9]+', f'css/{css_file}?v={css_digest}', new)
     # Fallback : références non fingerprintées (y compris versions cassées comme ?v=bundle)
