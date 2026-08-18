@@ -1,11 +1,11 @@
 /* Shared legal-page styles */
 .legal-page{min-height:100vh;background:var(--cream);color:var(--dark)}
 .legal-wrap{max-width:900px;margin:0 auto;padding:clamp(70px,10vw,120px) 24px 80px}
-.legal-kicker{color:var(--teal);font:800 11px var(--heading);letter-spacing:.15em;margin:0 0 18px}
+.legal-kicker{color:var(--teal-contrast);font:800 11px var(--heading);letter-spacing:.15em;margin:0 0 18px}
 .legal-page h1{font:900 clamp(42px,7vw,78px)/.95 var(--heading);letter-spacing:-.055em;margin:0 0 28px}
 .legal-page h2{font:900 24px/1.1 var(--heading);margin:42px 0 14px}
 .legal-page p,.legal-page li{font-size:16px;line-height:1.7;color:rgba(0,26,23,.72)}
 .legal-page ul{padding-left:22px}
 .legal-back{display:inline-flex;align-items:center;margin-top:42px;padding:12px 16px;background:var(--dark);color:var(--cream);text-decoration:none;font:800 12px var(--heading)}
 .legal-note{padding:18px;border-left:3px solid var(--teal);background:rgba(0,150,136,.07)}
-.legal-links{margin:28px 0 0;font:700 12px var(--heading);color:var(--teal)}.legal-links a{text-decoration:none}.legal-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.legal-links{margin:28px 0 0;font:700 12px var(--heading);color:var(--teal-contrast)}.legal-links a{text-decoration:none}.legal-links a:hover{text-decoration:underline;text-underline-offset:4px}

@@ -56,7 +56,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'portfolio-card-button';
-    button.setAttribute('aria-label', `Voir les réalisations ${category.label}`);
+    button.setAttribute('aria-label', `Voir les réalisations de la catégorie ${category.label}`);
 
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
@@ -109,7 +109,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'portfolio-card-button';
-    button.setAttribute('aria-label', `Ouvrir ${project.title || `réalisation ${position}`} en grand`);
+    button.setAttribute('aria-label', `Ouvrir en grand : ${project.title || `réalisation ${position}`} — cliquez ou tapez pour lancer la visionneuse`);
 
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';

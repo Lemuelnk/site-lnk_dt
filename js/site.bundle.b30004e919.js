@@ -115,7 +115,7 @@
 
 /* ===== js/portfolio-catalog.js ===== */
 /* Generated from assets/images/portfolio — do not edit manually. */
-window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches","visual":"sample","variant":"teal","folder":"affiches"},{"id":"branding","label":"Branding","visual":"sample","variant":"dark","folder":"branding"},{"id":"bannieres","label":"Bannières","visual":"sample","variant":"coral","folder":"bannieres"},{"id":"social-media","label":"Social Media","visual":"sample","variant":"light","folder":"social-media"},{"id":"calendriers","label":"Calendriers","visual":"sample","variant":"dark","folder":"calendriers"},{"id":"plus","label":"Et plus encore","visual":"sample","variant":"coral","folder":"et-plus-encore"}],"projects":[{"category":"affiches","title":"20 matins de prière — Mission Évangélique La Restauration","image":"assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp","alt":"Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration"},{"category":"affiches","title":"La Grande Retraite — Août 2026","image":"assets/images/portfolio/affiches/affiche-la-grande-retraite-aout-2026-mission-evangelique-la-restauration-01.webp","alt":"Affiche sombre et dorée pour La Grande Retraite d’août 2026 de la Mission Évangélique La Restauration"}],"_instructions":"Les projets sont générés automatiquement depuis assets/images/portfolio. Pour un titre ou un texte alternatif personnalisé, conserver les métadonnées dans ce fichier ou utiliser le format recommandé dans le README du dossier."};
+window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches","visual":"sample","variant":"teal","folder":"affiches","sampleImage":"assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp","sampleAlt":"Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration","projectCount":3},{"id":"branding","label":"Branding","visual":"sample","variant":"dark","folder":"branding","sampleImage":"assets/images/portfolio/branding/branding-logo-mtj-mahombi-ne-tombera-jamais-01.webp","sampleAlt":"Logo circulaire M.T.J avec silhouette jaune en prière, fond noir et cercle blanc avec le slogan Mahombi Ne Tombera Jamais","projectCount":1},{"id":"bannieres","label":"Bannières","visual":"sample","variant":"coral","folder":"bannieres","sampleImage":"assets/images/portfolio/bannieres/banniere-eglise-evangelique-source-d-eaux-vives-01.webp","sampleAlt":"Bannière de l'Église Évangélique Source d'Eaux-Vives avec cascade, logo et références bibliques","projectCount":1},{"id":"social-media","label":"Social Media","visual":"sample","variant":"light","folder":"social-media","sampleImage":null,"sampleAlt":null,"projectCount":0},{"id":"calendriers","label":"Calendriers","visual":"sample","variant":"dark","folder":"calendriers","sampleImage":null,"sampleAlt":null,"projectCount":0},{"id":"plus","label":"Et plus encore","visual":"sample","variant":"coral","folder":"et-plus-encore","sampleImage":null,"sampleAlt":null,"projectCount":0}],"projects":[{"category":"affiches","title":"20 matins de prière — Mission Évangélique La Restauration","image":"assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp","alt":"Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration"},{"category":"affiches","title":"La Grande Retraite — Août 2026","image":"assets/images/portfolio/affiches/affiche-la-grande-retraite-aout-2026-mission-evangelique-la-restauration-01.webp","alt":"Affiche sombre et dorée pour La Grande Retraite d’août 2026 de la Mission Évangélique La Restauration"},{"category":"affiches","title":"The Rise — Affiche Cinéma","image":"assets/images/portfolio/affiches/affiche-the-rise-lnk-studio-production-03.webp","alt":"Affiche de film \"The Rise\" — production LNK Studio, portrait cinématographique sur fond rouge avec halftone","description_fr":"Affiche cinématographique pour la production LNK Studio. Composition dramatique mêlant portrait en halftone, typographie éditoriale et palette rouge intense, dans l'esprit des affiches de festival.","description_en":"Cinematic poster for the LNK Studio production. A dramatic composition combining a halftone portrait, editorial typography and an intense red palette, in the spirit of festival posters."},{"category":"branding","title":"Logo M.T.J — Mahombi Ne Tombera Jamais","image":"assets/images/portfolio/branding/branding-logo-mtj-mahombi-ne-tombera-jamais-01.webp","alt":"Logo circulaire M.T.J avec silhouette jaune en prière, fond noir et cercle blanc avec le slogan Mahombi Ne Tombera Jamais","description_fr":"Identité visuelle pour M.T.J — Mahombi Ne Tombera Jamais. Logo circulaire associant une silhouette en prière, un cercle blanc épuré et une typographie affirmée, traduisant force et engagement spirituel.","description_en":"Visual identity for M.T.J — Mahombi Ne Tombera Jamais. A circular logo combining a praying silhouette, a clean white circle and a bold typography, conveying strength and spiritual commitment."},{"category":"bannieres","title":"Église Évangélique Source d'Eaux-Vives","image":"assets/images/portfolio/bannieres/banniere-eglise-evangelique-source-d-eaux-vives-01.webp","alt":"Bannière de l'Église Évangélique Source d'Eaux-Vives avec cascade, logo et références bibliques","description_fr":"Bannière web pour l'Église Évangélique Source d'Eaux-Vives. Visuel évoquant la fraîcheur et la spiritualité avec une cascade, le logo de l'église et des références bibliques.","description_en":"Web banner for the Église Évangélique Source d'Eaux-Vives. A visual evoking freshness and spirituality with a waterfall, the church logo and biblical references."}],"_instructions":"Les projets sont générés automatiquement depuis assets/images/portfolio. Pour un titre ou un texte alternatif personnalisé, conserver les métadonnées dans ce fichier ou utiliser le format recommandé dans le README du dossier."};
 
 /* ===== js/portfolio.js ===== */
 (() => {
@@ -126,14 +126,18 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
   const generatedProjects = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.projects)
     ? window.LNK_PORTFOLIO_CATALOG.projects
     : [];
+  const generatedCategories = Array.isArray(window.LNK_PORTFOLIO_CATALOG?.categories)
+    ? window.LNK_PORTFOLIO_CATALOG.categories
+    : [];
+
   const data = {
-    categories: [
-      { id: 'affiches', label: 'Affiches', variant: 'teal' },
-      { id: 'branding', label: 'Branding', variant: 'dark' },
-      { id: 'bannieres', label: 'Bannières', variant: 'coral' },
-      { id: 'social-media', label: 'Social Media', variant: 'light' },
-      { id: 'calendriers', label: 'Calendriers', variant: 'dark' },
-      { id: 'plus', label: 'Et plus encore', variant: 'coral' }
+    categories: generatedCategories.length ? generatedCategories : [
+      { id: 'affiches', label: 'Affiches', variant: 'teal', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'branding', label: 'Branding', variant: 'dark', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'bannieres', label: 'Bannières', variant: 'coral', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'social-media', label: 'Social Media', variant: 'light', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'calendriers', label: 'Calendriers', variant: 'dark', sampleImage: null, sampleAlt: null, projectCount: 0 },
+      { id: 'plus', label: 'Et plus encore', variant: 'coral', sampleImage: null, sampleAlt: null, projectCount: 0 }
     ],
     projects: generatedProjects
   };
@@ -147,6 +151,18 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
   let startY = 0;
   let isPointerDown = false;
   let moved = false;
+  let pinchStartDistance = 0;
+  let pinchStartZoom = 1;
+  let lastTap = 0;
+  let lastTapTarget = null;
+  let pinchVelX = 0;
+  let pinchVelY = 0;
+  let lastPinchTime = 0;
+  let isDraggingImage = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let imageOffsetX = 0;
+  let imageOffsetY = 0;
 
   function getCategoryProjects(categoryId) {
     return data.projects.filter(project => project.category === categoryId).slice(0, 6);
@@ -160,38 +176,46 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'portfolio-card-button';
-    button.setAttribute('aria-label', `Ouvrir ${category.label} en grand`);
+    button.setAttribute('aria-label', `Voir les réalisations de la catégorie ${category.label}`);
 
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
 
-    const art = document.createElement('div');
-    art.className = `portfolio-placeholder-art ${category.variant === 'dark' ? 'alt' : ''} ${category.variant === 'coral' ? 'warm' : ''} ${category.variant === 'light' ? 'light' : ''}`;
+    // Badge "échantillon" avec l'image du premier projet si disponible
+    if (category.sampleImage) {
+      const image = document.createElement('img');
+      image.className = 'portfolio-image';
+      image.src = category.sampleImage;
+      image.alt = category.sampleAlt || `${category.label} — aperçu`;
+      image.loading = 'lazy';
+      visual.appendChild(image);
 
-    const index = document.createElement('span');
-    index.textContent = `${String(data.categories.indexOf(category) + 1).padStart(2, '0')} / SAMPLE`;
-
-    const title = document.createElement('i');
-    title.textContent = category.id === 'plus' ? 'ET PLUS' : category.label.toUpperCase();
-
-    art.append(index, title);
-    visual.appendChild(art);
+      const badge = document.createElement('div');
+      badge.className = 'portfolio-sample-badge';
+      badge.innerHTML = `<span class="sample-num">${String(data.categories.indexOf(category) + 1).padStart(2, '0')}</span><span class="sample-label">Échantillon</span>`;
+      visual.appendChild(badge);
+    } else {
+      const art = document.createElement('div');
+      art.className = `portfolio-placeholder-art ${category.variant === 'dark' ? 'alt' : ''} ${category.variant === 'coral' ? 'warm' : ''} ${category.variant === 'light' ? 'light' : ''}`;
+      const index = document.createElement('span');
+      index.textContent = `${String(data.categories.indexOf(category) + 1).padStart(2, '0')} / SAMPLE`;
+      const title = document.createElement('i');
+      title.textContent = category.id === 'plus' ? 'ET PLUS' : category.label.toUpperCase();
+      art.append(index, title);
+      visual.appendChild(art);
+    }
 
     const meta = document.createElement('div');
     meta.className = 'portfolio-card-meta';
-    meta.innerHTML = `<span>${category.label}</span><strong>Échantillon</strong>`;
+    meta.innerHTML = `<span>${category.label}</span><strong>${category.projectCount ? category.projectCount + ' projets' : 'Échantillon'}</strong>`;
 
     button.append(visual, meta);
     article.appendChild(button);
 
+    // Clic sur catégorie → déploie les travaux de cette catégorie
     button.addEventListener('click', () => {
       if (moved) return;
-      const projects = getCategoryProjects(category.id);
-      if (projects.length) {
-        openLightbox(projects, 0, category.label);
-      } else {
-        openLightbox([{ type: 'sample', category, title: 'Échantillon' }], 0, category.label);
-      }
+      render(category.id);
     });
     return article;
   }
@@ -205,7 +229,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'portfolio-card-button';
-    button.setAttribute('aria-label', `Ouvrir ${project.title || `réalisation ${position}`} en grand`);
+    button.setAttribute('aria-label', `Ouvrir en grand : ${project.title || `réalisation ${position}`} — cliquez ou tapez pour lancer la visionneuse`);
 
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
@@ -224,6 +248,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     button.append(visual, meta);
     article.appendChild(button);
 
+    // Clic sur un travail → lightbox
     button.addEventListener('click', () => {
       if (moved) return;
       const projects = getCategoryProjects(project.category);
@@ -257,12 +282,17 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     if (!category) return;
 
     setActive(categoryId);
-    grid.appendChild(sampleCard(category));
 
+    // Afficher les travaux de la catégorie (jusqu'à 6)
     const projects = getCategoryProjects(categoryId);
-    projects.slice(0, 5).forEach((project, index) => {
-      grid.appendChild(projectCard(project, index + 2));
-    });
+    if (projects.length) {
+      projects.forEach((project, index) => {
+        grid.appendChild(projectCard(project, index + 1));
+      });
+    } else {
+      // Pas de projets → afficher le sample placeholder
+      grid.appendChild(sampleCard(category));
+    }
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
 
@@ -279,6 +309,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
           <div>
             <p class="portfolio-lightbox-kicker" id="portfolio-lightbox-category"></p>
             <h3 id="portfolio-lightbox-title"></h3>
+            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
           </div>
           <div class="portfolio-lightbox-actions">
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire">−</button>
@@ -294,7 +325,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
         </div>
         <div class="portfolio-lightbox-bottombar">
           <span data-counter></span>
-          <span>Glissez pour naviguer · pincez ou utilisez + / − pour zoomer</span>
+          <span>Pincez ou double-tapez pour zoomer</span>
         </div>
       </div>`;
     document.body.appendChild(dialog);
@@ -317,35 +348,137 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     });
 
     const stage = dialog.querySelector('[data-stage]');
+    const media = dialog.querySelector('[data-media]');
+
+    function getTouchDistance(event) {
+      const touches = event.touches;
+      if (!touches || touches.length < 2) return 0;
+      const dx = touches[0].clientX - touches[1].clientX;
+      const dy = touches[0].clientY - touches[1].clientY;
+      return Math.hypot(dx, dy);
+    }
+
+    function getTouchCenter(event) {
+      const touches = event.touches;
+      if (!touches || touches.length < 2) return { x: 0, y: 0 };
+      return {
+        x: (touches[0].clientX + touches[1].clientX) / 2,
+        y: (touches[0].clientY + touches[1].clientY) / 2
+      };
+    }
+
+    // --- Touch events (mobile) ---
+    stage.addEventListener('touchstart', event => {
+      if (event.touches.length === 1) {
+        isPointerDown = true;
+        moved = false;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        if (zoom > 1) {
+          isDraggingImage = true;
+          dragStartX = event.touches[0].clientX - imageOffsetX;
+          dragStartY = event.touches[0].clientY - imageOffsetY;
+        }
+      }
+      if (event.touches.length === 2) {
+        pinchStartDistance = getTouchDistance(event);
+        pinchStartZoom = zoom;
+        isDraggingImage = false;
+      }
+    }, { passive: true });
+
+    stage.addEventListener('touchmove', event => {
+      if (event.touches.length === 2) {
+        event.preventDefault();
+        const distance = getTouchDistance(event);
+        if (pinchStartDistance > 0 && distance > 0) {
+          const scale = distance / pinchStartDistance;
+          setZoom(pinchStartZoom * scale, true);
+          lastPinchTime = Date.now();
+        }
+      } else if (event.touches.length === 1 && zoom > 1 && isDraggingImage) {
+        event.preventDefault();
+        imageOffsetX = event.touches[0].clientX - dragStartX;
+        imageOffsetY = event.touches[0].clientY - dragStartY;
+        applyImageTransform();
+      } else if (event.touches.length === 1) {
+        if (Math.abs(event.touches[0].clientX - startX) > 10 || Math.abs(event.touches[0].clientY - startY) > 10) moved = true;
+      }
+    }, { passive: false });
+
+    stage.addEventListener('touchend', event => {
+      isDraggingImage = false;
+      imageOffsetX = 0;
+      imageOffsetY = 0;
+      isPointerDown = false;
+      if (event.changedTouches.length !== 1) return;
+      const now = Date.now();
+      const target = event.target;
+      const isSameTarget = target === lastTapTarget;
+      if (now - lastTap < 320 && isSameTarget && !moved) {
+        setZoom(zoom >= 2 ? 1 : 2);
+        lastTap = 0;
+      } else {
+        lastTap = now;
+        lastTapTarget = target;
+      }
+    }, { passive: true });
+
+    // --- Pointer events (desktop mouse) ---
     stage.addEventListener('pointerdown', event => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       isPointerDown = true;
       moved = false;
       startX = event.clientX;
       startY = event.clientY;
+      if (zoom > 1) {
+        isDraggingImage = true;
+        dragStartX = event.clientX - imageOffsetX;
+        dragStartY = event.clientY - imageOffsetY;
+      }
       stage.setPointerCapture?.(event.pointerId);
     });
+
     stage.addEventListener('pointermove', event => {
       if (!isPointerDown) return;
+      if (zoom > 1 && isDraggingImage) {
+        imageOffsetX = event.clientX - dragStartX;
+        imageOffsetY = event.clientY - dragStartY;
+        applyImageTransform();
+        return;
+      }
       if (Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
     });
+
     stage.addEventListener('pointerup', event => {
       if (!isPointerDown) return;
       const dx = event.clientX - startX;
       const dy = event.clientY - startY;
       isPointerDown = false;
-      if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+      isDraggingImage = false;
+      imageOffsetX = 0;
+      imageOffsetY = 0;
+      if (zoom <= 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
         navigate(dx < 0 ? 1 : -1);
       }
+      applyImageTransform();
       window.setTimeout(() => { moved = false; }, 0);
     });
 
+    // --- Wheel zoom (desktop) ---
     stage.addEventListener('wheel', event => {
       if (!dialog.open) return;
       event.preventDefault();
       setZoom(zoom + (event.deltaY < 0 ? .15 : -.15));
     }, { passive: false });
 
+    // --- Double click (desktop) ---
+    stage.addEventListener('dblclick', event => {
+      event.preventDefault();
+      setZoom(zoom >= 2 ? 1 : 2);
+    });
+
+    // --- Keyboard ---
     document.addEventListener('keydown', event => {
       if (!dialog.open) return;
       if (event.key === 'Escape') closeLightbox();
@@ -357,11 +490,22 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     });
   }
 
+  function applyImageTransform() {
+    const media = document.querySelector('#portfolio-lightbox [data-media]');
+    if (!media) return;
+    const image = media.querySelector('.portfolio-lightbox-image');
+    if (image) {
+      image.style.transform = `scale(${zoom}) translate3d(${imageOffsetX}px, ${imageOffsetY}px, 0)`;
+    }
+  }
+
   function openLightbox(items, index, categoryLabel) {
     ensureLightbox();
     lightboxItems = items;
     lightboxIndex = Math.max(0, Math.min(index, items.length - 1));
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
     const dialog = document.querySelector('#portfolio-lightbox');
     if (!dialog.open) dialog.showModal();
     document.body.classList.add('portfolio-lightbox-open');
@@ -378,27 +522,21 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     const title = item.title || 'Échantillon';
     dialog.querySelector('#portfolio-lightbox-category').textContent = category;
     dialog.querySelector('#portfolio-lightbox-title').textContent = title;
+    const lang = document.documentElement.lang || 'fr';
+    const description = lang.startsWith('en') ? (item.description_en || item.description_fr || '') : (item.description_fr || item.description_en || '');
+    const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');
+    descriptionElement.textContent = description;
+    descriptionElement.hidden = !description.trim();
     dialog.querySelector('[data-counter]').textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
 
     const media = dialog.querySelector('[data-media]');
     media.innerHTML = '';
-    if (item.type === 'sample') {
-      const categoryObj = item.category;
-      const art = document.createElement('div');
-      art.className = `portfolio-placeholder-art lightbox-sample ${categoryObj.variant === 'dark' ? 'alt' : ''} ${categoryObj.variant === 'coral' ? 'warm' : ''} ${categoryObj.variant === 'light' ? 'light' : ''}`;
-      const index = document.createElement('span');
-      index.textContent = `${String(data.categories.indexOf(categoryObj) + 1).padStart(2, '0')} / SAMPLE`;
-      const titleEl = document.createElement('i');
-      titleEl.textContent = categoryObj.id === 'plus' ? 'ET PLUS' : categoryObj.label.toUpperCase();
-      art.append(index, titleEl);
-      media.appendChild(art);
-    } else {
-      const image = document.createElement('img');
-      image.className = 'portfolio-lightbox-image';
-      image.src = item.image;
-      image.alt = item.alt || title;
-      media.appendChild(image);
-    }
+    const image = document.createElement('img');
+    image.className = 'portfolio-lightbox-image';
+    image.src = item.image;
+    image.alt = item.alt || title;
+    media.appendChild(image);
+
     dialog.querySelector('[data-action="prev"]').hidden = lightboxItems.length < 2;
     dialog.querySelector('[data-action="next"]').hidden = lightboxItems.length < 2;
     setZoom(1);
@@ -408,17 +546,17 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     if (lightboxItems.length < 2) return;
     lightboxIndex = (lightboxIndex + direction + lightboxItems.length) % lightboxItems.length;
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
     updateLightbox();
   }
 
-  function setZoom(value) {
+  function setZoom(value, smooth = false) {
     zoom = Math.max(1, Math.min(3, Number(value) || 1));
     const media = document.querySelector('#portfolio-lightbox [data-media]');
     if (!media) return;
     const image = media.querySelector('.portfolio-lightbox-image');
-    const sample = media.querySelector('.lightbox-sample');
     if (image) image.style.transform = `scale(${zoom})`;
-    if (sample) sample.style.transform = `scale(${zoom})`;
     const reset = document.querySelector('#portfolio-lightbox [data-action="zoom-reset"]');
     if (reset) reset.textContent = `${Math.round(zoom * 100)}%`;
   }
@@ -431,6 +569,8 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     lightboxItems = [];
     lightboxIndex = 0;
     zoom = 1;
+    imageOffsetX = 0;
+    imageOffsetY = 0;
   }
 
   filters.forEach(filter => {
@@ -450,14 +590,22 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
       data.projects = catalog.projects.filter(project => (
         project && categoryMap[project.category] && project.image
       ));
+      // Mettre à jour les catégories avec sampleImage
+      if (Array.isArray(catalog.categories)) {
+        catalog.categories.forEach(cat => {
+          if (categoryMap[cat.id]) {
+            categoryMap[cat.id].sampleImage = cat.sampleImage || null;
+            categoryMap[cat.id].sampleAlt = cat.sampleAlt || null;
+            categoryMap[cat.id].projectCount = cat.projectCount || 0;
+          }
+        });
+      }
       render(currentCategory);
     })
     .catch(error => console.warn('[portfolio] Catalog loading failed:', error));
 })();
 
 /* ===== js/testimonials.js ===== */
-const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
-
 (function(){
   const grid = document.getElementById('testimonials-grid');
   const summary = document.getElementById('testimonials-summary');
@@ -531,12 +679,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 
   async function submitReview(payload){
     const response=await fetch('/api/testimonials',{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(response.status===404){
-      const fallback=await fetch(FORMSPREE_REVIEWS_ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify({...payload,form_type:'testimonial'})});
-      const fallbackResult=await fallback.json().catch(()=>({}));
-      if(!fallback.ok) throw new Error(fallbackResult.error||fallbackResult.message||'Impossible d’envoyer votre avis.');
-      return fallbackResult;
-    }
     const result=await response.json().catch(()=>({}));
     if(!response.ok) throw new Error(result.error||result.message||'Impossible d’envoyer votre avis.');
     return result;
@@ -579,7 +721,7 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
       const response=await fetch('/api/testimonials',{headers:{'Accept':'application/json'}});
       if(!response.ok)throw new Error('Impossible de charger les avis.');
       const data=await response.json();
-      state.approved=Array.isArray(data.testimonials)?data.testimonials.filter(item=>item.status==='approved'&&item.review):[];
+      state.approved=Array.isArray(data.testimonials)?data.testimonials.filter(item=>item.review):[];
     }catch(_){state.approved=[];}
     computeStats(); renderAll();
   }
@@ -596,7 +738,6 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 
   const status = document.querySelector('#brief-status');
   const submit = form.querySelector('button[type="submit"]');
-
 
   const attachmentInput = document.getElementById('brief-attachment');
   const fileName = document.getElementById('brief-file-name');
@@ -679,13 +820,40 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
         throw new Error('attachment-too-large');
       }
 
-      const response = await fetch(form.action, {
+      // Récupérer le token Turnstile
+      const turnstileToken = window.turnstile?.getResponse();
+      if (!turnstileToken) {
+        status.textContent = 'Veuillez confirmer la vérification anti-spam.';
+        status.classList.add('error');
+        submit.disabled = false;
+        submit.querySelector('span').textContent = 'Envoyer le brief';
+        return;
+      }
+
+      const payload = {
+        'cf-turnstile-response': turnstileToken,
+        name: document.getElementById('brief-name').value.trim(),
+        email: document.getElementById('brief-email').value.trim(),
+        subject: `${document.getElementById('brief-project-type').value.trim()} — ${document.getElementById('brief-client-type').value.trim()}`,
+        message: [
+          `Description : ${document.getElementById('brief-description').value.trim()}`,
+          `Téléphone : ${document.getElementById('brief-phone').value.trim()}`
+        ].join('\n\n')
+      };
+
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error('Form submission failed');
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.message || 'Form submission failed');
+      }
+
+      // Reset Turnstile widget
+      if (window.turnstile) window.turnstile.reset();
 
       form.reset();
       if (fileName) fileName.textContent = 'Aucun fichier sélectionné.';
@@ -695,9 +863,12 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
       status.textContent = 'Merci. Votre brief a bien été envoyé.';
       status.classList.add('success');
     } catch (error) {
+      if (window.turnstile) window.turnstile.reset();
       status.textContent = error.message === 'attachment-too-large'
         ? 'La pièce jointe dépasse 10 Mo. Merci de choisir un fichier plus léger ou de nous l’envoyer sur WhatsApp.'
-        : 'L’envoi n’a pas pu être confirmé. Vous pouvez aussi nous écrire directement sur WhatsApp.';
+        : error.message === 'Spam protection failed.'
+          ? 'Protection anti-spam échouée. Veuillez réessayer.'
+          : 'L’envoi n’a pas pu être confirmé. Vous pouvez aussi nous écrire directement sur WhatsApp.';
       status.classList.add('error');
     } finally {
       submit.disabled = false;
@@ -710,4 +881,47 @@ const FORMSPREE_REVIEWS_ENDPOINT = 'https://formspree.io/f/xljrbrnk';
 (() => {
   const year = document.querySelector('#footer-year');
   if (year) year.textContent = String(new Date().getFullYear());
+})();
+
+/* ===== js/admin-gate.js ===== */
+(() => {
+  // Portail d'administration discret : 5 taps rapides sur le logo du footer
+  // ouvrent la page de modération des avis avec connexion automatique.
+  // Invisible pour les visiteurs : aucun indicateur visuel, aucun message.
+  const TAPS_REQUIRED = 5;
+  const TAP_WINDOW_MS = 1800;
+  const token = null; // la clé est transmise uniquement quand le propriétaire la saisit dans l'URL du site (?gate=<clé>)
+
+  const taps = [];
+
+  function onGateTap() {
+    const now = Date.now();
+    taps.push(now);
+    while (taps.length && taps[0] < now - TAP_WINDOW_MS) taps.shift();
+    if (taps.length >= TAPS_REQUIRED) {
+      taps.length = 0;
+      const params = new URLSearchParams(location.search);
+      const gate = params.get('gate') || '';
+      const target = '/admin-reviews.html' + (gate ? '#t=' + encodeURIComponent(gate) : '');
+      location.href = target;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.getElementById('site-footer');
+    if (!logo) return;
+    // Le geste est attaché au bloc logo du footer (zone discrète)
+    const brand = logo.querySelector('.footer-logo');
+    const target = brand || logo;
+    const fire = e => {
+      // Ne pas intercepter un vrai clic/tap normal de navigation (un seul événement)
+      e.preventDefault();
+      e.stopPropagation();
+      onGateTap();
+    };
+    target.addEventListener('click', fire, true);
+    target.addEventListener('touchend', e => {
+      if (e.touches.length === 0) fire(e);
+    }, { passive: false, capture: true });
+  });
 })();

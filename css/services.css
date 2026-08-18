@@ -56,7 +56,7 @@
 }
 .service-card-featured{background:rgba(255,112,67,.07)}
 .service-number{font:800 12px var(--heading);letter-spacing:.12em;color:var(--teal)}
-.service-kicker{margin:0 0 8px;font:800 10px var(--heading);letter-spacing:.13em;color:var(--coral)}
+.service-kicker{margin:0 0 8px;font:800 10px var(--heading);letter-spacing:.13em;color:var(--coral-contrast)}
 .service-main h3{
   margin:0;font:800 clamp(27px,3vw,44px)/1.05 var(--heading);
   letter-spacing:-.05em;
@@ -194,7 +194,7 @@
     pointer-events:none;
   }
   .service-toggle:hover .service-title{
-    color:var(--teal);
+    color:var(--teal-contrast);
   }
 }
 

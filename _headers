@@ -31,13 +31,21 @@
   Cache-Control: public, max-age=300, must-revalidate
   CDN-Cache-Control: public, max-age=300
 
-/css/*
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+/css/site.bundle.*.css
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
 
-/js/*
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+/css/legal.bundle.*.css
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+
+/css/admin-reviews.*.css
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+
+/js/site.bundle.*.js
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
 
 /admin/*
   X-Robots-Tag: noindex, nofollow

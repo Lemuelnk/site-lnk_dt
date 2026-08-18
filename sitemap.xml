@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://lnk-studio.com/</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/" />
+  </url>
+  <url>
+    <loc>https://lnk-studio.com/brand</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/brand" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/brand?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/brand" />
+  </url>
+  <url>
+    <loc>https://lnk-studio.com/mentions-legales.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/mentions-legales.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/mentions-legales-en.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/mentions-legales.html" />
+  </url>
+  <url>
+    <loc>https://lnk-studio.com/politique-confidentialite.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/politique-confidentialite.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/politique-confidentialite-en.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/politique-confidentialite.html" />
   </url>
 </urlset>
