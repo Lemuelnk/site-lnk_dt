@@ -61,7 +61,7 @@ export async function onRequest(context) {
     // CAS 2 : Soumission publique (nécessite Turnstile)
     const turnstileToken = payload['cf-turnstile-response'];
     const ip = request.headers.get('CF-Connecting-IP');
-    const isHuman = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, ip);
+    const isHuman = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET, ip);
     if (!isHuman) return json({ message: 'Spam protection failed.' }, 403);
 
     const name = String(payload.name || '').trim();
