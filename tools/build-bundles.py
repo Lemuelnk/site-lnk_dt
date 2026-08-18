@@ -57,11 +57,11 @@ for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     js_digest = js_file.split('.')[1]
     css_digest = css_file.split('.')[1]
-    new = re.sub(r'js/site\.bundle\.[a-f0-9]+\.js\?v=[a-f0-9]+', f'js/{js_file}?v={js_digest}', text)
-    new = re.sub(r'css/site\.bundle\.[a-f0-9]+\.css\?v=[a-f0-9]+', f'css/{css_file}?v={css_digest}', new)
-    # Fallback : références non fingerprintées
-    new = re.sub(r'js/site\.bundle\.js\?v=[a-f0-9]+', f'js/{js_file}?v={js_digest}', new)
-    new = re.sub(r'css/site\.bundle\.css\?v=[a-f0-9]+', f'css/{css_file}?v={css_digest}', new)
+    new = re.sub(r'js/site\.bundle\.[a-z0-9]+\.js\?v=[a-z0-9]+', f'js/{js_file}?v={js_digest}', text)
+    new = re.sub(r'css/site\.bundle\.[a-z0-9]+\.css\?v=[a-z0-9]+', f'css/{css_file}?v={css_digest}', new)
+    # Fallback : références non fingerprintées (y compris versions cassées comme ?v=bundle)
+    new = re.sub(r'js/site\.bundle\.js\?v=[a-z0-9]+', f'js/{js_file}?v={js_digest}', new)
+    new = re.sub(r'css/site\.bundle\.css\?v=[a-z0-9]+', f'css/{css_file}?v={css_digest}', new)
     if new != text:
         html.write_text(new, encoding='utf-8')
         print(f'HTML mis à jour: {html.name}')
