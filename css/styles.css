@@ -70,7 +70,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 .founder-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}
 .founder-details div{padding:1rem;border:1px solid rgba(0,26,23,.16)}
 .founder-details span{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-bottom:.35rem}
-.founder-details a.founder-beacons{display:inline-block;font-size:.85rem;font-weight:700;color:#009688;text-decoration:none}.founder-details a.founder-beacons:hover{color:#ff7043}
+.founder-details a.founder-beacons{display:inline-block;font-size:.85rem;font-weight:700;color:#009688;text-decoration:none}.founder-details a.founder-beacons:hover{color:#ff7043}.founder-details a.founder-beacons .founder-beacons-icon{vertical-align:-2px;margin-right:.3em}
 @media (max-width:800px){.founder-grid{grid-template-columns:1fr}.founder-details{grid-template-columns:1fr}.founder-photo-wrap{min-height:0}}
 
 /* Founder refinement — moderate image scale, editorial framing */

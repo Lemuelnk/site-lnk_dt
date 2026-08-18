@@ -920,6 +920,7 @@ window.LNK_NEWS_CATALOG = {"generated": true, "publications": [{"file": "assets/
     spot.querySelector("[data-ann-img]").src = latest.file;
     spot.querySelector("[data-ann-img]").alt = latest.title_fr;
   }
+  if (sessionStorage.getItem("lnk-announcement-dismissed")) spot.classList.add("lnk-ann-dismissed");
   render();
 
   /* ---------- Lightbox d'annonce ---------- */
@@ -967,13 +968,17 @@ window.LNK_NEWS_CATALOG = {"generated": true, "publications": [{"file": "assets/
     if (dialog) dialog.classList.remove("is-open");
     document.body.style.overflow = "";
   }
+  function dismissSpot() {
+    spot.classList.add("lnk-ann-dismissed");
+    sessionStorage.setItem("lnk-announcement-dismissed", "1");
+  }
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && dialog && dialog.classList.contains("is-open")) closeAnn();
   });
 
   spot.addEventListener("click", (e) => {
     const closeBtn = e.target.closest("[data-ann-close]");
-    if (closeBtn) { closeAnn(); return; }
+    if (closeBtn) { closeAnn(); dismissSpot(); return; }
     const link = e.target.closest("[data-ann-link]");
     if (link) return; // laisser le lien ouvrir l'URL externe
     openAnn();

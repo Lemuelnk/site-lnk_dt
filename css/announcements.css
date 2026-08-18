@@ -72,6 +72,7 @@
   overflow: hidden;
 }
 .lnk-announcement-preview img { width: 100%; height: 100%; object-fit: cover; }
+.lnk-announcement.lnk-ann-dismissed { display: none; }
 
 /* ---------- Section news (brand.html) ---------- */
 .lnk-news-grid {

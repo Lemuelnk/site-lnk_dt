@@ -79,7 +79,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="css/site.bundle.34e709aa3a.css?v=34e709aa3a">
+<link rel="stylesheet" href="css/site.bundle.3daa41feab.css?v=3daa41feab">
 
 <style id="lnk-language-style">
 /* BILINGUAL HEADER CONTROL — integrated with the existing header/menu */
@@ -412,7 +412,7 @@
       <div class="founder-details" aria-label="Informations du fondateur">
         <div><span>Nom</span><strong>Lemuel KANYUKA</strong></div>
         <div><span>Rôle</span><strong>Fondateur &amp; Designer</strong></div>
-        <div><span data-lang-fr="Connecter avec Lemuel" data-lang-en="Connect with Lemuel">Connecter avec Lemuel</span><a class="founder-beacons" href="https://beacons.ai/lemuelnk" target="_blank" rel="noopener noreferrer">beacons.ai/lemuelnk →</a></div>
+        <div><span data-lang-fr="Connecter avec Lemuel" data-lang-en="Connect with Lemuel">Connecter avec Lemuel</span><a class="founder-beacons" href="https://beacons.ai/lemuelnk" target="_blank" rel="noopener noreferrer" aria-label="LNK Design Touch sur beacons"><svg class="founder-beacons-icon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3.5M12 18.5V22M4.2 4.2l2.5 2.5M17.3 17.3l2.5 2.5M2 12h3.5M18.5 12H22M4.2 19.8l2.5-2.5M17.3 6.7l2.5-2.5"/></svg><span data-lang-fr="beacons" data-lang-en="beacons">beacons</span></a></div>
       </div>
     </div>
   </div>
@@ -816,7 +816,7 @@
 
 
 
-<script src="js/site.bundle.65023de33b.js?v=65023de33b" defer></script>
+<script src="js/site.bundle.ab27140dfc.js?v=ab27140dfc" defer></script>
 <script src="js/news-catalog.js" defer></script>
 <script src="js/announcement.js" defer></script>
 
@@ -840,11 +840,12 @@
     const value = node.nodeValue;
     const trimmed = value.trim();
     const key = trimmed.replace(/\s+/g, ' ');
-    if(!trimmed || !translations[key] && !translations[trimmed]) return;
+    if (lang === 'fr' && original.has(node)) { node.nodeValue = original.get(node); return; }
+    if(!trimmed || (!translations[key] && !translations[trimmed])) return;
     if(!original.has(node)) original.set(node, value);
     const leading = value.match(/^\s*/)?.[0] || '';
     const trailing = value.match(/\s*$/)?.[0] || '';
-    const translated = lang === 'en' ? (translations[key] || translations[trimmed]) : (original.get(node) || value);
+    const translated = lang === 'en' ? (translations[key] || translations[trimmed]) : value;
     node.nodeValue = leading + translated + trailing;
   }
 
@@ -894,6 +895,16 @@
   document.addEventListener('DOMContentLoaded', function(){
     window.lnkApplyLanguage = applyLanguage;
     applyLanguage(currentLang);
+    // Résolution fiable des logos (header + footer) :
+    // si le SVG est déjà chargé (cache), onload ne se déclenche parfois pas.
+    document.querySelectorAll('.brand-logo, .footer-logo img').forEach(function(img){
+      if(img.complete && img.naturalWidth > 0){
+        img.hidden = false;
+        img.style.display = 'block';
+        const fallback = img.previousElementSibling || img.nextElementSibling;
+        if(fallback) fallback.hidden = true;
+      }
+    });
   });
 })();
 </script>
