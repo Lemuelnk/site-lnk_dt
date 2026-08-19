@@ -121,6 +121,12 @@
     image.loading = 'lazy';
     visual.appendChild(image);
 
+    // Overlay hover
+    const overlay = document.createElement('div');
+    overlay.className = 'portfolio-overlay';
+    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>`;
+    visual.appendChild(overlay);
+
     const meta = document.createElement('div');
     meta.className = 'portfolio-card-meta';
     meta.innerHTML = `<span>${category.label}</span><strong>${project.title}</strong>`;
