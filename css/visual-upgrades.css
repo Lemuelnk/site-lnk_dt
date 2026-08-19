@@ -9,6 +9,8 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity .7s var(--ease), transform .7s var(--ease);
+  will-change: opacity, transform;
+  contain: layout style;
 }
 .lnk-reveal.lnk-reveal-visible {
   opacity: 1;

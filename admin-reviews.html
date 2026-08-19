@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modération des avis — LNK Design Touch</title>
   <link rel="icon" href="/assets/images/favicon.png">
-  <link rel="stylesheet" href="/css/admin-reviews.b22f9d2408.css">
+  <link rel="stylesheet" href="/css/admin-reviews.63ccd59667.css">
 <style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style></head>
 <body>
   <header class="admin-header">
@@ -33,6 +33,21 @@
         <article class="admin-stat-card is-projects"><span class="admin-stat-label">Nouvelles demandes</span><strong id="admin-stat-projects">—</strong><span class="admin-stat-hint">Briefs reçus</span></article>
         <article class="admin-stat-card is-approved"><span class="admin-stat-label">Avis publiés</span><strong id="admin-stat-approved">—</strong><span class="admin-stat-hint">Visibles sur le site</span></article>
       </div>
+      <section class="admin-chart-section" aria-label="Statistiques des avis">
+        <div class="admin-toolbar">
+          <div><p class="admin-kicker">STATISTIQUES</p><p class="admin-panel-title">Suivi des avis</p></div>
+        </div>
+        <div class="admin-chart-grid">
+          <div class="admin-chart-card">
+            <canvas id="admin-chart-status"></canvas>
+            <p class="admin-chart-title">Répartition par statut</p>
+          </div>
+          <div class="admin-chart-card">
+            <canvas id="admin-chart-notes"></canvas>
+            <p class="admin-chart-title">Distribution des notes</p>
+          </div>
+        </div>
+      </section>
       <div class="admin-toolbar admin-section-toolbar">
         <div><p class="admin-kicker">TABLEAU DE BORD</p>
         <p class="admin-panel-title" id="admin-panel-title">Avis en attente de validation</p></div>

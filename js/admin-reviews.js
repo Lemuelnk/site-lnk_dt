@@ -337,6 +337,7 @@
         if (trashEmpty) trashEmpty.hidden = trashRows.length > 0;
       }
       attachActions();
+      renderCharts(pendingRows, approved.testimonials || [], rejected.testimonials || [], trashRows);
     } catch (err) {
       list.innerHTML = '';
       setStatus(list, err.message === 'unauthorized' ? str('wrongToken') : str('networkError'), true);
@@ -396,6 +397,112 @@
     const hashToken = new URLSearchParams(location.hash.replace(/^#/, '')).get('t');
     if (hashToken && !state.token) tryLogin(hashToken);
   });
+
+  // ===== CHARTS =====
+  function renderCharts(pending, approved, rejected, trash) {
+    drawStatusChart(pending.length, approved.length, rejected.length, trash.length);
+    drawNotesChart([...approved, ...rejected, ...pending]);
+  }
+
+  function drawStatusChart(pending, approved, rejected, trash) {
+    const canvas = document.getElementById('admin-chart-status');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = 280, h = 200;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, h);
+
+    const total = pending + approved + rejected + trash;
+    if (total === 0) { ctx.font = '13px Montserrat'; ctx.fillStyle = '#999'; ctx.textAlign = 'center'; ctx.fillText('Aucun avis', w/2, h/2); return; }
+
+    const data = [
+      { label: 'En attente', value: pending, color: '#F2C94C' },
+      { label: 'Publié', value: approved, color: '#009688' },
+      { label: 'Refusé', value: rejected, color: '#E8927C' },
+      { label: 'Corbeille', value: trash, color: '#CCC' },
+    ].filter(d => d.value > 0);
+
+    // Donut chart
+    const cx = 75, cy = 90, r = 55, innerR = 32;
+    let startAngle = -Math.PI / 2;
+    data.forEach(d => {
+      const sweep = (d.value / total) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, startAngle, startAngle + sweep);
+      ctx.arc(cx, cy, innerR, startAngle + sweep, startAngle, true);
+      ctx.closePath();
+      ctx.fillStyle = d.color;
+      ctx.fill();
+      startAngle += sweep;
+    });
+    ctx.font = 'bold 20px Montserrat';
+    ctx.fillStyle = '#1A1A2E';
+    ctx.textAlign = 'center';
+    ctx.fillText(total, cx, cy + 6);
+
+    // Legend
+    let ly = 20;
+    ctx.font = '12px Open Sans';
+    data.forEach(d => {
+      ctx.fillStyle = d.color;
+      ctx.fillRect(w - 120, ly, 10, 10);
+      ctx.fillStyle = '#333';
+      ctx.textAlign = 'left';
+      ctx.fillText(`${d.label} (${d.value})`, w - 104, ly + 10);
+      ly += 22;
+    });
+  }
+
+  function drawNotesChart(items) {
+    const canvas = document.getElementById('admin-chart-notes');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = 280, h = 200;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, h);
+
+    const counts = [0, 0, 0, 0, 0];
+    items.forEach(item => {
+      const n = item.rating || item.note || 0;
+      if (n >= 1 && n <= 5) counts[n - 1]++;
+    });
+    const max = Math.max(...counts, 1);
+
+    const barW = 32, gap = 12, startX = 30;
+    const chartH = 130, baseY = h - 35;
+    ctx.font = '11px Open Sans';
+    ctx.fillStyle = '#666';
+    ctx.textAlign = 'center';
+
+    counts.forEach((count, i) => {
+      const x = startX + i * (barW + gap);
+      const barH = max > 0 ? (count / max) * chartH : 0;
+      // Gradient bar
+      const grad = ctx.createLinearGradient(x, baseY - barH, x, baseY);
+      grad.addColorStop(0, '#009688');
+      grad.addColorStop(1, '#00695C');
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, baseY - barH, barW, barH);
+      // Number on top
+      ctx.fillStyle = '#1A1A2E';
+      ctx.font = 'bold 11px Montserrat';
+      ctx.fillText(count, x + barW / 2, baseY - barH - 5);
+      // Star label
+      ctx.font = '11px Open Sans';
+      ctx.fillStyle = '#666';
+      ctx.fillText(i + 1 + '★', x + barW / 2, baseY + 15);
+    });
+  }
 
   document.getElementById('admin-logout').addEventListener('click', () => showLogin(false));
   document.getElementById('admin-refresh').addEventListener('click', loadAll);
