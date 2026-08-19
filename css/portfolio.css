@@ -60,6 +60,12 @@
 .portfolio-card-button:hover .portfolio-visual{transform:translateY(-3px)}
 .portfolio-card-button:hover .portfolio-card-meta strong{color:var(--teal)}
 .portfolio-card-button:focus-visible .portfolio-visual{outline:3px solid var(--coral);outline-offset:4px}
+
+/* CTA pour catégories portfolio vides */
+.portfolio-empty-cta{display:flex;align-items:center;justify-content:center;padding:2rem 1rem}
+.portfolio-empty-cta-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;background:var(--teal);color:var(--cream);font:600 14px var(--body);text-decoration:none;border-radius:8px;transition:background .2s,transform .2s}
+.portfolio-empty-cta-btn:hover{background:var(--coral);transform:translateY(-2px) color:var(--cream)}
+.portfolio-empty-cta-btn:focus-visible{outline:3px solid var(--coral);outline-offset:4px}
 @keyframes portfolio-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media(max-width:850px){.portfolio-heading{grid-template-columns:1fr}.portfolio-heading>p{margin:0}.portfolio-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.portfolio{padding-block:80px}}

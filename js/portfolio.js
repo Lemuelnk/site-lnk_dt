@@ -170,8 +170,23 @@
         grid.appendChild(projectCard(project, index + 1));
       });
     } else {
-      // Pas de projets → afficher le sample placeholder
+      // Pas de projets → afficher le sample placeholder + CTA pour ne pas perdre le visiteur
       grid.appendChild(sampleCard(category));
+      // CTA : bouton "Demander un devis" pour la catégorie vide
+      const ctaWrap = document.createElement('div');
+      ctaWrap.className = 'portfolio-empty-cta';
+      const cta = document.createElement('a');
+      cta.href = '#contact';
+      cta.className = 'portfolio-empty-cta-btn';
+      cta.dataset.langFr = `Bientôt disponible — Demander un devis ${category.label}`;
+      cta.dataset.langEn = `Coming soon — Request a quote ${category.label}`;
+      cta.textContent = cta.dataset.langFr;
+      cta.addEventListener('click', () => {
+        const contactSection = document.querySelector('#contact');
+        if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+      });
+      ctaWrap.appendChild(cta);
+      grid.appendChild(ctaWrap);
     }
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
   }
