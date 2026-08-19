@@ -262,6 +262,8 @@
 
       const items = data.requests || [];
       const newItems = items.filter(i => i.status === 'new');
+      const stat = document.getElementById('admin-stat-projects');
+      if (stat) stat.textContent = String(newItems.length);
       updateNewCount(newItems.length);
 
       const filtered = filterProjects(items);

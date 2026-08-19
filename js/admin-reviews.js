@@ -153,6 +153,11 @@
 
   const state = { token: sessionStorage.getItem(TOKEN_KEY) || '' };
 
+  function updateAdminStat(id, value) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = String(value);
+  }
+
   function showPanel() {
     document.getElementById('admin-login').hidden = true;
     document.getElementById('admin-panel').hidden = false;
@@ -264,6 +269,8 @@
       const pendingRows = pending.testimonials || [];
       const historyRows = [...(approved.testimonials || []), ...(rejected.testimonials || [])];
       const trashRows = trash.testimonials || [];
+      updateAdminStat('admin-stat-pending', pendingRows.length);
+      updateAdminStat('admin-stat-approved', (approved.testimonials || []).length);
       list.innerHTML = pendingRows.map(item => cardMarkup(item, 'pending')).join('');
       empty.hidden = pendingRows.length > 0;
       history.innerHTML = historyRows.length
