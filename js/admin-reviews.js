@@ -52,6 +52,7 @@
         try { return new Date(d).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' }); }
         catch (_e) { return d; }
       },
+      filterAll: 'Tous',
       footer: 'LNK Design Touch — Administration des avis. Cette page n\u2019est pas indexée et ne doit pas être partagée.'
     },
     en: {
@@ -102,6 +103,7 @@
         try { return new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' }); }
         catch (_e) { return d; }
       },
+      filterAll: 'All',
       footer: 'LNK Design Touch — Reviews administration. This page is not indexed and should not be shared.'
     }
   };
@@ -259,6 +261,43 @@
     }
   }
 
+  // Review history filter
+  let reviewHistoryFilter = 'all';
+  function filterHistoryItems(items) {
+    if (reviewHistoryFilter === 'all') return items;
+    return items.filter(i => i.status === reviewHistoryFilter);
+  }
+  function renderReviewFilters() {
+    const bar = document.getElementById('admin-reviews-filters');
+    if (!bar) return;
+    const filters = [
+      { key: 'all', label: str('filterAll') },
+      { key: 'approved', label: str('badgePublished') },
+      { key: 'rejected', label: str('badgeRejected') }
+    ];
+    bar.innerHTML = filters.map(f =>
+      `<button type="button" class="admin-filter-btn${reviewHistoryFilter === f.key ? ' is-active' : ''}" data-filter="${f.key}">${f.label}</button>`
+    ).join('');
+    bar.querySelectorAll('.admin-filter-btn').forEach(btn => {
+      if (btn._bound) return;
+      btn._bound = true;
+      btn.addEventListener('click', () => {
+        reviewHistoryFilter = btn.dataset.filter;
+        applyHistoryFilter();
+        renderReviewFilters();
+      });
+    });
+  }
+  function applyHistoryFilter() {
+    const history = document.getElementById('admin-history-list');
+    if (!history || !history._allItems) return;
+    const filtered = filterHistoryItems(history._allItems);
+    history.innerHTML = filtered.length
+      ? filtered.map(item => cardMarkup(item, 'history')).join('')
+      : `<p class="admin-empty">—</p>`;
+    attachActions();
+  }
+
   function flash(message, isError) {
     const banner = document.getElementById('admin-flash');
     if (!banner) return;
@@ -288,9 +327,9 @@
       updateAdminStat('admin-stat-approved', (approved.testimonials || []).length);
       list.innerHTML = pendingRows.map(item => cardMarkup(item, 'pending')).join('');
       empty.hidden = pendingRows.length > 0;
-      history.innerHTML = historyRows.length
-        ? historyRows.map(item => cardMarkup(item, 'history')).join('')
-        : `<p class="admin-empty">—</p>`;
+      history._allItems = historyRows;
+      applyHistoryFilter();
+      renderReviewFilters();
       if (trashList) {
         trashList.innerHTML = trashRows.length
           ? trashRows.map(item => cardMarkup(item, 'trash')).join('')
