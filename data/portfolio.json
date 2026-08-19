@@ -8,7 +8,7 @@
       "folder": "affiches",
       "sampleImage": "assets/images/portfolio/affiches/affiche-20-matins-de-priere-mission-evangelique-la-restauration-02.webp",
       "sampleAlt": "Affiche bleue et turquoise pour les 20 matins de prière de la Mission Évangélique La Restauration",
-      "projectCount": 9
+      "projectCount": 8
     },
     {
       "id": "branding",
@@ -36,9 +36,9 @@
       "visual": "sample",
       "variant": "light",
       "folder": "social-media",
-      "sampleImage": null,
-      "sampleAlt": null,
-      "projectCount": 0
+      "sampleImage": "assets/images/portfolio/social-media/carwash-yesu-ni-jibu-post-carre-01.webp",
+      "sampleAlt": "Post carré CarWash Yesu ni Jibu, pneu et voiture sous l'eau, services de nettoyage détaillés",
+      "projectCount": 1
     },
     {
       "id": "calendriers",
@@ -78,19 +78,11 @@
     },
     {
       "category": "affiches",
-      "title": "CarWash — Yesu ni Jibu (16:9)",
-      "image": "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-16x9-01.webp",
+      "title": "CarWash — Yesu ni Jibu (bannière)",
+      "image": "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-banniere-01.webp",
       "alt": "Affiche publicitaire CarWash Yesu ni Jibu, voiture rouge avec éclaboussures d'eau, services de nettoyage",
-      "description_fr": "Affiche promotionnelle pour le CarWash Yesu ni Jibu. Visuel dynamique avec une voiture rouge, éclaboussures d'eau et palette bleue intense, listant les services de nettoyage proposés.",
-      "description_en": "Promotional poster for CarWash Yesu ni Jibu. A dynamic visual featuring a red car, water splashes and an intense blue palette, listing the cleaning services offered."
-    },
-    {
-      "category": "affiches",
-      "title": "CarWash — Yesu ni Jibu (carré)",
-      "image": "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-carre-02.webp",
-      "alt": "Affiche carrée CarWash Yesu ni Jibu, pneu et voiture sous l'eau, services de nettoyage détaillés",
-      "description_fr": "Version carrée de l'affiche CarWash Yesu ni Jibu, pensée pour les réseaux sociaux. Gros plan sur le pneu et l'éclaboussure, avec les services de nettoyage clairement listés.",
-      "description_en": "Square version of the CarWash Yesu ni Jibu poster, designed for social media. Close-up on the tire and water splash, with cleaning services clearly listed."
+      "description_fr": "Bannière promotionnelle pour le CarWash Yesu ni Jibu. Visuel dynamique avec une voiture rouge, éclaboussures d'eau et palette bleue intense, listant les services de nettoyage proposés.",
+      "description_en": "Promotional banner for CarWash Yesu ni Jibu. A dynamic visual featuring a red car, water splashes and an intense blue palette, listing the cleaning services offered."
     },
     {
       "category": "affiches",
@@ -177,6 +169,14 @@
       "alt": "Bannière de l'Église Évangélique Source d'Eaux-Vives avec cascade, logo et références bibliques",
       "description_fr": "Bannière web pour l'Église Évangélique Source d'Eaux-Vives. Visuel évoquant la fraîcheur et la spiritualité avec une cascade, le logo de l'église et des références bibliques.",
       "description_en": "Web banner for the Église Évangélique Source d'Eaux-Vives. A visual evoking freshness and spirituality with a waterfall, the church logo and biblical references."
+    },
+    {
+      "category": "social-media",
+      "title": "CarWash — Yesu ni Jibu (post carré)",
+      "image": "assets/images/portfolio/social-media/carwash-yesu-ni-jibu-post-carre-01.webp",
+      "alt": "Post carré CarWash Yesu ni Jibu, pneu et voiture sous l'eau, services de nettoyage détaillés",
+      "description_fr": "Post carré CarWash Yesu ni Jibu pour les réseaux sociaux. Gros plan sur le pneu et l'éclaboussure, avec les services de nettoyage clairement listés.",
+      "description_en": "Square social media post for CarWash Yesu ni Jibu. Close-up on the tire and water splash, with cleaning services clearly listed."
     }
   ],
   "_instructions": "Les projets sont générés automatiquement depuis assets/images/portfolio. Pour un titre ou un texte alternatif personnalisé, conserver les métadonnées dans ce fichier ou utiliser le format recommandé dans le README du dossier."

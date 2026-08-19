@@ -45,7 +45,7 @@
   let imageOffsetY = 0;
 
   function getCategoryProjects(categoryId) {
-    return data.projects.filter(project => project.category === categoryId).slice(0, 6);
+    return data.projects.filter(project => project.category === categoryId);
   }
 
   function sampleCard(category) {
@@ -163,7 +163,7 @@
 
     setActive(categoryId);
 
-    // Afficher les travaux de la catégorie (jusqu'à 6)
+    // Afficher tous les travaux de la catégorie
     const projects = getCategoryProjects(categoryId);
     if (projects.length) {
       projects.forEach((project, index) => {

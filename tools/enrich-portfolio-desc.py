@@ -10,17 +10,17 @@ JS_OUTPUT = ROOT / "js/portfolio-catalog.js"
 # Custom descriptions for new projects
 CUSTOM = {
     # Affiches
-    "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-16x9-01.webp": {
-        "title": "CarWash — Yesu ni Jibu (16:9)",
+    "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-banniere-01.webp": {
+        "title": "CarWash — Yesu ni Jibu (bannière)",
         "alt": "Affiche publicitaire CarWash Yesu ni Jibu, voiture rouge avec éclaboussures d'eau, services de nettoyage",
-        "description_fr": "Affiche promotionnelle pour le CarWash Yesu ni Jibu. Visuel dynamique avec une voiture rouge, éclaboussures d'eau et palette bleue intense, listant les services de nettoyage proposés.",
-        "description_en": "Promotional poster for CarWash Yesu ni Jibu. A dynamic visual featuring a red car, water splashes and an intense blue palette, listing the cleaning services offered.",
+        "description_fr": "Bannière promotionnelle pour le CarWash Yesu ni Jibu. Visuel dynamique avec une voiture rouge, éclaboussures d'eau et palette bleue intense, listant les services de nettoyage proposés.",
+        "description_en": "Promotional banner for CarWash Yesu ni Jibu. A dynamic visual featuring a red car, water splashes and an intense blue palette, listing the cleaning services offered.",
     },
-    "assets/images/portfolio/affiches/affiche-carwash-yesu-ni-jibu-carre-02.webp": {
-        "title": "CarWash — Yesu ni Jibu (carré)",
-        "alt": "Affiche carrée CarWash Yesu ni Jibu, pneu et voiture sous l'eau, services de nettoyage détaillés",
-        "description_fr": "Version carrée de l'affiche CarWash Yesu ni Jibu, pensée pour les réseaux sociaux. Gros plan sur le pneu et l'éclaboussure, avec les services de nettoyage clairement listés.",
-        "description_en": "Square version of the CarWash Yesu ni Jibu poster, designed for social media. Close-up on the tire and water splash, with cleaning services clearly listed.",
+    "assets/images/portfolio/social-media/carwash-yesu-ni-jibu-post-carre-01.webp": {
+        "title": "CarWash — Yesu ni Jibu (post carré)",
+        "alt": "Post carré CarWash Yesu ni Jibu, pneu et voiture sous l'eau, services de nettoyage détaillés",
+        "description_fr": "Post carré CarWash Yesu ni Jibu pour les réseaux sociaux. Gros plan sur le pneu et l'éclaboussure, avec les services de nettoyage clairement listés.",
+        "description_en": "Square social media post for CarWash Yesu ni Jibu. Close-up on the tire and water splash, with cleaning services clearly listed.",
     },
     "assets/images/portfolio/affiches/affiche-tefilla-2024-21-matins-et-nuits-de-priere-03.webp": {
         "title": "Tefilla 2024 — 21 Matins et Nuits de Prière",
