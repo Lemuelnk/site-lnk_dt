@@ -16,10 +16,30 @@
     en: { kicker: "LNK_DT NEWS", label: "New post", cta: "See the post", close: "Close announcement" },
   };
 
-  // Priorité au champ featured:true dans news.json, sinon la dernière publication
-  const latest = catalog.find((p) => p.featured === true) || catalog[catalog.length - 1];
+  // Priorité au champ featured (D1 override ou news.json), sinon la dernière publication
+  let latest = null;
+  const applyOverrides = async () => {
+    try {
+      const resp = await fetch('/api/news-admin?token=');
+      if (resp.ok) {
+        const { settings } = await resp.json();
+        // Fusionner les settings D1 avec le catalogue
+        catalog.forEach(pub => {
+          const key = pub.file;
+          if (settings[key]) {
+            if (settings[key].featured !== undefined && settings[key].featured !== false) pub.featured = true;
+            if (settings[key].link) pub.link = settings[key].link;
+          }
+        });
+      }
+    } catch (_) { /* fallback to static catalog */ }
+    latest = catalog.find((p) => p.featured === true) || catalog[catalog.length - 1];
+    render();
+  };
   const spot = document.querySelector("#lnk-announcement");
   if (!spot) return;
+  // Attendre les overrides D1 avant de rendre, sinon fallback statique immédiat
+  applyOverrides().catch(() => { latest = catalog[catalog.length - 1]; render(); });
 
   function render() {
     const t = T[lang()];

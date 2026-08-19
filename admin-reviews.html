@@ -55,6 +55,17 @@
         <p id="admin-trash-empty" class="admin-empty" hidden>La corbeille est vide.</p>
         <div id="admin-trash-list" class="admin-list admin-list-trash"></div>
       </details>
+
+      <!-- LNK_DT NEWS — gestion des publications -->
+      <section id="admin-news-section" class="admin-history" style="margin-top: 3rem; border-top: 1.5px solid var(--admin-border); padding-top: 2rem;">
+        <div class="admin-toolbar">
+          <p class="admin-panel-title">LNK_DT NEWS — Publication en vedette</p>
+          <button type="button" id="admin-news-refresh" class="admin-btn-secondary">Actualiser</button>
+        </div>
+        <p class="admin-news-info" style="font-size:0.85rem; opacity:0.7; margin:0 0 1rem;">Choisissez la publication qui apparaît dans le spot d'annonce de la page d'accueil. Vous pouvez aussi modifier le lien de redirection de chaque publication.</p>
+        <p id="admin-news-empty" class="admin-empty" hidden>Aucune publication dans LNK_DT NEWS.</p>
+        <div id="admin-news-list" class="admin-news-list"></div>
+      </section>
     </section>
   </main>
 
@@ -65,5 +76,6 @@
   <meta name="robots" content="noindex, nofollow">
   <script src="/js/admin-reviews.js"></script>
   <script src="/js/admin-projects.js"></script>
+  <script src="/js/admin-news.js"></script>
 </body>
 </html>
