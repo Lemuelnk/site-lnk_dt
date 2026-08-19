@@ -63,6 +63,7 @@ def build_items(existing):
             "description_fr": existing_item.get("description_fr") if existing_item else None,
             "description_en": existing_item.get("description_en") if existing_item else None,
             "link": existing_item.get("link") if existing_item else None,
+            "featured": existing_item.get("featured") if existing_item else False,
         }
         items.append(item)
     return items

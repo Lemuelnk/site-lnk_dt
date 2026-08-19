@@ -1,7 +1,7 @@
 /* SPOT D'ANNONCE — accueil (index.html)
- * Bandeau discret "Nouvelle publication" qui ouvre la dernière publication
- * du catalogue news (assets/images/news/) en lightbox avec un bouton
- * "Voir l'offre" vers la publication sur les réseaux.
+ * Bandeau discret "Nouvelle publication" qui ouvre la publication désignée
+ * (champ featured:true dans data/news.json, sinon la dernière) en lightbox
+ * avec un bouton "Voir l'offre" vers la publication sur les réseaux.
  * Bilingue : écoute l'événement lnk-lang-changed du site.
  */
 (function () {
@@ -16,7 +16,8 @@
     en: { kicker: "LNK_DT NEWS", label: "New post", cta: "See the post", close: "Close announcement" },
   };
 
-  const latest = catalog[catalog.length - 1];
+  // Priorité au champ featured:true dans news.json, sinon la dernière publication
+  const latest = catalog.find((p) => p.featured === true) || catalog[catalog.length - 1];
   const spot = document.querySelector("#lnk-announcement");
   if (!spot) return;
 
