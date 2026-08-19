@@ -88,6 +88,11 @@ button,a,input,select,textarea{touch-action:manipulation}
 .founder-section .founder-copy h2{margin:0;font:900 clamp(44px,5.6vw,76px)/.94 var(--heading);letter-spacing:-.065em}
 .founder-section .founder-copy h2 span{color:var(--teal)}
 .founder-lead{max-width:560px;margin:28px 0 0;font:600 clamp(18px,1.7vw,23px)/1.45 var(--body);color:var(--cream)}
+.founder-bio{max-width:580px;margin:20px 0 0;font-size:clamp(.9rem,1vw,.98rem);line-height:1.75;color:rgba(255,249,240,.82)}
+.founder-motto{max-width:580px;margin:24px 0 0;font:700 clamp(1rem,1.4vw,1.2rem)/1.55 var(--heading);color:var(--yellow);letter-spacing:.01em}
+.founder-signature{max-width:580px;margin:30px 0 0;padding-top:20px;border-top:1px solid rgba(255,249,240,.18);font:700 clamp(1rem,1.4vw,1.15rem) var(--heading);color:var(--cream);letter-spacing:-.02em}
+.founder-signature-role{font-size:clamp(.72rem,.8vw,.78rem);font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.1em}
+@media(max-width:800px){.founder-bio,.founder-motto,.founder-signature{max-width:none}}
 .founder-section .founder-placeholder{max-width:570px;margin-top:18px;color:rgba(255,249,240,.6);line-height:1.7}
 .founder-section .founder-details{max-width:560px;margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}
 .founder-section .founder-details div{padding:15px 0;border-top:1px solid rgba(255,249,240,.15)}
