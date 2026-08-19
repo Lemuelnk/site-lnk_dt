@@ -17,23 +17,25 @@
 <title>Contact — LNK Design Touch</title>
 <link rel="preload" href="assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/opensans-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.bundle.02a2f47fcb.css">
+<link rel="stylesheet" href="css/site.bundle.0d116828e3.css">
 <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
 
 <!-- Header -->
 <header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="header-logo-link"><img src="assets/images/brand/logo-primary.svg" alt="LNK Design Touch" class="header-logo"></a>
-    <nav class="header-nav">
-      <a href="index.html" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a>
-      <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
-      <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
-      <a href="contact.html" class="nav-active" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-    </nav>
-    <button class="lang-switch" id="langSwitch" aria-label="Switch language">EN</button>
-  </div>
+<div class="container header-inner">
+<a class="brand" href="/" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" hidden style="display:none" onload="this.hidden=false;this.style.display='block';this.nextElementSibling.hidden=true" onerror="this.hidden=true;this.style.display='none';this.nextElementSibling.hidden=false"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
+<nav id="site-nav" aria-label="Navigation principale">
+<a href="/">Accueil</a><a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact" class="nav-active">Contact</a>
+<a class="button button-small" href="contact.html">Parlons de votre projet</a>
+</nav>
+<div class="language-switcher" role="group" aria-label="Language">
+<button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+<span aria-hidden="true">|</span>
+<button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+</div>
+</div>
 </header>
 
 <!-- Main -->
@@ -131,27 +133,42 @@
 
 <!-- Footer -->
 <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="assets/images/brand/logo-primary.svg" alt="LNK Design Touch" class="footer-logo">
-      <p data-lang-fr="Design graphique & impression à Lubumbashi" data-lang-en="Graphic design & printing in Lubumbashi">Design graphique & impression à Lubumbashi</p>
-    </div>
-    <div class="footer-links">
-      <a href="index.html" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a>
-      <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
-      <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
-      <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-    </div>
-    <div class="footer-links">
-      <a href="mentions-legales.html" data-lang-fr="Mentions légales" data-lang-en="Legal notice">Mentions légales</a>
-      <a href="politique-confidentialite.html" data-lang-fr="Confidentialité" data-lang-en="Privacy">Confidentialité</a>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a class="footer-logo" href="#top" aria-label="LNK Design Touch — retour en haut">
+          <span class="footer-logo-fallback"><span>LNK</span><b>_DT</b></span>
+          <img src="assets/images/brand/logo-secondary-lights.svg" alt="LNK Design Touch" width="240" height="64" hidden
+               onload="this.hidden=false;this.previousElementSibling.hidden=true"
+               onerror="this.hidden=true;this.previousElementSibling.hidden=false">
+        </a>
+        <p class="footer-hashtag">#lnk_dt</p>
+        <p class="footer-slogan">Nous donnons vie à vos projets.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navigation secondaire">
+        <p class="footer-label">NAVIGATION</p>
+        <a href="/">Accueil</a>
+        <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
+        <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
+        <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact" class="nav-active">Contact</a>
+      </nav>
+      <div class="footer-contact">
+        <p class="footer-label">CONTACT</p>
+        <a href="mailto:contact@lnk-studio.com">contact@lnk-studio.com</a>
+      </div>
+      <div class="footer-local">
+        <p class="footer-label">LEGAL</p>
+        <a href="mentions-legales.html" data-lang-fr="Mentions légales" data-lang-en="Legal notice">Mentions légales</a>
+        <a href="politique-confidentialite.html" data-lang-fr="Confidentialité" data-lang-en="Privacy">Confidentialité</a>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; 2026 LNK Design Touch</p>
+      <p>© <span id="footer-year">2026</span> LNK Design Touch. Tous droits réservés.</p>
     </div>
   </div>
 </footer>
 
 <script src="js/contact-page.js"></script>
+<script src="js/site.bundle.b019a3badf.js?v=b019a3badf" defer></script>
 </body>
 </html>
