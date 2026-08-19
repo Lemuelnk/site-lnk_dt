@@ -91,6 +91,27 @@ ENRICHMENTS = {
         "description_en": "Latest creation from LNK Design Touch studio.",
         "badge": {"fr": "Nouvelle création", "en": "New creation"},
     },
+    "news-promo-services-digital-14.webp": {
+        "title_fr": "Services digitaux",
+        "title_en": "Digital services",
+        "description_fr": "Design graphique, développement web & mobile, marketing digital, stratégies & conseils : des solutions complètes pour booster votre image.",
+        "description_en": "Graphic design, web & mobile development, digital marketing, strategies & consulting: complete solutions to boost your image.",
+        "badge": {"fr": "Promotion", "en": "Promotion"},
+    },
+    "news-quote-discipline-15.webp": {
+        "title_fr": "Discipline is the key",
+        "title_en": "Discipline is the key",
+        "description_fr": "La discipline est la clé — même quand la motivation disparaît.",
+        "description_en": "Discipline is the key — even when motivation is gone.",
+        "badge": {"fr": "Citation", "en": "Quote"},
+    },
+    "news-quote-bon-design-16.webp": {
+        "title_fr": "Un bon design",
+        "title_en": "Good design",
+        "description_fr": "Un bon design, ce n'est pas juste beau. Il attire, il inspire confiance, il donne envie d'acheter.",
+        "description_en": "Good design isn't just beautiful. It attracts, builds trust, and makes people want to buy.",
+        "badge": {"fr": "Citation", "en": "Quote"},
+    },
     "news-promo-brand-13.webp": {
         "title_fr": "LNK Brand",
         "title_en": "LNK Brand",
