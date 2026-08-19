@@ -49,7 +49,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 }
 
 /* Asset slots — real media can be dropped into assets/images/brand and founder. */
-.brand-logo{width:clamp(150px,18vw,210px);height:auto;max-height:48px;object-fit:contain;display:block}
+.brand-logo{width:clamp(170px,20vw,250px);height:auto;max-height:56px;object-fit:contain;display:block}
 .brand-fallback{display:inline-flex;align-items:baseline;gap:.45rem;font:800 clamp(17px,2vw,22px)/1 var(--heading);color:var(--dark);letter-spacing:-.03em}
 .brand-fallback[hidden]{display:none}
 .founder-photo-wrap{width:min(100%,520px);overflow:hidden}
@@ -58,7 +58,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 
 
 /* Brand/footer/founder media slots */
-.footer-logo img{width:clamp(150px,18vw,210px);height:auto;max-height:48px;object-fit:contain;display:block}
+.footer-logo img{width:clamp(170px,20vw,250px);height:auto;max-height:56px;object-fit:contain;display:block}
 .footer-logo-fallback{display:inline-flex;align-items:baseline;gap:.15rem;font:900 clamp(42px,5vw,72px)/.8 var(--heading);letter-spacing:-.08em;color:var(--cream)}
 .footer-logo-fallback[hidden]{display:none}
 .founder-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}
