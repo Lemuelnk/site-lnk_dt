@@ -7,10 +7,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/" />
   </url>
   <url>
-    <loc>https://lnk-studio.com/brand</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/brand" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/brand?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/brand" />
+    <loc>https://lnk-studio.com/brand.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/brand.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/brand.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/brand.html" />
   </url>
   <url>
     <loc>https://lnk-studio.com/mentions-legales.html</loc>
@@ -23,5 +23,17 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/politique-confidentialite.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/politique-confidentialite-en.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/politique-confidentialite.html" />
+  </url>
+  <url>
+    <loc>https://lnk-studio.com/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/contact.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/contact.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/contact.html" />
+  </url>
+  <url>
+    <loc>https://lnk-studio.com/devis.html</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://lnk-studio.com/devis.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://lnk-studio.com/devis.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/devis.html" />
   </url>
 </urlset>

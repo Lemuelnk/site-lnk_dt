@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#001A17">
+<meta name="description" content="Estimez le coût de votre projet de design avec LNK Design Touch. Devis instantané pour affiches, branding, social media, bannières, calendriers et plus.">
+<link rel="canonical" href="https://lnk-studio.com/devis.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LNK Design Touch">
+<meta property="og:title" content="Devis — LNK Design Touch">
+<meta property="og:description" content="Estimez le coût de votre projet de design graphique à Lubumbashi. Devis instantané.">
+<meta property="og:url" content="https://lnk-studio.com/devis.html">
+<meta property="og:image" content="https://lnk-studio.com/assets/images/brand/og-image.webp">
+<meta name="twitter:card" content="summary_large_image">
+<title>Devis — LNK Design Touch</title>
+<link rel="preload" href="assets/fonts/montserrat-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/opensans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.bundle.02a2f47fcb.css">
+<link rel="stylesheet" href="css/devis.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="header-logo-link"><img src="assets/images/brand/logo-primary.svg" alt="LNK Design Touch" class="header-logo"></a>
+    <nav class="header-nav">
+      <a href="index.html" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a>
+      <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
+      <a href="devis.html" class="nav-active" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
+      <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+    </nav>
+    <button class="lang-switch" id="langSwitch" aria-label="Switch language">EN</button>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="devis-page">
+  <section class="devis-hero">
+    <div class="devis-hero-content">
+      <p class="devis-kicker" data-lang-fr="Estimateur de devis" data-lang-en="Quote estimator">Estimateur de devis</p>
+      <h1 data-lang-fr="Combien coûte votre projet ?" data-lang-en="How much does your project cost?">Combien coûte votre projet ?</h1>
+      <p data-lang-fr="Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion." data-lang-en="Select the project type and options to get an instant estimate. This is an indication; the final price will be confirmed after discussion.">Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion.</p>
+    </div>
+  </section>
+
+  <section class="devis-calculator">
+    <!-- Service selection -->
+    <div class="devis-options">
+      <h2 data-lang-fr="1. Type de projet" data-lang-en="1. Project type">1. Type de projet</h2>
+      <div class="service-grid" id="serviceGrid">
+        <button class="service-card" data-service="affiche" data-price-fr="5–25$" data-price-en="$5–25" data-desc-fr="Affiche événement, promotion ou artistique" data-desc-en="Event, promotional or artistic poster">
+          <i class="bi bi-image"></i>
+          <span class="service-name" data-lang-fr="Affiche" data-lang-en="Poster">Affiche</span>
+          <span class="service-price" data-lang-fr="5–25$" data-lang-en="$5–25">5–25$</span>
+        </button>
+        <button class="service-card" data-service="branding" data-price-fr="50–200$" data-price-en="$50–200" data-desc-fr="Logo, charte graphique, identité complète" data-desc-en="Logo, brand guide, full identity">
+          <i class="bi bi-palette"></i>
+          <span class="service-name" data-lang-fr="Branding" data-lang-en="Branding">Branding</span>
+          <span class="service-price" data-lang-fr="50–200$" data-lang-en="$50–200">50–200$</span>
+        </button>
+        <button class="service-card" data-service="social" data-price-fr="5–15$" data-price-en="$5–15" data-desc-fr="Post Instagram, Facebook, LinkedIn" data-desc-en="Instagram, Facebook, LinkedIn post">
+          <i class="bi bi-phone"></i>
+          <span class="service-name" data-lang-fr="Social Media" data-lang-en="Social Media">Social Media</span>
+          <span class="service-price" data-lang-fr="5–15$" data-lang-en="$5–15">5–15$</span>
+        </button>
+        <button class="service-card" data-service="banniere" data-price-fr="10–30$" data-price-en="$10–30" data-desc-fr="Bannière web, YouTube, publicité" data-desc-en="Web banner, YouTube, advertising">
+          <i class="bi bi-columns"></i>
+          <span class="service-name" data-lang-fr="Bannière" data-lang-en="Banner">Bannière</span>
+          <span class="service-price" data-lang-fr="10–30$" data-lang-en="$10–30">10–30$</span>
+        </button>
+        <button class="service-card" data-service="calendrier" data-price-fr="15–40$" data-price-en="$15–40" data-desc-fr="Calendrier annuel ou mensuel" data-desc-en="Annual or monthly calendar">
+          <i class="bi bi-calendar3"></i>
+          <span class="service-name" data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</span>
+          <span class="service-price" data-lang-fr="15–40$" data-lang-en="$15–40">15–40$</span>
+        </button>
+        <button class="service-card" data-service="invitation" data-price-fr="10–25$" data-price-en="$10–25" data-desc-fr="Invitation mariage, événement, corporate" data-desc-en="Wedding, event, corporate invitation">
+          <i class="bi bi-envelope-heart"></i>
+          <span class="service-name" data-lang-fr="Invitation" data-lang-en="Invitation">Invitation</span>
+          <span class="service-price" data-lang-fr="10–25$" data-lang-en="$10–25">10–25$</span>
+        </button>
+        <button class="service-card" data-service="motion" data-price-fr="30–100$" data-price-en="$30–100" data-desc-fr="Animation, motion design, vidéo courte" data-desc-en="Animation, motion design, short video">
+          <i class="bi bi-play-circle"></i>
+          <span class="service-name" data-lang-fr="Motion Design" data-lang-en="Motion Design">Motion Design</span>
+          <span class="service-price" data-lang-fr="30–100$" data-lang-en="$30–100">30–100$</span>
+        </button>
+      </div>
+
+      <!-- Quantity -->
+      <h2 data-lang-fr="2. Quantité" data-lang-en="2. Quantity">2. Quantité</h2>
+      <div class="quantity-selector">
+        <button class="qty-btn" id="qtyMinus">−</button>
+        <span class="qty-value" id="qtyValue">1</span>
+        <button class="qty-btn" id="qtyPlus">+</button>
+      </div>
+
+      <!-- Urgency -->
+      <h2 data-lang-fr="3. Délai" data-lang-en="3. Deadline">3. Délai</h2>
+      <div class="urgency-selector">
+        <button class="urgency-btn" data-urgency="normal" data-multiplier="1">
+          <span data-lang-fr="Normal (3–7 jours)" data-lang-en="Normal (3–7 days)">Normal (3–7 jours)</span>
+        </button>
+        <button class="urgency-btn" data-urgency="express" data-multiplier="1.5">
+          <span data-lang-fr="Express (24–48h)" data-lang-en="Express (24–48h)">Express (24–48h)</span>
+          <span class="urgency-badge" data-lang-fr="+50%" data-lang-en="+50%">+50%</span>
+        </button>
+      </div>
+
+      <!-- Complexity -->
+      <h2 data-lang-fr="4. Complexité" data-lang-en="4. Complexity">4. Complexité</h2>
+      <div class="complexity-selector">
+        <button class="complexity-btn" data-complexity="simple">
+          <span data-lang-fr="Simple" data-lang-en="Simple">Simple</span>
+        </button>
+        <button class="complexity-btn active" data-complexity="standard">
+          <span data-lang-fr="Standard" data-lang-en="Standard">Standard</span>
+        </button>
+        <button class="complexity-btn" data-complexity="premium">
+          <span data-lang-fr="Premium" data-lang-en="Premium">Premium</span>
+          <span class="urgency-badge" data-lang-fr="+40%" data-lang-en="+40%">+40%</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="devis-result">
+      <div class="result-card">
+        <p class="result-label" data-lang-fr="Estimation" data-lang-en="Estimate">Estimation</p>
+        <div class="result-amount">
+          <span class="result-min" id="resultMin">—</span>
+          <span class="result-separator">–</span>
+          <span class="result-max" id="resultMax">—</span>
+        </div>
+        <p class="result-note" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
+        <a href="contact.html" class="result-cta" data-lang-fr="Demander un devis précis" data-lang-en="Request a precise quote">Demander un devis précis</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/images/brand/logo-primary.svg" alt="LNK Design Touch" class="footer-logo">
+      <p data-lang-fr="Design graphique & impression à Lubumbashi" data-lang-en="Graphic design & printing in Lubumbashi">Design graphique & impression à Lubumbashi</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a>
+      <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
+      <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
+      <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+    </div>
+    <div class="footer-links">
+      <a href="mentions-legales.html" data-lang-fr="Mentions légales" data-lang-en="Legal notice">Mentions légales</a>
+      <a href="politique-confidentialite.html" data-lang-fr="Confidentialité" data-lang-en="Privacy">Confidentialité</a>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 LNK Design Touch</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/devis.js"></script>
+</body>
+</html>
