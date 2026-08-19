@@ -18,6 +18,9 @@
       historySummary: 'Avis déjà publiés et refusés (historique)',
       trashSummary: 'Corbeille — ces avis seront définitivement supprimés 30 jours après leur mise à la corbeille.',
       emptyTrash: 'La corbeille est vide.',
+      badgePublished: 'Publié',
+      badgeRejected: 'Refusé',
+      badgeDeleted: 'Corbeille',
       approve: 'Publier',
       reject: 'Refuser',
       putBack: 'Remettre en attente',
@@ -65,6 +68,9 @@
       historySummary: 'Published and rejected reviews (history)',
       trashSummary: 'Trash — these reviews will be permanently deleted 30 days after being trashed.',
       emptyTrash: 'The trash is empty.',
+      badgePublished: 'Published',
+      badgeRejected: 'Rejected',
+      badgeDeleted: 'Trashed',
       approve: 'Publish',
       reject: 'Reject',
       putBack: 'Put back to pending',
@@ -120,6 +126,15 @@
    */
   function cardMarkup(item, context) {
     const isTrashed = item.status === 'deleted';
+    // Badge de statut pour l'historique et la corbeille
+    let statusBadge = '';
+    if (context === 'history' && !isTrashed) {
+      const badgeClass = item.status === 'approved' ? 'admin-badge-approved' : 'admin-badge-rejected';
+      const badgeText = item.status === 'approved' ? str('badgePublished') : str('badgeRejected');
+      statusBadge = `<span class="admin-status-badge ${badgeClass}">${badgeText}</span>`;
+    } else if (context === 'trash') {
+      statusBadge = `<span class="admin-status-badge admin-badge-deleted">${str('badgeDeleted')}</span>`;
+    }
     let actions = '';
     if (context === 'pending') {
       actions =
@@ -139,7 +154,7 @@
     }
     return (
       `<article class="admin-item${isTrashed ? ' is-trashed' : ''}" data-id="${escapeHtml(item.id)}">` +
-      `<div class="admin-item-head"><p class="admin-item-name">${escapeHtml(item.name)}</p><p class="admin-item-org">${escapeHtml(str('noOrg')(item.organization))} · ${escapeHtml(item.project || '—')}</p><p class="admin-item-rating">${str('stars')(item.rating)} ${starsMarkup(item.rating)}</p><p class="admin-item-date">${str('date')(item.created_at)}</p></div>` +
+      `<div class="admin-item-head">${statusBadge}<p class="admin-item-name">${escapeHtml(item.name)}</p><p class="admin-item-org">${escapeHtml(str('noOrg')(item.organization))} · ${escapeHtml(item.project || '—')}</p><p class="admin-item-rating">${str('stars')(item.rating)} ${starsMarkup(item.rating)}</p><p class="admin-item-date">${str('date')(item.created_at)}</p></div>` +
       `<blockquote class="admin-item-review">${escapeHtml(item.review)}</blockquote>` +
       `<div class="admin-item-actions">${actions}</div>` +
       `</article>`
