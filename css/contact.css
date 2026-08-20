@@ -512,3 +512,69 @@
   .contact-form-section input,
   .contact-form-section textarea{min-height:48px}
 }
+
+/* === CTA replacement styles === */
+.contact-cta-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px, 5vw, 60px);
+  align-items: center;
+}
+
+.contact-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px;
+  background: var(--teal);
+  color: var(--cream);
+  font: 700 16px var(--heading);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.contact-cta-primary:hover {
+  background: #00796B;
+  transform: translateY(-2px);
+}
+
+.contact-cta-primary svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.contact-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--dark);
+  font: 600 15px var(--heading);
+  text-decoration: none;
+  border: 2px solid var(--teal);
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.contact-cta-secondary:hover {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+@media (max-width: 768px) {
+  .contact-cta-block {
+    grid-template-columns: 1fr;
+  }
+  .contact-cta-actions {
+    margin-top: 20px;
+  }
+}
