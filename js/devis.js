@@ -1,11 +1,13 @@
 // Devis — interactive quote estimator
-
 (function () {
   const html = document.documentElement;
   const saved = localStorage.getItem('lnk-lang');
   const param = new URLSearchParams(location.search).get('lang');
   const initialLang = param === 'en' ? 'en' : (saved === 'en' ? 'en' : 'fr');
   html.setAttribute('data-lang', initialLang);
+
+  // Language toggle elements (defined at top level)
+  const langOptions = document.querySelectorAll('.language-option');
 
   function applyLanguage() {
     const lang = html.getAttribute('data-lang');
@@ -18,16 +20,22 @@
         el.textContent = en ? enText : fr;
       }
     });
-    const langOptions = document.querySelectorAll('.language-option');
-    if (sw) sw.textContent = en ? 'FR' : 'EN';
+    // Update language button states
+    langOptions.forEach(btn => {
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
     updateResult();
   }
 
   applyLanguage();
+
+  // Language toggle event listeners
   langOptions.forEach(btn => {
     btn.addEventListener('click', () => {
-      langOptions.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
       html.setAttribute('data-lang', btn.getAttribute('data-lang'));
       applyLanguage();
     });
@@ -54,7 +62,6 @@
   const qtyMinus = document.getElementById('qtyMinus');
   const qtyPlus = document.getElementById('qtyPlus');
   const qtyValue = document.getElementById('qtyValue');
-
   qtyMinus?.addEventListener('click', () => {
     if (quantity > 1) { quantity--; qtyValue.textContent = quantity; updateResult(); }
   });
@@ -102,17 +109,14 @@
     const minEl = document.getElementById('resultMin');
     const maxEl = document.getElementById('resultMax');
     const en = html.getAttribute('data-lang') === 'en';
-
     if (!selectedService || !prices[selectedService]) {
       minEl.textContent = '—';
       maxEl.textContent = '—';
       return;
     }
-
     const p = prices[selectedService];
     const finalMin = Math.round(p.min * quantity * urgencyMultiplier * complexityMultiplier);
     const finalMax = Math.round(p.max * quantity * urgencyMultiplier * complexityMultiplier);
-
     if (en) {
       minEl.textContent = `$${finalMin}`;
       maxEl.textContent = `$${finalMax}`;

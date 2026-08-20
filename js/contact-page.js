@@ -1,11 +1,13 @@
 // Contact page (contact.html) — bilingual + form submission
-
 (function () {
   const html = document.documentElement;
   const saved = localStorage.getItem('lnk-lang');
   const param = new URLSearchParams(location.search).get('lang');
   const initialLang = param === 'en' ? 'en' : (saved === 'en' ? 'en' : 'fr');
   html.setAttribute('data-lang', initialLang);
+
+  // Language toggle elements (defined at top level)
+  const langOptions = document.querySelectorAll('.language-option');
 
   function applyLanguage() {
     const lang = html.getAttribute('data-lang');
@@ -18,15 +20,21 @@
         el.textContent = en ? enText : fr;
       }
     });
-    const langOptions = document.querySelectorAll('.language-option');
-    if (sw) sw.textContent = en ? 'FR' : 'EN';
+    // Update language button states
+    langOptions.forEach(btn => {
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
   }
 
   applyLanguage();
+
+  // Language toggle event listeners
   langOptions.forEach(btn => {
     btn.addEventListener('click', () => {
-      langOptions.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
       html.setAttribute('data-lang', btn.getAttribute('data-lang'));
       applyLanguage();
     });
@@ -54,7 +62,6 @@
   const form = document.getElementById('contactForm');
   const feedback = document.getElementById('contactFeedback');
   if (!form) return;
-
   form.addEventListener('submit', async e => {
     e.preventDefault();
     feedback.textContent = '';
@@ -62,14 +69,12 @@
     const email = form.querySelector('[name=email]').value.trim();
     const subject = form.querySelector('[name=subject]').value.trim();
     const message = form.querySelector('[name=message]').value.trim();
-
     if (!name || !email || !message) {
       feedback.textContent = html.getAttribute('data-lang') === 'en'
         ? 'Please fill in all required fields.'
         : 'Veuillez remplir tous les champs obligatoires.';
       return;
     }
-
     const turnstileToken = window.turnstile?.getResponse() || '';
     try {
       const res = await fetch('/api/contact', {
