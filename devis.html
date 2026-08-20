@@ -125,7 +125,14 @@
       </div>
     </div>
 
-    <!-- Result -->
+      <!-- Currency -->
+      <h2 data-lang-fr="5. Devise" data-lang-en="5. Currency">5. Devise</h2>
+      <div class="currency-selector" role="group" aria-label="Currency">
+        <button type="button" class="currency-btn active" data-currency="usd" aria-pressed="true">USD ($)</button>
+        <button type="button" class="currency-btn" data-currency="cdf" aria-pressed="false">CDF (FC)</button>
+      </div>
+
+      <!-- Result -->
     <div class="devis-result">
       <div class="result-card">
         <p class="result-label" data-lang-fr="Estimation" data-lang-en="Estimate">Estimation</p>
@@ -134,7 +141,8 @@
           <span class="result-separator">–</span>
           <span class="result-max" id="resultMax">—</span>
         </div>
-        <p class="result-note" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
+        <p class="result-note" id="resultNote" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
+        <p class="exchange-rate" id="exchangeRate" data-lang-fr="Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026" data-lang-en="Indicative rate: 1 USD = 2,265 CDF · August 20, 2026">Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026</p>
         <a href="contact.html" class="result-cta" data-lang-fr="Demander un devis précis" data-lang-en="Request a precise quote">Demander un devis précis</a>
       </div>
     </div>

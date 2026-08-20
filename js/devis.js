@@ -44,6 +44,8 @@
   let quantity = 1;
   let urgencyMultiplier = 1;
   let complexityMultiplier = 1;
+  let currency = 'usd';
+  const CDF_PER_USD = 2265;
 
   // Service selection
   const serviceCards = document.querySelectorAll('.service-card');
@@ -92,6 +94,20 @@
     });
   });
 
+  // Currency selector
+  const currencyBtns = document.querySelectorAll('.currency-btn');
+  currencyBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currency = btn.getAttribute('data-currency') === 'cdf' ? 'cdf' : 'usd';
+      currencyBtns.forEach(b => {
+        const active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      updateResult();
+    });
+  });
+
   // Price ranges per service (min, max in USD)
   const prices = {
     affiche:    { min: 5,  max: 25 },
@@ -113,15 +129,23 @@
       return;
     }
     const p = prices[selectedService];
-    const finalMin = Math.round(p.min * quantity * urgencyMultiplier * complexityMultiplier);
-    const finalMax = Math.round(p.max * quantity * urgencyMultiplier * complexityMultiplier);
-    if (en) {
-      minEl.textContent = `$${finalMin}`;
-      maxEl.textContent = `$${finalMax}`;
+    const usdMin = Math.round(p.min * quantity * urgencyMultiplier * complexityMultiplier);
+    const usdMax = Math.round(p.max * quantity * urgencyMultiplier * complexityMultiplier);
+    const noteEl = document.getElementById('resultNote');
+    const rateEl = document.getElementById('exchangeRate');
+    if (currency === 'cdf') {
+      const cdfMin = usdMin * CDF_PER_USD;
+      const cdfMax = usdMax * CDF_PER_USD;
+      const formatCdf = value => new Intl.NumberFormat(en ? 'en-US' : 'fr-FR').format(value);
+      minEl.textContent = en ? `FC ${formatCdf(cdfMin)}` : `${formatCdf(cdfMin)} FC`;
+      maxEl.textContent = en ? `FC ${formatCdf(cdfMax)}` : `${formatCdf(cdfMax)} FC`;
+      if (noteEl) noteEl.textContent = en ? 'Indicative price in CDF. Final rate confirmed after discussion.' : 'Prix indicatif en CDF. Le tarif final sera confirmé après échange.';
     } else {
-      minEl.textContent = `${finalMin}$`;
-      maxEl.textContent = `${finalMax}$`;
+      minEl.textContent = en ? `$${usdMin}` : `${usdMin}$`;
+      maxEl.textContent = en ? `$${usdMax}` : `${usdMax}$`;
+      if (noteEl) noteEl.textContent = en ? 'Indicative price in USD. Final rate confirmed after discussion.' : 'Prix indicatif en USD. Le tarif final sera confirmé après échange.';
     }
+    if (rateEl) rateEl.hidden = currency !== 'cdf';
   }
 
   // Initialize with first selection
