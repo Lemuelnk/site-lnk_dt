@@ -31,8 +31,6 @@
     updateResult();
   }
 
-  applyLanguage();
-
   // Language toggle event listeners
   langOptions.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -132,5 +130,6 @@
     selectedService = serviceCards[0].getAttribute('data-service');
     urgencyBtns[0]?.classList.add('active');
   }
+  applyLanguage();
   updateResult();
 })();
