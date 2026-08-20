@@ -4,11 +4,11 @@
   "source_archive": "LNK_Design_Touch_FORMSPREE_TESTIMONIAL_TAGGED.zip",
   "checks": {
     "index.html": true,
-    "Formspree endpoint xljrbrnk present": true,
+    "Active Formspree endpoint present": false,
     "testimonial form_type present": true,
     "Turnstile site key present": true,
     "Cloudflare legacy preserved": true,
-    "Formspree migration note present": true,
+    "Formspree migration completed": true,
     "Turnstile update note present": true
   },
   "file_count": 126
