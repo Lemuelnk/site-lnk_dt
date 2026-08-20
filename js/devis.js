@@ -18,15 +18,19 @@
         el.textContent = en ? enText : fr;
       }
     });
-    const sw = document.getElementById('langSwitch');
+    const langOptions = document.querySelectorAll('.language-option');
     if (sw) sw.textContent = en ? 'FR' : 'EN';
     updateResult();
   }
 
   applyLanguage();
-  document.getElementById('langSwitch')?.addEventListener('click', () => {
-    html.setAttribute('data-lang', html.getAttribute('data-lang') === 'fr' ? 'en' : 'fr');
-    applyLanguage();
+  langOptions.forEach(btn => {
+    btn.addEventListener('click', () => {
+      langOptions.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      html.setAttribute('data-lang', btn.getAttribute('data-lang'));
+      applyLanguage();
+    });
   });
 
   // State
