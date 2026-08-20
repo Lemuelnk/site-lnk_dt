@@ -29,10 +29,16 @@ async function migrate(db) {
     name TEXT NOT NULL,
     email TEXT NOT NULL,
     subject TEXT DEFAULT '',
+    project_type TEXT DEFAULT '',
+    budget TEXT DEFAULT '',
+    deadline TEXT DEFAULT '',
     message TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'new',
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-  )`).run().catch(() => {});
+  )  `).run().catch(() => {});
+  await db.prepare(`ALTER TABLE project_requests ADD COLUMN project_type TEXT DEFAULT ''`).run().catch(() => {});
+  await db.prepare(`ALTER TABLE project_requests ADD COLUMN budget TEXT DEFAULT ''`).run().catch(() => {});
+  await db.prepare(`ALTER TABLE project_requests ADD COLUMN deadline TEXT DEFAULT ''`).run().catch(() => {});
 }
 
 export async function onRequest(context) {
@@ -67,12 +73,15 @@ export async function onRequest(context) {
     const name = String(payload.name || '').trim();
     const email = String(payload.email || '').trim();
     const subject = String(payload.subject || '').trim();
+    const projectType = String(payload.projectType || '').trim();
+    const budget = String(payload.budget || '').trim();
+    const deadline = String(payload.deadline || '').trim();
     const message = String(payload.message || '').trim();
 
     if (!name || !email || !message) return json({ message: 'Missing fields.' }, 400);
 
     const id = crypto.randomUUID();
-    await db.prepare(`INSERT INTO project_requests (id, name, email, subject, message) VALUES (?, ?, ?, ?, ?)`).bind(id, name, email, subject, message).run();
+    await db.prepare(`INSERT INTO project_requests (id, name, email, subject, project_type, budget, deadline, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`).bind(id, name, email, subject, projectType, budget, deadline, message).run();
 
     return json({ ok: true, message: 'Message sent successfully.' });
   }

@@ -20,6 +20,12 @@
         el.textContent = en ? enText : fr;
       }
     });
+    const messageField = document.getElementById('contactMessage');
+    if (messageField) messageField.placeholder = en
+      ? messageField.getAttribute('data-placeholder-en')
+      : messageField.getAttribute('data-placeholder-fr');
+    const privacyLink = document.querySelector('[data-privacy-link]');
+    if (privacyLink) privacyLink.href = en ? 'politique-confidentialite-en.html' : 'politique-confidentialite.html';
     // Update language button states
     langOptions.forEach(btn => {
       if (btn.getAttribute('data-lang') === lang) {
@@ -68,6 +74,9 @@
     const name = form.querySelector('[name=name]').value.trim();
     const email = form.querySelector('[name=email]').value.trim();
     const subject = form.querySelector('[name=subject]').value.trim();
+    const projectType = form.querySelector('[name=projectType]').value;
+    const budget = form.querySelector('[name=budget]').value;
+    const deadline = form.querySelector('[name=deadline]').value;
     const message = form.querySelector('[name=message]').value.trim();
     if (!name || !email || !message) {
       feedback.textContent = html.getAttribute('data-lang') === 'en'
@@ -80,7 +89,7 @@
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message, 'cf-turnstile-response': turnstileToken })
+        body: JSON.stringify({ name, email, subject, projectType, budget, deadline, message, 'cf-turnstile-response': turnstileToken })
       });
       const data = await res.json();
       if (res.ok) {

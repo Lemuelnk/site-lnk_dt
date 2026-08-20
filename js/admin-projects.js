@@ -23,6 +23,8 @@
       phone: 'Téléphone',
       clientType: 'Type de client',
       projectType: 'Type de projet',
+      budget: 'Budget indicatif',
+      deadline: 'Délai souhaité',
       description: 'Description',
       all: 'Tout',
       new: 'Nouveaux',
@@ -36,6 +38,11 @@
         'calendrier': 'Calendrier',
         'invitation': 'Invitation',
         'design-production': 'Conception → Matérialisation',
+        'logo': 'Logo et identité visuelle',
+        'branding': 'Branding complet',
+        'print-design': 'Affiche et support imprimé',
+        'social-media': 'Réseaux sociaux',
+        'other': 'Autre demande',
         'autre': 'Autre'
       },
       clientTypes: {
@@ -64,6 +71,8 @@
       phone: 'Phone',
       clientType: 'Client type',
       projectType: 'Project type',
+      budget: 'Indicative budget',
+      deadline: 'Desired deadline',
       description: 'Description',
       all: 'All',
       new: 'New',
@@ -77,6 +86,11 @@
         'calendrier': 'Calendar',
         'invitation': 'Invitation',
         'design-production': 'Design → Production',
+        'logo': 'Logo and visual identity',
+        'branding': 'Full branding',
+        'print-design': 'Poster and print design',
+        'social-media': 'Social media design',
+        'other': 'Other request',
         'autre': 'Other'
       },
       clientTypes: {
@@ -169,6 +183,9 @@
       `<div class="admin-item-details">` +
       (phone !== '—' ? `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('phone')}</span><span class="admin-detail-value">${escapeHtml(phone)}</span></div>` : '') +
       `<div class="admin-item-detail-row"><span class="admin-detail-label">Email</span><span class="admin-detail-value admin-detail-value-copy">${escapeHtml(safeEmail)} <button class="admin-copy-btn" type="button" data-copy="${escapeHtml(safeEmail)}" title="${str('copyEmail')}">📋</button></span></div>` +
+      (item.project_type ? `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('projectType')}</span><span class="admin-detail-value">${escapeHtml(str('projectTypes')[String(item.project_type).toLowerCase()] || item.project_type)}</span></div>` : '') +
+      (item.budget ? `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('budget')}</span><span class="admin-detail-value">${escapeHtml(item.budget)}</span></div>` : '') +
+      (item.deadline ? `<div class="admin-item-detail-row"><span class="admin-detail-label">${str('deadline')}</span><span class="admin-detail-value">${escapeHtml(item.deadline)}</span></div>` : '') +
       `</div>` +
       (desc ? `<blockquote class="admin-item-review">${escapeHtml(desc)}</blockquote>` : '') +
       `<div class="admin-item-actions">` +

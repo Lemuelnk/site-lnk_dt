@@ -66,14 +66,46 @@
           <input type="text" id="contactSubject" name="subject" autocomplete="off">
         </div>
         <div class="form-group">
+          <label for="contactProjectType" data-lang-fr="Type de projet" data-lang-en="Project type">Type de projet</label>
+          <select id="contactProjectType" name="projectType">
+            <option value="" data-lang-fr="Sélectionner une option" data-lang-en="Select an option">Sélectionner une option</option>
+            <option value="logo" data-lang-fr="Logo et identité visuelle" data-lang-en="Logo and visual identity">Logo et identité visuelle</option>
+            <option value="branding" data-lang-fr="Branding complet" data-lang-en="Full branding">Branding complet</option>
+            <option value="print-design" data-lang-fr="Affiche et support imprimé" data-lang-en="Poster and print design">Affiche et support imprimé</option>
+            <option value="social-media" data-lang-fr="Réseaux sociaux" data-lang-en="Social media design">Réseaux sociaux</option>
+            <option value="other" data-lang-fr="Autre demande" data-lang-en="Other request">Autre demande</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contactBudget" data-lang-fr="Budget indicatif" data-lang-en="Indicative budget">Budget indicatif</label>
+          <select id="contactBudget" name="budget">
+            <option value="" data-lang-fr="À discuter" data-lang-en="To be discussed">À discuter</option>
+            <option value="under-50" data-lang-fr="Moins de 50 USD" data-lang-en="Under USD 50">Moins de 50 USD</option>
+            <option value="50-150" data-lang-fr="50 à 150 USD" data-lang-en="USD 50–150">50 à 150 USD</option>
+            <option value="150-300" data-lang-fr="150 à 300 USD" data-lang-en="USD 150–300">150 à 300 USD</option>
+            <option value="over-300" data-lang-fr="Plus de 300 USD" data-lang-en="Over USD 300">Plus de 300 USD</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contactDeadline" data-lang-fr="Délai souhaité" data-lang-en="Desired deadline">Délai souhaité</label>
+          <select id="contactDeadline" name="deadline">
+            <option value="" data-lang-fr="Pas encore défini" data-lang-en="Not defined yet">Pas encore défini</option>
+            <option value="urgent" data-lang-fr="Dès que possible" data-lang-en="As soon as possible">Dès que possible</option>
+            <option value="1-2-weeks" data-lang-fr="Dans 1 à 2 semaines" data-lang-en="Within 1–2 weeks">Dans 1 à 2 semaines</option>
+            <option value="2-4-weeks" data-lang-fr="Dans 2 à 4 semaines" data-lang-en="Within 2–4 weeks">Dans 2 à 4 semaines</option>
+            <option value="flexible" data-lang-fr="Délai flexible" data-lang-en="Flexible timeline">Délai flexible</option>
+          </select>
+        </div>
+        <div class="form-group">
           <label for="contactMessage" data-lang-fr="Message *" data-lang-en="Message *">Message *</label>
-          <textarea id="contactMessage" name="message" rows="5" required></textarea>
+          <textarea id="contactMessage" name="message" rows="5" required data-placeholder-fr="Décrivez votre projet, le support souhaité et toute contrainte importante." data-placeholder-en="Describe your project, the requested deliverable, and any important constraints." placeholder="Décrivez votre projet, le support souhaité et toute contrainte importante."></textarea>
         </div>
         <div class="turnstile-wrapper">
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAEQr5WmuslOhzvrn"></div>
         </div>
         <button type="submit" class="btn-primary btn-ripple" data-lang-fr="Envoyer" data-lang-en="Send">Envoyer</button>
         <p class="form-feedback" id="contactFeedback"></p>
+        <p class="form-privacy-note"><span data-lang-fr="Vos informations sont utilisées uniquement pour répondre à votre demande. Voir notre" data-lang-en="Your information is used only to answer your request. See our">Vos informations sont utilisées uniquement pour répondre à votre demande. Voir notre</span> <a href="politique-confidentialite.html" data-privacy-link data-lang-fr="politique de confidentialité" data-lang-en="privacy policy">politique de confidentialité</a>.</p>
       </form>
     </div>
 
