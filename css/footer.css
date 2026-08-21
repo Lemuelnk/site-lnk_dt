@@ -142,13 +142,19 @@
   .footer-brand{grid-column:1 / -1}
   .footer-local{grid-column:auto}
   .footer-socials{grid-template-columns:1fr}
-  .social-grid{grid-template-columns:repeat(3,1fr)}
+  .social-grid{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:8px !important;
+  }
 }
 @media(max-width:480px){
   .site-footer{padding-top:60px}
   .footer-main{grid-template-columns:1fr;gap:28px;padding-bottom:40px}
   .footer-brand,.footer-local{grid-column:auto}
-  .social-grid{grid-template-columns:repeat(3,1fr)}
+  .social-grid{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:8px !important;
+  }
   .footer-bottom{flex-direction:column;gap:7px}
 }
 @media(prefers-reduced-motion:reduce){
