@@ -27,6 +27,10 @@
 
   function applyOverrides() {
     catalog.forEach(pub => {
+      // Reset to original catalog state first to avoid stale featured flags
+      pub.featured = false;
+      pub.link = "";
+      
       const key = pub.file;
       if (settings[key]) {
         if (settings[key].featured) pub.featured = true;

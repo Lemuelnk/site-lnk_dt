@@ -25,9 +25,12 @@
         const { settings } = await resp.json();
         // Fusionner les settings D1 avec le catalogue
         catalog.forEach(pub => {
+          // Reset local featured flag to avoid stale state from static catalog
+          pub.featured = false;
           const key = pub.file;
           if (settings[key]) {
-            if (settings[key].featured !== undefined && settings[key].featured !== false) pub.featured = true;
+            // Check for explicit 1 or true from D1
+            if (settings[key].featured === 1 || settings[key].featured === true) pub.featured = true;
             if (settings[key].link) pub.link = settings[key].link;
           }
         });

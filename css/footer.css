@@ -148,7 +148,7 @@
   .site-footer{padding-top:60px}
   .footer-main{grid-template-columns:1fr;gap:28px;padding-bottom:40px}
   .footer-brand,.footer-local{grid-column:auto}
-  .social-grid{grid-template-columns:repeat(2,1fr)}
+  .social-grid{grid-template-columns:repeat(3,1fr)}
   .footer-bottom{flex-direction:column;gap:7px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -161,7 +161,7 @@
   .social-link{min-height:42px}
 }
 @media(max-width:420px){
-  .social-grid{grid-template-columns:repeat(2,1fr)}
+  .social-grid{grid-template-columns:repeat(3,1fr)}
   .footer-contact a,.footer-local a{min-height:42px}
 }
 

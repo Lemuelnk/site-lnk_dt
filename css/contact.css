@@ -403,18 +403,30 @@
   color:var(--dark);
 }
 .contact-form-section input,
+.contact-form-section select,
 .contact-form-section textarea{
   width:100%;
   padding:12px 14px;
   border:2px solid rgba(26,26,46,.12);
   border-radius:10px;
   background:var(--cream);
-  font:400 14px var(--body);
+  font:400 16px var(--body);
   color:var(--dark);
   box-sizing:border-box;
   transition:border-color .2s;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+}
+.contact-form-section select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23009688' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  background-size:14px;
+  padding-right:40px;
 }
 .contact-form-section input:focus,
+.contact-form-section select:focus,
 .contact-form-section textarea:focus{
   outline:none;
   border-color:var(--teal);
