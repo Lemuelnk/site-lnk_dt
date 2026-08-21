@@ -141,7 +141,7 @@
 
   // ===== INIT =====
   document.addEventListener('DOMContentLoaded', () => {
-    initPreloader();
+    // initPreloader(); // Removed to avoid blocking if element is missing
     initScrollReveal();
     initCustomCursor();
     initRipple();
