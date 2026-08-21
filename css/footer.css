@@ -110,7 +110,7 @@
   font:700 10px var(--heading);
   transition:background .2s,border-color .2s,color .2s,transform .2s;
 }
-.social-link svg{width:20px;height:20px;flex:0 0 20px;display:block}
+.social-link svg{width:20px;height:20px;flex:0 0 20px;display:block;fill:currentColor}
 .social-link:hover{
   background:rgba(0,150,136,.13);
   border-color:var(--teal);
