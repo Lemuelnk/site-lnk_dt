@@ -107,29 +107,7 @@
   .lnk-marquee-track { animation: none }
 }
 
-/* ===== 4. PRELOADER ===== */
-#lnk-preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity .5s ease, visibility .5s ease;
-}
-#lnk-preloader.lnk-preloader-done {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-.lnk-preloader-logo {
-  animation: lnk-preloader-in .8s var(--ease) both;
-}
-@keyframes lnk-preloader-in {
-  from { opacity: 0; transform: scale(.85) }
-  to { opacity: 1; transform: scale(1) }
-}
+/* ===== 4. PRELOADER REMOVED ===== */
 
 /* ===== 5. CURSOR PERSONNALISÉ ===== */
 @media (hover: hover) and (pointer: fine) {
