@@ -61,11 +61,10 @@ for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     js_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.js$', js_file).group(1)
     css_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.css$', css_file).group(1)
-    new = re.sub(r'js/site\.bundle\.[a-z0-9]+\.js\?v=[a-z0-9]+', f'js/{js_file}?v={js_digest}', text)
-    new = re.sub(r'css/site\.bundle\.[a-z0-9]+\.css\?v=[a-z0-9]+', f'css/{css_file}?v={css_digest}', new)
-    # Fallback : références non fingerprintées (y compris versions cassées comme ?v=bundle)
-    new = re.sub(r'js/site\.bundle\.js\?v=[a-z0-9]+', f'js/{js_file}?v={js_digest}', new)
-    new = re.sub(r'css/site\.bundle\.css\?v=[a-z0-9]+', f'css/{css_file}?v={css_digest}', new)
+    
+    # Remplacer n'importe quelle variante de site.bundle (avec ou sans hash, avec ou sans ?v=)
+    new = re.sub(r'js/site\.bundle(\.[a-z0-9]+)?\.js(\?v=[a-z0-9]+)?', f'js/{js_file}?v={js_digest}', text)
+    new = re.sub(r'css/site\.bundle(\.[a-z0-9]+)?\.css(\?v=[a-z0-9]+)?', f'css/{css_file}?v={css_digest}', new)
     if new != text:
         html.write_text(new, encoding='utf-8')
         print(f'HTML mis à jour: {html.name}')

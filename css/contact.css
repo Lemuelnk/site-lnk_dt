@@ -406,14 +406,14 @@
 .contact-form-section select,
 .contact-form-section textarea{
   width:100%;
-  padding:12px 14px;
-  border:2px solid rgba(26,26,46,.12);
-  border-radius:10px;
-  background:var(--cream);
+  padding:14px 16px;
+  border:2px solid rgba(0,26,23,.12);
+  border-radius:12px;
+  background:#fffdf8;
   font:400 16px var(--body);
   color:var(--dark);
   box-sizing:border-box;
-  transition:border-color .2s;
+  transition:all .2s ease;
   -webkit-appearance:none;
   -moz-appearance:none;
   appearance:none;
