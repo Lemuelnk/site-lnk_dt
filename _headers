@@ -60,16 +60,16 @@
   X-Robots-Tag: noindex, nofollow
 
 /css/contact.css
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  CDN-Cache-Control: public, max-age=3600
 /css/devis.css
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  CDN-Cache-Control: public, max-age=3600
 /js/contact-page.js
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  CDN-Cache-Control: public, max-age=3600
 /js/devis.js
-  Cache-Control: public, max-age=300, must-revalidate
-  CDN-Cache-Control: public, max-age=300
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  CDN-Cache-Control: public, max-age=3600
 /api/csp-report
   X-Robots-Tag: noindex, nofollow
