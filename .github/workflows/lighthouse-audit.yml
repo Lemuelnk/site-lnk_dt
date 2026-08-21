@@ -1,0 +1,21 @@
+name: Daily Lighthouse Audit
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Tous les jours à minuit
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Lighthouse audit
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            https://lnk-studio.com/
+            https://lnk-studio.com/brand.html
+            https://lnk-studio.com/contact.html
+          uploadArtifacts: true # Enregistre les rapports détaillés
+          temporaryPublicStorage: true # Permet de voir le rapport en ligne
