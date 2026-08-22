@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#001A17">
+<meta name="description" content="Étude de cas détaillée d'un projet réalisé par LNK Design Touch.">
+<title>Étude de cas — LNK Design Touch</title>
+<link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.bundle.92de04d2e0.css?v=92de04d2e0">
+<style>
+  .study-hero { background: var(--dark); color: var(--cream); padding: clamp(100px, 15vh, 180px) 0 80px; }
+  .study-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 32px; margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,249,240,0.1); }
+  .study-meta-item strong { display: block; font: 800 11px var(--heading); text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 8px; }
+  .study-meta-item span { font-size: 18px; font-weight: 600; }
+  .study-content { padding: 100px 0; }
+  .study-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  @media (max-width: 820px) { .study-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .study-section h2 { font: 900 32px var(--heading); margin-bottom: 24px; color: var(--teal); }
+  .study-section p { font-size: 18px; opacity: 0.85; }
+  .study-gallery { margin-top: 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .study-gallery img { width: 100%; border-radius: 8px; border: 1px solid rgba(0,26,23,0.1); }
+  .study-gallery img.full { grid-column: 1 / -1; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font: 800 13px var(--heading); text-decoration: none; color: var(--teal); margin-bottom: 32px; transition: transform 0.2s ease; }
+  .back-link:hover { transform: translateX(-5px); }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
+    <nav id="site-nav">
+      <a href="/">Accueil</a>
+      <a href="brand.html">Identité</a>
+      <a href="devis.html">Devis</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="language-switcher">
+      <button class="language-option is-active" data-lang="fr">FR</button>
+      <button class="language-option" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="study-root">
+  <section class="study-hero">
+    <div class="container">
+      <a href="/#portfolio" class="back-link">← <span data-lang-fr="Retour au portfolio" data-lang-en="Back to portfolio">Retour au portfolio</span></a>
+      <h1 id="study-title" style="font: 900 clamp(40px, 6vw, 80px) var(--heading); margin: 0; line-height: 1.1;">Chargement...</h1>
+      <div class="study-meta">
+        <div class="study-meta-item">
+          <strong data-lang-fr="Client" data-lang-en="Client">Client</strong>
+          <span id="study-client">—</span>
+        </div>
+        <div class="study-meta-item">
+          <strong data-lang-fr="Catégorie" data-lang-en="Category">Catégorie</strong>
+          <span id="study-category">—</span>
+        </div>
+        <div class="study-meta-item">
+          <strong data-lang-fr="Année" data-lang-en="Year">Année</strong>
+          <span id="study-year">—</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="study-content">
+    <div class="container">
+      <div class="study-grid">
+        <div class="study-section">
+          <h2 data-lang-fr="Le Défi" data-lang-en="The Challenge">Le Défi</h2>
+          <p id="study-challenge"></p>
+        </div>
+        <div class="study-section">
+          <h2 data-lang-fr="La Solution" data-lang-en="The Solution">La Solution</h2>
+          <p id="study-solution"></p>
+        </div>
+      </div>
+      <div id="study-gallery" class="study-gallery"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  (async function() {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    if (!id) { location.href = '/'; return; }
+
+    try {
+      const res = await fetch('data/case-studies.json');
+      const data = await res.json();
+      const study = data.studies.find(s => s.id === id);
+      if (!study) { location.href = '/'; return; }
+
+      const lang = document.documentElement.lang || 'fr';
+      
+      document.title = `${study.project_title} — LNK Design Touch`;
+      document.getElementById('study-title').textContent = study.project_title;
+      document.getElementById('study-client').textContent = study.client;
+      document.getElementById('study-category').textContent = study.category;
+      document.getElementById('study-year').textContent = study.year;
+      document.getElementById('study-challenge').textContent = lang === 'en' ? study.challenge_en : study.challenge_fr;
+      document.getElementById('study-solution').textContent = lang === 'en' ? study.solution_en : study.solution_fr;
+
+      const gallery = document.getElementById('study-gallery');
+      study.gallery.forEach((img, idx) => {
+        const el = document.createElement('img');
+        el.src = img;
+        if (idx === 0) el.className = 'full';
+        gallery.appendChild(el);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  })();
+</script>
+</body>
+</html>

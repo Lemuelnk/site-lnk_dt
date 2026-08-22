@@ -1,0 +1,19 @@
+{
+  "studies": [
+    {
+      "id": "mtj-branding",
+      "project_title": "Mahombi Ne Tombera Jamais (MTJ)",
+      "category": "branding",
+      "client": "M.T.J Organization",
+      "year": "2024",
+      "challenge_fr": "Créer une identité visuelle forte pour un mouvement spirituel, capable de transmettre à la fois la force de la prière et une modernité visuelle pour toucher une audience large.",
+      "challenge_en": "Create a strong visual identity for a spiritual movement, capable of conveying both the strength of prayer and a visual modernity to reach a wide audience.",
+      "solution_fr": "Nous avons opté pour un design circulaire symbolisant l'unité et la protection, avec une silhouette en prière intégrée de manière minimaliste. La palette noir, blanc et jaune assure un contraste maximal et une lisibilité immédiate sur tous supports.",
+      "solution_en": "We opted for a circular design symbolizing unity and protection, with a prayer silhouette integrated in a minimalist way. The black, white, and yellow palette ensures maximum contrast and immediate readability on all media.",
+      "main_image": "assets/images/portfolio/branding/branding-logo-mtj-mahombi-ne-tombera-jamais-01.webp",
+      "gallery": [
+        "assets/images/portfolio/branding/branding-logo-mtj-mahombi-ne-tombera-jamais-01.webp"
+      ]
+    }
+  ]
+}

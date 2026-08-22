@@ -5,7 +5,7 @@
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Report-To: {"group":"csp-endpoint","max_age":604800,"endpoints":[{"url":"https://lnk-studio.com/api/csp-report"}]}
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://static.cloudflareinsights.com 'sha256-f9odbLMr47uZC5qxGOkh0Q2KZb8Q/DITKg754nC/t+I=' 'sha256-GNWl/wxcttlZEQD78hRv2efB8cZOvgEwK/8KkMTA8dU=' 'sha256-n+3JHVnyt50JZ6vKcT4eWU/kfMlE2Z81jSA1NDxLPPc=' 'sha256-q1d6NYWTr+HiEweYy0OT3qJpCPNU5kGvPiftvUkWqws=' 'sha256-yI+BQJmzxNkXDoB1YGLcBuOmciZfP9Ik13cB6Snyseg='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://static.cloudflareinsights.com 'sha256-f9odbLMr47uZC5qxGOkh0Q2KZb8Q/DITKg754nC/t+I=' 'sha256-GNWl/wxcttlZEQD78hRv2efB8cZOvgEwK/8KkMTA8dU=' 'sha256-n+3JHVnyt50JZ6vKcT4eWU/kfMlE2Z81jSA1NDxLPPc=' 'sha256-q1d6NYWTr+HiEweYy0OT3qJpCPNU5kGvPiftvUkWqws=' 'sha256-yI+BQJmzxNkXDoB1YGLcBuOmciZfP9Ik13cB6Snyseg=' 'sha256-aZQyqJXZljwt1NWSdT9x5HSUE0mQ91bbDenCOrAe6Rk='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
   NEL: {"report_to":"csp-endpoint","success_fraction":0,"max_age":604800}
 
 /
@@ -73,3 +73,6 @@
   CDN-Cache-Control: public, max-age=3600
 /api/csp-report
   X-Robots-Tag: noindex, nofollow
+/case-study.html
+  Cache-Control: public, max-age=300, must-revalidate
+  CDN-Cache-Control: public, max-age=300
