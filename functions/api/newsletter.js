@@ -20,22 +20,50 @@ export async function onRequest(context) {
       const payload = await request.json();
       const email = String(payload.email || '').trim().toLowerCase();
       
+      const turnstileToken = payload['cf-turnstile-response'];
+      const ip = request.headers.get('CF-Connecting-IP');
+      
+      // Simple verification helper inline to avoid dependency
+      if (turnstileToken && env.TURNSTILE_SECRET) {
+        const formData = new FormData();
+        formData.append('secret', env.TURNSTILE_SECRET);
+        formData.append('response', turnstileToken);
+        formData.append('remoteip', ip);
+        const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body: formData });
+        const outcome = await verify.json();
+        if (!outcome.success) return json({ message: 'Spam protection failed.' }, 403);
+      }
+
       if (!email || !email.includes('@')) {
-        return json({ message: 'Email invalide.' }, 400);
+        return json({ 
+          fr: 'Email invalide.', 
+          en: 'Invalid email.' 
+        }, 400);
       }
 
       const id = crypto.randomUUID();
       try {
         await db.prepare(`INSERT INTO newsletter_subscribers (id, email) VALUES (?, ?)`).bind(id, email).run();
-        return json({ ok: true, message: 'Inscription réussie !' });
+        return json({ 
+          ok: true, 
+          fr: 'Inscription réussie !', 
+          en: 'Subscription successful!' 
+        });
       } catch (err) {
         if (err.message.includes('UNIQUE')) {
-          return json({ ok: true, message: 'Déjà inscrit !' });
+          return json({ 
+            ok: true, 
+            fr: 'Déjà inscrit !', 
+            en: 'Already subscribed!' 
+          });
         }
         throw err;
       }
     } catch (e) {
-      return json({ message: 'Erreur lors de l\'inscription.' }, 500);
+      return json({ 
+        fr: 'Erreur lors de l\'inscription.', 
+        en: 'Error during subscription.' 
+      }, 500);
     }
   }
 

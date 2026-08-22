@@ -18,6 +18,7 @@
 
     if (!email) return;
 
+    const lang = document.documentElement.lang || 'fr';
     btn.disabled = true;
     msg.textContent = '...';
     msg.className = 'newsletter-msg';
@@ -31,15 +32,15 @@
       const data = await res.json();
 
       if (data.ok) {
-        msg.textContent = data.message;
+        msg.textContent = data[lang] || data.fr;
         msg.className = 'newsletter-msg success';
         input.value = '';
       } else {
-        msg.textContent = data.message || 'Erreur';
+        msg.textContent = data[lang] || data.fr || (lang === 'fr' ? 'Erreur' : 'Error');
         msg.className = 'newsletter-msg error';
       }
     } catch (err) {
-      msg.textContent = 'Erreur de connexion.';
+      msg.textContent = lang === 'fr' ? 'Erreur de connexion.' : 'Connection error.';
       msg.className = 'newsletter-msg error';
     } finally {
       btn.disabled = false;
