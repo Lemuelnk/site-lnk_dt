@@ -114,17 +114,26 @@
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
 
+    const isVideo = project.image.match(/\.(mp4|webm|ogg|mov)$|vimeo|youtube/i);
+
     const image = document.createElement('img');
     image.className = 'portfolio-image';
-    image.src = project.image;
+    image.src = project.thumbnail || project.image;
     image.alt = project.alt || project.title || `${category.label} — réalisation ${position}`;
     image.loading = 'lazy';
     visual.appendChild(image);
 
+    if (isVideo) {
+      const playBadge = document.createElement('div');
+      playBadge.className = 'portfolio-video-badge';
+      playBadge.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+      visual.appendChild(playBadge);
+    }
+
     // Overlay hover
     const overlay = document.createElement('div');
     overlay.className = 'portfolio-overlay';
-    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>`;
+    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon">${isVideo ? '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>'}</span>`;
     visual.appendChild(overlay);
 
     const meta = document.createElement('div');
@@ -452,11 +461,30 @@
 
     const media = dialog.querySelector('[data-media]');
     media.innerHTML = '';
-    const image = document.createElement('img');
-    image.className = 'portfolio-lightbox-image';
-    image.src = item.image;
-    image.alt = item.alt || title;
-    media.appendChild(image);
+    
+    const isVideo = item.image.match(/\.(mp4|webm|ogg|mov)$/i);
+    
+    if (isVideo) {
+      const video = document.createElement('video');
+      video.className = 'portfolio-lightbox-video';
+      video.src = item.image;
+      video.controls = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = false;
+      video.playsInline = true;
+      media.appendChild(video);
+      // Disable zoom for video
+      dialog.querySelectorAll('[data-action^="zoom"]').forEach(b => b.disabled = true);
+    } else {
+      const image = document.createElement('img');
+      image.className = 'portfolio-lightbox-image';
+      image.src = item.image;
+      image.alt = item.alt || title;
+      media.appendChild(image);
+      // Enable zoom for image
+      dialog.querySelectorAll('[data-action^="zoom"]').forEach(b => b.disabled = false);
+    }
 
     dialog.querySelector('[data-action="prev"]').hidden = lightboxItems.length < 2;
     dialog.querySelector('[data-action="next"]').hidden = lightboxItems.length < 2;

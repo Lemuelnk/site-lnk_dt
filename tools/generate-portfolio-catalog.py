@@ -19,7 +19,7 @@ CATEGORIES = [
     {"id": "calendriers", "label": "Calendriers", "visual": "sample", "variant": "dark", "folder": "calendriers"},
     {"id": "plus", "label": "Et plus encore", "visual": "sample", "variant": "coral", "folder": "et-plus-encore"},
 ]
-EXTENSIONS = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".webp"}
+EXTENSIONS = {".avif", ".gif", ".jpeg", ".jpg", ".png", ".webp", ".mp4", ".webm", ".mov"}
 
 
 def humanize(stem: str) -> str:
@@ -46,12 +46,21 @@ def main() -> None:
             old = previous.get(image, {})
             title = old.get("title") or humanize(path.stem)
             alt = old.get("alt") or f"Réalisation {category['label']} — {title}"
+            is_video = path.suffix.lower() in {".mp4", ".webm", ".mov"}
             project = {
                 "category": category["id"],
                 "title": title,
                 "image": image,
                 "alt": alt,
+                "mediaType": "video" if is_video else "image"
             }
+            if is_video:
+                # Chercher une miniature : même nom + .thumb.webp ou .thumb.jpg
+                for thumb_ext in [".thumb.webp", ".thumb.jpg", ".thumb.png"]:
+                    thumb_path = path.with_name(path.stem + thumb_ext)
+                    if thumb_path.exists():
+                        project["thumbnail"] = f"assets/images/portfolio/{category['folder']}/{thumb_path.name}"
+                        break
             for desc_field in ("description_fr", "description_en"):
                 if old.get(desc_field):
                     project[desc_field] = old[desc_field]
