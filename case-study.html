@@ -29,12 +29,12 @@
 <body>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
-    <nav id="site-nav">
-      <a href="/">Accueil</a>
-      <a href="brand.html">Identité</a>
-      <a href="devis.html">Devis</a>
-      <a href="contact.html">Contact</a>
+    <a class="brand" href="/" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" hidden style="display:none"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
+    <nav id="site-nav" aria-label="Navigation principale">
+      <a href="/" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a>
+      <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
+      <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
+      <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
     </nav>
     <div class="language-switcher">
       <button class="language-option is-active" data-lang="fr">FR</button>
@@ -88,24 +88,64 @@
     const id = params.get('id');
     if (!id) { location.href = '/'; return; }
 
+    let currentStudy = null;
+
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.documentElement.dataset.lang = lang;
+      localStorage.setItem('lnk-lang', lang);
+
+      // Update switcher UI
+      document.querySelectorAll('.language-option').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.lang === lang);
+      });
+
+      // Update text nodes
+      document.querySelectorAll('[data-lang-fr]').forEach(el => {
+        el.textContent = lang === 'en' ? el.dataset.langEn : el.dataset.langFr;
+      });
+
+      // Update study content if loaded
+      if (currentStudy) {
+        document.getElementById('study-challenge').textContent = lang === 'en' ? currentStudy.challenge_en : currentStudy.challenge_fr;
+        document.getElementById('study-solution').textContent = lang === 'en' ? currentStudy.solution_en : currentStudy.solution_fr;
+      }
+    }
+
+    // Language switcher events
+    document.querySelectorAll('.language-option').forEach(btn => {
+      btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+
+    // Init language
+    const savedLang = localStorage.getItem('lnk-lang') || 'fr';
+    applyLanguage(savedLang);
+
+    // Unhide logo when loaded
+    document.querySelectorAll('.brand-logo').forEach(img => {
+      if (img.complete) { img.hidden = false; img.style.display = 'block'; }
+      else { img.onload = () => { img.hidden = false; img.style.display = 'block'; }; }
+    });
+
     try {
       const res = await fetch('data/case-studies.json');
       const data = await res.json();
-      const study = data.studies.find(s => s.id === id);
-      if (!study) { location.href = '/'; return; }
+      currentStudy = data.studies.find(s => s.id === id);
+      if (!currentStudy) { location.href = '/'; return; }
 
-      const lang = document.documentElement.lang || 'fr';
+      document.title = `${currentStudy.project_title} — LNK Design Touch`;
+      document.getElementById('study-title').textContent = currentStudy.project_title;
+      document.getElementById('study-client').textContent = currentStudy.client;
+      document.getElementById('study-category').textContent = currentStudy.category;
+      document.getElementById('study-year').textContent = currentStudy.year;
       
-      document.title = `${study.project_title} — LNK Design Touch`;
-      document.getElementById('study-title').textContent = study.project_title;
-      document.getElementById('study-client').textContent = study.client;
-      document.getElementById('study-category').textContent = study.category;
-      document.getElementById('study-year').textContent = study.year;
-      document.getElementById('study-challenge').textContent = lang === 'en' ? study.challenge_en : study.challenge_fr;
-      document.getElementById('study-solution').textContent = lang === 'en' ? study.solution_en : study.solution_fr;
+      // Initial render of bilingal content
+      const lang = document.documentElement.lang;
+      document.getElementById('study-challenge').textContent = lang === 'en' ? currentStudy.challenge_en : currentStudy.challenge_fr;
+      document.getElementById('study-solution').textContent = lang === 'en' ? currentStudy.solution_en : currentStudy.solution_fr;
 
       const gallery = document.getElementById('study-gallery');
-      study.gallery.forEach((img, idx) => {
+      currentStudy.gallery.forEach((img, idx) => {
         const el = document.createElement('img');
         el.src = img;
         if (idx === 0) el.className = 'full';

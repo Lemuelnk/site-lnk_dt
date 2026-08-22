@@ -209,9 +209,10 @@
         <div class="portfolio-lightbox-topbar">
           <div>
             <p class="portfolio-lightbox-kicker" id="portfolio-lightbox-category"></p>
-            <h3 id="portfolio-lightbox-title"></h3>
-            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
-          </div>
+	            <h3 id="portfolio-lightbox-title"></h3>
+	            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
+	            <a id="portfolio-case-study-cta" href="#" class="button button-small" style="margin-top:16px; display:none;" data-lang-fr="Découvrir le projet →" data-lang-en="Discover the project →">Découvrir le projet →</a>
+	          </div>
           <div class="portfolio-lightbox-actions">
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire">−</button>
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-reset" aria-label="Réinitialiser le zoom">100%</button>
@@ -428,6 +429,25 @@
     const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');
     descriptionElement.textContent = description;
     descriptionElement.hidden = !description.trim();
+
+    // Check for case study link
+    const cta = dialog.querySelector('#portfolio-case-study-cta');
+    if (cta) {
+      // Mapping for case studies (this can be expanded as needed)
+      const studyMap = {
+        "Logo M.T.J — Mahombi Ne Tombera Jamais": "mtj-branding"
+      };
+      const studyId = studyMap[item.title];
+      if (studyId) {
+        cta.href = `case-study.html?id=${studyId}`;
+        cta.hidden = false;
+        cta.style.display = 'inline-flex';
+      } else {
+        cta.hidden = true;
+        cta.style.display = 'none';
+      }
+    }
+
     dialog.querySelector('[data-counter]').textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
 
     const media = dialog.querySelector('[data-media]');
