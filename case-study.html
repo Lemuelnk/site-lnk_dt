@@ -121,10 +121,18 @@
     const savedLang = localStorage.getItem('lnk-lang') || 'fr';
     applyLanguage(savedLang);
 
-    // Unhide logo when loaded
+    // Unhide logo and hide fallback when loaded
     document.querySelectorAll('.brand-logo').forEach(img => {
-      if (img.complete) { img.hidden = false; img.style.display = 'block'; }
-      else { img.onload = () => { img.hidden = false; img.style.display = 'block'; }; }
+      const fallback = img.nextElementSibling;
+      const hideFallback = () => {
+        img.hidden = false;
+        img.style.display = 'block';
+        if (fallback && fallback.classList.contains('brand-fallback')) {
+          fallback.style.display = 'none';
+        }
+      };
+      if (img.complete) hideFallback();
+      else img.onload = hideFallback;
     });
 
     try {
