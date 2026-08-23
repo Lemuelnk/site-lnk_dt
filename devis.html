@@ -1,198 +1,235 @@
 <!doctype html>
 <html lang="fr" data-lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#001A17">
-<meta name="description" content="Estimez le coût de votre projet de design avec LNK Design Touch. Devis instantané pour affiches, branding, social media, bannières, calendriers et plus.">
-<link rel="canonical" href="https://lnk-studio.com/devis.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="LNK Design Touch">
-<meta property="og:title" content="Devis — LNK Design Touch">
-<meta property="og:description" content="Estimez le coût de votre projet de design graphique à Lubumbashi. Devis instantané.">
-<meta property="og:url" content="https://lnk-studio.com/devis.html">
-<meta property="og:image" content="https://lnk-studio.com/assets/images/brand/og-image.webp">
-<meta name="twitter:card" content="summary_large_image">
-<title>Devis — LNK Design Touch</title>
-	<!-- Google Analytics (GA4) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-Y0SJEQV91D');
-	</script>
-<link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.bundle.92de04d2e0.css?v=92de04d2e0">
-<link rel="stylesheet" href="css/devis.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#001A17">
+  <meta name="description" content="Estimez le coût de votre projet de design avec LNK Design Touch. Devis instantané pour affiches, branding, social media, bannières, calendriers et plus.">
+  <link rel="canonical" href="https://lnk-studio.com/devis.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LNK Design Touch">
+  <meta property="og:title" content="Devis — LNK Design Touch">
+  <meta property="og:description" content="Estimez le coût de votre projet de design graphique à Lubumbashi. Devis instantané.">
+  <meta property="og:url" content="https://lnk-studio.com/devis.html">
+  <meta property="og:image" content="https://lnk-studio.com/assets/images/brand/og-image.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Devis — LNK Design Touch</title>
+  
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Y0SJEQV91D');
+  </script>
+
+  <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.bundle.92de04d2e0.css?v=92de04d2e0">
+  <link rel="stylesheet" href="css/devis.css">
+  <style>
+    .brand-logo { display: block; }
+    .brand-fallback { display: none !important; }
+    
+    /* Correction alignement Devis Point 5 */
+    .devis-calculator {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .devis-calculator { grid-template-columns: 1fr; }
+    }
+    
+    /* Harmonisation Header */
+    .site-header { position: sticky; top: 0; z-index: 1000; background: #fff; border-bottom: 1px solid #eee; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+  </style>
 </head>
-<body>
-<!-- Header -->
-<header class="site-header">
-<div class="container header-inner">
-<a class="brand" href="/" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" hidden style="display:none"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
-<nav id="site-nav" aria-label="Navigation principale">
-<a href="/">Accueil</a><a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote" class="nav-active">Devis</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-<a class="button button-small" href="contact.html">Parlons de votre projet</a>
-</nav>
-<div class="language-switcher" role="group" aria-label="Language">
-<button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
-<span aria-hidden="true">|</span>
-<button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
-</div>
-</div>
-</header>
+<body id="top">
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="LNK Design Touch — accueil">
+        <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="200" height="54">
+      </a>
+      
+      <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="site-nav">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>
+      </button>
 
-<!-- Main -->
-<main class="devis-page">
-  <section class="devis-hero">
-    <div class="devis-hero-content">
-      <p class="devis-kicker" data-lang-fr="Estimateur de devis" data-lang-en="Quote estimator">Estimateur de devis</p>
-      <h1 data-lang-fr="Combien coûte votre projet ?" data-lang-en="How much does your project cost?">Combien coûte votre projet ?</h1>
-      <p data-lang-fr="Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion." data-lang-en="Select the project type and options to get an instant estimate. This is an indication; the final price will be confirmed after discussion.">Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion.</p>
-    </div>
-  </section>
-
-  <section class="devis-calculator">
-    <!-- Service selection -->
-    <div class="devis-options">
-      <h2 data-lang-fr="1. Type de projet" data-lang-en="1. Project type">1. Type de projet</h2>
-      <div class="service-grid" id="serviceGrid">
-        <button class="service-card" data-service="affiche" data-price-fr="5–25$" data-price-en="$5–25" data-desc-fr="Affiche événement, promotion ou artistique" data-desc-en="Event, promotional or artistic poster">
-          <svg class="bi bi-image" aria-hidden="true"><use xlink:href="#bi-image"></use></svg>
-          <span class="service-name" data-lang-fr="Affiche" data-lang-en="Poster">Affiche</span>
-          <span class="service-price" data-lang-fr="5–25$" data-lang-en="$5–25">5–25$</span>
-        </button>
-        <button class="service-card" data-service="branding" data-price-fr="50–200$" data-price-en="$50–200" data-desc-fr="Logo, charte graphique, identité complète" data-desc-en="Logo, brand guide, full identity">
-          <svg class="bi bi-palette" aria-hidden="true"><use xlink:href="#bi-palette"></use></svg>
-          <span class="service-name" data-lang-fr="Branding" data-lang-en="Branding">Branding</span>
-          <span class="service-price" data-lang-fr="50–200$" data-lang-en="$50–200">50–200$</span>
-        </button>
-        <button class="service-card" data-service="social" data-price-fr="5–15$" data-price-en="$5–15" data-desc-fr="Post Instagram, Facebook, LinkedIn" data-desc-en="Instagram, Facebook, LinkedIn post">
-          <svg class="bi bi-phone" aria-hidden="true"><use xlink:href="#bi-phone"></use></svg>
-          <span class="service-name" data-lang-fr="Social Media" data-lang-en="Social Media">Social Media</span>
-          <span class="service-price" data-lang-fr="5–15$" data-lang-en="$5–15">5–15$</span>
-        </button>
-        <button class="service-card" data-service="banniere" data-price-fr="10–30$" data-price-en="$10–30" data-desc-fr="Bannière web, YouTube, publicité" data-desc-en="Web banner, YouTube, advertising">
-          <svg class="bi bi-columns" aria-hidden="true"><use xlink:href="#bi-columns"></use></svg>
-          <span class="service-name" data-lang-fr="Bannière" data-lang-en="Banner">Bannière</span>
-          <span class="service-price" data-lang-fr="10–30$" data-lang-en="$10–30">10–30$</span>
-        </button>
-        <button class="service-card" data-service="calendrier" data-price-fr="15–40$" data-price-en="$15–40" data-desc-fr="Calendrier annuel ou mensuel" data-desc-en="Annual or monthly calendar">
-          <svg class="bi bi-calendar3" aria-hidden="true"><use xlink:href="#bi-calendar3"></use></svg>
-          <span class="service-name" data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</span>
-          <span class="service-price" data-lang-fr="15–40$" data-lang-en="$15–40">15–40$</span>
-        </button>
-        <button class="service-card" data-service="invitation" data-price-fr="10–25$" data-price-en="$10–25" data-desc-fr="Invitation mariage, événement, corporate" data-desc-en="Wedding, event, corporate invitation">
-          <svg class="bi bi-envelope-heart" aria-hidden="true"><use xlink:href="#bi-envelope-heart"></use></svg>
-          <span class="service-name" data-lang-fr="Invitation" data-lang-en="Invitation">Invitation</span>
-          <span class="service-price" data-lang-fr="10–25$" data-lang-en="$10–25">10–25$</span>
-        </button>
-        <button class="service-card" data-service="motion" data-price-fr="30–100$" data-price-en="$30–100" data-desc-fr="Animation, motion design, vidéo courte" data-desc-en="Animation, motion design, short video">
-          <svg class="bi bi-play-circle" aria-hidden="true"><use xlink:href="#bi-play-circle"></use></svg>
-          <span class="service-name" data-lang-fr="Motion Design" data-lang-en="Motion Design">Motion Design</span>
-          <span class="service-price" data-lang-fr="30–100$" data-lang-en="$30–100">30–100$</span>
-        </button>
-      </div>
-
-      <!-- Quantity -->
-      <h2 data-lang-fr="2. Quantité" data-lang-en="2. Quantity">2. Quantité</h2>
-      <div class="quantity-selector">
-        <button class="qty-btn" id="qtyMinus">−</button>
-        <span class="qty-value" id="qtyValue">1</span>
-        <button class="qty-btn" id="qtyPlus">+</button>
-      </div>
-
-      <!-- Urgency -->
-      <h2 data-lang-fr="3. Délai" data-lang-en="3. Deadline">3. Délai</h2>
-      <div class="urgency-selector">
-        <button class="urgency-btn" data-urgency="normal" data-multiplier="1">
-          <span data-lang-fr="Normal (3–7 jours)" data-lang-en="Normal (3–7 days)">Normal (3–7 jours)</span>
-        </button>
-        <button class="urgency-btn" data-urgency="express" data-multiplier="1.5">
-          <span data-lang-fr="Express (24–48h)" data-lang-en="Express (24–48h)">Express (24–48h)</span>
-          <span class="urgency-badge" data-lang-fr="+50%" data-lang-en="+50%">+50%</span>
-        </button>
-      </div>
-
-      <!-- Complexity -->
-      <h2 data-lang-fr="4. Complexité" data-lang-en="4. Complexity">4. Complexité</h2>
-      <div class="complexity-selector">
-        <button class="complexity-btn" data-complexity="simple">
-          <span data-lang-fr="Simple" data-lang-en="Simple">Simple</span>
-        </button>
-        <button class="complexity-btn active" data-complexity="standard">
-          <span data-lang-fr="Standard" data-lang-en="Standard">Standard</span>
-        </button>
-        <button class="complexity-btn" data-complexity="premium">
-          <span data-lang-fr="Premium" data-lang-en="Premium">Premium</span>
-          <span class="urgency-badge" data-lang-fr="+40%" data-lang-en="+40%">+40%</span>
-        </button>
-      </div>
-    </div>
-
-      <!-- Currency -->
-      <h2 data-lang-fr="5. Devise" data-lang-en="5. Currency">5. Devise</h2>
-      <div class="currency-selector" role="group" aria-label="Currency">
-        <button type="button" class="currency-btn active" data-currency="usd" aria-pressed="true">USD ($)</button>
-        <button type="button" class="currency-btn" data-currency="cdf" aria-pressed="false">CDF (FC)</button>
-      </div>
-
-      <!-- Result -->
-    <div class="devis-result">
-      <div class="result-card">
-        <p class="result-label" data-lang-fr="Estimation" data-lang-en="Estimate">Estimation</p>
-        <div class="result-amount">
-          <span class="result-min" id="resultMin">—</span>
-          <span class="result-separator">–</span>
-          <span class="result-max" id="resultMax">—</span>
-        </div>
-        <p class="result-note" id="resultNote" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
-        <p class="exchange-rate" id="exchangeRate" data-lang-fr="Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026" data-lang-en="Indicative rate: 1 USD = 2,265 CDF · August 20, 2026">Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026</p>
-        <a href="contact.html" class="result-cta" data-lang-fr="Demander un devis précis" data-lang-en="Request a precise quote">Demander un devis précis</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <a class="footer-logo" href="#top" aria-label="LNK Design Touch — retour en haut">
-          <span class="footer-logo-fallback"><span>LNK</span><b>_DT</b></span>
-          <img src="assets/images/brand/logo-secondary-lights.svg" alt="LNK Design Touch" width="240" height="64" hidden>
-        </a>
-        <p class="footer-hashtag">#lnk_dt</p>
-        <p class="footer-slogan">Nous donnons vie à vos projets.</p>
-      </div>
-      <nav class="footer-nav" aria-label="Navigation secondaire">
-        <p class="footer-label">NAVIGATION</p>
-        <a href="/">Accueil</a>
+      <nav id="site-nav" aria-label="Navigation principale">
+        <a href="/#portfolio" data-lang-fr="Portfolio" data-lang-en="Work">Portfolio</a>
+        <a href="/#services" data-lang-fr="Services" data-lang-en="Services">Services</a>
         <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
         <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote" class="nav-active">Devis</a>
         <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+        <a class="button button-small" href="contact.html" data-lang-fr="Parlons de votre projet" data-lang-en="Let's talk">Parlons de votre projet</a>
       </nav>
-      <div class="footer-contact">
-        <p class="footer-label">CONTACT</p>
-        <a href="mailto:contact@lnk-studio.com">contact@lnk-studio.com</a>
-      </div>
-      <div class="footer-local">
-        <p class="footer-label">LEGAL</p>
-        <a href="mentions-legales.html" data-lang-fr="Mentions légales" data-lang-en="Legal notice">Mentions légales</a>
-        <a href="politique-confidentialite.html" data-lang-fr="Confidentialité" data-lang-en="Privacy">Confidentialité</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© <span id="footer-year">2026</span> LNK Design Touch. Tous droits réservés.</p>
-    </div>
-  </div>
-</footer>
 
-<script src="js/devis.js"></script>
-<script src="js/site.bundle.54b80976d8.js?v=54b80976d8" defer></script>
-<script src="js/image-handlers.js"></script>
+      <div class="language-switcher" role="group" aria-label="Language">
+        <button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="devis-page">
+    <section class="devis-hero">
+      <div class="container devis-hero-content">
+        <p class="devis-kicker" data-lang-fr="Estimateur de devis" data-lang-en="Quote estimator">Estimateur de devis</p>
+        <h1 data-lang-fr="Combien coûte votre projet ?" data-lang-en="How much does your project cost?">Combien coûte votre projet ?</h1>
+        <p data-lang-fr="Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion." data-lang-en="Select the project type and options to get an instant estimate. This is an indication; the final price will be confirmed after discussion.">Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion.</p>
+      </div>
+    </section>
+
+    <section class="devis-calculator container">
+      <div class="devis-options">
+        <h2 data-lang-fr="1. Type de projet" data-lang-en="1. Project type">1. Type de projet</h2>
+        <div class="service-grid" id="serviceGrid">
+          <button class="service-card" data-service="affiche" data-price-fr="5–25$" data-price-en="$5–25">
+            <svg class="bi"><use xlink:href="#bi-image"></use></svg>
+            <span class="service-name" data-lang-fr="Affiche" data-lang-en="Poster">Affiche</span>
+            <span class="service-price" data-lang-fr="5–25$" data-lang-en="$5–25">5–25$</span>
+          </button>
+          <button class="service-card" data-service="branding" data-price-fr="50–200$" data-price-en="$50–200">
+            <svg class="bi"><use xlink:href="#bi-palette"></use></svg>
+            <span class="service-name" data-lang-fr="Branding" data-lang-en="Branding">Branding</span>
+            <span class="service-price" data-lang-fr="50–200$" data-lang-en="$50–200">50–200$</span>
+          </button>
+          <button class="service-card" data-service="social" data-price-fr="5–15$" data-price-en="$5–15">
+            <svg class="bi"><use xlink:href="#bi-phone"></use></svg>
+            <span class="service-name" data-lang-fr="Social Media" data-lang-en="Social Media">Social Media</span>
+            <span class="service-price" data-lang-fr="5–15$" data-lang-en="$5–15">5–15$</span>
+          </button>
+          <button class="service-card" data-service="banniere" data-price-fr="10–30$" data-price-en="$10–30">
+            <svg class="bi"><use xlink:href="#bi-columns"></use></svg>
+            <span class="service-name" data-lang-fr="Bannière" data-lang-en="Banner">Bannière</span>
+            <span class="service-price" data-lang-fr="10–30$" data-lang-en="$10–30">10–30$</span>
+          </button>
+          <button class="service-card" data-service="calendrier" data-price-fr="15–40$" data-price-en="$15–40">
+            <svg class="bi"><use xlink:href="#bi-calendar3"></use></svg>
+            <span class="service-name" data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</span>
+            <span class="service-price" data-lang-fr="15–40$" data-lang-en="$15–40">15–40$</span>
+          </button>
+          <button class="service-card" data-service="invitation" data-price-fr="10–25$" data-price-en="$10–25">
+            <svg class="bi"><use xlink:href="#bi-envelope-heart"></use></svg>
+            <span class="service-name" data-lang-fr="Invitation" data-lang-en="Invitation">Invitation</span>
+            <span class="service-price" data-lang-fr="10–25$" data-lang-en="$10–25">10–25$</span>
+          </button>
+          <button class="service-card" data-service="motion" data-price-fr="30–100$" data-price-en="$30–100">
+            <svg class="bi"><use xlink:href="#bi-play-circle"></use></svg>
+            <span class="service-name" data-lang-fr="Motion Design" data-lang-en="Motion Design">Motion Design</span>
+            <span class="service-price" data-lang-fr="30–100$" data-lang-en="$30–100">30–100$</span>
+          </button>
+        </div>
+
+        <h2 data-lang-fr="2. Quantité" data-lang-en="2. Quantity">2. Quantité</h2>
+        <div class="quantity-selector">
+          <button class="qty-btn" id="qtyMinus">−</button>
+          <span class="qty-value" id="qtyValue">1</span>
+          <button class="qty-btn" id="qtyPlus">+</button>
+        </div>
+
+        <h2 data-lang-fr="3. Délai" data-lang-en="3. Deadline">3. Délai</h2>
+        <div class="urgency-selector">
+          <button class="urgency-btn active" data-urgency="normal" data-multiplier="1">
+            <span data-lang-fr="Normal (3–7 jours)" data-lang-en="Normal (3–7 days)">Normal (3–7 jours)</span>
+          </button>
+          <button class="urgency-btn" data-urgency="express" data-multiplier="1.5">
+            <span data-lang-fr="Express (24–48h)" data-lang-en="Express (24–48h)">Express (24–48h)</span>
+            <span class="urgency-badge">+50%</span>
+          </button>
+        </div>
+
+        <h2 data-lang-fr="4. Complexité" data-lang-en="4. Complexity">4. Complexité</h2>
+        <div class="complexity-selector">
+          <button class="complexity-btn" data-complexity="simple">
+            <span data-lang-fr="Simple" data-lang-en="Simple">Simple</span>
+          </button>
+          <button class="complexity-btn active" data-complexity="standard">
+            <span data-lang-fr="Standard" data-lang-en="Standard">Standard</span>
+          </button>
+          <button class="complexity-btn" data-complexity="premium">
+            <span data-lang-fr="Premium" data-lang-en="Premium">Premium</span>
+            <span class="urgency-badge">+40%</span>
+          </button>
+        </div>
+
+        <h2 data-lang-fr="5. Devise" data-lang-en="5. Currency">5. Devise</h2>
+        <div class="currency-selector">
+          <button type="button" class="currency-btn active" data-currency="usd">USD ($)</button>
+          <button type="button" class="currency-btn" data-currency="cdf">CDF (FC)</button>
+        </div>
+      </div>
+
+      <div class="devis-result">
+        <div class="result-card">
+          <p class="result-label" data-lang-fr="Estimation" data-lang-en="Estimate">Estimation</p>
+          <div class="result-amount">
+            <span class="result-min" id="resultMin">5$</span>
+            <span class="result-separator">–</span>
+            <span class="result-max" id="resultMax">25$</span>
+          </div>
+          <p class="result-note" id="resultNote" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
+          <p class="exchange-rate" id="exchangeRate" data-lang-fr="Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026" data-lang-en="Indicative rate: 1 USD = 2,265 CDF · August 20, 2026">Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026</p>
+          <a href="contact.html" class="result-cta" data-lang-fr="Demander un devis précis" data-lang-en="Request a precise quote">Demander un devis précis</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <a class="footer-logo" href="/">
+            <img src="assets/images/brand/logo-secondary-lights.svg" alt="LNK Design Touch" width="200" height="50" loading="lazy">
+          </a>
+          <p class="footer-hashtag">#lnk_dt</p>
+          <p class="footer-slogan" data-lang-fr="Nous donnons vie à vos projets." data-lang-en="We bring your projects to life.">Nous donnons vie à vos projets.</p>
+          <a class="button button-small" href="contact.html" data-lang-fr="Parlons de votre projet →" data-lang-en="Let's talk about your project →">Parlons de votre projet →</a>
+        </div>
+
+        <div class="footer-nav">
+          <p class="footer-label" data-lang-fr="NAVIGATION" data-lang-en="NAVIGATION">NAVIGATION</p>
+          <a href="/#portfolio" data-lang-fr="Work" data-lang-en="Work">Work</a>
+          <a href="/#services" data-lang-fr="Services" data-lang-en="Services">Services</a>
+          <a href="/#top" data-lang-fr="About" data-lang-en="About">About</a>
+          <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+          <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote" class="nav-active">Devis</a>
+        </div>
+
+        <div class="footer-contact">
+          <p class="footer-label" data-lang-fr="CONTACT" data-lang-en="CONTACT">CONTACT</p>
+          <a href="mailto:contact@lnk-studio.com">contact@lnk-studio.com</a>
+          <a href="https://wa.me/243998222431" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-social-follow">
+          <p class="footer-label" data-lang-fr="FOLLOW LNK_DT" data-lang-en="FOLLOW LNK_DT">FOLLOW LNK_DT</p>
+          <div class="social-grid">
+            <a href="https://instagram.com/lnk_dt" target="_blank" rel="noopener noreferrer" title="Instagram">Instagram</a>
+            <a href="https://threads.net/@lnk_dt" target="_blank" rel="noopener noreferrer" title="Threads">Threads</a>
+            <a href="https://facebook.com/lnk.dt" target="_blank" rel="noopener noreferrer" title="Facebook">Facebook</a>
+            <a href="https://x.com/lnk_dt" target="_blank" rel="noopener noreferrer" title="X (Twitter)">X</a>
+            <a href="https://linkedin.com/company/lnk-design-touch" target="_blank" rel="noopener noreferrer" title="LinkedIn">LinkedIn</a>
+            <a href="https://behance.net/lemuelnk" target="_blank" rel="noopener noreferrer" title="Behance">Behance</a>
+            <a href="https://wa.me/243998222431" target="_blank" rel="noopener noreferrer" title="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+        <p>&copy; 2026 LNK Design Touch. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site.bundle.54b80976d8.js?v=54b80976d8"></script>
+  <script src="js/devis.js"></script>
 </body>
 </html>
