@@ -24,18 +24,35 @@
 	</script>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.bundle.cdd9671b7f.css?v=cdd9671b7f">
-<link rel="stylesheet" href="css/devis.css">
+  <link rel="stylesheet" href="css/site.bundle.cdd9671b7f.css?v=cdd9671b7f">
+  <link rel="stylesheet" href="css/devis.css">
+  <style>
+    /* Correction affichage logo header */
+    .brand-logo[hidden] { display: none !important; }
+    .brand-logo + .brand-fallback { display: none; }
+    .brand-logo:not([hidden]) + .brand-fallback { display: none; }
+    
+    /* Harmonisation header mobile */
+    @media (max-width: 900px) {
+      .site-header .menu-toggle { display: flex !important; }
+      .site-header nav { display: none; }
+      .site-header.is-nav-open nav { display: flex; }
+    }
+  </style>
 </head>
 <body>
 <!-- Header -->
 <header class="site-header">
 <div class="container header-inner">
-<a class="brand" href="/" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" hidden style="display:none"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
-<nav id="site-nav" aria-label="Navigation principale">
-<a href="/">Accueil</a><a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote" class="nav-active">Devis</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-<a class="button button-small" href="contact.html">Parlons de votre projet</a>
-</nav>
+<a class="brand" href="/" aria-label="LNK Design Touch — accueil">
+  <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" onload="this.removeAttribute('hidden')">
+  <span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span>
+</a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span class="sr-only">Ouvrir le menu</span><svg class="bi bi-list" aria-hidden="true"><use xlink:href="#bi-list"></use></svg></button>
+	<nav id="site-nav" aria-label="Navigation principale">
+	<a href="/">Accueil</a><a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+	<a class="button button-small" href="contact.html">Parlons de votre projet</a>
+	</nav>
 <div class="language-switcher" role="group" aria-label="Language">
 <button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
 <span aria-hidden="true">|</span>
@@ -157,42 +174,23 @@
 </main>
 
 <!-- Footer -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-main">
-      <div class="footer-brand">
-        <a class="footer-logo" href="#top" aria-label="LNK Design Touch — retour en haut">
-          <span class="footer-logo-fallback"><span>LNK</span><b>_DT</b></span>
-          <img src="assets/images/brand/logo-secondary-lights.svg" alt="LNK Design Touch" width="240" height="64" hidden>
-        </a>
-        <p class="footer-hashtag">#lnk_dt</p>
-        <p class="footer-slogan">Nous donnons vie à vos projets.</p>
-      </div>
-      <nav class="footer-nav" aria-label="Navigation secondaire">
-        <p class="footer-label">NAVIGATION</p>
-        <a href="/">Accueil</a>
-        <a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a>
-        <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote" class="nav-active">Devis</a>
-        <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-      </nav>
-      <div class="footer-contact">
-        <p class="footer-label">CONTACT</p>
-        <a href="mailto:contact@lnk-studio.com">contact@lnk-studio.com</a>
-      </div>
-      <div class="footer-local">
-        <p class="footer-label">LEGAL</p>
-        <a href="mentions-legales.html" data-lang-fr="Mentions légales" data-lang-en="Legal notice">Mentions légales</a>
-        <a href="politique-confidentialite.html" data-lang-fr="Confidentialité" data-lang-en="Privacy">Confidentialité</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© <span id="footer-year">2026</span> LNK Design Touch. Tous droits réservés.</p>
-    </div>
-  </div>
-</footer>
+	<footer class="footer"><div class="container footer-inner" style="display:block;text-align:center"><div><span>© 2026 LNK Design Touch · #lnk_dt</span></div><div class="footer-social" style="justify-content:center;margin:16px 0"><a href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener" aria-label="Instagram"><svg class="bi"><use xlink:href="#bi-instagram"></use></svg></a><a href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener" aria-label="Threads"><svg class="bi"><use xlink:href="#bi-threads"></use></svg></a><a href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="bi"><use xlink:href="#bi-facebook"></use></svg></a><a href="https://x.com/Lnk_dt" target="_blank" rel="noopener" aria-label="X"><svg class="bi"><use xlink:href="#bi-twitter-x"></use></svg></a><a href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="bi"><use xlink:href="#bi-linkedin"></use></svg></a><a href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener" aria-label="TikTok"><svg class="bi"><use xlink:href="#bi-tiktok"></use></svg></a><a href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener" aria-label="YouTube"><svg class="bi"><use xlink:href="#bi-youtube"></use></svg></a><a href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener" aria-label="Pinterest"><svg class="bi"><use xlink:href="#bi-pinterest"></use></svg></a><a href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener" aria-label="Behance"><svg class="bi"><use xlink:href="#bi-behance"></use></svg></a><a href="https://wa.me/243998222431" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="bi"><use xlink:href="#bi-whatsapp"></use></svg></a></div><div style="display:flex;justify-content:center;gap:20px;opacity:.7"><a href="/mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a><a href="/politique-confidentialite.html" data-fr="Confidentialité" data-en="Privacy">Confidentialité</a><a href="/contact.html" data-fr="Contact" data-en="Contact">Contact</a><a href="/devis.html" data-fr="Devis" data-en="Quote">Devis</a><a href="/" data-fr="Retour à l'accueil" data-en="Back to homepage">Retour à l'accueil</a></div></div></footer>
 
 <script src="js/devis.js"></script>
 <script src="js/site.bundle.7eb66f4cb7.js?v=7eb66f4cb7" defer></script>
 <script src="js/image-handlers.js"></script>
+<script src="js/content-loader.js" defer></script>
+
+<!-- SVG Sprite definition for devis icons -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></symbol>
+  <symbol id="bi-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/><path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="bi-palette" viewBox="0 0 16 16"><path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/><path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/></symbol>
+  <symbol id="bi-phone" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></symbol>
+  <symbol id="bi-columns" viewBox="0 0 16 16"><path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm8.5 0v8H15V2zm0 9v3H15v-3zm-1-9H1v3h6.5zM1 14h6.5V6H1z"/></symbol>
+  <symbol id="bi-calendar3" viewBox="0 0 16 16"><path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/><path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></symbol>
+  <symbol id="bi-envelope-heart" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l3.235 1.94a2.8 2.8 0 0 0-.233 1.027L1 5.384v5.721l3.453-2.124q.219.416.55.835l-3.97 2.443A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741l-3.968-2.442q.33-.421.55-.836L15 11.105V5.383l-3.002 1.801a2.8 2.8 0 0 0-.233-1.026L15 4.217V4a1 1 0 0 0-1-1zm6 2.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/></symbol>
+  <symbol id="bi-play-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/></symbol>
+</svg>
 </body>
 </html>

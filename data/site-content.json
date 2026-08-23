@@ -3,9 +3,12 @@
     "brand_name": "LNK Design Touch",
     "official_email": "contact@lnk-studio.com",
     "official_phone": "+243998222431",
-    "beacons_url": "https://beacons.ai/lemuelnk",
+    "whatsapp_url": "https://wa.me/243998222431",
     "whatsapp_catalog": "https://wa.me/c/243998222431",
     "copyright": "© 2026 LNK Design Touch · #lnk_dt"
+  },
+  "social": {
+    "whatsapp": { "url": "https://wa.me/243998222431", "label": "WhatsApp" }
   },
   "navigation": {
     "home": { "fr": "Accueil", "en": "Home" },

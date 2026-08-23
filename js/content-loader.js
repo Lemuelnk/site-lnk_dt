@@ -23,15 +23,25 @@
       if (content.navigation) {
         const nav = document.querySelector('#site-nav');
         if (nav) {
-          const links = nav.querySelectorAll('a:not(.button)');
-          if (links.length >= 4) {
-            links[0].textContent = t(content.navigation.home);
-            links[1].textContent = t(content.navigation.brand);
-            links[2].textContent = t(content.navigation.quote);
-            links[3].textContent = t(content.navigation.contact);
-          }
+          // Relabel only on pages that have the full static nav structure
+          // On secondary pages, we use data-lang-fr/en which is handled by site.bundle.js
+          // We only force no-code overrides for the main CTA here
           const cta = nav.querySelector('.button');
           if (cta) cta.textContent = t(content.navigation.cta_header);
+          
+          // Specific homepage anchor relabeling if needed
+          if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
+            const links = nav.querySelectorAll('a:not(.button)');
+            // On index, we have anchors: #work, #services, #about, #process, contact.html, devis.html
+            // We only relabel the ones defined in site-content.json if they exist
+            links.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href === '#work' && content.portfolio) link.textContent = t(content.portfolio.nav_title || content.portfolio.title);
+              if (href === '#about' && content.about) link.textContent = t(content.about.nav_title || content.about.title);
+              if (href === 'devis.html') link.textContent = t(content.navigation.quote);
+              if (href === 'contact.html') link.textContent = t(content.navigation.contact);
+            });
+          }
         }
       }
 
