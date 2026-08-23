@@ -25,13 +25,3 @@ CREATE TABLE IF NOT EXISTS project_requests (
 
 CREATE INDEX IF NOT EXISTS idx_projects_status_created
   ON project_requests(status, created_at DESC);
-
-CREATE TABLE IF NOT EXISTS newsletter_subscribers (
-  id TEXT PRIMARY KEY,
-  email TEXT NOT NULL UNIQUE,
-  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'unsubscribed')),
-  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX IF NOT EXISTS idx_newsletter_email
-  ON newsletter_subscribers(email);

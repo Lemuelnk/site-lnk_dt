@@ -114,26 +114,17 @@
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
 
-    const isVideo = project.image.match(/\.(mp4|webm|ogg|mov)$|vimeo|youtube/i);
-
     const image = document.createElement('img');
     image.className = 'portfolio-image';
-    image.src = project.thumbnail || project.image;
+    image.src = project.image;
     image.alt = project.alt || project.title || `${category.label} — réalisation ${position}`;
     image.loading = 'lazy';
     visual.appendChild(image);
 
-    if (isVideo) {
-      const playBadge = document.createElement('div');
-      playBadge.className = 'portfolio-video-badge';
-      playBadge.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-      visual.appendChild(playBadge);
-    }
-
     // Overlay hover
     const overlay = document.createElement('div');
     overlay.className = 'portfolio-overlay';
-    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon">${isVideo ? '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>'}</span>`;
+    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>`;
     visual.appendChild(overlay);
 
     const meta = document.createElement('div');
@@ -218,10 +209,9 @@
         <div class="portfolio-lightbox-topbar">
           <div>
             <p class="portfolio-lightbox-kicker" id="portfolio-lightbox-category"></p>
-	            <h3 id="portfolio-lightbox-title"></h3>
-	            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
-	            <a id="portfolio-case-study-cta" href="#" class="button button-small" style="margin-top:16px; display:none;" data-lang-fr="Découvrir le projet →" data-lang-en="Discover the project →">Découvrir le projet →</a>
-	          </div>
+            <h3 id="portfolio-lightbox-title"></h3>
+            <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
+          </div>
           <div class="portfolio-lightbox-actions">
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire">−</button>
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-reset" aria-label="Réinitialiser le zoom">100%</button>
@@ -438,53 +428,15 @@
     const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');
     descriptionElement.textContent = description;
     descriptionElement.hidden = !description.trim();
-
-    // Check for case study link
-    const cta = dialog.querySelector('#portfolio-case-study-cta');
-    if (cta) {
-      // Mapping for case studies (this can be expanded as needed)
-      const studyMap = {
-        "Logo M.T.J — Mahombi Ne Tombera Jamais": "mtj-branding"
-      };
-      const studyId = studyMap[item.title];
-      if (studyId) {
-        cta.href = `case-study.html?id=${studyId}`;
-        cta.hidden = false;
-        cta.style.display = 'inline-flex';
-      } else {
-        cta.hidden = true;
-        cta.style.display = 'none';
-      }
-    }
-
     dialog.querySelector('[data-counter]').textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
 
     const media = dialog.querySelector('[data-media]');
     media.innerHTML = '';
-    
-    const isVideo = item.image.match(/\.(mp4|webm|ogg|mov)$/i);
-    
-    if (isVideo) {
-      const video = document.createElement('video');
-      video.className = 'portfolio-lightbox-video';
-      video.src = item.image;
-      video.controls = true;
-      video.autoplay = true;
-      video.loop = true;
-      video.muted = false;
-      video.playsInline = true;
-      media.appendChild(video);
-      // Disable zoom for video
-      dialog.querySelectorAll('[data-action^="zoom"]').forEach(b => b.disabled = true);
-    } else {
-      const image = document.createElement('img');
-      image.className = 'portfolio-lightbox-image';
-      image.src = item.image;
-      image.alt = item.alt || title;
-      media.appendChild(image);
-      // Enable zoom for image
-      dialog.querySelectorAll('[data-action^="zoom"]').forEach(b => b.disabled = false);
-    }
+    const image = document.createElement('img');
+    image.className = 'portfolio-lightbox-image';
+    image.src = item.image;
+    image.alt = item.alt || title;
+    media.appendChild(image);
 
     dialog.querySelector('[data-action="prev"]').hidden = lightboxItems.length < 2;
     dialog.querySelector('[data-action="next"]').hidden = lightboxItems.length < 2;

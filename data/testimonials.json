@@ -1,0 +1,39 @@
+{
+  "section": {
+    "eyebrow": "08 / AVIS CLIENTS",
+    "title": "Ce que disent ceux qui ont travaillé avec nous.",
+    "intro": "Découvrez les expériences de ceux qui nous ont confié leurs projets."
+  },
+  "testimonials": [
+    {
+      "id": "avis-001",
+      "name": "Lemuel Kanyuka",
+      "organization": "LNK Design Touch",
+      "project": "Identité visuelle",
+      "rating": 5,
+      "review": "Le studio livre un travail d'une grande qualité, avec une attention particulière aux détails et aux couleurs de la marque.",
+      "status": "approved",
+      "created_at": "2026-07-01T00:00:00Z"
+    },
+    {
+      "id": "avis-002",
+      "name": "Marcel Mukendi",
+      "organization": "Mission Évangélique La Restauration",
+      "project": "Affiche",
+      "rating": 5,
+      "review": "Nos affiches ont été conçues rapidement et avec beaucoup de créativité. Le résultat dépasse nos attentes.",
+      "status": "approved",
+      "created_at": "2026-07-15T00:00:00Z"
+    },
+    {
+      "id": "avis-003",
+      "name": "Chantal Mwamba",
+      "organization": "",
+      "project": "Bannière",
+      "rating": 4,
+      "review": "Un travail soigné et professionnel. Le studio comprend vite les besoins et propose des visuels qui correspondent parfaitement.",
+      "status": "approved",
+      "created_at": "2026-08-01T00:00:00Z"
+    }
+  ]
+}
