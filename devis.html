@@ -14,34 +14,40 @@
 <meta property="og:image" content="https://lnk-studio.com/assets/images/brand/og-image.webp">
 <meta name="twitter:card" content="summary_large_image">
 <title>Devis — LNK Design Touch</title>
-	<!-- Google Analytics (GA4) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-Y0SJEQV91D');
-	</script>
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y0SJEQV91D');
+</script>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/site.bundle.cdd9671b7f.css?v=cdd9671b7f">
-  <link rel="stylesheet" href="css/devis.css">
-  <style>
-    /* Correction affichage logo header */
-    .brand-logo[hidden] { display: none !important; }
-    .brand-logo + .brand-fallback { display: none; }
-    .brand-logo:not([hidden]) + .brand-fallback { display: none; }
-    
-    /* Harmonisation header mobile */
-    @media (max-width: 900px) {
-      .site-header .menu-toggle { display: flex !important; }
-      .site-header nav { display: none; }
-      .site-header.is-nav-open nav { display: flex; }
+<link rel="stylesheet" href="css/site.bundle.cdd9671b7f.css?v=cdd9671b7f">
+<link rel="stylesheet" href="css/devis.css">
+<style>
+  .brand-logo[hidden] { display: none !important; }
+  .brand-logo + .brand-fallback { display: none; }
+  .brand-logo:not([hidden]) + .brand-fallback { display: none; }
+  
+  /* Fix alignement point 5 sur desktop */
+  @media (min-width: 900px) {
+    .devis-calculator {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: start;
     }
-  </style>
+    .devis-options { grid-column: 1; }
+    .devis-result { grid-column: 2; position: sticky; top: 120px; }
+    
+    /* Force le point 5 dans la colonne de gauche */
+    .currency-section { grid-column: 1; margin-top: 30px; }
+  }
+</style>
 </head>
 <body>
-<!-- Header -->
 <header class="site-header">
 <div class="container header-inner">
 <a class="brand" href="/" aria-label="LNK Design Touch — accueil">
@@ -49,71 +55,73 @@
   <span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span>
 </a>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span class="sr-only">Ouvrir le menu</span><svg class="bi bi-list" aria-hidden="true"><use xlink:href="#bi-list"></use></svg></button>
-	<nav id="site-nav" aria-label="Navigation principale">
-	<a href="/">Accueil</a><a href="brand.html" data-lang-fr="Identité de marque" data-lang-en="Brand">Identité de marque</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
-	<a class="button button-small" href="contact.html">Parlons de votre projet</a>
-	</nav>
+<nav id="site-nav" aria-label="Navigation principale">
+  <a href="/#work" data-lang-fr="Réalisations" data-lang-en="Work">Réalisations</a>
+  <a href="/#services" data-lang-fr="Services" data-lang-en="Services">Services</a>
+  <a href="/#about" data-lang-fr="À propos" data-lang-en="About">À propos</a>
+  <a href="/#process" data-lang-fr="Process" data-lang-en="Process">Process</a>
+  <a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+  <a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
+  <a class="button button-small" href="contact.html" data-lang-fr="Parlons de votre projet" data-lang-en="Let's talk">Parlons de votre projet</a>
+</nav>
 <div class="language-switcher" role="group" aria-label="Language">
-<button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
-<span aria-hidden="true">|</span>
-<button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+  <button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+  <span aria-hidden="true">|</span>
+  <button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
 </div>
 </div>
 </header>
 
-<!-- Main -->
 <main class="devis-page">
   <section class="devis-hero">
-    <div class="devis-hero-content">
+    <div class="container devis-hero-content">
       <p class="devis-kicker" data-lang-fr="Estimateur de devis" data-lang-en="Quote estimator">Estimateur de devis</p>
       <h1 data-lang-fr="Combien coûte votre projet ?" data-lang-en="How much does your project cost?">Combien coûte votre projet ?</h1>
-      <p data-lang-fr="Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion." data-lang-en="Select the project type and options to get an instant estimate. This is an indication; the final price will be confirmed after discussion.">Sélectionnez le type de projet et les options pour obtenir une estimation instantanée. Ceci est une indication, le prix final sera confirmé après discussion.</p>
+      <p data-lang-fr="Sélectionnez le type de projet et les options pour obtenir une estimation instantanée." data-lang-en="Select the project type and options to get an instant estimate.">Sélectionnez le type de projet et les options pour obtenir une estimation instantanée.</p>
     </div>
   </section>
 
-  <section class="devis-calculator">
-    <!-- Service selection -->
+  <div class="container devis-calculator">
     <div class="devis-options">
       <h2 data-lang-fr="1. Type de projet" data-lang-en="1. Project type">1. Type de projet</h2>
       <div class="service-grid" id="serviceGrid">
-        <button class="service-card" data-service="affiche" data-price-fr="5–25$" data-price-en="$5–25" data-desc-fr="Affiche événement, promotion ou artistique" data-desc-en="Event, promotional or artistic poster">
-          <svg class="bi bi-image" aria-hidden="true"><use xlink:href="#bi-image"></use></svg>
+        <button class="service-card" data-service="affiche" data-price-fr="5–25$" data-price-en="$5–25">
+          <svg class="bi bi-image"><use xlink:href="#bi-image"></use></svg>
           <span class="service-name" data-lang-fr="Affiche" data-lang-en="Poster">Affiche</span>
-          <span class="service-price" data-lang-fr="5–25$" data-lang-en="$5–25">5–25$</span>
+          <span class="service-price">5–25$</span>
         </button>
-        <button class="service-card" data-service="branding" data-price-fr="50–200$" data-price-en="$50–200" data-desc-fr="Logo, charte graphique, identité complète" data-desc-en="Logo, brand guide, full identity">
-          <svg class="bi bi-palette" aria-hidden="true"><use xlink:href="#bi-palette"></use></svg>
+        <button class="service-card" data-service="branding" data-price-fr="50–200$" data-price-en="$50–200">
+          <svg class="bi bi-palette"><use xlink:href="#bi-palette"></use></svg>
           <span class="service-name" data-lang-fr="Branding" data-lang-en="Branding">Branding</span>
-          <span class="service-price" data-lang-fr="50–200$" data-lang-en="$50–200">50–200$</span>
+          <span class="service-price">50–200$</span>
         </button>
-        <button class="service-card" data-service="social" data-price-fr="5–15$" data-price-en="$5–15" data-desc-fr="Post Instagram, Facebook, LinkedIn" data-desc-en="Instagram, Facebook, LinkedIn post">
-          <svg class="bi bi-phone" aria-hidden="true"><use xlink:href="#bi-phone"></use></svg>
+        <button class="service-card" data-service="social" data-price-fr="5–15$" data-price-en="$5–15">
+          <svg class="bi bi-phone"><use xlink:href="#bi-phone"></use></svg>
           <span class="service-name" data-lang-fr="Social Media" data-lang-en="Social Media">Social Media</span>
-          <span class="service-price" data-lang-fr="5–15$" data-lang-en="$5–15">5–15$</span>
+          <span class="service-price">5–15$</span>
         </button>
-        <button class="service-card" data-service="banniere" data-price-fr="10–30$" data-price-en="$10–30" data-desc-fr="Bannière web, YouTube, publicité" data-desc-en="Web banner, YouTube, advertising">
-          <svg class="bi bi-columns" aria-hidden="true"><use xlink:href="#bi-columns"></use></svg>
+        <button class="service-card" data-service="banniere" data-price-fr="10–30$" data-price-en="$10–30">
+          <svg class="bi bi-columns"><use xlink:href="#bi-columns"></use></svg>
           <span class="service-name" data-lang-fr="Bannière" data-lang-en="Banner">Bannière</span>
-          <span class="service-price" data-lang-fr="10–30$" data-lang-en="$10–30">10–30$</span>
+          <span class="service-price">10–30$</span>
         </button>
-        <button class="service-card" data-service="calendrier" data-price-fr="15–40$" data-price-en="$15–40" data-desc-fr="Calendrier annuel ou mensuel" data-desc-en="Annual or monthly calendar">
-          <svg class="bi bi-calendar3" aria-hidden="true"><use xlink:href="#bi-calendar3"></use></svg>
+        <button class="service-card" data-service="calendrier" data-price-fr="15–40$" data-price-en="$15–40">
+          <svg class="bi bi-calendar3"><use xlink:href="#bi-calendar3"></use></svg>
           <span class="service-name" data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</span>
-          <span class="service-price" data-lang-fr="15–40$" data-lang-en="$15–40">15–40$</span>
+          <span class="service-price">15–40$</span>
         </button>
-        <button class="service-card" data-service="invitation" data-price-fr="10–25$" data-price-en="$10–25" data-desc-fr="Invitation mariage, événement, corporate" data-desc-en="Wedding, event, corporate invitation">
-          <svg class="bi bi-envelope-heart" aria-hidden="true"><use xlink:href="#bi-envelope-heart"></use></svg>
+        <button class="service-card" data-service="invitation" data-price-fr="10–25$" data-price-en="$10–25">
+          <svg class="bi bi-envelope-heart"><use xlink:href="#bi-envelope-heart"></use></svg>
           <span class="service-name" data-lang-fr="Invitation" data-lang-en="Invitation">Invitation</span>
-          <span class="service-price" data-lang-fr="10–25$" data-lang-en="$10–25">10–25$</span>
+          <span class="service-price">10–25$</span>
         </button>
-        <button class="service-card" data-service="motion" data-price-fr="30–100$" data-price-en="$30–100" data-desc-fr="Animation, motion design, vidéo courte" data-desc-en="Animation, motion design, short video">
-          <svg class="bi bi-play-circle" aria-hidden="true"><use xlink:href="#bi-play-circle"></use></svg>
+        <button class="service-card" data-service="motion" data-price-fr="30–100$" data-price-en="$30–100">
+          <svg class="bi bi-play-circle"><use xlink:href="#bi-play-circle"></use></svg>
           <span class="service-name" data-lang-fr="Motion Design" data-lang-en="Motion Design">Motion Design</span>
-          <span class="service-price" data-lang-fr="30–100$" data-lang-en="$30–100">30–100$</span>
+          <span class="service-price">30–100$</span>
         </button>
       </div>
 
-      <!-- Quantity -->
       <h2 data-lang-fr="2. Quantité" data-lang-en="2. Quantity">2. Quantité</h2>
       <div class="quantity-selector">
         <button class="qty-btn" id="qtyMinus">−</button>
@@ -121,42 +129,33 @@
         <button class="qty-btn" id="qtyPlus">+</button>
       </div>
 
-      <!-- Urgency -->
       <h2 data-lang-fr="3. Délai" data-lang-en="3. Deadline">3. Délai</h2>
       <div class="urgency-selector">
-        <button class="urgency-btn" data-urgency="normal" data-multiplier="1">
+        <button class="urgency-btn active" data-urgency="normal" data-multiplier="1">
           <span data-lang-fr="Normal (3–7 jours)" data-lang-en="Normal (3–7 days)">Normal (3–7 jours)</span>
         </button>
         <button class="urgency-btn" data-urgency="express" data-multiplier="1.5">
           <span data-lang-fr="Express (24–48h)" data-lang-en="Express (24–48h)">Express (24–48h)</span>
-          <span class="urgency-badge" data-lang-fr="+50%" data-lang-en="+50%">+50%</span>
+          <span class="urgency-badge">+50%</span>
         </button>
       </div>
 
-      <!-- Complexity -->
       <h2 data-lang-fr="4. Complexité" data-lang-en="4. Complexity">4. Complexité</h2>
       <div class="complexity-selector">
-        <button class="complexity-btn" data-complexity="simple">
-          <span data-lang-fr="Simple" data-lang-en="Simple">Simple</span>
-        </button>
-        <button class="complexity-btn active" data-complexity="standard">
-          <span data-lang-fr="Standard" data-lang-en="Standard">Standard</span>
-        </button>
-        <button class="complexity-btn" data-complexity="premium">
-          <span data-lang-fr="Premium" data-lang-en="Premium">Premium</span>
-          <span class="urgency-badge" data-lang-fr="+40%" data-lang-en="+40%">+40%</span>
-        </button>
+        <button class="complexity-btn" data-complexity="simple">Simple</button>
+        <button class="complexity-btn active" data-complexity="standard">Standard</button>
+        <button class="complexity-btn" data-complexity="premium">Premium <span class="urgency-badge">+40%</span></button>
+      </div>
+
+      <div class="currency-section">
+        <h2 data-lang-fr="5. Devise" data-lang-en="5. Currency">5. Devise</h2>
+        <div class="currency-selector">
+          <button type="button" class="currency-btn active" data-currency="usd">USD ($)</button>
+          <button type="button" class="currency-btn" data-currency="cdf">CDF (FC)</button>
+        </div>
       </div>
     </div>
 
-      <!-- Currency -->
-      <h2 data-lang-fr="5. Devise" data-lang-en="5. Currency">5. Devise</h2>
-      <div class="currency-selector" role="group" aria-label="Currency">
-        <button type="button" class="currency-btn active" data-currency="usd" aria-pressed="true">USD ($)</button>
-        <button type="button" class="currency-btn" data-currency="cdf" aria-pressed="false">CDF (FC)</button>
-      </div>
-
-      <!-- Result -->
     <div class="devis-result">
       <div class="result-card">
         <p class="result-label" data-lang-fr="Estimation" data-lang-en="Estimate">Estimation</p>
@@ -166,31 +165,61 @@
           <span class="result-max" id="resultMax">—</span>
         </div>
         <p class="result-note" id="resultNote" data-lang-fr="Prix indicatif en USD. Le tarif final sera confirmé après échange." data-lang-en="Indicative price in USD. Final rate confirmed after discussion.">Prix indicatif en USD. Le tarif final sera confirmé après échange.</p>
-        <p class="exchange-rate" id="exchangeRate" data-lang-fr="Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026" data-lang-en="Indicative rate: 1 USD = 2,265 CDF · August 20, 2026">Taux indicatif : 1 USD = 2 265 CDF · 20 août 2026</p>
+        <p class="exchange-rate" id="exchangeRate" data-lang-fr="Taux indicatif : 1 USD = 2 265 CDF" data-lang-en="Indicative rate: 1 USD = 2,265 CDF">Taux indicatif : 1 USD = 2 265 CDF</p>
         <a href="contact.html" class="result-cta" data-lang-fr="Demander un devis précis" data-lang-en="Request a precise quote">Demander un devis précis</a>
       </div>
     </div>
-  </section>
+  </div>
 </main>
 
-<!-- Footer -->
-	<footer class="footer"><div class="container footer-inner" style="display:block;text-align:center"><div><span>© 2026 LNK Design Touch · #lnk_dt</span></div><div class="footer-social" style="justify-content:center;margin:16px 0"><a href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener" aria-label="Instagram"><svg class="bi"><use xlink:href="#bi-instagram"></use></svg></a><a href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener" aria-label="Threads"><svg class="bi"><use xlink:href="#bi-threads"></use></svg></a><a href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="bi"><use xlink:href="#bi-facebook"></use></svg></a><a href="https://x.com/Lnk_dt" target="_blank" rel="noopener" aria-label="X"><svg class="bi"><use xlink:href="#bi-twitter-x"></use></svg></a><a href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="bi"><use xlink:href="#bi-linkedin"></use></svg></a><a href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener" aria-label="TikTok"><svg class="bi"><use xlink:href="#bi-tiktok"></use></svg></a><a href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener" aria-label="YouTube"><svg class="bi"><use xlink:href="#bi-youtube"></use></svg></a><a href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener" aria-label="Pinterest"><svg class="bi"><use xlink:href="#bi-pinterest"></use></svg></a><a href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener" aria-label="Behance"><svg class="bi"><use xlink:href="#bi-behance"></use></svg></a><a href="https://wa.me/243998222431" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="bi"><use xlink:href="#bi-whatsapp"></use></svg></a></div><div style="display:flex;justify-content:center;gap:20px;opacity:.7"><a href="/mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a><a href="/politique-confidentialite.html" data-fr="Confidentialité" data-en="Privacy">Confidentialité</a><a href="/contact.html" data-fr="Contact" data-en="Contact">Contact</a><a href="/devis.html" data-fr="Devis" data-en="Quote">Devis</a><a href="/" data-fr="Retour à l'accueil" data-en="Back to homepage">Retour à l'accueil</a></div></div></footer>
+<footer class="footer">
+  <div class="container footer-inner" style="display:block;text-align:center">
+    <div><span>© 2026 LNK Design Touch · #lnk_dt</span></div>
+    <div class="footer-social" style="justify-content:center;margin:16px 0">
+      <a href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-instagram"></use></svg></a>
+      <a href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-threads"></use></svg></a>
+      <a href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-facebook"></use></svg></a>
+      <a href="https://x.com/Lnk_dt" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-twitter-x"></use></svg></a>
+      <a href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-linkedin"></use></svg></a>
+      <a href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-tiktok"></use></svg></a>
+      <a href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-youtube"></use></svg></a>
+      <a href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-pinterest"></use></svg></a>
+      <a href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-behance"></use></svg></a>
+      <a href="https://wa.me/243998222431" target="_blank" rel="noopener"><svg class="bi"><use xlink:href="#bi-whatsapp"></use></svg></a>
+    </div>
+    <div style="display:flex;justify-content:center;gap:20px;opacity:.7;font-size:14px">
+      <a href="brand.html">Brand</a>
+      <a href="devis.html">Devis</a>
+      <a href="mentions-legales.html">Légal</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      <a href="/">Accueil</a>
+    </div>
+  </div>
+</footer>
 
-<script src="js/devis.js"></script>
-<script src="js/site.bundle.7eb66f4cb7.js?v=7eb66f4cb7" defer></script>
-<script src="js/image-handlers.js"></script>
-<script src="js/content-loader.js" defer></script>
-
-<!-- SVG Sprite definition for devis icons -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></symbol>
   <symbol id="bi-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/><path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/></symbol>
-  <symbol id="bi-palette" viewBox="0 0 16 16"><path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/><path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/></symbol>
+  <symbol id="bi-palette" viewBox="0 0 16 16"><path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/><path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.02"/></symbol>
   <symbol id="bi-phone" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></symbol>
   <symbol id="bi-columns" viewBox="0 0 16 16"><path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm8.5 0v8H15V2zm0 9v3H15v-3zm-1-9H1v3h6.5zM1 14h6.5V6H1z"/></symbol>
   <symbol id="bi-calendar3" viewBox="0 0 16 16"><path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/><path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></symbol>
   <symbol id="bi-envelope-heart" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l3.235 1.94a2.8 2.8 0 0 0-.233 1.027L1 5.384v5.721l3.453-2.124q.219.416.55.835l-3.97 2.443A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741l-3.968-2.442q.33-.421.55-.836L15 11.105V5.383l-3.002 1.801a2.8 2.8 0 0 0-.233-1.026L15 4.217V4a1 1 0 0 0-1-1zm6 2.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/></symbol>
   <symbol id="bi-play-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/></symbol>
+  <symbol id="bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/></symbol>
+  <symbol id="bi-threads" viewBox="0 0 16 16"><path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-.802.756-1.081 1.753-1.502 3.132-1.502.975 0 1.803.327 2.394.948s.928 1.509 1.005 2.644q.492.207.905.484c1.109.745 1.719 1.86 1.719 3.137 0 2.716-2.226 5.075-6.256 5.075C4.594 16 1 13.987 1 7.994 1 2.034 4.482 0 8.044 0 9.69 0 13.55.243 15 5.036l-1.36.353C12.516 1.974 10.163 1.43 8.006 1.43c-3.565 0-5.582 2.171-5.582 6.79 0 4.143 2.254 6.343 5.63 6.343 2.777 0 4.847-1.443 4.847-3.556 0-1.438-1.208-2.127-1.27-2.127-.236 1.234-.868 3.31-3.644 3.31-1.618 0-3.013-1.118-3.013-2.582 0-2.09 1.984-2.847 3.55-2.847.586 0 1.294.04 1.663.114 0-.637-.54-1.728-1.9-1.728-1.25 0-1.566.405-1.967.868ZM8.716 8.19c-2.04 0-2.304.87-2.304 1.416 0 .878 1.043 1.168 1.6 1.168 1.02 0 2.067-.282 2.232-2.423a6.2 6.2 0 0 0-1.528-.161"/></symbol>
+  <symbol id="bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></symbol>
+  <symbol id="bi-twitter-x" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></symbol>
+  <symbol id="bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></symbol>
+  <symbol id="bi-tiktok" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></symbol>
+  <symbol id="bi-youtube" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></symbol>
+  <symbol id="bi-pinterest" viewBox="0 0 16 16"><path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0"/></symbol>
+  <symbol id="bi-behance" viewBox="0 0 16 16"><path d="M10.305 8.744c0 1.21-.712 1.845-1.903 1.845h-2.101V6.767h2.03c1.131 0 1.974.422 1.974 1.977zm.765-3.04c0 .964-.683 1.625-1.782 1.625H6.301V4.085h1.9c1.026 0 1.869.487 1.869 1.619zM16 8.5c0 1.669-1.331 3-3 3s-3-1.331-3-3 1.331-3 3-3 3 1.331 3 3zM6.301 10.589h2.101c1.191 0 1.903-.635 1.903-1.845 0-1.555-.843-1.977-1.974-1.977h-2.03V10.59zm1.9-6.504h-1.9v2.584h2.182c1.099 0 1.782-.661 1.782-1.625 0-1.132-.843-1.619-1.869-1.619zM13 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></symbol>
+  <symbol id="bi-whatsapp" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></symbol>
 </svg>
+
+<script src="js/devis.js"></script>
+<script src="js/site.bundle.7eb66f4cb7.js?v=7eb66f4cb7" defer></script>
+<script src="js/content-loader.js" defer></script>
 </body>
 </html>
