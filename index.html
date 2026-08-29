@@ -2,6 +2,11 @@
 <html lang="fr" data-lang="fr" data-turnstile-site-key="0x4AAAAAAEQr5WmuslOhzvrn">
 <head>
 <meta charset="utf-8">
+<script>
+  (function() {
+    document.documentElement.setAttribute('data-theme', 'light');
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#001A17">
 <meta name="description" content="LNK Design Touch est un studio de design graphique à Lubumbashi, RDC : identité visuelle, branding, affiches, supports de communication, design social media, motion design et impression.">
@@ -38,7 +43,7 @@
         "@type": "Person",
         "name": "Lemuel Kanyuka Nkolomoni"
       },
-      "sameAs": ["https://beacons.ai/lemuelnk"]
+      "sameAs": ["https://wa.me/243998222431", "https://www.instagram.com/lnkdt", "https://www.behance.net/lemuelkanyuka/"]
     },
     {
       "@type": "LocalBusiness",
@@ -70,15 +75,23 @@
 <link rel="icon" href="assets/images/brand/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="css/site.bundle.92de04d2e0.css?v=92de04d2e0" as="style">
+  <link rel="preload" href="css/site.bundle.1653dcb74a.css?v=1653dcb74a" as="style">
 	<!-- Google Analytics (GA4) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'G-Y0SJEQV91D');
-	</script>
+<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', 'G-Y0SJEQV91D');
+		</script>
+		<script>
+		  (function() {
+		    const savedTheme = localStorage.getItem('lnk-theme');
+		    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		    const theme = savedTheme || systemTheme;
+		    document.documentElement.setAttribute('data-theme', theme);
+		  })();
+		</script>
 <link rel="icon" href="assets/images/brand/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/images/brand/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/images/brand/apple-touch-icon.png">
@@ -131,7 +144,7 @@
 </script>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.bundle.92de04d2e0.css?v=92de04d2e0">
+<link rel="stylesheet" href="css/site.bundle.1653dcb74a.css?v=1653dcb74a">
 
 <style id="lnk-language-style">
 /* BILINGUAL HEADER CONTROL — integrated with the existing header/menu */
@@ -208,35 +221,16 @@
 html[data-lang="en"] .footer-legal-links .lnk-legal-fr,
 html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 
-/* Agrandissement des icônes du footer */
-.social-grid .social-link i.bi,
-.social-grid .social-link .bi-custom-icon {
-  font-size: 1.25rem;
-  margin-bottom: 5px;
-  transition: transform 0.2s ease;
-}
-.social-grid .social-link .bi-custom-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  display: block;
-  margin: 0 auto 5px;
-  filter: brightness(0) invert(1);
-}
-.founder-beacons-icon {
-  width: 1.2rem;
-  height: 1.2rem;
-  vertical-align: -0.15em;
-  margin-right: 6px;
-  color: var(--teal);
-}
-.social-grid .social-link:hover i.bi,
-.social-grid .social-link:hover .bi-custom-icon {
-  transform: translateY(-3px);
-}
 
-/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
-.lnk-wa-fab{
-  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
+
+	/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
+	.lnk-wa-fab{
+	  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
+	  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,bottom .3s ease;
+	}
+	@media(max-width:760px){
+	  .lnk-wa-fab{bottom:88px}
+	}
   display:flex;align-items:center;justify-content:center;
   width:56px;height:56px;border-radius:50%;
   background:var(--dark);color:var(--cream);
@@ -256,20 +250,50 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 <link rel="alternate" hreflang="x-default" href="https://lnk-studio.com/" />
 
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <link rel="stylesheet" href="css/lucide-overrides.css">
 </head>
 <body>
-<header class="site-header">
-<div class="container header-inner">
-<a class="brand" href="#top" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64" hidden style="display:none"><span class="brand-fallback"><b>LNK</b><span>Design Touch</span></span></a>
-<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span class="sr-only">Ouvrir le menu</span><svg class="bi bi-list" aria-hidden="true"><use xlink:href="#bi-list"></use></svg></button>
-<nav id="site-nav" aria-label="Navigation principale">
-<a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#process">Process</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a><a href="devis.html" data-lang-fr="Devis" data-lang-en="Quote">Devis</a>
-<a class="button button-small" href="contact.html">Parlons de votre projet</a>
-</nav>
-<div class="language-switcher" role="group" aria-label="Language">
-<button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
-<span aria-hidden="true">|</span>
-<button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+  <nav class="mobile-tab-bar" aria-label="Navigation mobile rapide">
+    <a href="/" class="tab-item is-active">
+      <i data-lucide="home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="#work" class="tab-item">
+      <i data-lucide="briefcase"></i>
+      <span>Work</span>
+    </a>
+    <a href="devis.html" class="tab-item">
+      <i data-lucide="calculator"></i>
+      <span>Devis</span>
+    </a>
+    <a href="https://wa.me/243998222431" class="tab-item tab-item-wa" target="_blank">
+      <i data-lucide="message-circle"></i>
+      <span>WhatsApp</span>
+    </a>
+  </nav>
+
+  <header class="site-header">
+    <div class="container header-inner">
+<a class="brand" href="#top" aria-label="LNK Design Touch — accueil">
+      <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64">
+      <span class="brand-fallback" hidden><b>LNK</b><span>Design Touch</span></span>
+    </a>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Ouvrir le menu"><span class="sr-only">Ouvrir le menu</span><i data-lucide="menu" aria-hidden="true"></i></button>
+	<nav id="site-nav" aria-label="Navigation principale">
+	<a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#process">Process</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
+	<a class="button button-small" href="contact.html">Parlons de votre projet</a>
+	</nav>
+	<div class="header-controls">
+	  <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème">
+	    <i data-lucide="sun" class="sun-icon"></i>
+	    <i data-lucide="moon" class="moon-icon"></i>
+	  </button> -->
+	  <div class="language-switcher" role="group" aria-label="Language">
+	    <button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
+	    <span aria-hidden="true">|</span>
+	    <button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
+	  </div>
+	</div>
 </div>
 </div>
 </header>
@@ -277,7 +301,26 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 <main id="main">
 <section id="top" class="hero" aria-labelledby="hero-title">
   <!-- Preloader Removed -->
-<div class="hero-grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="hero-grid" aria-hidden="true">
+    <i></i><i></i><i></i><i></i>
+    <!-- Motifs décoratifs denses à gauche -->
+    <svg class="hero-decor-svg" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:50%;height:100%;opacity:0.15;pointer-events:none;fill:var(--teal);">
+      <circle cx="10" cy="20" r="1" />
+      <circle cx="30" cy="40" r="1.5" />
+      <circle cx="15" cy="70" r="0.8" />
+      <circle cx="40" cy="15" r="1.2" />
+      <circle cx="5" cy="50" r="1" />
+      <circle cx="25" cy="85" r="1.5" />
+      <rect x="12" y="30" width="2" height="2" transform="rotate(45 13 31)" />
+      <rect x="35" y="60" width="1.5" height="1.5" transform="rotate(15 36 61)" />
+      <rect x="8" y="80" width="2.5" height="2.5" transform="rotate(-20 9 81)" />
+      <circle cx="45" cy="55" r="0.7" />
+      <circle cx="20" cy="10" r="1.3" />
+      <circle cx="50" cy="30" r="1" />
+      <rect x="2" y="15" width="1" height="1" />
+      <rect x="48" y="80" width="2" height="2" />
+    </svg>
+  </div>
 <div class="container hero-inner">
 <div class="hero-copy">
 <p class="eyebrow">LNK DESIGN TOUCH <span>#lnk_dt</span></p>
@@ -298,21 +341,8 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 </section>
 <!-- MARQUEE TEXT -->
 <div class="lnk-marquee" aria-hidden="true"><div class="lnk-marquee-track"><span class="lnk-marquee-text">DESIGN GRAPHIC<span class="dot">·</span>BRANDING<span class="dot">·</span>PRINT<span class="dot">·</span>SOCIAL MEDIA<span class="dot">·</span>WEB &amp; MOBILE<span class="dot">·</span>MARKETING DIGITAL<span class="dot">·</span>STRATEGIES &amp; CONSEILS<span class="dot">·</span>CONCEPTION → MATÉRIALISATION<span class="dot">·</span></span><span class="lnk-marquee-text">DESIGN GRAPHIC<span class="dot">·</span>BRANDING<span class="dot">·</span>PRINT<span class="dot">·</span>SOCIAL MEDIA<span class="dot">·</span>WEB &amp; MOBILE<span class="dot">·</span>MARKETING DIGITAL<span class="dot">·</span>STRATEGIES &amp; CONSEILS<span class="dot">·</span>CONCEPTION → MATÉRIALISATION<span class="dot">·</span></span></div></div>
-<!-- SPOT D'ANNONCE — LNK_DT NEWS (dernière publication) -->
-<aside id="lnk-announcement" class="lnk-announcement" aria-label="Dernière publication LNK_DT">
-<div class="container lnk-announcement-inner">
-  <span class="lnk-announcement-kicker" data-ann-kicker></span>
-  <div class="lnk-announcement-body">
-    <span class="lnk-announcement-preview"><img data-ann-img alt="" width="44" height="44" loading="lazy"></span>
-    <div>
-      <strong class="lnk-announcement-title" data-ann-title></strong>
-      <p class="lnk-announcement-desc" data-ann-desc hidden></p>
-    </div>
-  </div>
-  <a class="lnk-announcement-link" data-ann-link href="#" target="_blank" rel="noopener"></a>
-  <button type="button" class="lnk-announcement-close" data-ann-close aria-label="Fermer l'annonce">×</button>
-</div>
-</aside>
+<!-- LNK_DT ANNONCES & PROMOS — Point de montage neutre pour le popup promotionnel -->
+<div id="lnk-announcement" hidden></div>
 
 <!-- STEP 3 — POSITIONNEMENT -->
 <section id="about" class="positioning section-dark lnk-reveal" aria-labelledby="positioning-title">
@@ -513,7 +543,7 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
       <p class="founder-motto"><span data-lang-fr="Une idée. Une vision. Une création." data-lang-en="An idea. A vision. A creation.">Une idée. Une vision. Une création.</span><br><span data-lang-fr="Nous donnons vie à vos projets." data-lang-en="We bring your projects to life.">Nous donnons vie à vos projets.</span></p>
       <p class="founder-signature">Lemuel Kanyuka Nkolomoni<br><span class="founder-signature-role" data-lang-fr="Fondateur · Designer" data-lang-en="Founder · Designer">Fondateur · Designer</span></p>
       <div class="founder-details" aria-label="Connecter avec le fondateur">
-        <div><span data-lang-fr="Connecter avec Lemuel" data-lang-en="Connect with Lemuel">Connecter avec Lemuel</span><a class="founder-beacons" href="https://beacons.ai/lemuelnk" target="_blank" rel="noopener noreferrer" aria-label="LNK Design Touch sur beacons"><img src="assets/images/brand/beacons-icon.svg" alt="" class="founder-beacons-icon" aria-hidden="true"><span data-lang-fr="beacons" data-lang-en="beacons">beacons</span></a></div>
+        <div class="founder-connect"><span data-lang-fr="Connecter avec Lemuel" data-lang-en="Connect with Lemuel">Connecter avec Lemuel</span><a class="founder-whatsapp" href="https://wa.me/243998222431" target="_blank" rel="noopener noreferrer" aria-label="LNK Design Touch sur WhatsApp"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;margin-right:8px;vertical-align:middle;fill:var(--teal);"><title>WhatsApp</title><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span data-lang-fr="WhatsApp" data-lang-en="WhatsApp">WhatsApp</span></a></div>
       </div>
     </div>
   </div>
@@ -700,16 +730,14 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
       <div class="footer-contact">
         <p class="footer-label">CONTACT</p>
         <a href="mailto:contact@lnk-studio.com" aria-label="Envoyer un courriel à LNK Design Touch">
-          <span class="footer-contact-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/></svg>
-          </span>
+          <span class="footer-contact-icon" aria-hidden="true"><i data-lucide="mail"></i></span>
           contact@lnk-studio.com
         </a>
-        <a href="https://wa.me/243998222431" target="_blank" rel="noopener noreferrer"
-           aria-label="Écrire à LNK Design Touch sur WhatsApp">
-          <span class="footer-contact-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
-          </span>
-          WhatsApp
-        </a>
+<a href="https://wa.me/243998222431" target="_blank" rel="noopener noreferrer"
+	           aria-label="Écrire à LNK Design Touch sur WhatsApp">
+	          <span class="footer-contact-icon" aria-hidden="true"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>WhatsApp</title><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>
+	          WhatsApp
+	        </a>
       </div>
 
       <div class="footer-local">
@@ -729,57 +757,57 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
       <div class="social-grid" aria-label="Réseaux sociaux de LNK Design Touch">
         <a class="social-link" href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener noreferrer"
            aria-label="Instagram — LNK Design Touch" data-platform="Instagram">
-          <svg class="bi bi-instagram" aria-hidden="true"><use xlink:href="#bi-instagram"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Instagram</title><path d="M12 0C8.74 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.26-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 1 1 0 12.324 6.162 6.162 0 0 1 0-12.324zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6.406-11.845a1.44 1.44 0 1 1 0 2.881 1.44 1.44 0 0 1 0-2.881z"/></svg>
           <span>Instagram</span>
         </a>
 
         <a class="social-link" href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener noreferrer"
            aria-label="Threads — LNK Design Touch" data-platform="Threads">
-          <svg class="bi bi-threads" aria-hidden="true"><use xlink:href="#bi-threads"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Threads</title><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg>
           <span>Threads</span>
         </a>
 
         <a class="social-link" href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener noreferrer"
            aria-label="Facebook — LNK Design Touch" data-platform="Facebook">
-          <svg class="bi bi-facebook" aria-hidden="true"><use xlink:href="#bi-facebook"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Facebook</title><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
           <span>Facebook</span>
         </a>
 
         <a class="social-link" href="https://x.com/Lnk_dt" target="_blank" rel="noopener noreferrer"
            aria-label="X — LNK Design Touch" data-platform="X">
-          <svg class="bi bi-twitter-x" aria-hidden="true"><use xlink:href="#bi-twitter-x"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>X</title><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg>
           <span>X</span>
         </a>
 
         <a class="social-link" href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener noreferrer"
            aria-label="LinkedIn — LNK Design Touch" data-platform="LinkedIn">
-          <svg class="bi bi-linkedin" aria-hidden="true"><use xlink:href="#bi-linkedin"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
           <span>LinkedIn</span>
         </a>
 
         <a class="social-link" href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener noreferrer"
            aria-label="TikTok — LNK Design Touch" data-platform="TikTok">
-          <svg class="bi bi-tiktok" aria-hidden="true"><use xlink:href="#bi-tiktok"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>TikTok</title><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
           <span>TikTok</span>
         </a>
 
         <a class="social-link" href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener noreferrer"
            aria-label="YouTube — LNK Design Touch" data-platform="YouTube">
-          <svg class="bi bi-youtube" aria-hidden="true"><use xlink:href="#bi-youtube"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           <span>YouTube</span>
         </a>
 
         <a class="social-link" href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener noreferrer"
            aria-label="Pinterest — LNK Design Touch" data-platform="Pinterest">
-          <svg class="bi bi-pinterest" aria-hidden="true"><use xlink:href="#bi-pinterest"></use></svg>
+          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Pinterest</title><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
           <span>Pinterest</span>
         </a>
 
-        <a class="social-link" href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener noreferrer"
-           aria-label="Behance — LNK Design Touch" data-platform="Behance">
-          <svg class="bi bi-behance" aria-hidden="true"><use xlink:href="#bi-behance"></use></svg>
-          <span>Behance</span>
-        </a>
+	        <a class="social-link" href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener noreferrer"
+	           aria-label="Behance — LNK Design Touch" data-platform="Behance">
+	          <svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Behance</title><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg>
+	          <span>Behance</span>
+	        </a>
 
       </div>
     </div>
@@ -800,85 +828,12 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 
 
 
-<script src="js/site.bundle.54b80976d8.js?v=54b80976d8" defer fetchpriority="high"></script>
-<script src="js/news-catalog.js" defer></script>
-<script src="js/announcement.js" defer></script>
-<script src="js/image-handlers.js" defer></script>
+<script src="js/site.bundle.28761d07ff.js?v=28761d07ff" defer fetchpriority="high"></script>
+  <script src="js/announcement.js" defer></script>
+  <script src="js/image-handlers.js" defer></script>
 
 
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="bi-behance" viewBox="0 0 16 16">
-<path d="M10.305 8.744c0 1.21-.712 1.845-1.903 1.845h-2.101V6.767h2.03c1.131 0 1.974.422 1.974 1.977zm.765-3.04c0 .964-.683 1.625-1.782 1.625H6.301V4.085h1.9c1.026 0 1.869.487 1.869 1.619zM16 8.5c0 1.669-1.331 3-3 3s-3-1.331-3-3 1.331-3 3-3 3 1.331 3 3zM6.301 10.589h2.101c1.191 0 1.903-.635 1.903-1.845 0-1.555-.843-1.977-1.974-1.977h-2.03V10.59zm1.9-6.504h-1.9v2.584h2.182c1.099 0 1.782-.661 1.782-1.625 0-1.132-.843-1.619-1.869-1.619zM13 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-  </symbol>
-  <symbol id="bi-calendar3" viewBox="0 0 16 16">
-<path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"/>
-  <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-  </symbol>
-  <symbol id="bi-clock-fill" viewBox="0 0 16 16">
-<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-  </symbol>
-  <symbol id="bi-columns" viewBox="0 0 16 16">
-<path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm8.5 0v8H15V2zm0 9v3H15v-3zm-1-9H1v3h6.5zM1 14h6.5V6H1z"/>
-  </symbol>
-  <symbol id="bi-envelope-fill" viewBox="0 0 16 16">
-<path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
-  </symbol>
-  <symbol id="bi-envelope-heart" viewBox="0 0 16 16">
-<path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l3.235 1.94a2.8 2.8 0 0 0-.233 1.027L1 5.384v5.721l3.453-2.124q.219.416.55.835l-3.97 2.443A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741l-3.968-2.442q.33-.421.55-.836L15 11.105V5.383l-3.002 1.801a2.8 2.8 0 0 0-.233-1.026L15 4.217V4a1 1 0 0 0-1-1zm6 2.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
-  </symbol>
-  <symbol id="bi-facebook" viewBox="0 0 16 16">
-<path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-  </symbol>
-  <symbol id="bi-geo-alt-fill" viewBox="0 0 16 16">
-<path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-  </symbol>
-  <symbol id="bi-image" viewBox="0 0 16 16">
-<path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-  <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1z"/>
-  </symbol>
-  <symbol id="bi-instagram" viewBox="0 0 16 16">
-<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-  </symbol>
-  <symbol id="bi-linkedin" viewBox="0 0 16 16">
-<path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
-  </symbol>
-  <symbol id="bi-list" viewBox="0 0 16 16">
-<path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-  </symbol>
-  <symbol id="bi-palette" viewBox="0 0 16 16">
-<path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
-  <path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7"/>
-  </symbol>
-  <symbol id="bi-phone" viewBox="0 0 16 16">
-<path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-  <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-  </symbol>
-  <symbol id="bi-pinterest" viewBox="0 0 16 16">
-<path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0"/>
-  </symbol>
-  <symbol id="bi-play-circle" viewBox="0 0 16 16">
-<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-  <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445"/>
-  </symbol>
-  <symbol id="bi-shop" viewBox="0 0 16 16">
-<path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"/>
-  </symbol>
-  <symbol id="bi-threads" viewBox="0 0 16 16">
-<path d="M6.321 6.016c-.27-.18-1.166-.802-1.166-.802.756-1.081 1.753-1.502 3.132-1.502.975 0 1.803.327 2.394.948s.928 1.509 1.005 2.644q.492.207.905.484c1.109.745 1.719 1.86 1.719 3.137 0 2.716-2.226 5.075-6.256 5.075C4.594 16 1 13.987 1 7.994 1 2.034 4.482 0 8.044 0 9.69 0 13.55.243 15 5.036l-1.36.353C12.516 1.974 10.163 1.43 8.006 1.43c-3.565 0-5.582 2.171-5.582 6.79 0 4.143 2.254 6.343 5.63 6.343 2.777 0 4.847-1.443 4.847-3.556 0-1.438-1.208-2.127-1.27-2.127-.236 1.234-.868 3.31-3.644 3.31-1.618 0-3.013-1.118-3.013-2.582 0-2.09 1.984-2.847 3.55-2.847.586 0 1.294.04 1.663.114 0-.637-.54-1.728-1.9-1.728-1.25 0-1.566.405-1.967.868ZM8.716 8.19c-2.04 0-2.304.87-2.304 1.416 0 .878 1.043 1.168 1.6 1.168 1.02 0 2.067-.282 2.232-2.423a6.2 6.2 0 0 0-1.528-.161"/>
-  </symbol>
-  <symbol id="bi-tiktok" viewBox="0 0 16 16">
-<path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
-  </symbol>
-  <symbol id="bi-twitter-x" viewBox="0 0 16 16">
-<path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-  </symbol>
-  <symbol id="bi-whatsapp" viewBox="0 0 16 16">
-<path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
-  </symbol>
-  <symbol id="bi-youtube" viewBox="0 0 16 16">
-<path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
-  </symbol>
-</svg>
+
 <script id="lnk-bilingual-layer">
 (function(){
   const translations = {
@@ -968,8 +923,56 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 })();
 </script>
 
-<script src="js/visual-upgrades.js" defer></script>
-<a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14V16C4 17.1 4.9 18 6 18H8V14H4ZM10 20V14H6V20H10ZM20 14V8C20 6.9 19.1 6 18 6H4C2.9 6 2 6.9 2 8V14H20ZM18 10V12H4V10H18ZM20 16H10V22C10 23.1 10.9 24 12 24H18C19.1 24 20 23.1 20 22V16ZM14 22V20H18V22H14Z"/></svg></a>
-<script src="js/image-handlers.js"></script>
+  <script src="js/visual-upgrades.js" defer></script>
+  <script>
+    (function() {
+      const initLucide = () => {
+        if (window.lucide) {
+          window.lucide.createIcons({
+            attrs: {
+              'stroke-width': 2,
+              'stroke-linecap': 'round',
+              'stroke-linejoin': 'round'
+            }
+          });
+        }
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLucide);
+      } else {
+        initLucide();
+      }
+    })();
+  </script>
+  <script>
+    (function() {
+      function initThemeToggle() {
+        const toggle = document.getElementById('theme-toggle');
+        if (!toggle) return;
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+        newToggle.addEventListener('click', function(e) {
+          e.preventDefault(); e.stopPropagation();
+          const html = document.documentElement;
+          const currentTheme = html.getAttribute('data-theme') || 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', newTheme);
+          localStorage.setItem('lnk-theme', newTheme);
+          document.querySelectorAll('.brand-logo, .footer-logo img').forEach(img => {
+            const src = img.getAttribute('src');
+            if (src) {
+              if (newTheme === 'dark') img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
+              else img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
+            }
+          });
+          if (window.lucide) window.lucide.createIcons();
+        });
+      }
+      initThemeToggle();
+      document.addEventListener('DOMContentLoaded', initThemeToggle);
+      window.addEventListener('load', initThemeToggle);
+    })();
+  </script>
+  <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store"></i></a>
 </body>
 </html>

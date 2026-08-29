@@ -212,6 +212,29 @@
     return await response.json();
   }
 
+  async function loadDashboardStats() {
+    try {
+      const token = sessionStorage.getItem(TOKEN_KEY);
+      // 1. Projets
+      const projResp = await fetch('/api/contact?status=new&token=' + encodeURIComponent(token), {
+        headers: { 'Authorization': `Bearer ${token}`, 'X-Admin-Token': token }
+      });
+      if (projResp.ok) {
+        const { requests } = await projResp.json();
+        updateAdminStat('admin-stat-projects', requests.length);
+      }
+      // 2. Clics Promo
+      const promoResp = await fetch('/api/news-admin?action=get-all&token=' + encodeURIComponent(token), {
+        headers: { 'Authorization': `Bearer ${token}`, 'X-Admin-Token': token }
+      });
+      if (promoResp.ok) {
+        const { results } = await promoResp.json();
+        const active = (results || []).find(r => r.featured === 1);
+        updateAdminStat('admin-stat-promo-clicks', active ? (active.click_count || 0) : 0);
+      }
+    } catch (e) {}
+  }
+
   async function doAction(id, action) {
     const response = await fetch(ADMIN_ENDPOINT, { cache: 'no-store',
       method: 'POST',
@@ -337,7 +360,17 @@
         if (trashEmpty) trashEmpty.hidden = trashRows.length > 0;
       }
       attachActions();
+      loadDashboardStats();
       renderCharts(pendingRows, approved.testimonials || [], rejected.testimonials || [], trashRows);
+      if (window.lucide) {
+        window.lucide.createIcons({
+          attrs: {
+            'stroke-width': 2,
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round'
+          }
+        });
+      }
     } catch (err) {
       list.innerHTML = '';
       setStatus(list, err.message === 'unauthorized' ? str('wrongToken') : str('networkError'), true);

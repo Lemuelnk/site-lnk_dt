@@ -8,8 +8,23 @@
   <link rel="canonical" href="https://lnk-studio.com/mentions-legales.html">
   <title>Mentions légales — LNK Design Touch</title>
   <link rel="stylesheet" href="css/legal.bundle.03982ece4e.css">
-<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style></head>
+<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style>  <link rel="stylesheet" href="css/lucide-overrides.css">
+</head>
 <body class="legal-page">
+  <header class="site-header" style="position:fixed; top:0; width:100%; z-index:100; background:var(--header-bg); border-bottom:1px solid var(--border);">
+    <div class="container header-inner" style="display:flex; justify-content:space-between; align-items:center; min-height:64px;">
+      <a class="brand" href="/" style="text-decoration:none;">
+        <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="180" height="48">
+        <span class="brand-fallback" hidden><b>LNK</b><span>Design Touch</span></span>
+      </a>
+<div class="header-controls" style="display:flex; align-items:center; gap:12px;">
+	        <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème" style="border:0; background:none; cursor:pointer;">
+	          <i data-lucide="sun" class="sun-icon"></i>
+	          <i data-lucide="moon" class="moon-icon"></i>
+	        </button> -->
+	      </div>
+    </div>
+  </header>
   <main class="legal-wrap">
     <p class="legal-kicker">LNK DESIGN TOUCH</p>
     <h1>Mentions légales.</h1>
@@ -30,5 +45,42 @@
     <p class="legal-links"><a href="brand.html">Identité de marque</a> · <a href="politique-confidentialite.html">Confidentialité</a></p>
     <a class="legal-back" href="index.html#top">Retour au site</a>
   </main>
+<script>
+  (function() {
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('lnk-theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const currentTheme = savedTheme || systemTheme;
+    
+    html.setAttribute('data-theme', 'light');
+    
+    if (toggle) {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('lnk-theme', newTheme);
+        updateLogos(newTheme);
+      });
+    }
+    
+    function updateLogos(theme) {
+      const logos = document.querySelectorAll('.brand-logo, .footer-logo img');
+      logos.forEach(img => {
+        const src = img.getAttribute('src');
+        if (!src) return;
+        if (theme === 'dark') {
+          img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
+        } else {
+          img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
+        }
+      });
+    }
+    
+    updateLogos(currentTheme);
+    if (window.lucide) window.lucide.createIcons();
+  })();
+</script>
 </body>
 </html>

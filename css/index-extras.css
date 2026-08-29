@@ -9,15 +9,20 @@
   align-items:center;
   justify-content:center;
   gap:0;
-  min-height:42px;
-  padding:3px;
-  margin-left:clamp(8px,1.2vw,16px);
-  border:1px solid rgba(0,26,23,.16);
+  min-height:40px;
+  padding:2px;
+  margin-left:clamp(6px,1vw,12px);
+  border:1px solid rgba(0,26,23,.12);
   border-radius:999px;
-  background:rgba(255,249,240,.72);
+  background:rgba(255,249,240,.6);
   color:var(--dark);
   box-shadow:none;
-  backdrop-filter:none;
+  backdrop-filter:blur(4px);
+}
+[data-theme="dark"] .site-header .language-switcher {
+  background: rgba(0, 26, 23, 0.6);
+  border-color: rgba(255, 249, 240, 0.12);
+  color: var(--cream);
 }
 .site-header .language-option{
   border:0;
@@ -73,43 +78,25 @@
 html[data-lang="en"] .footer-legal-links .lnk-legal-fr,
 html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 
-/* Footer social icons */
-.social-grid .social-link i.bi,
-.social-grid .social-link .bi-custom-icon {
-  font-size: 1.4rem;
-  margin-bottom: 6px;
-  transition: transform 0.2s ease;
-}
-.social-grid .social-link .bi-custom-icon {
-  width: 1.4rem;
-  height: 1.4rem;
-  display: block;
-  margin: 0 auto 6px;
-  filter: brightness(0) invert(1);
-}
-.founder-beacons-icon {
-  width: 1.3rem;
-  height: 1.3rem;
-  vertical-align: -0.15em;
-  margin-right: 6px;
-  filter: invert(30%) sepia(90%) saturate(700%) hue-rotate(135deg) brightness(105%);
-}
-.social-grid .social-link:hover i.bi,
-.social-grid .social-link:hover .bi-custom-icon {
-  transform: translateY(-3px);
-}
 
-/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
-.lnk-wa-fab{
-  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
-  display:flex;align-items:center;justify-content:center;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--dark);color:var(--cream);
-  text-decoration:none;box-shadow:0 6px 18px rgba(0,26,23,.28);
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
-}
+
+	/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
+	.lnk-wa-fab{
+	  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
+	  display:flex;align-items:center;justify-content:center;
+	  width:56px;height:56px;border-radius:50%;
+	  background:var(--dark);color:var(--cream);
+	  text-decoration:none;box-shadow:0 6px 18px rgba(0,26,23,.28);
+	  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,bottom .3s ease;
+	}
+	@media(max-width:760px){
+	  .lnk-wa-fab{bottom:88px}
+	}
 .lnk-wa-fab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(0,26,23,.32);background:var(--teal)}
-.lnk-wa-fab svg{width:28px;height:28px;fill:currentColor}
+	.lnk-wa-fab i, .lnk-wa-fab svg{width:26px;height:26px;stroke-width:2.5}
+	@media(max-width:760px){
+	  .lnk-wa-fab{bottom:92px;right:16px;width:52px;height:52px}
+	}
 .lnk-wa-fab .lnk-wa-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:lnk-wa-pulse 2.4s ease-out infinite}
 @keyframes lnk-wa-pulse{0%{transform:scale(.9);opacity:.55}100%{transform:scale(1.25);opacity:0}}
 @media(max-width:480px){.lnk-wa-fab{width:50px;height:50px}.lnk-wa-fab svg{width:24px;height:24px}}

@@ -117,14 +117,24 @@
     const image = document.createElement('img');
     image.className = 'portfolio-image';
     image.src = project.image;
-    image.alt = project.alt || project.title || `${category.label} — réalisation ${position}`;
+    image.alt = project.alt || project.title || category.label;
     image.loading = 'lazy';
+    image.onload = () => visual.classList.add('is-loaded');
     visual.appendChild(image);
 
     // Overlay hover
     const overlay = document.createElement('div');
     overlay.className = 'portfolio-overlay';
-    overlay.innerHTML = `<span class="portfolio-overlay-title">${project.title || category.label}</span><span class="portfolio-overlay-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></span>`;
+    let overlayContent = `<span class="portfolio-overlay-title">${project.title || category.label}</span>`;
+    
+    // Ajout spécifique pour l'étude de cas MTJ (statique)
+    if (project.image.includes('branding-logo-mtj')) {
+      overlayContent += `<a href="case-study-mtj.html" class="portfolio-case-study-btn" onclick="event.stopPropagation()">Lire l'étude de cas</a>`;
+    } else {
+      overlayContent += `<span class="portfolio-overlay-icon"><i data-lucide="maximize" class="icon icon-lg"></i></span>`;
+    }
+    
+    overlay.innerHTML = overlayContent;
     visual.appendChild(overlay);
 
     const meta = document.createElement('div');
@@ -161,6 +171,7 @@
       data.categories.forEach(category => grid.appendChild(sampleCard(category)));
       setActive('all');
       window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
+    if (window.lucide) window.lucide.createIcons();
       return;
     }
 
@@ -195,9 +206,18 @@
       grid.appendChild(ctaWrap);
     }
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
+    if (window.lucide) {
+      window.lucide.createIcons({
+        attrs: {
+          'stroke-width': 2,
+          'stroke-linecap': 'round',
+          'stroke-linejoin': 'round'
+        }
+      });
+    }
   }
 
-  function ensureLightbox() {
+  function closeLightbox() {
     if (document.querySelector('#portfolio-lightbox')) return;
 
     const dialog = document.createElement('dialog');
@@ -209,20 +229,23 @@
         <div class="portfolio-lightbox-topbar">
           <div>
             <p class="portfolio-lightbox-kicker" id="portfolio-lightbox-category"></p>
-            <h3 id="portfolio-lightbox-title"></h3>
+            <div class="portfolio-lightbox-title-wrap">
+              <h3 id="portfolio-lightbox-title"></h3>
+              <a href="#" id="portfolio-lightbox-case-study" class="portfolio-lightbox-case-btn" hidden>Lire l'étude de cas</a>
+            </div>
             <p class="portfolio-lightbox-desc" id="portfolio-lightbox-desc" hidden></p>
           </div>
           <div class="portfolio-lightbox-actions">
-            <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire">−</button>
+            <button type="button" class="portfolio-lightbox-control" data-action="zoom-out" aria-label="Réduire"><i data-lucide="minus" class="icon icon-sm"></i></button>
             <button type="button" class="portfolio-lightbox-control" data-action="zoom-reset" aria-label="Réinitialiser le zoom">100%</button>
-            <button type="button" class="portfolio-lightbox-control" data-action="zoom-in" aria-label="Agrandir">+</button>
-            <button type="button" class="portfolio-lightbox-close" data-action="close" aria-label="Fermer">×</button>
+            <button type="button" class="portfolio-lightbox-control" data-action="zoom-in" aria-label="Agrandir"><i data-lucide="plus" class="icon icon-sm"></i></button>
+            <button type="button" class="portfolio-lightbox-close" data-action="close" aria-label="Fermer"><i data-lucide="x" class="icon"></i></button>
           </div>
         </div>
         <div class="portfolio-lightbox-stage" data-stage tabindex="0" aria-label="Visionneuse de projet">
-          <button type="button" class="portfolio-lightbox-nav prev" data-action="prev" aria-label="Projet précédent">‹</button>
+          <button type="button" class="portfolio-lightbox-nav prev" data-action="prev" aria-label="Projet précédent"><i data-lucide="chevron-left" class="icon icon-lg"></i></button>
           <div class="portfolio-lightbox-media" data-media></div>
-          <button type="button" class="portfolio-lightbox-nav next" data-action="next" aria-label="Projet suivant">›</button>
+          <button type="button" class="portfolio-lightbox-nav next" data-action="next" aria-label="Projet suivant"><i data-lucide="chevron-right" class="icon icon-lg"></i></button>
         </div>
         <div class="portfolio-lightbox-bottombar">
           <span data-counter></span>
@@ -269,12 +292,14 @@
     }
 
     // --- Touch events (mobile) ---
+    let swipeStartY = 0;
     stage.addEventListener('touchstart', event => {
       if (event.touches.length === 1) {
         isPointerDown = true;
         moved = false;
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
+        swipeStartY = event.touches[0].clientY;
         if (zoom > 1) {
           isDraggingImage = true;
           dragStartX = event.touches[0].clientX - imageOffsetX;
@@ -313,6 +338,16 @@
       imageOffsetY = 0;
       isPointerDown = false;
       if (event.changedTouches.length !== 1) return;
+      
+      const swipeEndY = event.changedTouches[0].clientY;
+      const swipeDeltaY = swipeEndY - swipeStartY;
+      
+      // Swipe down to close (only if not zoomed)
+      if (zoom <= 1 && Math.abs(swipeDeltaY) > 100) {
+        closeLightbox();
+        return;
+      }
+
       const now = Date.now();
       const target = event.target;
       const isSameTarget = target === lastTapTarget;
@@ -413,6 +448,7 @@
     dialog.querySelector('[data-stage]').focus({ preventScroll: true });
     updateLightbox(categoryLabel);
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
+    if (window.lucide) window.lucide.createIcons();
   }
 
   function updateLightbox(categoryLabel) {
@@ -423,6 +459,18 @@
     const title = item.title || 'Échantillon';
     dialog.querySelector('#portfolio-lightbox-category').textContent = category;
     dialog.querySelector('#portfolio-lightbox-title').textContent = title;
+
+    const caseStudyBtn = dialog.querySelector('#portfolio-lightbox-case-study');
+    if (caseStudyBtn) {
+      if (item.image.includes('branding-logo-mtj')) {
+        caseStudyBtn.href = 'case-study-mtj.html';
+        caseStudyBtn.hidden = false;
+        caseStudyBtn.style.display = 'inline-flex';
+      } else {
+        caseStudyBtn.hidden = true;
+        caseStudyBtn.style.display = 'none';
+      }
+    }
     const lang = document.documentElement.lang || 'fr';
     const description = lang.startsWith('en') ? (item.description_en || item.description_fr || '') : (item.description_fr || item.description_en || '');
     const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');

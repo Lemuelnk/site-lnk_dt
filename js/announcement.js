@@ -7,65 +7,141 @@
 (function () {
   "use strict";
   const lang = () => (document.documentElement.lang === "en" ? "en" : "fr");
-  const catalog = window.LNK_NEWS_CATALOG && window.LNK_NEWS_CATALOG.publications
-    ? window.LNK_NEWS_CATALOG.publications.filter(Boolean) : [];
-  if (!catalog.length) return;
+  let catalog = [];
+  let latest = null;
+  let timerInterval = null;
 
   const T = {
-    fr: { kicker: "ACTUALITÉ LNK_DT", label: "Nouvelle publication", cta: "Voir l'offre", close: "Fermer l'annonce" },
-    en: { kicker: "LNK_DT NEWS", label: "New post", cta: "See the post", close: "Close announcement" },
+    fr: { kicker: "ANNONCE & PROMO", label: "Promotion", cta: "En savoir plus", close: "Fermer l'annonce", endsIn: "Se termine dans :" },
+    en: { kicker: "OFFER & NEWS", label: "Promotion", cta: "Learn more", close: "Close announcement", endsIn: "Ends in:" },
   };
 
+  const spot = document.querySelector("#lnk-announcement");
+
+  async function init() {
+    try {
+      // Charger le catalogue statique
+      const resp = await fetch('/data/news.json');
+      if (resp.ok) {
+        const data = await resp.json();
+        catalog = data.publications || [];
+      }
+    } catch (e) { console.error('Erreur promo catalog:', e); }
+
+    await applyOverrides();
+  }
+
   // Priorité au champ featured (D1 override ou news.json), sinon la dernière publication
-  let latest = null;
   const applyOverrides = async () => {
     try {
       const resp = await fetch('/api/news-admin?token=');
       if (resp.ok) {
         const { settings } = await resp.json();
+        
+        // Gérer la promo externe si elle existe et est active
+        if (settings['EXTERNAL_PROMO'] && settings['EXTERNAL_PROMO'].featured) {
+          const ext = settings['EXTERNAL_PROMO'];
+          const externalPub = {
+            file: ext.external_url,
+            featured: true,
+            link: ext.link,
+            title_fr: ext.title_fr,
+            title_en: ext.title_en,
+            description_fr: ext.desc_fr,
+            description_en: ext.desc_en,
+            expires_at: ext.expires_at,
+            badge: { fr: "PROMO FLASH", en: "FLASH OFFER" }
+          };
+          catalog.unshift(externalPub);
+        }
+
         // Fusionner les settings D1 avec le catalogue
+        const now = new Date().toISOString();
         catalog.forEach(pub => {
-          // Reset local featured flag to avoid stale state from static catalog
           pub.featured = false;
           const key = pub.file;
           if (settings[key]) {
-            // Check for explicit 1 or true from D1
-            if (settings[key].featured === 1 || settings[key].featured === true) pub.featured = true;
+            let isFeatured = settings[key].featured === 1 || settings[key].featured === true;
+            // Vérifier l'expiration
+            if (isFeatured && settings[key].expires_at && settings[key].expires_at < now) {
+              isFeatured = false;
+            }
+            
+            if (isFeatured) pub.featured = true;
             if (settings[key].link) pub.link = settings[key].link;
+            if (settings[key].title_fr) pub.title_fr = settings[key].title_fr;
+            if (settings[key].title_en) pub.title_en = settings[key].title_en;
+            if (settings[key].desc_fr) pub.description_fr = settings[key].desc_fr;
+            if (settings[key].desc_en) pub.description_en = settings[key].desc_en;
+            if (settings[key].expires_at) pub.expires_at = settings[key].expires_at;
           }
         });
       }
-    } catch (_) { /* fallback to static catalog */ }
-    latest = catalog.find((p) => p.featured === true) || catalog[catalog.length - 1];
-    render();
+    } catch (_) {}
+    
+    latest = catalog.find((p) => p.featured === true);
+    
+    if (spot) {
+      if (latest) {
+        render();
+        spot.classList.add("lnk-ann-dismissed"); // Masquer la barre si popup actif
+      } else {
+        spot.classList.add("lnk-ann-dismissed");
+      }
+    }
+
+    // Ouverture automatique si featured et pas encore vu cette session
+    if (latest && latest.featured && !sessionStorage.getItem("lnk-promo-opened")) {
+      setTimeout(openAnn, 1500);
+      sessionStorage.setItem("lnk-promo-opened", "1");
+    }
   };
-  const spot = document.querySelector("#lnk-announcement");
-  if (!spot) return;
-  // Attendre les overrides D1 avant de rendre, sinon fallback statique immédiat
-  applyOverrides().catch(() => { latest = catalog[catalog.length - 1]; render(); });
 
   function render() {
-    const t = T[lang()];
-    const title = lang() === "en" ? (latest.title_en || latest.title_fr) : latest.title_fr;
-    const desc = lang() === "en" ? (latest.description_en || "") : (latest.description_fr || "");
-    spot.querySelector("[data-ann-kicker]").textContent = t.kicker;
-    spot.querySelector("[data-ann-title]").textContent = title;
-    spot.querySelector("[data-ann-desc]").textContent = desc;
-    spot.querySelector("[data-ann-desc]").hidden = !desc;
-    const link = spot.querySelector("[data-ann-link]");
-    if (latest.link) { link.href = latest.link; link.textContent = t.cta + " →"; link.hidden = false; }
-    else link.hidden = true;
-    spot.querySelector("[data-ann-close]").textContent = "×";
-    spot.querySelector("[data-ann-close]").setAttribute("aria-label", t.close);
-    spot.querySelector("[data-ann-img]").src = latest.file;
-    spot.querySelector("[data-ann-img]").alt = latest.title_fr;
+    // La barre d'annonce est désormais obsolète si on utilise le popup premium
+    // Mais on garde le markup pour compatibilité si besoin.
   }
-  if (sessionStorage.getItem("lnk-announcement-dismissed")) spot.classList.add("lnk-ann-dismissed");
-  render();
+
+  function startTimer(expiry) {
+    if (!expiry) return;
+    const update = () => {
+      const now = new Date().getTime();
+      const end = new Date(expiry).getTime();
+      const diff = end - now;
+
+      if (diff <= 0) {
+        clearInterval(timerInterval);
+        const timerEl = document.querySelector(".lnk-promo-timer");
+        if (timerEl) timerEl.style.display = "none";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      const els = {
+        days: document.getElementById("timer-d"),
+        hours: document.getElementById("timer-h"),
+        mins: document.getElementById("timer-m"),
+        secs: document.getElementById("timer-s")
+      };
+
+      if (els.days) els.days.textContent = String(d).padStart(2, '0');
+      if (els.hours) els.hours.textContent = String(h).padStart(2, '0');
+      if (els.mins) els.mins.textContent = String(m).padStart(2, '0');
+      if (els.secs) els.secs.textContent = String(s).padStart(2, '0');
+    };
+
+    update();
+    timerInterval = setInterval(update, 1000);
+  }
 
   /* ---------- Lightbox d'annonce ---------- */
   let dialog = null;
   function openAnn() {
+    if (!latest) return;
     if (!dialog) {
       dialog = document.createElement("div");
       dialog.className = "lnk-ann-lightbox";
@@ -73,24 +149,43 @@
       dialog.setAttribute("aria-modal", "true");
       dialog.innerHTML = `
         <div class="lnk-ann-lightbox-inner">
-          <span class="lnk-ann-lightbox-badge" data-badge></span>
-          <h3 data-ann-title></h3>
-          <button type="button" class="lnk-ann-lightbox-close" data-action="ann-close" aria-label="Fermer">×</button>
-          <div class="lnk-ann-lightbox-stage"><img data-ann-img alt=""></div>
-          <p class="lnk-ann-lightbox-desc" data-ann-desc></p>
-          <div class="lnk-ann-lightbox-bar"><a class="lnk-ann-lightbox-link" data-ann-link href="#" target="_blank" rel="noopener"></a></div>
+          <button type="button" class="lnk-ann-lightbox-close" data-action="ann-close" aria-label="Fermer" style="position:absolute; top:20px; right:20px; z-index:10;"><i data-lucide="x"></i></button>
+          <div class="lnk-ann-lightbox-stage">
+            <img data-ann-img alt="">
+            <div class="lnk-promo-content">
+              <span class="lnk-ann-lightbox-badge" data-badge>OFFER & NEWS</span>
+              <h3 data-ann-title style="margin: 15px 0 10px; line-height: 1.1;"></h3>
+              <p class="lnk-ann-lightbox-desc" data-ann-desc style="margin: 0; line-height: 1.5;"></p>
+              
+              <div class="lnk-promo-timer" id="promo-timer-container" style="display:none;">
+                <p style="grid-column: 1/-1; font: 800 10px var(--heading); margin: 0 0 8px; opacity: 0.7;" id="timer-label"></p>
+                <div class="lnk-timer-item"><span class="lnk-timer-val" id="timer-d">00</span><span class="lnk-timer-unit">Jours</span></div>
+                <span class="lnk-timer-sep">:</span>
+                <div class="lnk-timer-item"><span class="lnk-timer-val" id="timer-h">00</span><span class="lnk-timer-unit">Heures</span></div>
+                <span class="lnk-timer-sep">:</span>
+                <div class="lnk-timer-item"><span class="lnk-timer-val" id="timer-m">00</span><span class="lnk-timer-unit">Min</span></div>
+                <span class="lnk-timer-sep">:</span>
+                <div class="lnk-timer-item"><span class="lnk-timer-val" id="timer-s">00</span><span class="lnk-timer-unit">Sec</span></div>
+              </div>
+
+              <div>
+                <a class="lnk-ann-lightbox-link" data-ann-link href="#" target="_blank" rel="noopener"></a>
+              </div>
+            </div>
+          </div>
         </div>`;
       dialog.addEventListener("click", (e) => {
-        if (e.target === dialog || e.target.matches("[data-action='ann-close']")) closeAnn();
+        if (e.target === dialog || e.target.closest("[data-action='ann-close']")) closeAnn();
       });
       document.body.appendChild(dialog);
     }
     const l = lang();
-    dialog.querySelector("[data-badge]").textContent = latest.badge[l] || latest.badge.fr;
+    const badge = (latest.badge && latest.badge[l]) ? latest.badge[l] : (latest.badge ? latest.badge.fr : T[l].label);
+    dialog.querySelector("[data-badge]").textContent = badge;
     dialog.querySelector("[data-ann-title]").textContent = l === "en" ? (latest.title_en || latest.title_fr) : latest.title_fr;
     const img = dialog.querySelector("[data-ann-img]");
     img.src = latest.file;
-    img.alt = latest.title_fr;
+    img.alt = latest.title_fr || "Promotion";
     const desc = l === "en" ? (latest.description_en || "") : (latest.description_fr || "");
     const descEl = dialog.querySelector("[data-ann-desc]");
     descEl.textContent = desc;
@@ -100,29 +195,37 @@
       linkEl.href = latest.link;
       linkEl.textContent = T[l].cta + " →";
       linkEl.hidden = false;
+      linkEl.onclick = () => {
+        const file = latest.isExternal ? 'EXTERNAL_PROMO' : latest.file;
+        fetch(`/api/news-admin?action=track-click&file=${encodeURIComponent(file)}`).catch(() => {});
+      };
     } else linkEl.hidden = true;
+
+    // Gestion du timer
+    const timerContainer = dialog.querySelector("#promo-timer-container");
+    const timerLabel = dialog.querySelector("#timer-label");
+    if (latest.expires_at) {
+      timerContainer.style.display = "flex";
+      timerLabel.textContent = T[l].endsIn;
+      startTimer(latest.expires_at);
+    } else {
+      timerContainer.style.display = "none";
+    }
+
     dialog.classList.add("is-open");
     document.body.style.overflow = "hidden";
+    if (window.lucide) window.lucide.createIcons();
   }
   function closeAnn() {
     if (dialog) dialog.classList.remove("is-open");
     document.body.style.overflow = "";
+    if (timerInterval) clearInterval(timerInterval);
   }
-  function dismissSpot() {
-    spot.classList.add("lnk-ann-dismissed");
-    sessionStorage.setItem("lnk-announcement-dismissed", "1");
-  }
+  
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && dialog && dialog.classList.contains("is-open")) closeAnn();
   });
 
-  spot.addEventListener("click", (e) => {
-    const closeBtn = e.target.closest("[data-ann-close]");
-    if (closeBtn) { closeAnn(); dismissSpot(); return; }
-    const link = e.target.closest("[data-ann-link]");
-    if (link) return; // laisser le lien ouvrir l'URL externe
-    openAnn();
-  });
-
-  document.addEventListener("lnk-lang-changed", render);
+  // Démarrage
+  init();
 })();

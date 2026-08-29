@@ -106,7 +106,74 @@
     }, { passive: true });
   }
 
-  // ===== 6. COUNTER ANIMATION =====
+  // ===== 6. THEME TOGGLE (Dark/Light Mode) =====
+  function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('lnk-theme');
+    
+    // Preference: Saved > System Preference
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const currentTheme = savedTheme || systemTheme;
+    
+    // Apply initial theme
+    html.setAttribute('data-theme', currentTheme);
+    
+    if (themeToggle) {
+      themeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const currentTheme = html.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('lnk-theme', newTheme);
+        
+        // Update logos immediately
+        updateLogos(newTheme);
+        
+        // Re-initialize icons to switch sun/moon
+        if (window.lucide) window.lucide.createIcons();
+        
+        // Trigger custom event
+        document.dispatchEvent(new CustomEvent('lnk-theme-changed', { detail: newTheme }));
+        
+        console.log('Theme switched to:', newTheme);
+      });
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('lnk-theme')) {
+        const newTheme = e.matches ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        document.dispatchEvent(new CustomEvent('lnk-theme-changed', { detail: newTheme }));
+      }
+    });
+
+    // Logo Auto-Switching
+    function updateLogos(theme) {
+      const logos = document.querySelectorAll('.brand-logo, .footer-logo img');
+      logos.forEach(img => {
+        const src = img.getAttribute('src');
+        if (theme === 'dark') {
+          img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
+        } else {
+          img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
+        }
+      });
+    }
+
+    // Initial logo state
+    updateLogos(currentTheme);
+
+    // Update on theme change
+    document.addEventListener('lnk-theme-changed', (e) => {
+      updateLogos(e.detail);
+    });
+  }
+
+  // ===== 7. COUNTER ANIMATION =====
   function initCounters() {
     const counters = document.querySelectorAll('.lnk-counter[data-target]');
     if (!counters.length) return;
@@ -142,6 +209,7 @@
   // ===== INIT =====
   document.addEventListener('DOMContentLoaded', () => {
     // Preloader completely removed from HTML and JS initialization
+    initTheme();
     initScrollReveal();
     initCustomCursor();
     initRipple();

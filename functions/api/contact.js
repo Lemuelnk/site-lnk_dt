@@ -52,14 +52,19 @@ export async function onRequest(context) {
     const payload = await request.json();
     
     // CAS 1 : Action Admin (nécessite token)
-    if (payload.action && ['read', 'archive', 'delete'].includes(payload.action)) {
+    if (payload.action && ['read', 'archive', 'delete', 'in_progress', 'completed', 'cancelled'].includes(payload.action)) {
       if (!authorized(request, env)) return json({ message: 'Unauthorized' }, 401);
       const id = String(payload.id || '');
       if (payload.action === 'delete') {
         await db.prepare(`DELETE FROM project_requests WHERE id = ?`).bind(id).run();
         return json({ ok: true, deleted: true });
       }
-      const nextStatus = payload.action === 'read' ? 'read' : 'archived';
+      let nextStatus = 'read';
+      if (payload.action === 'archive') nextStatus = 'archived';
+      if (payload.action === 'in_progress') nextStatus = 'in_progress';
+      if (payload.action === 'completed') nextStatus = 'completed';
+      if (payload.action === 'cancelled') nextStatus = 'cancelled';
+      
       await db.prepare(`UPDATE project_requests SET status = ? WHERE id = ?`).bind(nextStatus, id).run();
       return json({ ok: true, status: nextStatus });
     }

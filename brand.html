@@ -2,6 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
+<script>
+  (function() {
+    document.documentElement.setAttribute('data-theme', 'light');
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#001A17">
 <meta name="description" content="L'identité de marque de LNK Design Touch : positionnement, principes, couleurs, typographie et applications visuelles.">
@@ -27,10 +32,51 @@
 	  gtag('js', new Date());
 	  gtag('config', 'G-Y0SJEQV91D');
 	</script>
-<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}
-:root{--dark:#001A17;--teal:#009688;--cream:#FFF9F0;--coral:#FF7043;--yellow:#FFC107;--heading:Montserrat,Arial,sans-serif;--body:'Open Sans',Arial,sans-serif;--max:1180px;--gutter:clamp(20px,4vw,56px)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--dark);font-family:var(--body);line-height:1.6}a{color:inherit}img{max-width:100%;height:auto;display:block}.container{width:min(calc(100% - 2*var(--gutter)),var(--max));margin:auto}.eyebrow{margin:0 0 18px;font:800 11px/1 var(--heading);letter-spacing:.16em;color:var(--teal)}
-.header{position:sticky;top:0;z-index:10;background:rgba(255,249,240,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,26,23,.1)}.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font:900 20px/1 var(--heading);letter-spacing:-.06em;text-decoration:none}.brand span{font-size:11px;font-weight:600;letter-spacing:0;margin-left:6px}.back{font:800 12px var(--heading);text-decoration:none}.back:hover{color:var(--teal)}.brand-language{display:flex;align-items:center;gap:6px;font:800 12px var(--heading)}.brand-language button{border:0;background:none;font:inherit;cursor:pointer;padding:4px 8px;border-radius:4px}.brand-language button.is-active{background:var(--dark);color:var(--cream)}
+			<script src="js/vendor/lucide.min.js"></script>
+		<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}
+:root {
+  --dark: #001A17;
+  --teal: #009688;
+  --cream: #FFF9F0;
+  --coral: #FF7043;
+  --yellow: #FFC107;
+  --heading: Montserrat, Arial, sans-serif;
+  --body: 'Open Sans', Arial, sans-serif;
+  --max: 1180px;
+  --gutter: clamp(20px, 4vw, 56px);
+  
+  --bg: var(--cream);
+  --text: var(--dark);
+  --border: rgba(0, 26, 23, 0.1);
+  --header-bg: rgba(255, 249, 240, 0.94);
+}
+
+[data-theme="dark"] {
+  --bg: var(--dark);
+  --text: var(--cream);
+  --border: rgba(255, 249, 240, 0.15);
+  --header-bg: rgba(0, 26, 23, 0.94);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { 
+  margin: 0; 
+  background: var(--bg); 
+  color: var(--text); 
+  font-family: var(--body); 
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}a{color:inherit}img{max-width:100%;height:auto;display:block}.container{width:min(calc(100% - 2*var(--gutter)),var(--max));margin:auto}.eyebrow{margin:0 0 18px;font:800 11px/1 var(--heading);letter-spacing:.16em;color:var(--teal)}
+.header{position:sticky;top:0;z-index:10;background:var(--header-bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);transition:background-color 0.3s ease, border-color 0.3s ease}.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font:900 20px/1 var(--heading);letter-spacing:-.06em;text-decoration:none}.brand span{font-size:11px;font-weight:600;letter-spacing:0;margin-left:6px}.back{font:800 12px var(--heading);text-decoration:none}.back:hover{color:var(--teal)}.brand-language{display:flex;align-items:center;gap:6px;font:800 12px var(--heading)}.brand-language button{border:0;background:none;font:inherit;cursor:pointer;padding:4px 8px;border-radius:4px}.brand-language button.is-active{background:var(--dark);color:var(--cream)}
+.header-controls{display:flex;align-items:center;gap:12px}
+.theme-toggle{border:0;background:none;padding:8px;color:var(--text);display:flex;align-items:center;justify-content:center;transition:color .2s ease;border-radius:50%;border:1px solid rgba(0,26,23,.1)}
+.theme-toggle:hover{color:var(--teal);border-color:var(--teal)}
+.theme-toggle svg{width:18px;height:18px}
+[data-theme="dark"] .sun-icon{display:block}
+[data-theme="dark"] .moon-icon{display:none}
+.sun-icon{display:none}
+.moon-icon{display:block}
 .hero{position:relative;padding:clamp(80px,12vw,150px) 0 clamp(70px,10vw,120px);background:var(--dark);color:var(--cream);overflow:hidden}
 .hero-deco{position:absolute;pointer-events:none;opacity:.06}
 .hero-deco-circle{border-radius:50%;border:2px solid var(--teal)}
@@ -51,10 +97,11 @@
 .footer-social{display:flex;gap:18px;align-items:center;margin-top:12px}
 .footer-social a{color:inherit;text-decoration:none;transition:transform .2s ease}
 .footer-social a:hover{transform:translateY(-3px);color:var(--teal)}
-.footer-social .bi{font-size:1.3rem}
+
 .type-demo{display:grid;grid-template-columns:1fr 1fr;gap:24px}.type-card{padding:34px;border:1px solid rgba(0,26,23,.18);background:#fff}.type-card h3{margin:0 0 24px;font:900 clamp(30px,4vw,52px)/.95 var(--heading);letter-spacing:-.05em}.type-card p{margin:0;max-width:48ch;font-family:var(--body)}.type-meta{margin-top:28px;font:800 10px var(--heading);letter-spacing:.12em;color:var(--teal)}
 .logo-system{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}.logo-card{border:1px solid rgba(0,26,23,.16);background:#fff;padding:24px;text-align:center}.logo-card img{max-height:80px;width:auto;margin:0 auto 16px;object-fit:contain}.logo-card figcaption{font-size:13px}
-.logo-card-dark{background:#001A17;border-color:rgba(255,249,240,.12)}
+.logo-card-dark{background:var(--dark);border-color:rgba(255,249,240,.12);padding:40px 24px}
+.logo-card-dark img{filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2))}
 .logo-card-dark figcaption{color:rgba(255,249,240,.75)}
 .logo-card-dark figcaption strong{color:#FFF9F0}
 .logo-card-dark code{color:#F2C94C}
@@ -62,49 +109,77 @@
 .rules{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}.rule-panel{padding:34px;border:1px solid rgba(0,26,23,.16);background:#fff}.rule-panel h3{margin:0 0 18px;font:800 16px var(--heading)}.rule-do{border-color:var(--teal)}.rule-do h3{color:var(--teal)}.rule-dont{border-color:var(--coral)}.rule-dont h3{color:var(--coral)}.rule-panel ul{margin:0;padding-left:20px}.rule-panel li{margin-bottom:10px;font-size:15px}
 .applications{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}.application{min-height:300px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}.application h3{margin:0;font:900 clamp(28px,4vw,52px)/.9 var(--heading);letter-spacing:-.05em}.application p{max-width:42ch;margin:0}.application-main{background:var(--dark);color:var(--cream);min-height:440px}.application-main h3{color:var(--teal)}.application-side{display:grid;gap:24px}.mini-card{min-height:208px;padding:28px;background:var(--yellow)}.mini-card:last-child{background:var(--coral)}.mini-card h3{font-size:28px}.tag{display:inline-flex;width:max-content;border:1px solid currentColor;border-radius:999px;padding:7px 10px;font:800 10px var(--heading);letter-spacing:.1em}
 .cta{padding:clamp(65px,9vw,100px) 0;background:var(--teal);color:var(--cream)}.cta-inner{display:flex;align-items:end;justify-content:space-between;gap:30px}.cta h2{margin:0;max-width:800px;font:900 clamp(40px,6vw,78px)/.92 var(--heading);letter-spacing:-.06em}.cta a{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:13px 20px;border:1px solid var(--cream);border-radius:999px;text-decoration:none;font:800 12px var(--heading);white-space:nowrap}.cta a:hover{background:var(--cream);color:var(--teal)}
-.footer{padding:28px 0;background:var(--dark);color:rgba(255,249,240,.72);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:20px}.footer a{text-decoration:none}.lnk-news{background:#fff}.lnk-news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}.lnk-news-card{position:relative;text-align:left;border:1px solid rgba(0,26,23,.16);background:#fff;cursor:pointer;display:flex;flex-direction:column;font:inherit;color:inherit;padding:0;transition:transform .25s ease,box-shadow .25s ease}.lnk-news-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(0,26,23,.14)}.lnk-news-badge{position:absolute;top:12px;left:12px;z-index:2;font:800 10px var(--heading);letter-spacing:.1em;background:var(--dark);color:var(--cream);border-radius:999px;padding:6px 12px}.lnk-news-media{display:block;aspect-ratio:16/10;overflow:hidden;background:#eee}.lnk-news-media img{width:100%;height:100%;object-fit:cover;display:block}.lnk-news-title{display:block;padding:14px 16px 18px;font:800 15px var(--heading);line-height:1.3}.lnk-news-empty{grid-column:1/-1;margin:0;font-size:16px;opacity:.7}
-@media(max-width:800px){.hero-grid,.section-head,.applications,.rules{grid-template-columns:1fr}.principles{grid-template-columns:1fr}.principle{border-right:0;border-bottom:1px solid rgba(0,26,23,.2)}.principle:last-child{border-bottom:0}.palette{grid-template-columns:repeat(2,1fr)}.swatch{min-height:160px;padding:18px}.palette-swatch-inner{height:50px;margin-bottom:10px}.type-demo{grid-template-columns:1fr}.cta-inner{display:block}.cta a{margin-top:28px}.footer-inner{display:block}}
+.footer{padding:28px 0;background:var(--dark);color:rgba(255,249,240,.72);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:20px}.footer a{text-decoration:none}@media(max-width:800px){.hero-grid,.section-head,.applications,.rules{grid-template-columns:1fr}.principles{grid-template-columns:1fr}.principle{border-right:0;border-bottom:1px solid rgba(0,26,23,.2)}.principle:last-child{border-bottom:0}.palette{grid-template-columns:repeat(2,1fr)}.swatch{min-height:160px;padding:18px}.palette-swatch-inner{height:50px;margin-bottom:10px}.type-demo{grid-template-columns:1fr}.cta-inner{display:block}.cta a{margin-top:28px}.footer-inner{display:block}}
 @media(max-width:480px){.header-inner{min-height:68px}.back{font-size:10px}.brand span{display:none}.palette{grid-template-columns:1fr}.swatch{min-height:150px}.hero{padding-top:65px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-.lnk-news-lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,26,23,.92);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:48px 16px;opacity:0;pointer-events:none;transition:opacity .25s ease}
-.lnk-news-lightbox.is-open{opacity:1;pointer-events:auto}
-.lnk-news-lightbox-inner{position:relative;width:min(100%,960px);background:var(--cream,#fff9f0);border-radius:14px;overflow:hidden;transform:translateY(24px);transition:transform .3s ease}
-.lnk-news-lightbox.is-open .lnk-news-lightbox-inner{transform:translateY(0)}
-.lnk-news-lightbox-head{display:flex;align-items:center;gap:14px;padding:22px 24px 14px}
-.lnk-news-lightbox-head h3{margin:0;font:900 clamp(20px,3vw,30px) var(--heading,Montserrat,Arial,sans-serif);letter-spacing:-.03em}
-.lnk-news-lightbox-badge{font:800 10px var(--heading);letter-spacing:.1em;background:var(--teal,#009688);color:#fff;border-radius:999px;padding:6px 12px}
-.lnk-news-lightbox-close{margin-left:auto;border:0;background:var(--dark,#001a17);color:var(--cream,#fff9f0);width:40px;height:40px;border-radius:50%;font:800 20px Arial,sans-serif;cursor:pointer;display:grid;place-items:center}
-.lnk-news-lightbox-stage{padding:6px 24px}
-.lnk-news-lightbox-stage img{display:block;width:100%;border-radius:8px}
-.lnk-news-lightbox-desc{margin:16px 24px 0;font-size:15px;opacity:.85;max-width:64ch}
-.lnk-news-lightbox-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px 24px;font:800 11px var(--heading);letter-spacing:.08em;opacity:.7}
-.lnk-news-lightbox-link{font:800 13px var(--heading);background:var(--dark,#001a17);color:var(--cream,#fff9f0);border-radius:999px;padding:11px 22px;text-decoration:none}
-.lnk-news-lightbox-link:hover{background:var(--coral,#ff7043)}
-@media(max-width:640px){.lnk-news-lightbox{padding:16px 8px}.lnk-news-lightbox-inner{border-radius:10px}.lnk-news-lightbox-head{padding:16px 16px 10px}.lnk-news-lightbox-stage{padding:4px 12px}.lnk-news-lightbox-desc{margin:12px 16px 0;font-size:14px}.lnk-news-lightbox-bar{padding:12px 16px 20px}}
 </style>
+  <link rel="stylesheet" href="css/lucide-overrides.css">
 </head>
 <body>
-<main>
-<section class="hero"><div class="container hero-grid" style="position:relative;z-index:1"><div><p class="eyebrow">LNK DESIGN TOUCH · BRAND IDENTITY</p><h1 data-fr="Donner une forme claire à &lt;span&gt;une vision.&lt;/span&gt;" data-en="Giving clear form to &lt;span&gt;a vision.&lt;/span&gt;">Donner une forme claire à <span>une vision.</span></h1><p class="hero-copy" data-fr="L'identité de LNK Design Touch traduit une ambition simple : créer des visuels professionnels, créatifs et accessibles, capables de faire passer une idée du concept à la réalité." data-en="The LNK Design Touch identity translates a simple ambition: create professional, creative and accessible visuals capable of taking an idea from concept to reality.">L'identité de LNK Design Touch traduit une ambition simple : créer des visuels professionnels, créatifs et accessibles, capables de faire passer une idée du concept à la réalité.</p></div></div><div class="hero-deco hero-deco-circle" style="width:200px;height:200px;top:10%;right:5%"></div><div class="hero-deco hero-deco-circle" style="width:80px;height:80px;top:60%;right:15%"></div><div class="hero-deco hero-deco-square" style="width:60px;height:60px;bottom:15%;left:8%"></div><div class="hero-deco hero-deco-square" style="width:40px;height:40px;top:25%;left:45%"></div><div class="hero-deco hero-deco-dot" style="width:16px;height:16px;top:20%;left:70%"></div><div class="hero-deco hero-deco-dot" style="width:10px;height:10px;bottom:30%;right:30%"></div><div class="hero-deco hero-deco-dot" style="width:22px;height:22px;bottom:10%;left:55%"></div><div class="hero-deco hero-deco-ring" style="width:120px;height:120px;top:40%;right:2%"></div><div class="hero-deco hero-deco-ring" style="width:50px;height:50px;bottom:20%;right:50%"></div></section>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="LNK Design Touch — accueil">
+        <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="240" height="64">
+        <span class="brand-fallback" hidden><b>LNK</b><span>Design Touch</span></span>
+      </a>
+	<div class="header-controls">
+	    <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème">
+	      <i data-lucide="sun" class="sun-icon"></i>
+	      <i data-lucide="moon" class="moon-icon"></i>
+	    </button> -->
+	    <div class="brand-language" role="group" aria-label="Language">
+	      <button type="button" class="is-active" data-lang="fr">FR</button>
+	      <button type="button" data-lang="en">EN</button>
+	    </div>
+	</div>
+    </div>
+  </header>
+	<main>
+<section class="hero"><div class="container hero-grid" style="position:relative;z-index:1"><div><p class="eyebrow">LNK DESIGN TOUCH · BRAND IDENTITY</p><h1 data-fr="Donner une forme claire à &lt;span&gt;une vision.&lt;/span&gt;" data-en="Giving clear form to &lt;span&gt;a vision.&lt;/span&gt;">Donner une forme claire à <span>une vision.</span></h1><p class="hero-copy" data-fr="L'identité de LNK Design Touch traduit une ambition simple : créer des visuels professionnels, créatifs et accessibles, capables de faire passer une idée du concept à la réalité." data-en="The LNK Design Touch identity translates a simple ambition: create professional, creative and accessible visuals capable of taking an idea from concept to reality.">L'identité de LNK Design Touch traduit une ambition simple : créer des visuels professionnels, créatifs et accessibles, capables de faire passer une idée du concept à la réalité.</p></div></div><div class="hero-deco hero-deco-circle" style="width:200px;height:200px;top:10%;right:5%"></div><div class="hero-deco hero-deco-circle" style="width:80px;height:80px;top:60%;right:15%"></div><div class="hero-deco hero-deco-square" style="width:60px;height:60px;bottom:15%;left:8%"></div><div class="hero-deco hero-deco-square" style="width:40px;height:40px;top:25%;left:45%"></div><div class="hero-deco hero-deco-dot" style="width:16px;height:16px;top:20%;left:70%"></div><div class="hero-deco hero-deco-dot" style="width:10px;height:10px;bottom:30%;right:30%"></div><div class="hero-deco hero-deco-dot" style="width:22px;height:22px;bottom:10%;left:55%"></div><div class="hero-deco hero-deco-ring" style="width:120px;height:120px;top:40%;right:2%"></div><div class="hero-deco hero-deco-ring" style="width:50px;height:50px;bottom:20%;right:50%"></div>
+    <!-- Motifs décoratifs denses à gauche -->
+    <svg class="hero-decor-svg" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;top:0;left:0;width:50%;height:100%;opacity:0.12;pointer-events:none;fill:var(--teal);">
+      <circle cx="5" cy="15" r="1.2" />
+      <circle cx="20" cy="35" r="0.9" />
+      <circle cx="12" cy="65" r="1.5" />
+      <circle cx="35" cy="10" r="1.1" />
+      <circle cx="8" cy="45" r="1.3" />
+      <circle cx="28" cy="80" r="0.8" />
+      <rect x="15" y="25" width="2" height="2" transform="rotate(30 16 26)" />
+      <rect x="40" y="55" width="1.8" height="1.8" transform="rotate(60 41 56)" />
+      <rect x="10" y="75" width="2.2" height="2.2" transform="rotate(-15 11 76)" />
+      <circle cx="48" cy="40" r="1" />
+      <circle cx="18" cy="5" r="1.4" />
+      <circle cx="42" cy="85" r="1.2" />
+    </svg>
+  </section>
 
 <section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow">01 / POSITIONNEMENT</p><h2 data-fr="Une marque qui crée avec &lt;span&gt;intention.&lt;/span&gt;" data-en="A brand that creates with &lt;span&gt;intention.&lt;/span&gt;">Une marque qui crée avec <span>intention.</span></h2></div><p class="lead" data-fr="LNK_DT se positionne comme un studio de design graphique ancré à Lubumbashi, avec une approche locale, ambitieuse et orientée vers des résultats concrets." data-en="LNK_DT positions itself as a graphic design studio rooted in Lubumbashi, with a local, ambitious approach focused on tangible results.">LNK_DT se positionne comme un studio de design graphique ancré à Lubumbashi, avec une approche locale, ambitieuse et orientée vers des résultats concrets.</p></div><div class="principles"><article class="principle"><b>01</b><h3 data-fr="Professionnel" data-en="Professional">Professionnel</h3><p data-fr="Une exécution soignée, une communication claire et une identité cohérente à chaque point de contact." data-en="A polished execution, clear communication and a consistent identity at every touchpoint.">Une exécution soignée, une communication claire et une identité cohérente à chaque point de contact.</p></article><article class="principle"><b>02</b><h3 data-fr="Créatif" data-en="Creative">Créatif</h3><p data-fr="Des solutions visuelles distinctives qui donnent du caractère aux idées sans sacrifier leur lisibilité." data-en="Distinctive visual solutions that give character to ideas without sacrificing readability.">Des solutions visuelles distinctives qui donnent du caractère aux idées sans sacrifier leur lisibilité.</p></article><article class="principle"><b>03</b><h3 data-fr="Accessible" data-en="Accessible">Accessible</h3><p data-fr="Un design exigeant mais humain, pensé pour les entrepreneurs, PME, organisations et particuliers." data-en="A demanding yet human design, created for entrepreneurs, SMEs, organizations and individuals.">Un design exigeant mais humain, pensé pour les entrepreneurs, PME, organisations et particuliers.</p></article></div></div></section>
 
 <section class="section" style="background:#fff"><div class="container"><div class="section-head"><div><p class="eyebrow">02 / SYSTÈME DE LOGOS</p><h2 data-fr="Un logo, plusieurs &lt;span&gt;contextes.&lt;/span&gt;" data-en="One logo, many &lt;span&gt;contexts.&lt;/span&gt;">Un logo, plusieurs <span>contextes.</span></h2></div><p class="lead" data-fr="Les déclinaisons LNK Design Touch conservent une signature claire sur écran, support imprimé, fond clair ou fond sombre." data-en="LNK Design Touch logo variations keep the signature clear across screens, printed materials, light and dark backgrounds.">Les déclinaisons LNK Design Touch conservent une signature claire sur écran, support imprimé, fond clair ou fond sombre.</p></div><div class="logo-system"><figure class="logo-card"><img src="assets/images/brand/logo-primary-dark.svg" alt="Logo principal LNK Design Touch sur fond clair"><figcaption><strong>Primary / Dark</strong><br><code>logo-primary-dark.svg</code><br><span data-fr="Logo principal sur fond clair." data-en="Primary logo for light backgrounds.">Logo principal sur fond clair.</span></figcaption></figure><figure class="logo-card logo-card-dark"><img src="assets/images/brand/logo-primary-light.svg" alt="Logo principal LNK Design Touch sur fond sombre"><figcaption><strong>Primary / Light</strong><br><code>logo-primary-light.svg</code><br><span data-fr="Logo principal sur fond sombre." data-en="Primary logo for dark backgrounds.">Logo principal sur fond sombre.</span></figcaption></figure><figure class="logo-card"><img src="assets/images/brand/logo-secondary.svg" alt="Logo secondaire LNK Design Touch"><figcaption><strong>Secondary / Color</strong><br><code>logo-secondary.svg</code><br><span data-fr="Version secondaire pour formats compacts." data-en="Secondary version for compact formats.">Version secondaire pour formats compacts.</span></figcaption></figure><figure class="logo-card logo-card-dark"><img src="assets/images/brand/logo-secondary-lights.svg" alt="Logo secondaire clair LNK Design Touch"><figcaption><strong>Secondary / Lights</strong><br><code>logo-secondary-lights.svg</code><br><span data-fr="Footer et fonds très sombres." data-en="Footer and very dark backgrounds.">Footer et fonds très sombres.</span></figcaption></figure><figure class="logo-card"><img src="assets/images/brand/logo-secondary-dark.svg" alt="Logo secondaire sombre LNK Design Touch"><figcaption><strong>Secondary / Dark</strong><br><code>logo-secondary-dark.svg</code><br><span data-fr="Monochrome sombre pour fonds clairs." data-en="Dark monochrome for light backgrounds.">Monochrome sombre pour fonds clairs.</span></figcaption></figure><figure class="logo-card logo-placeholder"><span data-fr="À fournir" data-en="To be supplied">À fournir</span><figcaption><strong>Mark / Symbol</strong><br><code>logo-mark.svg</code><br><span data-fr="Favicon, avatar, petits formats." data-en="Favicon, avatar, small formats.">Favicon, avatar, petits formats.</span></figcaption></figure></div><div class="rules"><article class="rule-panel rule-do"><h3 data-fr="À faire" data-en="Do">À faire</h3><ul><li data-fr="Choisir la variante adaptée au fond." data-en="Choose the variant that fits the background.">Choisir la variante adaptée au fond.</li><li data-fr="Respecter les proportions et la zone de protection." data-en="Respect proportions and clear space.">Respecter les proportions et la zone de protection.</li><li data-fr="Utiliser les fichiers SVG pour le numérique." data-en="Use SVG files for digital media.">Utiliser les fichiers SVG pour le numérique.</li><li data-fr="Maintenir un contraste suffisant." data-en="Maintain sufficient contrast.">Maintenir un contraste suffisant.</li></ul></article><article class="rule-panel rule-dont"><h3 data-fr="À éviter" data-en="Don't">À éviter</h3><ul><li data-fr="Ne pas étirer, comprimer ou incliner le logo." data-en="Do not stretch, compress or tilt the logo.">Ne pas étirer, comprimer ou incliner le logo.</li><li data-fr="Ne pas changer les couleurs ni ajouter de dégradé." data-en="Do not change colors or add gradients.">Ne pas changer les couleurs ni ajouter de dégradé.</li><li data-fr="Ne pas ajouter d'ombre, contour ou texture." data-en="Do not add shadows, outlines or textures.">Ne pas ajouter d'ombre, contour ou texture.</li><li data-fr="Ne pas placer sur fond trop chargé ou peu contrasté." data-en="Do not place on busy or low-contrast backgrounds.">Ne pas placer sur fond trop chargé ou peu contrasté.</li></ul></article></div></div></section>
 
-<section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow">03 / COULEURS</p><h2 data-fr="Une palette avec &lt;span&gt;du caractère.&lt;/span&gt;" data-en="A palette with &lt;span&gt;character.&lt;/span&gt;">Une palette avec <span>du caractère.</span></h2></div><p class="lead" data-fr="Le vert profond installe la confiance, le teal apporte l'énergie créative et les accents chauds donnent du relief aux compositions." data-en="Deep green establishes trust, teal brings creative energy and warm accents add depth to compositions.">Le vert profond installe la confiance, le teal apporte l'énergie créative et les accents chauds donnent du relief aux compositions.</p></div><div class="palette"><div class="swatch dark"><div class="palette-swatch-inner" style="background:#009688"></div><strong>Deep Green</strong><small>#001A17</small></div><div class="swatch teal"><div class="palette-swatch-inner" style="background:#001A17"></div><strong>Teal</strong><small>#009688</small></div><div class="swatch cream"><div class="palette-swatch-inner" style="background:#009688"></div><strong>Cream</strong><small>#FFF9F0</small></div><div class="swatch coral"><div class="palette-swatch-inner" style="background:#1A1A2E"></div><strong>Coral</strong><small>#FF7043</small></div><div class="swatch yellow"><div class="palette-swatch-inner" style="background:#001A17"></div><strong>Yellow</strong><small>#FFC107</small></div></div></div></section>
+<section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow">03 / COULEURS</p><h2 data-fr="Une palette avec &lt;span&gt;du caractère.&lt;/span&gt;" data-en="A palette with &lt;span&gt;character.&lt;/span&gt;">Une palette avec <span>du caractère.</span></h2></div><p class="lead" data-fr="Le vert profond installe la confiance, le teal apporte l'énergie créative et les accents chauds donnent du relief aux compositions." data-en="Deep green establishes trust, teal brings creative energy and warm accents add depth to compositions.">Le vert profond installe la confiance, le teal apporte l'énergie créative et les accents chauds donnent du relief aux compositions.</p></div><div class="palette"><div class="swatch dark"><div class="palette-swatch-inner" style="background:#001A17"></div><strong>Deep Green</strong><small>#001A17</small></div><div class="swatch teal"><div class="palette-swatch-inner" style="background:#009688"></div><strong>Teal</strong><small>#009688</small></div><div class="swatch cream"><div class="palette-swatch-inner" style="background:#FFF9F0"></div><strong>Cream</strong><small>#FFF9F0</small></div><div class="swatch coral"><div class="palette-swatch-inner" style="background:#FF7043"></div><strong>Coral</strong><small>#FF7043</small></div><div class="swatch yellow"><div class="palette-swatch-inner" style="background:#FFC107"></div><strong>Yellow</strong><small>#FFC107</small></div></div></div></section>
 
 <section class="section" style="background:#fff"><div class="container"><div class="section-head"><div><p class="eyebrow">04 / TYPOGRAPHIE</p><h2 data-fr="Une voix visuelle &lt;span&gt;distincte.&lt;/span&gt;" data-en="A distinct &lt;span&gt;visual voice.&lt;/span&gt;">Une voix visuelle <span>distincte.</span></h2></div><p class="lead" data-fr="La hiérarchie typographique associe impact et lisibilité pour que chaque message reste identifiable, du titre à la petite information." data-en="The typographic hierarchy combines impact and readability so every message stays identifiable, from headline to small print.">La hiérarchie typographique associe impact et lisibilité pour que chaque message reste identifiable, du titre à la petite information.</p></div><div class="type-demo"><article class="type-card"><h3>Montserrat</h3><p data-fr="Utilisée pour les titres, les mots-clés, les boutons et les éléments de navigation. Sa présence donne à la marque son ton direct et contemporain." data-en="Used for headings, keywords, buttons and navigation elements. Its presence gives the brand its direct, contemporary tone.">Utilisée pour les titres, les mots-clés, les boutons et les éléments de navigation. Sa présence donne à la marque son ton direct et contemporain.</p><div class="type-meta">HEADINGS · DISPLAY · UI</div></article><article class="type-card"><h3 style="font-family:var(--body);font-weight:700;letter-spacing:-.03em">Open Sans</h3><p data-fr="Utilisée pour les textes courants et les informations secondaires. Elle maintient une lecture confortable sur desktop comme sur mobile." data-en="Used for body copy and secondary information. It keeps reading comfortable on desktop and mobile alike.">Utilisée pour les textes courants et les informations secondaires. Elle maintient une lecture confortable sur desktop comme sur mobile.</p><div class="type-meta">BODY · INFORMATION · LONG FORM</div></article></div></div></section>
 
 <section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow">05 / APPLICATIONS</p><h2 data-fr="L'identité prend vie &lt;span&gt;dans les détails.&lt;/span&gt;" data-en="The identity comes alive &lt;span&gt;in the details.&lt;/span&gt;">L'identité prend vie <span>dans les détails.</span></h2></div><p class="lead" data-fr="Une identité n'existe vraiment que lorsqu'elle reste cohérente sur les supports qui la font vivre." data-en="An identity truly exists only when it stays consistent across the media that bring it to life.">Une identité n'existe vraiment que lorsqu'elle reste cohérente sur les supports qui la font vivre.</p></div><div class="applications"><article class="application application-main"><span class="tag" data-fr="DIGITAL" data-en="DIGITAL">DIGITAL</span><div><h3 data-fr="Social media<br>qui se reconnaît." data-en="Social media<br>that stands out.">Social media<br>qui se reconnaît.</h3><p data-fr="Des compositions pensées pour les réseaux sociaux, les campagnes et les contenus de marque." data-en="Compositions designed for social media, campaigns and brand content.">Des compositions pensées pour les réseaux sociaux, les campagnes et les contenus de marque.</p></div></article><div class="application-side"><article class="mini-card"><span class="tag" data-fr="PRINT" data-en="PRINT">PRINT</span><h3 data-fr="Cartes, flyers, affiches." data-en="Cards, flyers, posters.">Cartes, flyers, affiches.</h3><p data-fr="Une continuité visuelle entre écran et support physique." data-en="A visual continuity between screen and physical medium.">Une continuité visuelle entre écran et support physique.</p></article><article class="mini-card"><span class="tag" data-fr="BRAND" data-en="BRAND">BRAND</span><h3 data-fr="Une identité cohérente." data-en="A consistent identity.">Une identité cohérente.</h3><p data-fr="Des règles simples pour garder la marque reconnaissable." data-en="Simple rules to keep the brand recognizable.">Des règles simples pour garder la marque reconnaissable.</p></article></div></div></div></section>
 
-<section class="section lnk-news"><div class="container"><div class="section-head"><div><p class="eyebrow">06 / LNK_DT NEWS</p><h2 data-fr="La marque en &lt;span&gt;mouvement.&lt;/span&gt;" data-en="The brand &lt;span&gt;in motion.&lt;/span&gt;">La marque en <span>mouvement.</span></h2></div><p class="lead" data-fr="Promotions, nouvelles créations, citations et actualités du studio : la vie de la marque LNK_DT, au fil des semaines." data-en="Promotions, new creations, quotes and studio news: the life of the LNK_DT brand, week after week.">Promotions, nouvelles créations, citations et actualités du studio : la vie de la marque LNK_DT, au fil des semaines.</p></div><div class="lnk-news-grid"><p class="lnk-news-empty" data-fr="Les publications arrivent très bientôt. Suivez-nous sur les réseaux." data-en="Publications are coming soon. Follow us on social media.">Les publications arrivent très bientôt. Suivez-nous sur les réseaux.</p></div></div></section>
+<!-- News section removed -->
 
 <section class="cta"><div class="container cta-inner"><h2 data-fr="Votre projet mérite une identité qui lui ressemble." data-en="Your project deserves an identity that reflects it.">Votre projet mérite une identité qui lui ressemble.</h2><a href="/#contact" data-fr="Parlons de votre projet →" data-en="Let's talk about your project →">Parlons de votre projet →</a></div></section>
 </main>
-<footer class="footer"><div class="container footer-inner" style="display:block;text-align:center"><div><span>© 2026 LNK Design Touch · #lnk_dt</span></div><div class="footer-social" style="justify-content:center;margin:16px 0"><a href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener" aria-label="Instagram"><svg class="bi bi-instagram" aria-hidden="true"><use xlink:href="#bi-instagram"></use></svg></a><a href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener" aria-label="Threads"><svg class="bi bi-threads" aria-hidden="true"><use xlink:href="#bi-threads"></use></svg></a><a href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="bi bi-facebook" aria-hidden="true"><use xlink:href="#bi-facebook"></use></svg></a><a href="https://x.com/Lnk_dt" target="_blank" rel="noopener" aria-label="X"><svg class="bi bi-twitter-x" aria-hidden="true"><use xlink:href="#bi-twitter-x"></use></svg></a><a href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="bi bi-linkedin" aria-hidden="true"><use xlink:href="#bi-linkedin"></use></svg></a><a href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener" aria-label="TikTok"><svg class="bi bi-tiktok" aria-hidden="true"><use xlink:href="#bi-tiktok"></use></svg></a><a href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener" aria-label="YouTube"><svg class="bi bi-youtube" aria-hidden="true"><use xlink:href="#bi-youtube"></use></svg></a><a href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener" aria-label="Pinterest"><svg class="bi bi-pinterest" aria-hidden="true"><use xlink:href="#bi-pinterest"></use></svg></a><a href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener" aria-label="Behance"><svg class="bi bi-behance" aria-hidden="true"><use xlink:href="#bi-behance"></use></svg></a></div><div style="display:flex;justify-content:center;gap:20px;opacity:.7"><a href="/mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a><a href="/politique-confidentialite.html" data-fr="Confidentialité" data-en="Privacy">Confidentialité</a><a href="/contact.html" data-fr="Contact" data-en="Contact">Contact</a><a href="/devis.html" data-fr="Devis" data-en="Quote">Devis</a><a href="/" data-fr="Retour à l'accueil" data-en="Back to homepage">Retour à l'accueil</a></div></div></footer>
-<script src="js/news-catalog.js" defer></script>
-<script src="js/news.js" defer></script>
+<footer class="footer"><div class="container footer-inner" style="display:block;text-align:center"><div><span>© 2026 LNK Design Touch · #lnk_dt</span></div><div class="footer-social" style="justify-content:center;margin:16px 0">
+	  <a href="https://www.instagram.com/lnkdt" target="_blank" rel="noopener" aria-label="Instagram"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Instagram</title><path d="M12 0C8.74 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.74 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.26-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.26 0 12 0zm0 5.838a6.162 6.162 0 1 1 0 12.324 6.162 6.162 0 0 1 0-12.324zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm6.406-11.845a1.44 1.44 0 1 1 0 2.881 1.44 1.44 0 0 1 0-2.881z"/></svg></a>
+	  <a href="https://www.threads.com/@lnkdt" target="_blank" rel="noopener" aria-label="Threads"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Threads</title><path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg></a>
+	  <a href="https://www.facebook.com/share/1GQnd73b2K/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Facebook</title><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+	  <a href="https://x.com/Lnk_dt" target="_blank" rel="noopener" aria-label="X"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>X</title><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a>
+	  <a href="https://www.linkedin.com/company/lnk-design-touch/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+	  <a href="https://www.tiktok.com/@lnk_dt" target="_blank" rel="noopener" aria-label="TikTok"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>TikTok</title><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+	  <a href="https://youtube.com/@lnk_dt" target="_blank" rel="noopener" aria-label="YouTube"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>YouTube</title><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+	  <a href="https://www.pinterest.com/lnk_dt/" target="_blank" rel="noopener" aria-label="Pinterest"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Pinterest</title><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg></a>
+		  <a href="https://www.behance.net/lemuelkanyuka/" target="_blank" rel="noopener" aria-label="Behance"><svg class="brand-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Behance</title><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg></a>
+	</div><div style="display:flex;justify-content:center;gap:20px;opacity:.7"><a href="/mentions-legales.html" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a><a href="/politique-confidentialite.html" data-fr="Confidentialité" data-en="Privacy">Confidentialité</a><a href="/contact.html" data-fr="Contact" data-en="Contact">Contact</a><a href="/devis.html" data-fr="Devis" data-en="Quote">Devis</a><a href="/" data-fr="Retour à l'accueil" data-en="Back to homepage">Retour à l'accueil</a></div></div></footer>
+
 <script> /* LNK_DT 2026 */ 
 (function(){
   const btns = document.querySelectorAll('[data-lang-btn]');
@@ -127,11 +202,60 @@
   };
   if(saved) applyLang(saved);
   else applyLang('fr');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.dataset.langBtn));
-    btn.classList.toggle('is-active', btn.dataset.langBtn === (localStorage.getItem('brand-lang') || 'fr'));
-  });
-})();
+	  btns.forEach(btn => {
+	    btn.addEventListener('click', () => applyLang(btn.dataset.langBtn));
+	    btn.classList.toggle('is-active', btn.dataset.langBtn === (localStorage.getItem('brand-lang') || 'fr'));
+	  });
+	  
+						  // Initialize Lucide Icons
+						  if (window.lucide) {
+						    window.lucide.createIcons({
+						      attrs: {
+						        'stroke-width': 2,
+						        'stroke-linecap': 'round',
+						        'stroke-linejoin': 'round'
+						      }
+						    });
+						  }
+	})();
 </script>
-</body>
+<script>
+  (function() {
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('lnk-theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const currentTheme = savedTheme || systemTheme;
+    
+    html.setAttribute('data-theme', 'light');
+    
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('lnk-theme', newTheme);
+        updateLogos(newTheme);
+      });
+    }
+    
+    function updateLogos(theme) {
+      const logos = document.querySelectorAll('.brand-logo, .footer-logo img');
+      logos.forEach(img => {
+        const src = img.getAttribute('src');
+        if (!src) return;
+        if (theme === 'dark') {
+          img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
+        } else {
+          img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
+        }
+      });
+    }
+    
+    updateLogos('light');
+    if (window.lucide) window.lucide.createIcons();
+  })();
+	</script>
+<!-- Mode sombre désactivé -->
+  <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store"></i></a>
+	</body>
 </html>

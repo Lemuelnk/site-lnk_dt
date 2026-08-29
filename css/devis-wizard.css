@@ -1,0 +1,21 @@
+@import url('./devis-icons.css');
+
+.devis-steps-nav{display:flex;justify-content:center;gap:12px;margin-bottom:40px}
+.step-indicator{width:32px;height:32px;border-radius:50%;border:2px solid rgba(0,26,23,.1);display:flex;align-items:center;justify-content:center;font:800 12px var(--heading);color:var(--muted);transition:.3s var(--ease)}
+.step-indicator.active{border-color:var(--teal);color:var(--teal);background:rgba(0,150,136,.05)}
+.step-indicator.completed{background:var(--teal);border-color:var(--teal);color:var(--cream)}
+
+.devis-step{display:none;animation:step-in .4s var(--ease) both}
+.devis-step.active{display:block}
+
+@keyframes step-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.step-actions{display:flex;gap:12px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(0,26,23,.06)}
+.button-outline{background:transparent;color:var(--dark);border-color:rgba(0,26,23,.2)}
+.button-outline:hover{background:rgba(0,26,23,.05);border-color:var(--dark);color:var(--dark);transform:none}
+
+@media(max-width:760px){
+  .devis-options{padding:20px 16px}
+  .step-actions{flex-direction:column-reverse}
+  .step-actions .button{width:100%}
+}

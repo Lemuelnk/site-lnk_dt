@@ -28,6 +28,9 @@
       description: 'Description',
       all: 'Tout',
       new: 'Nouveaux',
+      in_progress: 'En cours',
+      completed: 'Terminés',
+      cancelled: 'Annulés',
       read: 'Lus',
       archived: 'Archivés',
       newCount: n => `${n} nouveau${n > 1 ? 'x' : ''}`,
@@ -76,6 +79,9 @@
       description: 'Description',
       all: 'All',
       new: 'New',
+      in_progress: 'In Progress',
+      completed: 'Completed',
+      cancelled: 'Cancelled',
       read: 'Read',
       archived: 'Archived',
       newCount: n => `${n} new`,
@@ -110,7 +116,7 @@
     'support-professionnel': '#009688',
     'banniere': '#FFC107',
     'calendrier': '#607D8B',
-    'invitation': '#E91E63',
+    'invitation': '#009688',
     'design-production': '#001A17',
     'autre': '#9C27B0'
   };
@@ -189,10 +195,11 @@
       `</div>` +
       (desc ? `<blockquote class="admin-item-review">${escapeHtml(desc)}</blockquote>` : '') +
       `<div class="admin-item-actions">` +
-      (whatsappLink ? `<a class="admin-btn-whatsapp" href="${whatsappLink}" target="_blank" rel="noopener">${str('whatsapp')}</a>` : '') +
-      (isNew ? `<button type="button" class="admin-btn-restore" data-action="read">${str('markRead')}</button>` : '') +
-      `<button type="button" class="admin-btn-reject" data-action="archive">${str('archive')}</button>` +
-      `<button type="button" class="admin-btn-delete-forever" data-action="delete">${str('delete')}</button>` +
+      (whatsappLink ? `<a class="admin-btn-whatsapp" href="${whatsappLink}" target="_blank" rel="noopener" title="${str('whatsapp')}"><i data-lucide="message-circle"></i> <span>${str('whatsapp')}</span></a>` : '') +
+      (item.status !== 'in_progress' && item.status !== 'completed' ? `<button type="button" class="admin-btn-restore" data-action="in_progress" title="${str('in_progress')}"><i data-lucide="play-circle"></i> <span>${str('in_progress')}</span></button>` : '') +
+      (item.status !== 'completed' ? `<button type="button" class="admin-btn-restore" data-action="completed" title="${str('completed')}"><i data-lucide="check-circle"></i> <span>${str('completed')}</span></button>` : '') +
+      `<button type="button" class="admin-btn-reject" data-action="archive" title="${str('archive')}"><i data-lucide="archive"></i> <span>${str('archive')}</span></button>` +
+      `<button type="button" class="admin-btn-delete-forever" data-action="delete" title="${str('delete')}"><i data-lucide="trash-2"></i> <span>${str('delete')}</span></button>` +
       `</div>` +
       `</article>`
     );
@@ -237,6 +244,9 @@
   function filterProjects(items) {
     if (currentFilter === 'all') return items;
     if (currentFilter === 'new') return items.filter(i => i.status === 'new');
+    if (currentFilter === 'in_progress') return items.filter(i => i.status === 'in_progress');
+    if (currentFilter === 'completed') return items.filter(i => i.status === 'completed');
+    if (currentFilter === 'cancelled') return items.filter(i => i.status === 'cancelled');
     if (currentFilter === 'read') return items.filter(i => i.status === 'read');
     if (currentFilter === 'archived') return items.filter(i => i.status === 'archived');
     return items;
@@ -248,6 +258,9 @@
     const filters = [
       { key: 'all', label: str('all') },
       { key: 'new', label: str('new') },
+      { key: 'in_progress', label: str('in_progress') },
+      { key: 'completed', label: str('completed') },
+      { key: 'cancelled', label: str('cancelled') },
       { key: 'read', label: str('read') },
       { key: 'archived', label: str('archived') }
     ];
@@ -298,6 +311,15 @@
       attachActions();
       if (!silent && newItems.length > 0 && lastCount !== newItems.length) {
         playNotificationSound();
+      }
+      if (window.lucide) {
+        window.lucide.createIcons({
+          attrs: {
+            'stroke-width': 2,
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round'
+          }
+        });
       }
     })
     .catch(() => {});
