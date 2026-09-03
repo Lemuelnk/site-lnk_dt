@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,82 +8,54 @@
   <link rel="canonical" href="https://lnk-studio.com/politique-confidentialite.html">
   <title>Politique de confidentialité — LNK Design Touch</title>
   <link rel="stylesheet" href="css/legal.bundle.css">
-<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style>  <link rel="stylesheet" href="css/lucide-overrides.css">
+  <link rel="stylesheet" href="css/legal.css">
+  <style>
+    .legal-page .site-header{position:fixed;top:0;left:0;width:100%;z-index:100;background:rgba(255,249,240,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,26,23,.09)}
+    .legal-page .header-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:68px;padding-inline:var(--gutter)}
+    .legal-page .header-controls{display:flex;align-items:center;gap:10px;margin-left:auto}
+    .legal-page .language-switcher{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:2px;border:1px solid rgba(0,26,23,.16);border-radius:999px;background:rgba(255,249,240,.72)}
+    .legal-page .language-option{border:0;background:transparent;color:rgba(0,26,23,.58);font:800 10px/1 var(--heading);letter-spacing:.04em;min-width:29px;min-height:33px;padding:0 7px;border-radius:999px;cursor:pointer}
+    .legal-page .language-option.is-active{color:var(--cream);background:var(--dark)}
+    .legal-page .language-switcher>span{color:rgba(0,26,23,.22);font-size:10px}
+    .legal-page .legal-wrap{padding-top:calc(68px + clamp(45px,7vw,90px))}
+    .lnk-wa-fab{position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:900;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--dark);color:var(--cream);text-decoration:none;box-shadow:0 6px 18px rgba(0,26,23,.28);transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+    .lnk-wa-fab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(0,26,23,.32);background:var(--teal)}
+    .lnk-wa-fab svg{width:28px;height:28px;stroke:currentColor}
+    .lnk-wa-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:lnk-wa-pulse 2.4s ease-out infinite}
+    @keyframes lnk-wa-pulse{0%{transform:scale(.9);opacity:.55}100%{transform:scale(1.25);opacity:0}}
+    @media(max-width:760px){.legal-page .header-inner{padding-inline:16px}.lnk-wa-fab{bottom:88px}}
+    @media(max-width:480px){.lnk-wa-fab{width:50px;height:50px}.lnk-wa-fab svg{width:24px;height:24px}}
+    @media(prefers-reduced-motion:reduce){.lnk-wa-fab{transition:none}.lnk-wa-pulse{animation:none}}
+  </style>
+  <link rel="stylesheet" href="css/lucide-overrides.css">
 </head>
 <body class="legal-page">
-  <header class="site-header" style="position:fixed; top:0; width:100%; z-index:100; background:var(--header-bg); border-bottom:1px solid var(--border);">
-    <div class="container header-inner" style="display:flex; justify-content:space-between; align-items:center; min-height:64px;">
-      <a class="brand" href="/" style="text-decoration:none;">
-        <img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="180" height="48">
-        <span class="brand-fallback" hidden><b>LNK</b><span>Design Touch</span></span>
-      </a>
-<div class="header-controls" style="display:flex; align-items:center; gap:12px;">
-	        <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème" style="border:0; background:none; cursor:pointer;">
-	          <i data-lucide="sun" class="sun-icon"></i>
-	          <i data-lucide="moon" class="moon-icon"></i>
-	        </button> -->
-	      </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="LNK Design Touch — accueil"><img class="brand-logo" src="assets/images/brand/logo-primary-dark.svg" alt="LNK Design Touch" width="180" height="48"></a>
+      <div class="header-controls"><div class="language-switcher" role="group" aria-label="Language"><button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button><span aria-hidden="true">|</span><button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button></div></div>
     </div>
   </header>
   <main class="legal-wrap">
     <p class="legal-kicker">LNK DESIGN TOUCH</p>
     <h1>Confidentialité.</h1>
     <p class="legal-note">Cette page décrit les principes appliqués aux informations transmises via le site. Les coordonnées et informations juridiques définitives seront complétées avant la publication finale.</p>
-
     <h2>Informations recueillies</h2>
     <p>Lorsque vous utilisez le formulaire de projet, vous pouvez transmettre notamment votre nom ou celui de votre entreprise, votre téléphone ou WhatsApp, votre adresse email, des informations sur le projet, une date souhaitée, un besoin principal et, facultativement, une pièce jointe.</p>
-
     <h2>Pourquoi ces informations sont utilisées</h2>
     <p>Les informations transmises servent à comprendre votre demande, répondre à votre prise de contact, préparer les échanges relatifs à votre projet et assurer le suivi de votre demande.</p>
-
     <h2>Avis clients</h2>
     <p>Un témoignage envoyé depuis le formulaire d’avis est soumis à une validation avant publication. Les avis approuvés peuvent être affichés sur le site avec les informations fournies dans le formulaire, selon les règles de publication du studio.</p>
-
     <h2>Prestataires techniques</h2>
     <p>Le fonctionnement du site peut faire intervenir des services techniques nécessaires à l’hébergement, à la protection anti-spam et à la réception des formulaires. Les données sont transmises uniquement dans le cadre nécessaire au fonctionnement des fonctionnalités concernées.</p>
-
     <h2>Vos demandes</h2>
     <p>Pour toute question concernant les informations transmises via le site, contactez LNK Design Touch à <a href="mailto:contact@lnk-studio.com">contact@lnk-studio.com</a>.</p>
-
     <p class="legal-links"><a href="brand.html">Identité de marque</a> · <a href="mentions-legales.html">Mentions légales</a></p>
     <a class="legal-back" href="index.html#top">Retour au site</a>
   </main>
+  <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store" aria-hidden="true"></i></a>
 <script>
-  (function() {
-    const toggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('lnk-theme');
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const currentTheme = savedTheme || systemTheme;
-    
-    html.setAttribute('data-theme', 'light');
-    
-    if (toggle) {
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        const newTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('lnk-theme', newTheme);
-        updateLogos(newTheme);
-      });
-    }
-    
-    function updateLogos(theme) {
-      const logos = document.querySelectorAll('.brand-logo, .footer-logo img');
-      logos.forEach(img => {
-        const src = img.getAttribute('src');
-        if (!src) return;
-        if (theme === 'dark') {
-          img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
-        } else {
-          img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
-        }
-      });
-    }
-    
-    updateLogos(currentTheme);
-    if (window.lucide) window.lucide.createIcons();
-  })();
+(function(){const html=document.documentElement;const options=document.querySelectorAll('.language-option');options.forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.lang==='en'){location.href='politique-confidentialite-en.html';return;}html.dataset.lang='fr';options.forEach(o=>{const active=o===btn;o.classList.toggle('is-active',active);o.setAttribute('aria-pressed',String(active));});localStorage.setItem('lnk-lang','fr');}));if(window.lucide)window.lucide.createIcons();})();
 </script>
 </body>
 </html>
