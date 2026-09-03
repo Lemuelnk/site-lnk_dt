@@ -85,6 +85,53 @@ def remove_obsolete_generated():
     print(f'Nettoyage: {removed} anciens bundles générés supprimés.')
 
 
+def ensure_home_assets(html_text, css_digest, js_digest):
+    """Add home assets without ever corrupting preload/stylesheet markup."""
+    text = html_text
+
+    # Repair the malformed construct produced by the first modularization pass.
+    text = re.sub(
+        r'<link rel="preload" href="css/site\.bundle\.css\?v=[a-z0-9]+\s*\n<link rel="stylesheet" href="css/home\.bundle\.css\?v=[a-z0-9]+">" as="style">',
+        f'<link rel="preload" href="css/site.bundle.css?v={css_digest}" as="style">\n'
+        f'<link rel="preload" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}" as="style">',
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    # Ensure the canonical core stylesheet exists and has the current version.
+    text = re.sub(
+        r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">',
+        f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">',
+        text,
+        count=1,
+    )
+
+    # Insert the home stylesheet immediately after the core stylesheet.
+    if 'href="css/home.bundle.css' not in text:
+        marker = f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">'
+        text = text.replace(
+            marker,
+            marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}">',
+            1,
+        )
+    else:
+        text = re.sub(
+            r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
+            f'<link rel="stylesheet" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}">',
+            text,
+            count=1,
+        )
+
+    # Ensure the home JS is loaded once, deferred, just before </body>.
+    text = re.sub(r'\s*<script src="js/home\.bundle\.js(?:\?v=[a-z0-9]+)?" defer></script>', '', text)
+    text = text.replace(
+        '</body>',
+        f'\n<script src="js/home.bundle.js?v={js_digest}" defer></script>\n</body>',
+        1,
+    )
+    return text
+
+
 js_core_digest = build_stable_bundle(JS, JS_CORE, 'site.bundle.js', 'JavaScript core')
 js_home_digest = build_stable_bundle(JS, JS_HOME, 'home.bundle.js', 'JavaScript home')
 css_core_digest = build_stable_bundle(CSS, CSS_CORE, 'site.bundle.css', 'CSS core')
@@ -115,19 +162,8 @@ for html in ROOT.glob('*.html'):
         new,
     )
 
-    # Homepage gets the page-specific bundle; all other root pages keep only
-    # the core bundle and their existing page-specific styles/scripts.
     if html.name == 'index.html':
-        if 'css/home.bundle.css' not in new:
-            new = new.replace(
-                f'css/site.bundle.css?v={css_core_digest}',
-                f'css/site.bundle.css?v={css_core_digest}\n<link rel="stylesheet" href="css/home.bundle.css?v={css_home_digest}">',
-                1,
-            )
-        if 'js/home.bundle.js' not in new:
-            marker = '</body>'
-            script = f'\n<script src="js/home.bundle.js?v={js_home_digest}" defer></script>\n'
-            new = new.replace(marker, script + marker, 1)
+        new = ensure_home_assets(new, css_core_digest, js_home_digest)
 
     new = re.sub(r'css/brand\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/brand.bundle.css', new)
     new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new)
