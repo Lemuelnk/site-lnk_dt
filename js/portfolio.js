@@ -35,9 +35,6 @@
   let pinchStartZoom = 1;
   let lastTap = 0;
   let lastTapTarget = null;
-  let pinchVelX = 0;
-  let pinchVelY = 0;
-  let lastPinchTime = 0;
   let isDraggingImage = false;
   let dragStartX = 0;
   let dragStartY = 0;
@@ -61,7 +58,6 @@
     const visual = document.createElement('div');
     visual.className = 'portfolio-visual';
 
-    // Badge "échantillon" avec l'image du premier projet si disponible
     if (category.sampleImage) {
       const image = document.createElement('img');
       image.className = 'portfolio-image';
@@ -92,7 +88,6 @@
     button.append(visual, meta);
     article.appendChild(button);
 
-    // Clic sur catégorie → déploie les travaux de cette catégorie
     button.addEventListener('click', () => {
       if (moved) return;
       render(category.id);
@@ -122,18 +117,14 @@
     image.onload = () => visual.classList.add('is-loaded');
     visual.appendChild(image);
 
-    // Overlay hover
     const overlay = document.createElement('div');
     overlay.className = 'portfolio-overlay';
     let overlayContent = `<span class="portfolio-overlay-title">${project.title || category.label}</span>`;
-    
-    // Ajout spécifique pour l'étude de cas MTJ (statique)
     if (project.image.includes('branding-logo-mtj')) {
       overlayContent += `<a href="case-study-mtj.html" class="portfolio-case-study-btn" onclick="event.stopPropagation()">Lire l'étude de cas</a>`;
     } else {
       overlayContent += `<span class="portfolio-overlay-icon"><i data-lucide="maximize" class="icon icon-lg"></i></span>`;
     }
-    
     overlay.innerHTML = overlayContent;
     visual.appendChild(overlay);
 
@@ -144,7 +135,6 @@
     button.append(visual, meta);
     article.appendChild(button);
 
-    // Clic sur un travail → lightbox
     button.addEventListener('click', () => {
       if (moved) return;
       const projects = getCategoryProjects(project.category);
@@ -171,7 +161,7 @@
       data.categories.forEach(category => grid.appendChild(sampleCard(category)));
       setActive('all');
       window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
-    if (window.lucide) window.lucide.createIcons();
+      if (window.lucide) window.lucide.createIcons();
       return;
     }
 
@@ -179,17 +169,13 @@
     if (!category) return;
 
     setActive(categoryId);
-
-    // Afficher tous les travaux de la catégorie
     const projects = getCategoryProjects(categoryId);
     if (projects.length) {
       projects.forEach((project, index) => {
         grid.appendChild(projectCard(project, index + 1));
       });
     } else {
-      // Pas de projets → afficher le sample placeholder + CTA pour ne pas perdre le visiteur
       grid.appendChild(sampleCard(category));
-      // CTA : bouton "Demander un devis" pour la catégorie vide
       const ctaWrap = document.createElement('div');
       ctaWrap.className = 'portfolio-empty-cta';
       const cta = document.createElement('a');
@@ -217,7 +203,8 @@
     }
   }
 
-  function closeLightbox() {
+  // Creates the lightbox once and wires all interaction handlers.
+  function ensureLightbox() {
     if (document.querySelector('#portfolio-lightbox')) return;
 
     const dialog = document.createElement('dialog');
@@ -255,7 +242,10 @@
     document.body.appendChild(dialog);
 
     dialog.addEventListener('click', event => {
-      if (event.target === dialog) closeLightbox();
+      if (event.target === dialog) {
+        closeLightbox();
+        return;
+      }
       const action = event.target.closest('[data-action]')?.dataset.action;
       if (!action) return;
       if (action === 'close') closeLightbox();
@@ -271,8 +261,11 @@
       closeLightbox();
     });
 
+    dialog.addEventListener('close', () => {
+      document.body.classList.remove('portfolio-lightbox-open');
+    });
+
     const stage = dialog.querySelector('[data-stage]');
-    const media = dialog.querySelector('[data-media]');
 
     function getTouchDistance(event) {
       const touches = event.touches;
@@ -282,31 +275,18 @@
       return Math.hypot(dx, dy);
     }
 
-    function getTouchCenter(event) {
-      const touches = event.touches;
-      if (!touches || touches.length < 2) return { x: 0, y: 0 };
-      return {
-        x: (touches[0].clientX + touches[1].clientX) / 2,
-        y: (touches[0].clientY + touches[1].clientY) / 2
-      };
-    }
-
-    // --- Touch events (mobile) ---
-    let swipeStartY = 0;
     stage.addEventListener('touchstart', event => {
       if (event.touches.length === 1) {
         isPointerDown = true;
         moved = false;
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
-        swipeStartY = event.touches[0].clientY;
         if (zoom > 1) {
           isDraggingImage = true;
           dragStartX = event.touches[0].clientX - imageOffsetX;
           dragStartY = event.touches[0].clientY - imageOffsetY;
         }
-      }
-      if (event.touches.length === 2) {
+      } else if (event.touches.length === 2) {
         pinchStartDistance = getTouchDistance(event);
         pinchStartZoom = zoom;
         isDraggingImage = false;
@@ -318,9 +298,7 @@
         event.preventDefault();
         const distance = getTouchDistance(event);
         if (pinchStartDistance > 0 && distance > 0) {
-          const scale = distance / pinchStartDistance;
-          setZoom(pinchStartZoom * scale, true);
-          lastPinchTime = Date.now();
+          setZoom(pinchStartZoom * (distance / pinchStartDistance), true);
         }
       } else if (event.touches.length === 1 && zoom > 1 && isDraggingImage) {
         event.preventDefault();
@@ -338,29 +316,27 @@
       imageOffsetY = 0;
       isPointerDown = false;
       if (event.changedTouches.length !== 1) return;
-      
-      const swipeEndY = event.changedTouches[0].clientY;
-      const swipeDeltaY = swipeEndY - swipeStartY;
-      
-      // Swipe down to close (only if not zoomed)
-      if (zoom <= 1 && Math.abs(swipeDeltaY) > 100) {
-        closeLightbox();
+
+      const dx = event.changedTouches[0].clientX - startX;
+      const dy = event.changedTouches[0].clientY - startY;
+      if (zoom <= 1 && Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+        navigate(dx < 0 ? 1 : -1);
+        moved = false;
         return;
       }
 
       const now = Date.now();
       const target = event.target;
-      const isSameTarget = target === lastTapTarget;
-      if (now - lastTap < 320 && isSameTarget && !moved) {
+      if (now - lastTap < 320 && target === lastTapTarget && !moved) {
         setZoom(zoom >= 2 ? 1 : 2);
         lastTap = 0;
       } else {
         lastTap = now;
         lastTapTarget = target;
       }
+      window.setTimeout(() => { moved = false; }, 0);
     }, { passive: true });
 
-    // --- Pointer events (desktop mouse) ---
     stage.addEventListener('pointerdown', event => {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
       isPointerDown = true;
@@ -401,20 +377,17 @@
       window.setTimeout(() => { moved = false; }, 0);
     });
 
-    // --- Wheel zoom (desktop) ---
     stage.addEventListener('wheel', event => {
       if (!dialog.open) return;
       event.preventDefault();
       setZoom(zoom + (event.deltaY < 0 ? .15 : -.15));
     }, { passive: false });
 
-    // --- Double click (desktop) ---
     stage.addEventListener('dblclick', event => {
       event.preventDefault();
       setZoom(zoom >= 2 ? 1 : 2);
     });
 
-    // --- Keyboard ---
     document.addEventListener('keydown', event => {
       if (!dialog.open) return;
       if (event.key === 'Escape') closeLightbox();
@@ -424,6 +397,8 @@
       if (event.key === '-') setZoom(zoom - .25);
       if (event.key === '0') setZoom(1);
     });
+
+    if (window.lucide) window.lucide.createIcons();
   }
 
   function applyImageTransform() {
@@ -436,6 +411,7 @@
   }
 
   function openLightbox(items, index, categoryLabel) {
+    if (!items.length) return;
     ensureLightbox();
     lightboxItems = items;
     lightboxIndex = Math.max(0, Math.min(index, items.length - 1));
@@ -445,8 +421,8 @@
     const dialog = document.querySelector('#portfolio-lightbox');
     if (!dialog.open) dialog.showModal();
     document.body.classList.add('portfolio-lightbox-open');
-    dialog.querySelector('[data-stage]').focus({ preventScroll: true });
     updateLightbox(categoryLabel);
+    dialog.querySelector('[data-stage]').focus({ preventScroll: true });
     window.lnkApplyLanguage?.(document.documentElement.lang || 'fr');
     if (window.lucide) window.lucide.createIcons();
   }
@@ -455,14 +431,15 @@
     const dialog = document.querySelector('#portfolio-lightbox');
     if (!dialog) return;
     const item = lightboxItems[lightboxIndex];
-    const category = item.category?.label || categoryLabel || categoryMap[item.category]?.label || '';
+    if (!item) return;
+    const category = categoryLabel || categoryMap[item.category]?.label || '';
     const title = item.title || 'Échantillon';
     dialog.querySelector('#portfolio-lightbox-category').textContent = category;
     dialog.querySelector('#portfolio-lightbox-title').textContent = title;
 
     const caseStudyBtn = dialog.querySelector('#portfolio-lightbox-case-study');
     if (caseStudyBtn) {
-      if (item.image.includes('branding-logo-mtj')) {
+      if (item.image?.includes('branding-logo-mtj')) {
         caseStudyBtn.href = 'case-study-mtj.html';
         caseStudyBtn.hidden = false;
         caseStudyBtn.style.display = 'inline-flex';
@@ -471,6 +448,7 @@
         caseStudyBtn.style.display = 'none';
       }
     }
+
     const lang = document.documentElement.lang || 'fr';
     const description = lang.startsWith('en') ? (item.description_en || item.description_fr || '') : (item.description_fr || item.description_en || '');
     const descriptionElement = dialog.querySelector('#portfolio-lightbox-desc');
@@ -500,12 +478,12 @@
     updateLightbox();
   }
 
-  function setZoom(value, smooth = false) {
+  function setZoom(value) {
     zoom = Math.max(1, Math.min(3, Number(value) || 1));
     const media = document.querySelector('#portfolio-lightbox [data-media]');
     if (!media) return;
     const image = media.querySelector('.portfolio-lightbox-image');
-    if (image) image.style.transform = `scale(${zoom})`;
+    if (image) image.style.transform = `scale(${zoom}) translate3d(${imageOffsetX}px, ${imageOffsetY}px, 0)`;
     const reset = document.querySelector('#portfolio-lightbox [data-action="zoom-reset"]');
     if (reset) reset.textContent = `${Math.round(zoom * 100)}%`;
   }
@@ -528,7 +506,6 @@
 
   render('all');
 
-  // The catalog is generated into the bundle; fetch only supports older previews.
   if (!generatedProjects.length) fetch('data/portfolio.json', { cache: 'force-cache' })
     .then(response => {
       if (!response.ok) throw new Error(`Portfolio catalog unavailable (${response.status})`);
@@ -539,7 +516,6 @@
       data.projects = catalog.projects.filter(project => (
         project && categoryMap[project.category] && project.image
       ));
-      // Mettre à jour les catégories avec sampleImage
       if (Array.isArray(catalog.categories)) {
         catalog.categories.forEach(cat => {
           if (categoryMap[cat.id]) {
