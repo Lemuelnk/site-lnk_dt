@@ -1,0 +1,132 @@
+/* LNK Design Touch — Color & Contrast Hardening
+   WCAG-oriented overrides for text, controls, focus states and interactive states.
+   Decorative brand colors remain unchanged; text/UI contexts use contrast-safe variants. */
+
+:root {
+  --coral-text: #B43E20;
+  --coral-ui: #C74724;
+  --focus-color: #007F74;
+}
+
+/* Focus indicators must remain visible against the light surface. */
+:focus-visible {
+  outline-color: var(--focus-color) !important;
+}
+
+/* Teal is excellent as a brand fill, but #009688 is too light for normal text on cream. */
+.eyebrow,
+.contact-label,
+.contact-kicker,
+.contact-info-item .contact-icon,
+.file-input-icon,
+.founder-details a.founder-whatsapp,
+.tab-item.is-active {
+  color: var(--teal-contrast) !important;
+}
+
+/* Coral is reserved for decoration; text/error contexts use the accessible coral tone. */
+.eyebrow span,
+.field-error,
+.form-feedback.error,
+.contact-direct .error,
+.error-message,
+.validation-error {
+  color: var(--coral-text) !important;
+}
+
+/* Interactive teal states: use the darker contrast-safe teal when text sits on cream. */
+.button:hover,
+.brief-submit:hover,
+.contact-form-section .btn-primary:hover,
+.file-select-button:hover {
+  background: var(--teal-contrast) !important;
+  border-color: var(--teal-contrast) !important;
+}
+
+.button-outline:hover,
+.text-link:hover,
+.theme-toggle:hover {
+  color: var(--teal-contrast) !important;
+}
+
+/* Active/selected UI needs a visible 3:1+ boundary and readable text. */
+.tab-item.is-active {
+  color: var(--teal-contrast) !important;
+}
+
+/* Form borders and helper text: strengthen low-opacity light-on-light states. */
+.field-help {
+  color: rgba(0, 26, 23, .72) !important;
+}
+
+.file-name {
+  color: rgba(0, 26, 23, .72) !important;
+}
+
+/* Light surfaces: remove near-white variants where they create inconsistent theme contrast. */
+.brief-panel,
+.contact-form-section input,
+.contact-form-section select,
+.contact-form-section textarea {
+  background: var(--card-bg, #FFFFFF);
+}
+
+/* Disabled controls may be muted, but must not become indistinguishable from the surface. */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  color: var(--muted-contrast) !important;
+}
+
+/* Dark theme: keep the accessible semantic colors coherent on dark surfaces. */
+html[data-theme="dark"] .eyebrow,
+html[data-theme="dark"] .contact-label,
+html[data-theme="dark"] .contact-kicker,
+html[data-theme="dark"] .contact-info-item .contact-icon,
+html[data-theme="dark"] .file-input-icon,
+html[data-theme="dark"] .founder-details a.founder-whatsapp,
+html[data-theme="dark"] .tab-item.is-active {
+  color: #7DE7DB !important;
+}
+
+html[data-theme="dark"] .eyebrow span,
+html[data-theme="dark"] .field-error,
+html[data-theme="dark"] .form-feedback.error,
+html[data-theme="dark"] .contact-direct .error,
+html[data-theme="dark"] .error-message,
+html[data-theme="dark"] .validation-error {
+  color: #FF9A78 !important;
+}
+
+html[data-theme="dark"] .button:hover,
+html[data-theme="dark"] .brief-submit:hover,
+html[data-theme="dark"] .contact-form-section .btn-primary:hover,
+html[data-theme="dark"] .file-select-button:hover {
+  background: #009688 !important;
+  border-color: #009688 !important;
+  color: #FFF9F0 !important;
+}
+
+html[data-theme="dark"] .button-outline:hover,
+html[data-theme="dark"] .text-link:hover,
+html[data-theme="dark"] .theme-toggle:hover {
+  color: #7DE7DB !important;
+}
+
+html[data-theme="dark"] .field-help,
+html[data-theme="dark"] .file-name {
+  color: rgba(255, 249, 240, .82) !important;
+}
+
+html[data-theme="dark"] button:disabled,
+html[data-theme="dark"] input:disabled,
+html[data-theme="dark"] select:disabled,
+html[data-theme="dark"] textarea:disabled {
+  color: rgba(255, 249, 240, .62) !important;
+}
+
+/* Keep the theme toggle and language controls readable in both states. */
+html[data-theme="dark"] .language-option.is-active {
+  color: #001A17 !important;
+}
