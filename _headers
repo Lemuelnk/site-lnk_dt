@@ -6,7 +6,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Report-To: {"group":"csp-endpoint","max_age":604800,"endpoints":[{"url":"https://lnk-studio.com/api/csp-report"}]}
   Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://static.cloudflareinsights.com 'sha256-n+3JHVnyt50JZ6vKcT4eWU/kfMlE2Z81jSA1NDxLPPc=' 'sha256-q1d6NYWTr+HiEweYy0OT3qJpCPNU5kGvPiftvUkWqws=' 'sha256-yI+BQJmzxNkXDoB1YGLcBuOmciZfP9Ik13cB6Snyseg=' 'sha256-4SQPU+k8xvqHXoi3UCGQndTt6TBvspwFb7RH5+LFf8Y=' 'sha256-e14WMOF27MLzLzDJznu18rbGGjATIgydx8n4jphTNrM=' 'sha256-RUVCkJTlDCkVYBTcJjYL7RwMEBxw5c0YqtLkZ0Oq/mM=' 'sha256-puaH5YAj15zOI4Xjd1w1ENfR5vdEcnLmmVM/KJ37MGc=' 'sha256-2Q401Pt11wUYv+NbEFM6LJDouJuKw1hN3vWTnnvrSt4=' 'sha256-EsIFR4eq3+caWbwtrT+AxHyFeTajH9P5RPmFvD1PB58=' 'sha256-PTuMip5NXgfSr1XlxGCOf7b0DE/BgD10XmkwUQCkGE8=' 'sha256-HbIOwQTJhSjWnz+Jfab6DJZmcKc5C4SMWIt6LoVqtes=' 'sha256-KOVKr4b1KtdUwZ5MSF3EfCCvbNVYwGomEb6EoueKcpA=' 'sha256-L8zOQv+uOnLfmGP50H+8REVmXSsYdTBR0DU0mgGVGh4=' 'sha256-mHf7bQHB4IuPoptYYsKuz68TutylQr2jr6IzkuqzAiM='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
-  NEL: {"report_to":"csp-endpoint","success_fraction":0,"max_age":604800}
+  NEL: {"report_to":"csp-endpoint","success_fraction":0,"max_age":604800
 
 /
   Cache-Control: public, max-age=300, must-revalidate
@@ -44,6 +44,10 @@
   Cache-Control: public, max-age=31536000, immutable
   CDN-Cache-Control: public, max-age=31536000, immutable
 
+/css/home.bundle.css
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+
 /css/brand.bundle.css
   Cache-Control: public, max-age=31536000, immutable
   CDN-Cache-Control: public, max-age=31536000, immutable
@@ -64,6 +68,10 @@
   Cache-Control: public, max-age=31536000, immutable
   CDN-Cache-Control: public, max-age=31536000, immutable
 
+/js/home.bundle.js
+  Cache-Control: public, max-age=31536000, immutable
+  CDN-Cache-Control: public, max-age=31536000, immutable
+
 /admin/*
   X-Robots-Tag: noindex, nofollow
 
@@ -81,3 +89,4 @@
   CDN-Cache-Control: public, max-age=3600
 /api/csp-report
   X-Robots-Tag: noindex, nofollow
+*/
