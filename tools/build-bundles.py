@@ -9,7 +9,8 @@ CSS = ROOT / 'css'
 js_order = ['vendor/lucide.min.js', 'navigation.js', 'hero-motion.js', 'services.js', 'portfolio-catalog.js', 'portfolio.js', 'testimonials.js', 'contact.js', 'announcement.js', 'footer.js', 'visual-upgrades.js']
 css_order = ['styles.css', 'icons.css', 'lucide-overrides.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'announcements.css', 'footer.css', 'step5.css', 'hero-motion.css', 'responsive-9a.css', 'hero-mobile-fix.css', 'index-extras.css', 'visual-upgrades.css']
 
-def bundle(source_dir, names, base_name, label):
+
+def build_stable_bundle(source_dir, names, filename, label):
     chunks = []
     for name in names:
         path = source_dir / name
@@ -18,46 +19,38 @@ def bundle(source_dir, names, base_name, label):
         else:
             print(f'  (averti: {source_dir.name}/{name} introuvable, ignoré)')
     content = '\n'.join(chunks).rstrip() + '\n'
-    digest = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
-    ext = 'css' if label == 'CSS' else 'js'
-    target = source_dir / f'{base_name}.{digest}.{ext}'
+    target = source_dir / filename
     target.write_text(content, encoding='utf-8')
-    print(f'{label}: {target.name} ({len(chunks)} modules, hash {digest})')
-    return target.name
+    digest = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
+    print(f'{label}: {target.name} ({len(chunks)} modules, version {digest})')
+    return digest
 
-js_file = bundle(JS, js_order, 'site.bundle', 'JavaScript')
-css_file = bundle(CSS, css_order, 'site.bundle', 'CSS')
 
-secondary = [
-    ('css/brand.bundle.css', 'css/brand.bundle', ['brand.html']),
-    ('css/legal.bundle.css', 'css/legal.bundle', ['mentions-legales.html', 'politique-confidentialite.html', 'mentions-legales-en.html', 'politique-confidentialite-en.html']),
-    ('css/admin-reviews.css', 'css/admin-reviews', ['admin-reviews.html']),
-]
-for source_rel, target_stem, htmls in secondary:
-    path = ROOT / source_rel
-    if not path.exists():
-        continue
-    content = path.read_text(encoding='utf-8')
-    h = hashlib.sha256(content.encode('utf-8')).hexdigest()[:10]
-    target_name = f'{target_stem}.{h}.css'
-    (ROOT / target_name).write_text(content, encoding='utf-8')
-    print(f'{path.name}: {target_name} (hash {h})')
-    for html_name in htmls:
-        html = ROOT / html_name
-        if not html.exists():
-            continue
-        t = html.read_text(encoding='utf-8')
-        t = t.replace('css/css/', 'css/')
-        t = re.sub(rf'{re.escape(target_stem)}\.[a-f0-9]+\.css(\?v=[a-f0-9]+)?', target_name, t)
-        t = re.sub(rf'(css/)?{re.escape(path.name)}(\?v=[a-f0-9]+)?', target_name, t)
-        html.write_text(t, encoding='utf-8')
+def remove_obsolete_generated():
+    removed = 0
+    for pattern in ('site.bundle.*.js',):
+        for path in JS.glob(pattern):
+            path.unlink()
+            removed += 1
+    for pattern in ('site.bundle.*.css', 'brand.bundle.*.css', 'legal.bundle.*.css', 'admin-reviews.*.css'):
+        for path in CSS.glob(pattern):
+            path.unlink()
+            removed += 1
+    print(f'Nettoyage: {removed} anciens bundles générés supprimés.')
+
+
+js_digest = build_stable_bundle(JS, js_order, 'site.bundle.js', 'JavaScript')
+css_digest = build_stable_bundle(CSS, css_order, 'site.bundle.css', 'CSS')
+remove_obsolete_generated()
 
 for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
-    js_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.js$', js_file).group(1)
-    css_digest = re.match(r'site\.bundle\.([a-z0-9]+)\.css$', css_file).group(1)
-    new = re.sub(r'js/site\.bundle(\.[a-z0-9]+)?\.js(\?v=[a-z0-9]+)?', f'js/{js_file}?v={js_digest}', text)
-    new = re.sub(r'css/site\.bundle(\.[a-z0-9]+)?\.css(\?v=[a-z0-9]+)?', f'css/{css_file}?v={css_digest}', new)
+    new = text
+    new = re.sub(r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?', f'js/site.bundle.js?v={js_digest}', new)
+    new = re.sub(r'css/site\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?', f'css/site.bundle.css?v={css_digest}', new)
+    new = re.sub(r'css/brand\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/brand.bundle.css', new)
+    new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new)
+    new = re.sub(r'css/admin-reviews\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/admin-reviews.css', new)
     if new != text:
         html.write_text(new, encoding='utf-8')
         print(f'HTML mis à jour: {html.name}')
