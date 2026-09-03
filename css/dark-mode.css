@@ -1,0 +1,170 @@
+/* LNK Design Touch — Dark Mode overrides
+   Theme tokens remain in styles.css; this layer normalizes legacy hard-coded light surfaces. */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+  background: var(--dark);
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .section-cream,
+html[data-theme="dark"] .process,
+html[data-theme="dark"] .materialization,
+html[data-theme="dark"] .contact-section,
+html[data-theme="dark"] .legal-page,
+html[data-theme="dark"] .site-main,
+html[data-theme="dark"] main {
+  background-color: #061f1c;
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .site-header nav,
+html[data-theme="dark"] .mobile-tab-bar {
+  background: rgba(0, 26, 23, .97) !important;
+  color: var(--cream);
+  border-color: rgba(255, 249, 240, .14) !important;
+}
+
+html[data-theme="dark"] .hero-grid i,
+html[data-theme="dark"] .hero-bottom i {
+  background: rgba(255, 249, 240, .16);
+}
+
+html[data-theme="dark"] .frame {
+  border-color: rgba(255, 249, 240, .55);
+}
+
+html[data-theme="dark"] .stamp {
+  border-color: rgba(255, 249, 240, .55);
+}
+
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .portfolio-card,
+html[data-theme="dark"] .testimonial-card,
+html[data-theme="dark"] .review-card,
+html[data-theme="dark"] .type-card,
+html[data-theme="dark"] .logo-card,
+html[data-theme="dark"] .brief-panel,
+html[data-theme="dark"] .materialization-info,
+html[data-theme="dark"] .contact-card,
+html[data-theme="dark"] .contact-form,
+html[data-theme="dark"] .quote-form,
+html[data-theme="dark"] .form-card,
+html[data-theme="dark"] .faq-item {
+  background: #0c2925 !important;
+  color: var(--cream);
+  border-color: rgba(255, 249, 240, .14) !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background: #071f1c !important;
+  color: var(--cream) !important;
+  border-color: rgba(255, 249, 240, .22) !important;
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: rgba(255, 249, 240, .52);
+}
+
+html[data-theme="dark"] .legal-page p,
+html[data-theme="dark"] .legal-page li,
+html[data-theme="dark"] .contact-section p,
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .text-muted {
+  color: rgba(255, 249, 240, .76);
+}
+
+html[data-theme="dark"] .principles,
+html[data-theme="dark"] .principle,
+html[data-theme="dark"] .legal-wrap,
+html[data-theme="dark"] .footer-legal-links {
+  border-color: rgba(255, 249, 240, .16) !important;
+}
+
+html[data-theme="dark"] .principle b,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .button-outline,
+html[data-theme="dark"] .text-link {
+  color: var(--cream) !important;
+  border-color: rgba(255, 249, 240, .55) !important;
+}
+
+html[data-theme="dark"] .button-outline:hover,
+html[data-theme="dark"] .text-link:hover {
+  color: var(--teal) !important;
+}
+
+html[data-theme="dark"] .footer {
+  background: #00100e;
+}
+
+html[data-theme="dark"] .footer a,
+html[data-theme="dark"] .footer p,
+html[data-theme="dark"] .footer small {
+  color: rgba(255, 249, 240, .82);
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 249, 240, .08) !important;
+  color: var(--cream) !important;
+  border-color: rgba(255, 249, 240, .24) !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(0, 150, 136, .18) !important;
+  color: #7de7db !important;
+  border-color: var(--teal) !important;
+}
+
+html[data-theme="dark"] .language-switcher {
+  background: rgba(255, 249, 240, .06) !important;
+  border-color: rgba(255, 249, 240, .2) !important;
+}
+
+html[data-theme="dark"] .lnk-wa-fab {
+  background: var(--teal);
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .portfolio-lightbox,
+html[data-theme="dark"] .lightbox-overlay,
+html[data-theme="dark"] .modal {
+  background: rgba(0, 10, 9, .96) !important;
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .portfolio-lightbox-content,
+html[data-theme="dark"] .lightbox-content,
+html[data-theme="dark"] .modal-content {
+  background: #061f1c;
+  color: var(--cream);
+  border-color: rgba(255, 249, 240, .16);
+}
+
+html[data-theme="dark"] .skip-link {
+  background: var(--cream);
+  color: var(--dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="dark"] *,
+  html[data-theme="dark"] *::before,
+  html[data-theme="dark"] *::after {
+    transition-duration: .01ms !important;
+  }
+}
