@@ -6,6 +6,7 @@ on:
     paths:
       - 'assets/images/portfolio/**'
       - 'tools/generate-portfolio-catalog.py'
+      - 'tools/build-bundles.py'
 
 permissions:
   contents: write
@@ -22,15 +23,15 @@ jobs:
       - name: Generate catalog
         run: python3 tools/generate-portfolio-catalog.py
 
-      - name: Build portfolio bundle
+      - name: Build stable assets
         run: python3 tools/build-bundles.py
 
-      - name: Commit generated catalog and bundle
+      - name: Commit generated catalog and stable assets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/portfolio.json js/portfolio-catalog.js
-          git add js/site.bundle.*.js css/site.bundle.*.css css/brand.bundle.*.css css/legal.bundle.*.css
-          git add index.html brand.html mentions-legales.html politique-confidentialite.html mentions-legales-en.html politique-confidentialite-en.html
+          git add -A data/portfolio.json js/portfolio-catalog.js js/site.bundle.js css/site.bundle.css
+          git add -A css/brand.bundle.css css/legal.bundle.css css/admin-reviews.css
+          git add -A '*.html'
           git diff --cached --quiet || git commit -m "chore: regenerate portfolio catalog"
           git push
