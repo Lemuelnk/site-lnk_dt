@@ -7,6 +7,8 @@ on:
       - 'assets/images/portfolio/**'
       - 'tools/generate-portfolio-catalog.py'
       - 'tools/build-bundles.py'
+      - 'css/**'
+      - 'js/**'
       - '.deploy-trigger'
 
 permissions:
