@@ -31,6 +31,7 @@ CSS_CORE = [
     'lucide-overrides.css',
     'footer.css',
     'responsive-9a.css',
+    'accessibility.css',
 ]
 CSS_HOME = [
     'services.css',
@@ -90,7 +91,6 @@ def ensure_home_assets(html_text, css_digest, js_digest):
     text = html_text
     home_css_digest = hashlib.sha256((CSS / 'home.bundle.css').read_bytes()).hexdigest()[:10]
 
-    # Repair the malformed construct produced by the first modularization pass.
     text = re.sub(
         r'<link rel="preload" href="css/site\.bundle\.css\?v=[a-z0-9]+\s*\n<link rel="stylesheet" href="css/home\.bundle\.css\?v=[a-z0-9]+">" as="style">',
         f'<link rel="preload" href="css/site.bundle.css?v={css_digest}" as="style">\n'
@@ -99,7 +99,6 @@ def ensure_home_assets(html_text, css_digest, js_digest):
         flags=re.IGNORECASE,
     )
 
-    # Ensure the canonical core stylesheet exists and has the current version.
     text = re.sub(
         r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">',
         f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">',
@@ -107,9 +106,6 @@ def ensure_home_assets(html_text, css_digest, js_digest):
         count=1,
     )
 
-    # IMPORTANT: check for the actual stylesheet tag, not merely an href.
-    # The preload also contains href="css/home.bundle.css", so checking the
-    # href alone can silently leave the home CSS unloaded at runtime.
     home_stylesheet = re.compile(
         r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
         flags=re.IGNORECASE,
@@ -128,7 +124,6 @@ def ensure_home_assets(html_text, css_digest, js_digest):
             count=1,
         )
 
-    # Ensure the home JS is loaded once, deferred, just before </body>.
     text = re.sub(r'\s*<script src="js/home\.bundle\.js(?:\?v=[a-z0-9]+)?" defer></script>', '', text)
     text = text.replace(
         '</body>',
