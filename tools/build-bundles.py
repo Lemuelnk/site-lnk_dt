@@ -6,8 +6,44 @@ ROOT = Path(__file__).resolve().parents[1]
 JS = ROOT / 'js'
 CSS = ROOT / 'css'
 
-js_order = ['vendor/lucide.min.js', 'navigation.js', 'hero-motion.js', 'services.js', 'portfolio-catalog.js', 'portfolio.js', 'testimonials.js', 'contact.js', 'announcement.js', 'footer.js', 'visual-upgrades.js']
-css_order = ['styles.css', 'icons.css', 'lucide-overrides.css', 'services.css', 'portfolio.css', 'testimonials.css', 'contact.css', 'announcements.css', 'footer.css', 'step5.css', 'hero-motion.css', 'responsive-9a.css', 'hero-mobile-fix.css', 'index-extras.css', 'visual-upgrades.css']
+# Keep source modules separate and compose only a small global bundle plus
+# page-specific bundles. This gives the browser fewer, purpose-built assets
+# without sacrificing maintainability in source.
+JS_CORE = [
+    'vendor/lucide.min.js',
+    'navigation.js',
+    'announcement.js',
+    'footer.js',
+]
+JS_HOME = [
+    'hero-motion.js',
+    'services.js',
+    'portfolio-catalog.js',
+    'portfolio.js',
+    'testimonials.js',
+    'contact.js',
+    'visual-upgrades.js',
+]
+
+CSS_CORE = [
+    'styles.css',
+    'icons.css',
+    'lucide-overrides.css',
+    'footer.css',
+    'responsive-9a.css',
+]
+CSS_HOME = [
+    'services.css',
+    'portfolio.css',
+    'testimonials.css',
+    'contact.css',
+    'announcements.css',
+    'step5.css',
+    'hero-motion.css',
+    'hero-mobile-fix.css',
+    'index-extras.css',
+    'visual-upgrades.css',
+]
 
 
 def build_stable_bundle(source_dir, names, filename, label):
@@ -15,9 +51,13 @@ def build_stable_bundle(source_dir, names, filename, label):
     for name in names:
         path = source_dir / name
         if path.exists():
-            chunks.append(f'/* ===== {source_dir.name}/{name} ===== */\n{path.read_text(encoding="utf-8").strip()}\n')
+            chunks.append(
+                f'/* ===== {source_dir.name}/{name} ===== */\n'
+                f'{path.read_text(encoding="utf-8").strip()}\n'
+            )
         else:
             print(f'  (averti: {source_dir.name}/{name} introuvable, ignoré)')
+
     content = '\n'.join(chunks).rstrip() + '\n'
     target = source_dir / filename
     target.write_text(content, encoding='utf-8')
@@ -28,29 +68,71 @@ def build_stable_bundle(source_dir, names, filename, label):
 
 def remove_obsolete_generated():
     removed = 0
-    for pattern in ('site.bundle.*.js',):
+    for pattern in ('site.bundle.*.js', 'home.bundle.*.js'):
         for path in JS.glob(pattern):
             path.unlink()
             removed += 1
-    for pattern in ('site.bundle.*.css', 'brand.bundle.*.css', 'legal.bundle.*.css', 'admin-reviews.*.css'):
+    for pattern in (
+        'site.bundle.*.css',
+        'home.bundle.*.css',
+        'brand.bundle.*.css',
+        'legal.bundle.*.css',
+        'admin-reviews.*.css',
+    ):
         for path in CSS.glob(pattern):
             path.unlink()
             removed += 1
     print(f'Nettoyage: {removed} anciens bundles générés supprimés.')
 
 
-js_digest = build_stable_bundle(JS, js_order, 'site.bundle.js', 'JavaScript')
-css_digest = build_stable_bundle(CSS, css_order, 'site.bundle.css', 'CSS')
+js_core_digest = build_stable_bundle(JS, JS_CORE, 'site.bundle.js', 'JavaScript core')
+js_home_digest = build_stable_bundle(JS, JS_HOME, 'home.bundle.js', 'JavaScript home')
+css_core_digest = build_stable_bundle(CSS, CSS_CORE, 'site.bundle.css', 'CSS core')
+css_home_digest = build_stable_bundle(CSS, CSS_HOME, 'home.bundle.css', 'CSS home')
 remove_obsolete_generated()
 
 for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     new = text
-    new = re.sub(r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?', f'js/site.bundle.js?v={js_digest}', new)
-    new = re.sub(r'css/site\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?', f'css/site.bundle.css?v={css_digest}', new)
+    new = re.sub(
+        r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
+        f'js/site.bundle.js?v={js_core_digest}',
+        new,
+    )
+    new = re.sub(
+        r'css/site\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?',
+        f'css/site.bundle.css?v={css_core_digest}',
+        new,
+    )
+    new = re.sub(
+        r'js/home\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
+        f'js/home.bundle.js?v={js_home_digest}',
+        new,
+    )
+    new = re.sub(
+        r'css/home\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?',
+        f'css/home.bundle.css?v={css_home_digest}',
+        new,
+    )
+
+    # Homepage gets the page-specific bundle; all other root pages keep only
+    # the core bundle and their existing page-specific styles/scripts.
+    if html.name == 'index.html':
+        if 'css/home.bundle.css' not in new:
+            new = new.replace(
+                f'css/site.bundle.css?v={css_core_digest}',
+                f'css/site.bundle.css?v={css_core_digest}\n<link rel="stylesheet" href="css/home.bundle.css?v={css_home_digest}">',
+                1,
+            )
+        if 'js/home.bundle.js' not in new:
+            marker = '</body>'
+            script = f'\n<script src="js/home.bundle.js?v={js_home_digest}" defer></script>\n'
+            new = new.replace(marker, script + marker, 1)
+
     new = re.sub(r'css/brand\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/brand.bundle.css', new)
     new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new)
     new = re.sub(r'css/admin-reviews\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/admin-reviews.css', new)
+
     if new != text:
         html.write_text(new, encoding='utf-8')
         print(f'HTML mis à jour: {html.name}')
