@@ -88,12 +88,13 @@ def remove_obsolete_generated():
 def ensure_home_assets(html_text, css_digest, js_digest):
     """Add home assets without ever corrupting preload/stylesheet markup."""
     text = html_text
+    home_css_digest = hashlib.sha256((CSS / 'home.bundle.css').read_bytes()).hexdigest()[:10]
 
     # Repair the malformed construct produced by the first modularization pass.
     text = re.sub(
         r'<link rel="preload" href="css/site\.bundle\.css\?v=[a-z0-9]+\s*\n<link rel="stylesheet" href="css/home\.bundle\.css\?v=[a-z0-9]+">" as="style">',
         f'<link rel="preload" href="css/site.bundle.css?v={css_digest}" as="style">\n'
-        f'<link rel="preload" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}" as="style">',
+        f'<link rel="preload" href="css/home.bundle.css?v={home_css_digest}" as="style">',
         text,
         flags=re.IGNORECASE,
     )
@@ -106,18 +107,23 @@ def ensure_home_assets(html_text, css_digest, js_digest):
         count=1,
     )
 
-    # Insert the home stylesheet immediately after the core stylesheet.
-    if 'href="css/home.bundle.css' not in text:
+    # IMPORTANT: check for the actual stylesheet tag, not merely an href.
+    # The preload also contains href="css/home.bundle.css", so checking the
+    # href alone can silently leave the home CSS unloaded at runtime.
+    home_stylesheet = re.compile(
+        r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
+        flags=re.IGNORECASE,
+    )
+    if not home_stylesheet.search(text):
         marker = f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">'
         text = text.replace(
             marker,
-            marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}">',
+            marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">',
             1,
         )
     else:
-        text = re.sub(
-            r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
-            f'<link rel="stylesheet" href="css/home.bundle.css?v={hashlib.sha256((CSS / "home.bundle.css").read_bytes()).hexdigest()[:10]}">',
+        text = home_stylesheet.sub(
+            f'<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">',
             text,
             count=1,
         )
