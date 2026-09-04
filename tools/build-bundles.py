@@ -101,6 +101,16 @@ def normalize_language_switchers(html_text):
     return pattern.sub('<div class="language-switcher" data-lnk-language></div>', html_text)
 
 
+def remove_legacy_home_language_style(html_text):
+    """Remove the old page-local language CSS now owned by the global component."""
+    return re.sub(
+        r'\s*<style\s+id=["\']lnk-language-style["\'][^>]*>.*?</style>',
+        '',
+        html_text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+
+
 def ensure_home_assets(html_text, css_digest, js_digest):
     """Add home assets without ever corrupting preload/stylesheet markup."""
     text = html_text
@@ -158,6 +168,7 @@ for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     new = text
     new = normalize_language_switchers(new)
+    new = remove_legacy_home_language_style(new)
     new = re.sub(
         r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
         f'js/site.bundle.js?v={js_core_digest}',
