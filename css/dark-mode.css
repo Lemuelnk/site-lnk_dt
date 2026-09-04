@@ -21,6 +21,88 @@ html[data-theme="dark"] main {
   color: var(--cream);
 }
 
+/* Process / services: eliminate legacy dark-on-dark text and borders. */
+html[data-theme="dark"] .process-intro > p,
+html[data-theme="dark"] .process-step p,
+html[data-theme="dark"] .materialization-head > p {
+  color: rgba(255, 249, 240, .78) !important;
+}
+
+html[data-theme="dark"] .process-steps,
+html[data-theme="dark"] .process-step {
+  border-color: rgba(255, 249, 240, .18) !important;
+}
+
+html[data-theme="dark"] .process-step-number,
+html[data-theme="dark"] .service-number {
+  color: #7DE7DB !important;
+}
+
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .service-card:hover,
+html[data-theme="dark"] .service-card.is-active {
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .service-card-featured,
+html[data-theme="dark"] .service-card.is-active {
+  background: rgba(0, 150, 136, .12) !important;
+}
+
+html[data-theme="dark"] .services-list {
+  border-color: rgba(255, 249, 240, .18) !important;
+}
+
+html[data-theme="dark"] .service-card {
+  border-color: rgba(255, 249, 240, .18) !important;
+}
+
+html[data-theme="dark"] .service-main p,
+html[data-theme="dark"] .service-content p,
+html[data-theme="dark"] .section-intro {
+  color: rgba(255, 249, 240, .78) !important;
+}
+
+html[data-theme="dark"] .service-location {
+  color: #7DE7DB !important;
+  border-color: rgba(125, 231, 219, .55) !important;
+}
+
+html[data-theme="dark"] .service-location:hover {
+  color: var(--cream) !important;
+  border-color: var(--cream) !important;
+}
+
+html[data-theme="dark"] .services-note {
+  border-color: rgba(255, 249, 240, .45) !important;
+  color: var(--cream);
+}
+
+html[data-theme="dark"] .services-note p {
+  color: rgba(255, 249, 240, .82) !important;
+}
+
+html[data-theme="dark"] .services-note .text-link {
+  color: #7DE7DB !important;
+}
+
+html[data-theme="dark"] .services-note .text-link:hover {
+  color: var(--cream) !important;
+}
+
+html[data-theme="dark"] .materialization-info {
+  background: #0c2925 !important;
+  border-color: rgba(255, 249, 240, .16) !important;
+}
+
+html[data-theme="dark"] .materialization-info small {
+  color: rgba(255, 249, 240, .72) !important;
+}
+
+html[data-theme="dark"] .materialization-info li {
+  border-color: rgba(255, 249, 240, .14) !important;
+}
+
 html[data-theme="dark"] .site-header nav,
 html[data-theme="dark"] .mobile-tab-bar {
   background: rgba(0, 26, 23, .97) !important;
@@ -139,6 +221,10 @@ html[data-theme="dark"] .language-switcher {
 html[data-theme="dark"] .lnk-wa-fab {
   background: var(--teal);
   color: var(--cream);
+}
+
+html[data-theme="dark"] .lnk-wa-fab::after {
+  opacity: 1;
 }
 
 html[data-theme="dark"] .portfolio-lightbox,
