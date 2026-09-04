@@ -6,22 +6,30 @@
   --coral-text: #B43E20;
   --coral-ui: #C74724;
   --focus-color: #007F74;
+  --teal-text: #007F74;
 }
 
-/* Focus indicators must remain visible against the light surface. */
+/* Focus indicators must remain visible against both primary theme surfaces. */
 :focus-visible {
-  outline-color: var(--focus-color) !important;
+  outline: 3px solid var(--focus-color) !important;
+  outline-offset: 3px !important;
 }
 
-/* Teal is excellent as a brand fill, but #009688 is too light for normal text on cream. */
+/* Light-theme text contexts: #009688 is retained for decorative fills, while
+   small/normal text uses the WCAG-safe darker teal. */
 .eyebrow,
 .contact-label,
 .contact-kicker,
 .contact-info-item .contact-icon,
 .file-input-icon,
 .founder-details a.founder-whatsapp,
-.tab-item.is-active {
-  color: var(--teal-contrast) !important;
+.tab-item.is-active,
+.process-step-number,
+.type-meta,
+.footer-logo b,
+.service-card .service-icon,
+.contact-icon.lucide {
+  color: var(--teal-text) !important;
 }
 
 /* Coral is reserved for decoration; text/error contexts use the accessible coral tone. */
@@ -30,35 +38,47 @@
 .form-feedback.error,
 .contact-direct .error,
 .error-message,
-.validation-error {
+.validation-error,
+.logo-placeholder span {
   color: var(--coral-text) !important;
 }
 
-/* Interactive teal states: use the darker contrast-safe teal when text sits on cream. */
+/* Interactive teal states on light surfaces. */
+.button:hover,
+.brief-submit:hover,
+.contact-form-section .btn-primary:hover,
+.file-select-button:hover,
+.text-link:hover,
+.back:hover,
+.footer-social a:hover,
+.service-card:hover .service-icon {
+  color: var(--teal-text) !important;
+}
+
 .button:hover,
 .brief-submit:hover,
 .contact-form-section .btn-primary:hover,
 .file-select-button:hover {
-  background: var(--teal-contrast) !important;
-  border-color: var(--teal-contrast) !important;
+  background: var(--teal-text) !important;
+  border-color: var(--teal-text) !important;
 }
 
 .button-outline:hover,
-.text-link:hover,
 .theme-toggle:hover {
-  color: var(--teal-contrast) !important;
+  color: var(--teal-text) !important;
+  border-color: var(--teal-text) !important;
 }
 
 /* Active/selected UI needs a visible 3:1+ boundary and readable text. */
-.tab-item.is-active {
-  color: var(--teal-contrast) !important;
+.tab-item.is-active,
+.step-indicator.is-active,
+.step-indicator.completed,
+.tab-item[aria-current="page"] {
+  color: var(--teal-text) !important;
 }
 
 /* Form borders and helper text: strengthen low-opacity light-on-light states. */
-.field-help {
-  color: rgba(0, 26, 23, .72) !important;
-}
-
+.field-help,
 .file-name {
   color: rgba(0, 26, 23, .72) !important;
 }
@@ -79,15 +99,27 @@ textarea:disabled {
   color: var(--muted-contrast) !important;
 }
 
-/* Dark theme: keep the accessible semantic colors coherent on dark surfaces. */
+/* Dark theme: semantic colors are brightened for strong contrast on --dark. */
+html[data-theme="dark"] {
+  --teal-text: #7DE7DB;
+  --coral-text: #FF9A78;
+  --coral-ui: #FF8A68;
+  --focus-color: #7DE7DB;
+}
+
 html[data-theme="dark"] .eyebrow,
 html[data-theme="dark"] .contact-label,
 html[data-theme="dark"] .contact-kicker,
 html[data-theme="dark"] .contact-info-item .contact-icon,
 html[data-theme="dark"] .file-input-icon,
 html[data-theme="dark"] .founder-details a.founder-whatsapp,
-html[data-theme="dark"] .tab-item.is-active {
-  color: #7DE7DB !important;
+html[data-theme="dark"] .tab-item.is-active,
+html[data-theme="dark"] .process-step-number,
+html[data-theme="dark"] .type-meta,
+html[data-theme="dark"] .footer-logo b,
+html[data-theme="dark"] .service-card .service-icon,
+html[data-theme="dark"] .contact-icon.lucide {
+  color: var(--teal-text) !important;
 }
 
 html[data-theme="dark"] .eyebrow span,
@@ -95,8 +127,9 @@ html[data-theme="dark"] .field-error,
 html[data-theme="dark"] .form-feedback.error,
 html[data-theme="dark"] .contact-direct .error,
 html[data-theme="dark"] .error-message,
-html[data-theme="dark"] .validation-error {
-  color: #FF9A78 !important;
+html[data-theme="dark"] .validation-error,
+html[data-theme="dark"] .logo-placeholder span {
+  color: var(--coral-text) !important;
 }
 
 html[data-theme="dark"] .button:hover,
@@ -110,8 +143,11 @@ html[data-theme="dark"] .file-select-button:hover {
 
 html[data-theme="dark"] .button-outline:hover,
 html[data-theme="dark"] .text-link:hover,
-html[data-theme="dark"] .theme-toggle:hover {
-  color: #7DE7DB !important;
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .back:hover,
+html[data-theme="dark"] .footer-social a:hover {
+  color: var(--teal-text) !important;
+  border-color: var(--teal-text) !important;
 }
 
 html[data-theme="dark"] .field-help,
@@ -126,7 +162,7 @@ html[data-theme="dark"] textarea:disabled {
   color: rgba(255, 249, 240, .62) !important;
 }
 
-/* Keep the theme toggle and language controls readable in both states. */
+/* Keep language controls readable in both states. */
 html[data-theme="dark"] .language-option.is-active {
   color: #001A17 !important;
 }
