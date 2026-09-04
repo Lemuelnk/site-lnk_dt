@@ -906,31 +906,12 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
 
 /* ===== js/visual-upgrades.js ===== */
 // LNK Design Touch — Visual Upgrades
-// Scroll animations, custom cursor, ripple buttons, preloader, marquee, parallax, counters
+// Scroll animations, custom cursor, ripple buttons, parallax, counters
 
 (() => {
   'use strict';
 
-  // ===== 1. PRELOADER =====
-  function initPreloader() {
-    const preloader = document.getElementById('lnk-preloader');
-    if (!preloader) return;
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        preloader.classList.add('lnk-preloader-done');
-        setTimeout(() => preloader.remove(), 600);
-      }, 400);
-    });
-    // Fallback: hide after 2s max
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.classList.add('lnk-preloader-done');
-        setTimeout(() => preloader.remove(), 600);
-      }
-    }, 2000);
-  }
-
-  // ===== 2. SCROLL REVEAL ANIMATIONS =====
+  // ===== 1. SCROLL REVEAL ANIMATIONS =====
   function initScrollReveal() {
     const els = document.querySelectorAll('.lnk-reveal');
     if (!els.length) return;
@@ -945,7 +926,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     els.forEach(el => observer.observe(el));
   }
 
-  // ===== 3. CUSTOM CURSOR =====
+  // ===== 2. CUSTOM CURSOR =====
   function initCustomCursor() {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const cursor = document.createElement('div');
@@ -965,7 +946,6 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
       requestAnimationFrame(animateCursor);
     }
     animateCursor();
-    // Hover effect on interactive elements
     const interactive = document.querySelectorAll('a, button, [role="button"], .filter, .portfolio-card-button, input, textarea, select');
     interactive.forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('lnk-cursor-hover'));
@@ -973,7 +953,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     });
   }
 
-  // ===== 4. RIPPLE BUTTONS =====
+  // ===== 3. RIPPLE BUTTONS =====
   function initRipple() {
     const buttons = document.querySelectorAll('.button, .lnk-btn, .filter, .cta-btn');
     buttons.forEach(btn => {
@@ -994,7 +974,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     });
   }
 
-  // ===== 5. PARALLAX LÉGER =====
+  // ===== 4. PARALLAX LÉGER =====
   function initParallax() {
     const parallaxEls = document.querySelectorAll('.lnk-parallax');
     if (!parallaxEls.length) return;
@@ -1013,74 +993,7 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     }, { passive: true });
   }
 
-  // ===== 6. THEME TOGGLE (Dark/Light Mode) =====
-  function initTheme() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('lnk-theme');
-    
-    // Preference: Saved > System Preference
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const currentTheme = savedTheme || systemTheme;
-    
-    // Apply initial theme
-    html.setAttribute('data-theme', currentTheme);
-    
-    if (themeToggle) {
-      themeToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const currentTheme = html.getAttribute('data-theme') || 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('lnk-theme', newTheme);
-        
-        // Update logos immediately
-        updateLogos(newTheme);
-        
-        // Re-initialize icons to switch sun/moon
-        if (window.lucide) window.lucide.createIcons();
-        
-        // Trigger custom event
-        document.dispatchEvent(new CustomEvent('lnk-theme-changed', { detail: newTheme }));
-        
-        console.log('Theme switched to:', newTheme);
-      });
-    }
-    
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-      if (!localStorage.getItem('lnk-theme')) {
-        const newTheme = e.matches ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        document.dispatchEvent(new CustomEvent('lnk-theme-changed', { detail: newTheme }));
-      }
-    });
-
-    // Logo Auto-Switching
-    function updateLogos(theme) {
-      const logos = document.querySelectorAll('.brand-logo, .footer-logo img');
-      logos.forEach(img => {
-        const src = img.getAttribute('src');
-        if (theme === 'dark') {
-          img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
-        } else {
-          img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
-        }
-      });
-    }
-
-    // Initial logo state
-    updateLogos(currentTheme);
-
-    // Update on theme change
-    document.addEventListener('lnk-theme-changed', (e) => {
-      updateLogos(e.detail);
-    });
-  }
-
-  // ===== 7. COUNTER ANIMATION =====
+  // ===== 5. COUNTER ANIMATION =====
   function initCounters() {
     const counters = document.querySelectorAll('.lnk-counter[data-target]');
     if (!counters.length) return;
@@ -1103,7 +1016,6 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       const current = target * eased;
       el.textContent = current.toFixed(decimals);
@@ -1113,10 +1025,10 @@ window.LNK_PORTFOLIO_CATALOG = {"categories":[{"id":"affiches","label":"Affiches
     requestAnimationFrame(update);
   }
 
-  // ===== INIT =====
+  // Theme state, persistence, logo switching and theme-toggle interaction are owned
+  // exclusively by js/navigation.js. Keeping this module theme-agnostic prevents
+  // duplicate handlers and double-toggle regressions on the homepage.
   document.addEventListener('DOMContentLoaded', () => {
-    // Preloader completely removed from HTML and JS initialization
-    initTheme();
     initScrollReveal();
     initCustomCursor();
     initRipple();
