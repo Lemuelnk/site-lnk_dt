@@ -24,11 +24,8 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     return saved==='dark'||saved==='light'?saved:systemTheme();
   };
 
-  // Apply the persisted/system theme as early as this shared bundle allows.
   html.setAttribute('data-theme',getTheme());
 
-  // Load the dedicated theme layer once. Keeping it separate prevents theme CSS from
-  // leaking into page-specific bundles and makes future maintenance straightforward.
   if(!document.querySelector('link[data-lnk-dark-mode]')){
     const themeLink=document.createElement('link');
     themeLink.rel='stylesheet';
@@ -86,8 +83,6 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     updateThemeButton(html.getAttribute('data-theme')||getTheme());
   };
 
-  // Capture phase intentionally owns the click so legacy page scripts cannot register
-  // a second theme handler and toggle twice.
   document.addEventListener('click',(event)=>{
     const toggle=event.target.closest&&event.target.closest('#theme-toggle');
     if(!toggle)return;
@@ -109,6 +104,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     n.dataset.open=String(open);
   };
 
+  setOpen(false);
   b.addEventListener('click',()=>setOpen(b.getAttribute('aria-expanded')!=='true'));
   n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
   document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
@@ -120,7 +116,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
   let lastScroll=0;
   window.addEventListener('scroll',()=>{
     const currentScroll=window.pageYOffset;
-    if(currentScroll<=0){h.classList.remove('header-hidden');return;}
+    if(currentScroll<=0){h.classList.remove('header-hidden');lastScroll=0;return;}
     if(currentScroll>lastScroll&&!h.classList.contains('header-hidden')&&currentScroll>100){
       if(n.dataset.open!=='true')h.classList.add('header-hidden');
     }else if(currentScroll<lastScroll&&h.classList.contains('header-hidden'))h.classList.remove('header-hidden');
@@ -134,13 +130,15 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
   progressContainer.appendChild(progressBar);
   document.body.appendChild(progressContainer);
 
-  window.addEventListener('scroll',()=>{
-    const winScroll=document.body.scrollTop||document.documentElement.scrollTop;
+  const updateProgress=()=>{
+    const winScroll=window.scrollY||document.documentElement.scrollTop;
     const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
     const scrolled=height>0?(winScroll/height)*100:0;
     progressBar.style.width=scrolled+'%';
-    progressContainer.style.opacity=winScroll>200?1:0;
-  },{passive:true});
+    progressContainer.style.opacity=winScroll>200?'1':'0';
+  };
+  window.addEventListener('scroll',updateProgress,{passive:true});
+  updateProgress();
 
   const magneticBtns=document.querySelectorAll('.button,.nav-cta,.portfolio-case-study-btn');
   magneticBtns.forEach(btn=>{
