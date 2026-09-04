@@ -43,11 +43,7 @@
   color: var(--coral-text) !important;
 }
 
-/* Interactive teal states on light surfaces. */
-.button:hover,
-.brief-submit:hover,
-.contact-form-section .btn-primary:hover,
-.file-select-button:hover,
+/* Interactive teal text states on light surfaces. */
 .text-link:hover,
 .back:hover,
 .footer-social a:hover,
@@ -55,12 +51,14 @@
   color: var(--teal-text) !important;
 }
 
+/* Filled controls: teal fill + cream text preserves strong contrast. */
 .button:hover,
 .brief-submit:hover,
 .contact-form-section .btn-primary:hover,
 .file-select-button:hover {
   background: var(--teal-text) !important;
   border-color: var(--teal-text) !important;
+  color: var(--cream) !important;
 }
 
 .button-outline:hover,
