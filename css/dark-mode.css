@@ -1,14 +1,8 @@
 /* LNK Design Touch — Dark Mode overrides
    Theme tokens remain in styles.css; this layer normalizes legacy hard-coded light surfaces. */
 
-html[data-theme="dark"] {
-  color-scheme: dark;
-}
-
-html[data-theme="dark"] body {
-  background: var(--dark);
-  color: var(--cream);
-}
+html[data-theme="dark"] { color-scheme: dark; }
+html[data-theme="dark"] body { background: var(--dark); color: var(--cream); }
 
 html[data-theme="dark"] .section-cream,
 html[data-theme="dark"] .process,
@@ -21,87 +15,63 @@ html[data-theme="dark"] main {
   color: var(--cream);
 }
 
-/* Process / services: eliminate legacy dark-on-dark text and borders. */
+/* Services / process / materialization: eliminate legacy dark-on-dark text. */
 html[data-theme="dark"] .process-intro > p,
 html[data-theme="dark"] .process-step p,
-html[data-theme="dark"] .materialization-head > p {
-  color: rgba(255, 249, 240, .78) !important;
+html[data-theme="dark"] .materialization-head > p,
+html[data-theme="dark"] .service-main p,
+html[data-theme="dark"] .service-content p,
+html[data-theme="dark"] .section-intro,
+html[data-theme="dark"] .materialization-info small {
+  color: rgba(255, 249, 240, .84) !important;
 }
 
 html[data-theme="dark"] .process-steps,
-html[data-theme="dark"] .process-step {
-  border-color: rgba(255, 249, 240, .18) !important;
+html[data-theme="dark"] .process-step,
+html[data-theme="dark"] .services-list,
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .materialization-info,
+html[data-theme="dark"] .materialization-info li {
+  border-color: rgba(255, 249, 240, .20) !important;
 }
 
 html[data-theme="dark"] .process-step-number,
-html[data-theme="dark"] .service-number {
-  color: #7DE7DB !important;
-}
-
+html[data-theme="dark"] .service-number { color: #7DE7DB !important; }
+html[data-theme="dark"] .service-kicker { color: #FF9A78 !important; }
 html[data-theme="dark"] .service-card,
 html[data-theme="dark"] .service-card:hover,
-html[data-theme="dark"] .service-card.is-active {
-  color: var(--cream);
-}
-
+html[data-theme="dark"] .service-card.is-active { color: var(--cream); }
 html[data-theme="dark"] .service-card-featured,
-html[data-theme="dark"] .service-card.is-active {
-  background: rgba(0, 150, 136, .12) !important;
-}
-
-html[data-theme="dark"] .services-list {
-  border-color: rgba(255, 249, 240, .18) !important;
-}
-
-html[data-theme="dark"] .service-card {
-  border-color: rgba(255, 249, 240, .18) !important;
-}
-
-html[data-theme="dark"] .service-main p,
-html[data-theme="dark"] .service-content p,
-html[data-theme="dark"] .section-intro {
-  color: rgba(255, 249, 240, .78) !important;
-}
+html[data-theme="dark"] .service-card.is-active { background: rgba(0, 150, 136, .12) !important; }
+html[data-theme="dark"] .service-title,
+html[data-theme="dark"] .services h2,
+html[data-theme="dark"] .process h2,
+html[data-theme="dark"] .process h3,
+html[data-theme="dark"] .materialization h2,
+html[data-theme="dark"] .materialization h3 { color: var(--cream) !important; }
+html[data-theme="dark"] .services h2 span,
+html[data-theme="dark"] .process h2 span,
+html[data-theme="dark"] .materialization h2 span { color: #7DE7DB !important; }
+html[data-theme="dark"] .service-toggle:hover .service-title { color: #7DE7DB !important; }
+html[data-theme="dark"] .service-toggle:focus-visible { outline-color: #7DE7DB !important; }
 
 html[data-theme="dark"] .service-location {
   color: #7DE7DB !important;
   border-color: rgba(125, 231, 219, .55) !important;
 }
+html[data-theme="dark"] .service-location:hover { color: var(--cream) !important; border-color: var(--cream) !important; }
+html[data-theme="dark"] .services-note { border-color: rgba(255, 249, 240, .45) !important; color: var(--cream); }
+html[data-theme="dark"] .services-note p { color: rgba(255, 249, 240, .84) !important; }
+html[data-theme="dark"] .services-note .text-link { color: #7DE7DB !important; }
+html[data-theme="dark"] .services-note .text-link:hover { color: var(--cream) !important; }
 
-html[data-theme="dark"] .service-location:hover {
-  color: var(--cream) !important;
-  border-color: var(--cream) !important;
-}
-
-html[data-theme="dark"] .services-note {
-  border-color: rgba(255, 249, 240, .45) !important;
-  color: var(--cream);
-}
-
-html[data-theme="dark"] .services-note p {
-  color: rgba(255, 249, 240, .82) !important;
-}
-
-html[data-theme="dark"] .services-note .text-link {
-  color: #7DE7DB !important;
-}
-
-html[data-theme="dark"] .services-note .text-link:hover {
-  color: var(--cream) !important;
-}
-
-html[data-theme="dark"] .materialization-info {
-  background: #0c2925 !important;
-  border-color: rgba(255, 249, 240, .16) !important;
-}
-
-html[data-theme="dark"] .materialization-info small {
-  color: rgba(255, 249, 240, .72) !important;
-}
-
-html[data-theme="dark"] .materialization-info li {
-  border-color: rgba(255, 249, 240, .14) !important;
-}
+html[data-theme="dark"] .process-story-card.accent { background: #008477 !important; color: var(--cream); }
+html[data-theme="dark"] .process-story-card p,
+html[data-theme="dark"] .founder-copy p,
+html[data-theme="dark"] .founder-placeholder-note,
+html[data-theme="dark"] .founder-meta span,
+html[data-theme="dark"] .materialization-side p { color: rgba(255, 249, 240, .82) !important; }
+html[data-theme="dark"] .materialization-info { background: #0c2925 !important; }
 
 html[data-theme="dark"] .site-header nav,
 html[data-theme="dark"] .mobile-tab-bar {
@@ -109,19 +79,10 @@ html[data-theme="dark"] .mobile-tab-bar {
   color: var(--cream);
   border-color: rgba(255, 249, 240, .14) !important;
 }
-
 html[data-theme="dark"] .hero-grid i,
-html[data-theme="dark"] .hero-bottom i {
-  background: rgba(255, 249, 240, .16);
-}
-
-html[data-theme="dark"] .frame {
-  border-color: rgba(255, 249, 240, .55);
-}
-
-html[data-theme="dark"] .stamp {
-  border-color: rgba(255, 249, 240, .55);
-}
+html[data-theme="dark"] .hero-bottom i { background: rgba(255, 249, 240, .16); }
+html[data-theme="dark"] .frame,
+html[data-theme="dark"] .stamp { border-color: rgba(255, 249, 240, .55); }
 
 html[data-theme="dark"] .service-card,
 html[data-theme="dark"] .portfolio-card,
@@ -138,7 +99,7 @@ html[data-theme="dark"] .form-card,
 html[data-theme="dark"] .faq-item {
   background: #0c2925 !important;
   color: var(--cream);
-  border-color: rgba(255, 249, 240, .14) !important;
+  border-color: rgba(255, 249, 240, .18) !important;
 }
 
 html[data-theme="dark"] input,
@@ -149,108 +110,93 @@ html[data-theme="dark"] select {
   border-color: rgba(255, 249, 240, .22) !important;
   color-scheme: dark;
 }
-
 html[data-theme="dark"] input::placeholder,
-html[data-theme="dark"] textarea::placeholder {
-  color: rgba(255, 249, 240, .52);
-}
-
+html[data-theme="dark"] textarea::placeholder { color: rgba(255, 249, 240, .62); }
 html[data-theme="dark"] .legal-page p,
 html[data-theme="dark"] .legal-page li,
 html[data-theme="dark"] .contact-section p,
 html[data-theme="dark"] .muted,
-html[data-theme="dark"] .text-muted {
-  color: rgba(255, 249, 240, .76);
-}
-
+html[data-theme="dark"] .text-muted { color: rgba(255, 249, 240, .80); }
 html[data-theme="dark"] .principles,
 html[data-theme="dark"] .principle,
 html[data-theme="dark"] .legal-wrap,
-html[data-theme="dark"] .footer-legal-links {
-  border-color: rgba(255, 249, 240, .16) !important;
-}
-
+html[data-theme="dark"] .footer-legal-links { border-color: rgba(255, 249, 240, .16) !important; }
 html[data-theme="dark"] .principle b,
 html[data-theme="dark"] h1,
 html[data-theme="dark"] h2,
 html[data-theme="dark"] h3,
 html[data-theme="dark"] h4,
 html[data-theme="dark"] h5,
-html[data-theme="dark"] h6 {
-  color: var(--cream);
-}
-
+html[data-theme="dark"] h6 { color: var(--cream); }
 html[data-theme="dark"] .button-outline,
-html[data-theme="dark"] .text-link {
-  color: var(--cream) !important;
-  border-color: rgba(255, 249, 240, .55) !important;
-}
-
+html[data-theme="dark"] .text-link { color: var(--cream) !important; border-color: rgba(255, 249, 240, .55) !important; }
 html[data-theme="dark"] .button-outline:hover,
-html[data-theme="dark"] .text-link:hover {
-  color: var(--teal) !important;
-}
-
-html[data-theme="dark"] .footer {
-  background: #00100e;
-}
-
+html[data-theme="dark"] .text-link:hover { color: #7DE7DB !important; }
+html[data-theme="dark"] .footer { background: #00100e; }
 html[data-theme="dark"] .footer a,
 html[data-theme="dark"] .footer p,
-html[data-theme="dark"] .footer small {
-  color: rgba(255, 249, 240, .82);
-}
+html[data-theme="dark"] .footer small { color: rgba(255, 249, 240, .82); }
+html[data-theme="dark"] .theme-toggle { background: rgba(255, 249, 240, .08) !important; color: var(--cream) !important; border-color: rgba(255, 249, 240, .24) !important; }
+html[data-theme="dark"] .theme-toggle:hover { background: rgba(0, 150, 136, .18) !important; color: #7de7db !important; border-color: var(--teal) !important; }
+html[data-theme="dark"] .language-switcher { background: rgba(255, 249, 240, .06) !important; border-color: rgba(255, 249, 240, .2) !important; }
 
-html[data-theme="dark"] .theme-toggle {
-  background: rgba(255, 249, 240, .08) !important;
+/* Catalogue FAB: fixed independently of page layout and always above mobile chrome. */
+.lnk-wa-fab {
+  position: fixed !important;
+  right: clamp(16px, 3vw, 28px) !important;
+  bottom: clamp(16px, 3vw, 28px) !important;
+  z-index: 2147483000 !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  float: none !important;
+  flex: none !important;
+  border-radius: 50% !important;
+  background: var(--dark) !important;
   color: var(--cream) !important;
-  border-color: rgba(255, 249, 240, .24) !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 18px rgba(0, 26, 23, .30);
 }
-
-html[data-theme="dark"] .theme-toggle:hover {
-  background: rgba(0, 150, 136, .18) !important;
-  color: #7de7db !important;
-  border-color: var(--teal) !important;
+.lnk-wa-fab .lnk-wa-pulse {
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  pointer-events: none;
+  opacity: 0;
+  animation: lnk-wa-pulse 2.4s ease-out infinite;
 }
-
-html[data-theme="dark"] .language-switcher {
-  background: rgba(255, 249, 240, .06) !important;
-  border-color: rgba(255, 249, 240, .2) !important;
+.lnk-wa-fab svg {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 28px !important;
+  height: 28px !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
-
-html[data-theme="dark"] .lnk-wa-fab {
-  background: var(--teal);
-  color: var(--cream);
-}
-
-html[data-theme="dark"] .lnk-wa-fab::after {
-  opacity: 1;
-}
+html[data-theme="dark"] .lnk-wa-fab { background: var(--teal) !important; color: var(--cream) !important; }
+@media(max-width:760px){ .lnk-wa-fab{ bottom:88px !important; } }
+@media(max-width:480px){ .lnk-wa-fab{ width:50px !important; height:50px !important; min-width:50px !important; min-height:50px !important; } .lnk-wa-fab svg{width:24px !important;height:24px !important;} }
 
 html[data-theme="dark"] .portfolio-lightbox,
 html[data-theme="dark"] .lightbox-overlay,
-html[data-theme="dark"] .modal {
-  background: rgba(0, 10, 9, .96) !important;
-  color: var(--cream);
-}
-
+html[data-theme="dark"] .modal { background: rgba(0, 10, 9, .96) !important; color: var(--cream); }
 html[data-theme="dark"] .portfolio-lightbox-content,
 html[data-theme="dark"] .lightbox-content,
-html[data-theme="dark"] .modal-content {
-  background: #061f1c;
-  color: var(--cream);
-  border-color: rgba(255, 249, 240, .16);
-}
+html[data-theme="dark"] .modal-content { background: #061f1c; color: var(--cream); border-color: rgba(255, 249, 240, .16); }
+html[data-theme="dark"] .skip-link { background: var(--cream); color: var(--dark); }
 
-html[data-theme="dark"] .skip-link {
-  background: var(--cream);
-  color: var(--dark);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-theme="dark"] *,
-  html[data-theme="dark"] *::before,
-  html[data-theme="dark"] *::after {
-    transition-duration: .01ms !important;
-  }
+@keyframes lnk-wa-pulse { 0%{transform:scale(.9);opacity:.55} 100%{transform:scale(1.25);opacity:0} }
+@media(prefers-reduced-motion:reduce){
+  html[data-theme="dark"] *, html[data-theme="dark"] *::before, html[data-theme="dark"] *::after { transition-duration:.01ms !important; }
+  .lnk-wa-pulse{animation:none !important;}
 }
