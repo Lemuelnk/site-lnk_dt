@@ -48,7 +48,7 @@
 }
 
 .service-card.active .lucide {
-  transform: scale(1.15);
+  transform: scale(1.15); 
 }
 
 .admin-promo-icon .lucide { 
@@ -99,8 +99,12 @@ svg.bi, .lc-icon {
   transform: translateY(-2px);
 }
 
-/* Homepage floating WhatsApp action — protects against stale inline CSS */
+/* Global catalogue FAB — one canonical positioning system for every page. */
 .lnk-wa-fab {
+  position: fixed !important;
+  right: max(16px, env(safe-area-inset-right)) !important;
+  bottom: max(24px, env(safe-area-inset-bottom)) !important;
+  z-index: 1200 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,16 +124,35 @@ svg.bi, .lc-icon {
   background: var(--teal);
 }
 
-.lnk-wa-fab svg,
-.lnk-wa-fab .lucide {
+/* Static visual fallback keeps the catalogue icon visible even on pages
+   where Lucide is intentionally not loaded or is initialized before the FAB. */
+.lnk-wa-fab::after {
+  content: "";
   width: 26px;
   height: 26px;
+  display: block;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFF9F0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10h18'/%3E%3Cpath d='M5 10v10h14V10'/%3E%3Cpath d='m3 10 2-6h14l2 6'/%3E%3Cpath d='M8 10v2a4 4 0 0 0 8 0v-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.lnk-wa-fab > .lnk-wa-pulse {
+  pointer-events: none;
+}
+
+.lnk-wa-fab > svg,
+.lnk-wa-fab > .lucide,
+.lnk-wa-fab > i[data-lucide] {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media(max-width:760px){
   .lnk-wa-fab {
-    bottom: 92px;
-    right: 16px;
+    bottom: max(92px, calc(68px + env(safe-area-inset-bottom))) !important;
+    right: max(16px, env(safe-area-inset-right)) !important;
     width: 52px;
     height: 52px;
   }
@@ -140,9 +163,12 @@ svg.bi, .lc-icon {
     width: 50px;
     height: 50px;
   }
-  .lnk-wa-fab svg,
-  .lnk-wa-fab .lucide {
+  .lnk-wa-fab::after {
     width: 24px;
     height: 24px;
   }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .lnk-wa-fab { transition: none; }
 }
