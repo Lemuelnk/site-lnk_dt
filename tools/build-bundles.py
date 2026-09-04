@@ -12,6 +12,7 @@ CSS = ROOT / 'css'
 JS_CORE = [
     'vendor/lucide.min.js',
     'navigation.js',
+    'language-switcher.js',
     'announcement.js',
     'footer.js',
 ]
@@ -32,6 +33,7 @@ CSS_CORE = [
     'footer.css',
     'responsive-9a.css',
     'accessibility.css',
+    'language-switcher.css',
 ]
 CSS_HOME = [
     'services.css',
@@ -84,6 +86,19 @@ def remove_obsolete_generated():
             path.unlink()
             removed += 1
     print(f'Nettoyage: {removed} anciens bundles générés supprimés.')
+
+
+def normalize_language_switchers(html_text):
+    """Replace duplicated language control markup with one shared mount point."""
+    pattern = re.compile(
+        r'<div class="language-switcher"[^>]*>\s*'
+        r'<button[^>]*class="language-option[^>]*>FR</button>\s*'
+        r'<span[^>]*>\|</span>\s*'
+        r'<button[^>]*class="language-option[^>]*>EN</button>\s*'
+        r'</div>',
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    return pattern.sub('<div class="language-switcher" data-lnk-language></div>', html_text)
 
 
 def ensure_home_assets(html_text, css_digest, js_digest):
@@ -142,6 +157,7 @@ remove_obsolete_generated()
 for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     new = text
+    new = normalize_language_switchers(new)
     new = re.sub(
         r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
         f'js/site.bundle.js?v={js_core_digest}',
