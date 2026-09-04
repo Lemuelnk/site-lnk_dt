@@ -1,0 +1,89 @@
+/* GLOBAL LANGUAGE SWITCHER — single source of truth */
+.site-header .language-switcher,
+.error-header .language-switcher{
+  position:static;
+  z-index:auto;
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  min-height:40px;
+  padding:2px;
+  margin-left:clamp(6px,1vw,12px);
+  border:1px solid rgba(0,26,23,.12);
+  border-radius:999px;
+  background:rgba(255,249,240,.6);
+  color:var(--dark);
+  box-shadow:none;
+  backdrop-filter:blur(4px);
+}
+[data-theme="dark"] .site-header .language-switcher,
+[data-theme="dark"] .error-header .language-switcher{
+  background:rgba(0,26,23,.6);
+  border-color:rgba(255,249,240,.12);
+  color:var(--cream);
+}
+.language-option{
+  border:0;
+  background:transparent;
+  color:rgba(0,26,23,.72);
+  font:800 11px/1 var(--heading);
+  letter-spacing:.04em;
+  min-width:31px;
+  min-height:34px;
+  padding:0 8px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:background-color .2s ease,color .2s ease,transform .2s ease;
+}
+.language-option:hover:not(.is-active){
+  color:var(--teal-contrast);
+  background:rgba(0,127,116,.08);
+}
+.language-option:focus-visible{
+  outline:3px solid var(--focus-color,#007F74);
+  outline-offset:2px;
+}
+.language-option.is-active{
+  color:var(--cream);
+  background:var(--dark);
+}
+.language-switcher > span{
+  color:rgba(0,26,23,.38);
+  font-size:11px;
+}
+[data-theme="dark"] .language-option{
+  color:rgba(255,249,240,.82);
+}
+[data-theme="dark"] .language-option:hover:not(.is-active){
+  color:#7DE7DB;
+  background:rgba(125,231,219,.10);
+}
+[data-theme="dark"] .language-option.is-active{
+  color:var(--dark);
+  background:var(--cream);
+}
+[data-theme="dark"] .language-switcher > span{
+  color:rgba(255,249,240,.42);
+}
+@media(max-width:760px){
+  .site-header .language-switcher,
+  .error-header .language-switcher{
+    margin-left:7px;
+    min-height:40px;
+    padding:2px;
+  }
+  .language-option{
+    min-width:29px;
+    min-height:33px;
+    padding:0 7px;
+    font-size:10px;
+  }
+  .language-switcher > span{font-size:10px}
+}
+@media(max-width:380px){
+  .site-header .language-switcher,
+  .error-header .language-switcher{margin-left:5px}
+  .language-option{min-width:27px;padding:0 6px}
+}
