@@ -36,6 +36,6 @@
 (function(){const html=document.documentElement;const options=document.querySelectorAll('.language-option');options.forEach(btn=>btn.addEventListener('click',()=>{const lang=btn.dataset.lang;if(lang==='en'){location.href='/?lang=en';return;}html.dataset.lang='fr';options.forEach(o=>{const active=o===btn;o.classList.toggle('is-active',active);o.setAttribute('aria-pressed',String(active));});localStorage.setItem('lnk-lang','fr');}));if(window.lucide)window.lucide.createIcons();})();
 </script>
 
-<script src="js/site.bundle.js?v=9f5eade582" defer></script>
+<script src="js/site.bundle.js?v=997f761b10" defer></script>
 </body>
 </html>
