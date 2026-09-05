@@ -163,6 +163,13 @@ def remove_legacy_home_preference_scripts(html_text):
         text,
         flags=re.IGNORECASE | re.DOTALL,
     )
+    # Remove older inline theme toggles that clone #theme-toggle and write lnk-theme.
+    text = re.sub(
+        r'\s*<script[^>]*>(?=[\s\S]*?function\s+initThemeToggle\s*\()(?=[\s\S]*?localStorage\.setItem\(\s*["\']lnk-theme["\'])[^<]*[\s\S]*?</script>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
     return text
 
 
