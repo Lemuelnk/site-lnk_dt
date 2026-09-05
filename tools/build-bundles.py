@@ -158,6 +158,39 @@ def remove_legacy_home_preference_scripts(html_text):
     return text
 
 
+def remove_inline_fab_styles(html_text):
+    """Remove page-local WhatsApp FAB CSS; geometry and behavior are canonical in lucide-overrides.css."""
+    pattern = re.compile(
+        r'\s*<style[^>]*>.*?\.lnk-wa-fab\s*\{.*?</style>',
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    cleaned = pattern.sub(lambda match: _strip_fab_rules_from_style(match.group(0)), html_text)
+    return cleaned
+
+
+def _strip_fab_rules_from_style(style_block):
+    """Strip only FAB-related rules from a style block while preserving unrelated page CSS."""
+    body_match = re.match(r'(\s*<style[^>]*>)(.*?)(</style>\s*)$', style_block, flags=re.IGNORECASE | re.DOTALL)
+    if not body_match:
+        return style_block
+    prefix, body, suffix = body_match.groups()
+
+    # Remove contiguous FAB declarations, hover/icon/pulse rules, media overrides and keyframes.
+    rules = re.compile(
+        r'\s*(?:[^{}]*\.)?lnk-wa-fab[^{}]*\{[^{}]*\}\s*'
+        r'|\s*\.lnk-wa-pulse\s*\{[^{}]*\}\s*'
+        r'|\s*@keyframes\s+lnk-wa-pulse\s*\{[^{}]*\}\s*',
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    cleaned = rules.sub('\n', body)
+
+    # Remove empty media blocks left after deleting only their FAB rule.
+    cleaned = re.sub(r'\s*@media\s*\([^{}]+\)\s*\{\s*\}', '', cleaned, flags=re.IGNORECASE)
+    if not cleaned.strip():
+        return ''
+    return prefix + cleaned.rstrip() + '\n' + suffix
+
+
 def ensure_core_assets(html_text, css_digest, js_digest):
     """Make the global state/theme controllers available on every root HTML page."""
     text = html_text
@@ -222,6 +255,7 @@ for html in ROOT.glob('*.html'):
     if html.name == 'index.html':
         new = remove_legacy_home_preference_scripts(new)
     new = remove_legacy_home_language_style(new)
+    new = remove_inline_fab_styles(new)
     new = re.sub(
         r'js/home\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
         f'js/home.bundle.js?v={js_home_digest}',
