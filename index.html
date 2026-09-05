@@ -2,11 +2,6 @@
 <html lang="fr" data-lang="fr" data-turnstile-site-key="0x4AAAAAAEQr5WmuslOhzvrn">
 <head>
 <meta charset="utf-8">
-<script>
-  (function() {
-    document.documentElement.setAttribute('data-theme', 'light');
-  })();
-</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#001A17">
 <meta name="description" content="LNK Design Touch est un studio de design graphique à Lubumbashi, RDC : identité visuelle, branding, affiches, supports de communication, design social media, motion design et impression.">
@@ -75,7 +70,7 @@
 <link rel="icon" href="assets/images/brand/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="css/site.bundle.css?v=26afdfcb3f" as="style">
+  <link rel="preload" href="css/site.bundle.css?v=120ea55895" as="style">
 <link rel="preload" href="css/home.bundle.css?v=120ea55895" as="style">
 	<!-- Google Analytics (GA4) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0SJEQV91D"></script>
@@ -84,14 +79,6 @@
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'G-Y0SJEQV91D');
-		</script>
-		<script>
-		  (function() {
-		    const savedTheme = localStorage.getItem('lnk-theme');
-		    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-		    const theme = savedTheme || systemTheme;
-		    document.documentElement.setAttribute('data-theme', theme);
-		  })();
 		</script>
 <link rel="icon" href="assets/images/brand/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="assets/images/brand/favicon-16.png" sizes="16x16" type="image/png">
@@ -145,106 +132,8 @@
 </script>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/opensans-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.bundle.css?v=26afdfcb3f">
+<link rel="stylesheet" href="css/site.bundle.css?v=120ea55895">
 <link rel="stylesheet" href="css/home.bundle.css?v=120ea55895">
-
-<style id="lnk-language-style">
-/* BILINGUAL HEADER CONTROL — integrated with the existing header/menu */
-.site-header .language-switcher{
-  position:static;
-  z-index:auto;
-  order:3;
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:0;
-  min-height:42px;
-  padding:3px;
-  margin-left:clamp(8px,1.2vw,16px);
-  border:1px solid rgba(0,26,23,.16);
-  border-radius:999px;
-  background:rgba(255,249,240,.72);
-  color:var(--dark);
-  box-shadow:none;
-  backdrop-filter:none;
-}
-.site-header .language-option{
-  border:0;
-  background:transparent;
-  color:rgba(0,26,23,.58);
-  font:800 11px/1 var(--heading);
-  letter-spacing:.04em;
-  min-width:31px;
-  min-height:34px;
-  padding:0 8px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.site-header .language-option.is-active{
-  color:var(--cream);
-  background:var(--dark);
-}
-.site-header .language-switcher > span{
-  color:rgba(0,26,23,.22);
-  font-size:11px;
-}
-.site-header .menu-toggle{order:4;margin-left:8px}
-.site-header nav{order:2}
-@media(max-width:900px) and (min-width:761px){
-  .site-header .language-switcher{margin-left:8px}
-}
-@media(max-width:760px){
-  .site-header .header-inner{gap:0}
-  .site-header .language-switcher{
-    order:3;
-    margin-left:7px;
-    min-height:40px;
-    padding:2px;
-  }
-  .site-header .language-option{
-    min-width:29px;
-    min-height:33px;
-    padding:0 7px;
-    font-size:10px;
-  }
-  .site-header .language-switcher > span{font-size:10px}
-  .site-header .menu-toggle{order:2;margin-left:auto}
-  .site-header nav{order:4}
-}
-@media(max-width:380px){
-  .site-header .language-switcher{margin-left:5px}
-  .site-header .language-option{min-width:27px;padding:0 6px}
-}
-
-/* FOOTER LEGAL LINKS — show only links matching the active language (fixes duplicate Mentions légales / Confidentialité) */
-.footer-legal-links .lnk-legal-fr,
-.footer-legal-links .lnk-legal-en{white-space:nowrap}
-html[data-lang="en"] .footer-legal-links .lnk-legal-fr,
-html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
-
-
-
-	/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
-	.lnk-wa-fab{
-	  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
-	  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,bottom .3s ease;
-	}
-	@media(max-width:760px){
-	  .lnk-wa-fab{bottom:88px}
-	}
-  display:flex;align-items:center;justify-content:center;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--dark);color:var(--cream);
-  text-decoration:none;box-shadow:0 6px 18px rgba(0,26,23,.28);
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
-}
-.lnk-wa-fab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(0,26,23,.32);background:var(--teal)}
-.lnk-wa-fab svg{width:28px;height:28px;fill:currentColor}
-.lnk-wa-fab .lnk-wa-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:lnk-wa-pulse 2.4s ease-out infinite}
-@keyframes lnk-wa-pulse{0%{transform:scale(.9);opacity:.55}100%{transform:scale(1.25);opacity:0}}
-@media(max-width:480px){.lnk-wa-fab{width:50px;height:50px}.lnk-wa-fab svg{width:24px;height:24px}}
-</style>
 
 
 <link rel="alternate" hreflang="fr" href="https://lnk-studio.com/" />
@@ -285,16 +174,12 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 	<a href="#work">Work</a><a href="#services">Services</a><a href="#about">About</a><a href="#process">Process</a><a href="contact.html" data-lang-fr="Contact" data-lang-en="Contact">Contact</a>
 	<a class="button button-small" href="contact.html">Parlons de votre projet</a>
 	</nav>
-	<div class="header-controls">
+	<div class="header-controls" data-lnk-preferences>
 	  <!-- <button id="theme-toggle" class="theme-toggle" aria-label="Changer le thème">
 	    <i data-lucide="sun" class="sun-icon"></i>
 	    <i data-lucide="moon" class="moon-icon"></i>
 	  </button> -->
-	  <div class="language-switcher" role="group" aria-label="Language">
-	    <button type="button" class="language-option is-active" data-lang="fr" aria-pressed="true">FR</button>
-	    <span aria-hidden="true">|</span>
-	    <button type="button" class="language-option" data-lang="en" aria-pressed="false">EN</button>
-	  </div>
+	  <div class="language-switcher" data-lnk-language></div>
 	</div>
 </div>
 </div>
@@ -830,100 +715,9 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 
 
 
-<script src="js/site.bundle.js?v=9eff7ddd3b" defer fetchpriority="high"></script>
+<script src="js/site.bundle.js?v=997f761b10" defer fetchpriority="high"></script>
   <script src="js/announcement.js" defer></script>
   <script src="js/image-handlers.js" defer></script>
-
-
-
-<script id="lnk-bilingual-layer">
-(function(){
-  const translations = {
-"Nouvelle publication": "New post",
-"ACTUALITÉ LNK_DT": "LNK_DT NEWS",
-"Voir l'offre": "See the post",
-"Fermer l'annonce": "Close announcement",
-"Dernière publication LNK_DT": "Latest LNK_DT post",
-"Accueil": "Home", "Services": "Services", "Réalisations": "Portfolio", "Process": "Process", "À propos": "About", "Contact": "Contact", "Parlons de votre projet": "Let's talk about your project", "Voir nos réalisations": "View our work", "Découvrir nos services": "Discover our services", "En savoir plus": "Learn more", "Voir tous les projets": "View all projects", "Voir tous les avis": "View all reviews", "Envoyer mon avis": "Submit my review", "Envoyer": "Send", "Nom": "Name", "Votre nom": "Your name", "Email": "Email", "Téléphone": "Phone", "WhatsApp": "WhatsApp", "Entreprise": "Company", "Message": "Message", "Décrivez votre projet": "Describe your project", "Décrivez votre besoin": "Describe your needs", "Choisissez une catégorie": "Choose a category", "Tous": "All", "Identité visuelle": "Visual identity", "Affiches": "Posters", "Flyers": "Flyers", "Cartes de visite": "Business cards", "Bannières": "Banners", "Motion Design": "Motion Design", "Réseaux sociaux": "Social media", "Impression": "Printing", "Photo & Vidéo": "Photo & Video", "Notre processus": "Our process", "Comment nous travaillons": "How we work", "À propos de LNK Design Touch": "About LNK Design Touch", "Le fondateur": "The founder", "Avis clients": "Client reviews", "Votre satisfaction": "Your satisfaction", "Contactez-nous": "Contact us", "Nous donnons vie à vos projets": "We bring your projects to life", "Nous donnons vie à vos projets.": "We bring your projects to life.", "Échantillon": "Sample", "PHOTO DU FONDATEUR": "FOUNDER PHOTO", "Nom / entreprise": "Name / company", "Votre idée": "Your idea", "Notre créativité": "Our creativity", "Votre succès": "Your success", "Parlons de votre projet.": "Let's talk about your project.", "Une idée, un besoin visuel ou un projet à matérialiser ?": "Have an idea, a visual need, or a project to bring to life?", "Partagez-nous l'essentiel.": "Share the essentials with us.", "Nous reviendrons vers vous avec les prochaines étapes.": "We will get back to you with the next steps.", "Votre témoignage": "Your testimonial", "Ne pas remplir": "Leave blank", "BANNIÈRES": "BANNERS", "AFFICHES": "POSTERS", "CALENDRIERS": "CALENDARS", "ET PLUS": "AND MORE", "Affiches & Flyers": "Posters & Flyers", "Voir tous les avis": "View all reviews", "Parlez-nous de votre idée, du contexte et de ce que vous souhaitez obtenir.": "Tell us about your idea, context, and desired outcome.", "Ex. créer une affiche pour un événement": "E.g. create a poster for an event", "Nom de l'entreprise ou organisation": "Company or organization name", "Logo, affiche, branding…": "Logo, poster, branding…", "Parlez-nous de votre expérience avec LNK Design Touch…": "Tell us about your experience with LNK Design Touch…", "Une idée, un besoin visuel ou un projet à matérialiser ? Partagez-nous l'essentiel. Nous reviendrons vers vous avec les prochaines étapes.": "Have an idea, a visual need, or a project to bring to life? Share the essentials with us. We will get back to you with the next steps.", "Ajoutez un élément qui peut nous aider à comprendre le projet : logo existant, croquis, photo, référence visuelle, cahier des charges ou document à reproduire.": "Add anything that can help us understand the project: an existing logo, sketch, photo, visual reference, brief, or document to reproduce.", "Les premiers témoignages apparaîtront ici après validation.": "The first testimonials will appear here after approval.", "Design graphique à distance.": "Graphic design available remotely.", "Impression disponible bientôt.": "Printing available soon.", "LNK Design Touch. Tous droits réservés.": "LNK Design Touch. All rights reserved.", "Ensemble, donnons vie à vos projets": "Together, let's bring your projects to life", "Identité de marque": "Brand identity", "Mentions légales": "Legal notice", "Politique de confidentialité": "Privacy policy", "Retour en haut": "Back to top", "Suivez-nous": "Follow us", "Voir le projet": "View project", "Fermer": "Close", "Précédent": "Previous", "Suivant": "Next", "Réinitialiser": "Reset", "Zoom avant": "Zoom in", "Zoom arrière": "Zoom out", "Choisir un fichier": "Choose a file", "Aucun fichier choisi": "No file chosen", "Note": "Rating", "Votre avis": "Your review", "Votre entreprise": "Your company", "Votre projet": "Your project", "Merci pour votre avis. Il sera publié après validation.": "Thank you for your review. It will be published after approval.", "Merci ! Votre avis a bien été reçu et sera publié après validation.": "Thank you! Your review has been received and will be published after approval.", "Votre idée,": "Your idea,", "Notre créativité,": "Our creativity,", "Votre succès.": "Your success.", "Du concept à la matérialisation,": "From concept to tangible result,", "01 / POSITIONNEMENT": "01 / POSITIONING", "Une idée sérieuse,": "A serious idea,", "une approche créative.": "a creative approach.", "LNK Design Touch est un studio de design graphique basé à Lubumbashi, en République démocratique du Congo.": "LNK Design Touch is a graphic design studio based in Lubumbashi, Democratic Republic of the Congo.", "Nous accompagnons particuliers, entrepreneurs, PME et organisations dans la création de supports visuels pensés pour communiquer clairement, construire une image cohérente et donner vie aux projets.": "We help individuals, entrepreneurs, small and medium-sized businesses, and organizations create visual materials that communicate clearly, build a consistent image, and bring ideas to life.", "Professionnel": "Professional", "Créatif": "Creative", "Accessible": "Accessible", "Local": "Local", "Ambitieux": "Ambitious", "02 / SERVICES": "02 / SERVICES", "Des idées aux": "From ideas to", "supports qui vivent.": "visuals that make an impact.", "Des solutions graphiques conçues selon votre besoin, de la communication visuelle à la matérialisation imprimée.": "Graphic solutions designed around your needs, from visual communication to printed materials.", "COMMUNICATION VISUELLE": "VISUAL COMMUNICATION", "Création de supports visuels destinés à communiquer clairement et efficacement un événement, une offre, une information ou une campagne.": "Visual materials designed to communicate an event, offer, message, or campaign clearly and effectively.", "IDENTITÉ": "BRAND IDENTITY", "Création de logo, identité visuelle et direction graphique pour construire une image cohérente et reconnaissable.": "Logo design, visual identity, and art direction to build a consistent and recognizable image.", "COMMUNICATION": "COMMUNICATION", "Supports professionnels": "Professional materials", "Cartes de visite, bannières, calendriers, invitations et autres supports de communication adaptés au projet.": "Business cards, banners, calendars, invitations, and other communication materials tailored to the project.", "CONCEPTION → MATÉRIALISATION": "DESIGN → PRODUCTION", "De l’idée au support physique": "From idea to tangible material", "Accompagnement depuis la conception graphique jusqu'à la matérialisation physique. Les services d'impression sont actuellement disponibles à Lubumbashi.": "Support from graphic design through physical production. Printing services are currently available in Lubumbashi.", "Disponible à Lubumbashi": "Available in Lubumbashi", "DIGITAL": "DIGITAL", "Création de visuels adaptés aux réseaux sociaux pour présenter une information, une campagne, une offre ou une identité de manière cohérente.": "Social media visuals created to present a message, campaign, offer, or identity consistently.", "Besoin d'une solution différente ?": "Looking for something different?", "Le motion design et d'autres solutions créatives peuvent être proposés selon les besoins du projet.": "Motion design and other creative solutions can be proposed according to the needs of the project.", "Discutons-en": "Let's talk", "03 / SELECTED WORK": "03 / SELECTED WORK", "Des projets à venir.": "Projects to come.", "Des idées à montrer.": "Ideas worth showing.", "Explorez les univers de LNK_DT. Chaque catégorie pourra accueillir progressivement plusieurs réalisations réelles.": "Explore the worlds of LNK_DT. Each category will gradually feature real projects and work.", "Tout": "All", "Calendriers": "Calendars", "Et plus encore": "And more", "04 / PROCESS": "04 / PROCESS", "De l'idée à la": "From idea to", "réalisation.": "delivery.", "Chaque projet avance par étapes claires : comprendre le besoin, construire une direction visuelle, affiner la solution et, lorsque nécessaire, la transformer en support physique.": "Every project moves through clear steps: understand the need, build a visual direction, refine the solution, and, when needed, turn it into a physical material.", "01 / COMPRENDRE": "01 / UNDERSTAND", "Écouter": "Listen to", "l'idée.": "the idea.", "Nous partons de votre besoin, de votre contexte et de l'objectif à atteindre pour poser une base claire au projet.": "We start with your needs, context, and objective to establish a clear foundation for the project.", "02 / CONCEVOIR": "02 / DESIGN", "Donner forme": "Give shape to", "à la vision.": "the vision.", "Nous construisons une direction graphique cohérente avec votre message, votre identité et le support choisi.": "We build a graphic direction that is consistent with your message, identity, and chosen medium.", "03 / AFFINER": "03 / REFINE", "Développer": "Develop", "le résultat.": "the result.", "Les détails sont ajustés pour obtenir une proposition lisible, équilibrée et prête à être utilisée.": "We refine the details to create a clear, balanced proposal ready to use.", "04 / MATÉRIALISER": "04 / PRODUCE", "Passer de l'écran": "Move from screen", "au support.": "to the material.", "Pour les projets concernés, la création devient un support concret grâce à nos solutions d'impression disponibles à Lubumbashi.": "For relevant projects, the design becomes a tangible material through our printing solutions available in Lubumbashi.", "Du premier échange au fichier final, nous gardons une continuité entre l'idée, le design et son usage réel.": "From the first conversation to the final file, we maintain continuity between the idea, the design, and its real-world use.", "De l'idée au support physique": "From idea to tangible material", "Quand le projet le demande, nous allons au-delà de l'écran pour donner une forme concrète à votre communication.": "When the project calls for it, we go beyond the screen to give your communication a tangible form.", "05 / FONDATEUR": "05 / FOUNDER", "Derrière": "Behind", "LNK Design Touch.": "LNK Design Touch.", "Une personne, une vision et une manière de transformer les idées en solutions visuelles.": "One person, one vision, and a way of turning ideas into visual solutions.", "La présentation, l'histoire, la vision et le rôle du fondateur seront ajoutés ici à partir des informations validées.": "The founder’s profile, story, vision, and role will be added here from validated information.", "PHOTO DU FONDATEUR": "FOUNDER PHOTO", "Rôle": "Role", "Fondateur \& Designer": "Founder \& Designer", "Fondateur \& Designer": "Founder \& Designer", "06 / LET'S TALK": "06 / LET'S TALK", "Parlons de": "Let's talk about", "votre projet.": "your project.", "Une idée, un besoin visuel ou un projet à matérialiser ?": "Have an idea, a visual need, or a project to bring to life?", "Partagez-nous l'essentiel. Nous reviendrons vers vous avec les prochaines étapes.": "Share the essentials with us. We will get back to you with the next steps.", "Écrire sur WhatsApp": "Write on WhatsApp", "LOCALISATION": "LOCATION", "Design graphique à distance. Impression disponible bientôt.": "Graphic design remotely. Printing available soon.", "PROJECT BRIEF": "PROJECT BRIEF", "Donnez-nous le contexte.": "Give us the context.", "Quelques informations suffisent pour commencer. Les champs marqués * sont obligatoires.": "A few details are enough to get started. Fields marked * are required.", "Nom / entreprise *": "Name / company *", "Téléphone / WhatsApp *": "Phone / WhatsApp *", "Type de client *": "Client type *", "Sélectionner": "Select", "Particulier": "Individual", "PME": "Small business", "Entrepreneur": "Entrepreneur", "Organisation": "Organization", "Type de projet *": "Project type *", "Affiche / Flyer": "Poster / Flyer", "Support professionnel": "Professional material", "Bannière": "Banner", "Calendrier": "Calendar", "Invitation": "Invitation", "Conception → Matérialisation": "Design → Production", "Autre": "Other", "Date souhaitée": "Preferred date", "Description du projet *": "Project description *", "Pièce jointe": "Attachment", "(facultatif)": "(optional)", "Ajouter une pièce jointe": "Add an attachment", "Ajoutez un élément qui peut nous aider à comprendre votre projet : logo existant, croquis, photo, référence visuelle, cahier des charges ou document à reproduire.": "Add anything that can help us understand your project: an existing logo, sketch, photo, visual reference, brief, or document to reproduce.", "Facultatif — 10 Mo maximum.": "Optional — 10 MB maximum.", "Aucun fichier sélectionné.": "No file selected.", "Besoin principal": "Main need", "Quantité si impression": "Quantity if printed", "Envoyer le brief": "Send the brief", "07 / AVIS CLIENTS": "07 / CLIENT REVIEWS", "Ce que disent ceux qui ont": "What clients who have", "travaillé avec nous.": "worked with us say.", "Découvrez les expériences de ceux qui nous ont confié leurs projets.": "Discover the experiences of those who trusted us with their projects.", "avis": "reviews", "VOTRE EXPÉRIENCE": "YOUR EXPERIENCE", "Donner votre": "Share your", "avis.": "experience.", "Vous avez travaillé avec LNK Design Touch ? Partagez votre expérience et aidez d'autres personnes à découvrir notre travail.": "Have you worked with LNK Design Touch? Share your experience and help others discover our work.", "Votre note": "Your rating", "Entreprise / Organisation": "Company / Organization", "Type de projet": "Project type", "Votre témoignage": "Your testimonial", "Ne pas remplir": "Leave blank", "AVIS CLIENTS": "CLIENT REVIEWS", "Tous les": "All", "NAVIGATION": "NAVIGATION", "CONTACT": "CONTACT", "LOCAL": "LOCATION", "Notre adresse": "Our address", "FOLLOW LNK_DT": "FOLLOW LNK_DT", "Retrouvez le studio et ses créations en ligne.": "Find the studio and its work online.", "Instagram": "Instagram", "Threads": "Threads", "Facebook": "Facebook", "LinkedIn": "LinkedIn", "TikTok": "TikTok", "YouTube": "YouTube", "Pinterest": "Pinterest", "Behance": "Behance", "Confidentialité": "Privacy", "Tous droits réservés.": "All rights reserved."};
-  const original = new WeakMap();
-  let currentLang = localStorage.getItem('lnk-language') || 'fr';
-
-  const excluded = new Set(['SCRIPT','STYLE','NOSCRIPT','SVG']);
-
-  function translateNode(node, lang){
-    if(node.nodeType !== Node.TEXT_NODE || !node.parentElement || excluded.has(node.parentElement.tagName)) return;
-    const value = node.nodeValue;
-    const trimmed = value.trim();
-    const key = trimmed.replace(/\s+/g, ' ');
-    if (lang === 'fr' && original.has(node)) { node.nodeValue = original.get(node); return; }
-    if(!trimmed || (!translations[key] && !translations[trimmed])) return;
-    if(!original.has(node)) original.set(node, value);
-    const leading = value.match(/^\s*/)?.[0] || '';
-    const trailing = value.match(/\s*$/)?.[0] || '';
-    const translated = lang === 'en' ? (translations[key] || translations[trimmed]) : value;
-    node.nodeValue = leading + translated + trailing;
-  }
-
-  function applyLanguage(lang){
-    currentLang = lang;
-    if (document.documentElement.lang !== lang) document.documentElement.lang = lang;
-    document.documentElement.dataset.lang = lang;
-    document.documentElement.dir = 'ltr';
-    document.querySelectorAll('.language-option').forEach(btn => {
-      const active = btn.dataset.lang === lang;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-pressed', String(active));
-    });
-
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while(walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => translateNode(node, lang));
-
-    document.querySelectorAll('input[placeholder], textarea[placeholder], [aria-label], [title]').forEach(el => {
-      ['placeholder','aria-label','title'].forEach(attr => {
-        const value = el.getAttribute(attr);
-        if(!value) return;
-        const key = value.trim().replace(/\s+/g, ' ');
-        if(lang === 'en' && (translations[key] || translations[value.trim()])) el.setAttribute(attr, translations[key] || translations[value.trim()]);
-      });
-    });
-
-    document.querySelectorAll('[data-lang-fr][data-lang-en]').forEach(el => {
-      const text = lang === 'en' ? el.dataset.langEn : el.dataset.langFr;
-      if (text.includes('<')) {
-        el.innerHTML = text;
-      } else {
-        el.textContent = text;
-      }
-    });
-
-    localStorage.setItem('lnk-language', lang);
-    document.dispatchEvent(new CustomEvent('lnk-lang-changed', { detail: lang }));
-  }
-
-  document.addEventListener('click', function(e){
-    const button = e.target.closest('.language-option');
-    if(!button) return;
-    applyLanguage(button.dataset.lang);
-  });
-
-  document.addEventListener('DOMContentLoaded', function(){
-    window.lnkApplyLanguage = applyLanguage;
-    applyLanguage(currentLang);
-    // Résolution fiable des logos (header + footer) :
-    // si le SVG est déjà chargé (cache), onload ne se déclenche parfois pas.
-    document.querySelectorAll('.brand-logo, .footer-logo img').forEach(function(img){
-      if(img.complete && img.naturalWidth > 0){
-        img.hidden = false;
-        img.style.display = 'block';
-        const fallback = img.previousElementSibling || img.nextElementSibling;
-        if(fallback) fallback.hidden = true;
-      }
-    });
-  });
-})();
-</script>
 
   <script src="js/visual-upgrades.js" defer></script>
   <script>
@@ -946,37 +740,8 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
       }
     })();
   </script>
-  <script>
-    (function() {
-      function initThemeToggle() {
-        const toggle = document.getElementById('theme-toggle');
-        if (!toggle) return;
-        const newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        newToggle.addEventListener('click', function(e) {
-          e.preventDefault(); e.stopPropagation();
-          const html = document.documentElement;
-          const currentTheme = html.getAttribute('data-theme') || 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          html.setAttribute('data-theme', newTheme);
-          localStorage.setItem('lnk-theme', newTheme);
-          document.querySelectorAll('.brand-logo, .footer-logo img').forEach(img => {
-            const src = img.getAttribute('src');
-            if (src) {
-              if (newTheme === 'dark') img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
-              else img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
-            }
-          });
-          if (window.lucide) window.lucide.createIcons();
-        });
-      }
-      initThemeToggle();
-      document.addEventListener('DOMContentLoaded', initThemeToggle);
-      window.addEventListener('load', initThemeToggle);
-    })();
-  </script>
   <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store"></i></a>
 
-<script src="js/home.bundle.js?v=07f7bd3968" defer></script>
+<script src="js/home.bundle.js?v=f6a619cda3" defer></script>
 </body>
 </html>
