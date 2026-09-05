@@ -24,7 +24,7 @@ Les URLs du cahier des charges sont utilisées telles quelles. Aucune URL n'est 
 
 
 ## Assets média
-Voir `ASSET_GUIDE.md` pour les chemins exacts, noms de fichiers et dimensions recommandées.
+Voir `ASSETS_GUIDE.md` pour les chemins exacts, noms de fichiers et dimensions recommandées.
 
 ## Assets de marque
 
@@ -34,8 +34,8 @@ Les chemins officiels des logos sont centralisés dans `data/assets.json`. Les d
 Les ajustements responsive mobile/tablette sont isolés dans `css/responsive-9a.css`, chargé en dernier afin de ne pas réécrire les feuilles existantes.
 
 ## Étape 9B
-Les contrôles desktop et les emplacements média sont documentés dans `ASSET_STATUS_9B.md`. Le changelog complet est dans `STEP_9B_CHANGELOG.md`.
+Les contrôles et la maintenance sont documentés dans `docs/rapport_final_maintenance.md`, tandis que les migrations sont suivies dans `docs/migration_status.md`.
 
 
 ## Avis clients
-Le système d'avis est préparé pour Cloudflare Pages Functions + D1 + Turnstile, avec modération avant publication. Voir `README_TESTIMONIALS.md`.
+Le système d'avis repose sur Cloudflare Pages Functions, D1 et Turnstile, avec modération avant publication. Voir `docs/guide_admin_lnk_dt.md` et `database/schema.sql`.

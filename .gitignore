@@ -5,9 +5,11 @@
 .wrangler/
 .dev.vars
 
-# Fichiers système et logs
+# Fichiers système, logs et caches Python
 .DS_Store
 *.log
+__pycache__/
+*.py[cod]
 
 # Fichiers temporaires d'éditeur
 .vscode/
@@ -24,4 +26,3 @@ build/
 # Rapports de performance locaux
 perf/
 tools/read-lighthouse-report.js
-# secret REVIEW_ADMIN_TOKEN ajouté — redéploiement requis
