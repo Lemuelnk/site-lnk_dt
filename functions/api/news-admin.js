@@ -13,23 +13,9 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
 
 function authorized(request, env) {
   const expected = env.REVIEW_ADMIN_TOKEN;
-  if (!expected) {
-    // En staging uniquement, on accepte le token par défaut si le secret n'est pas configuré
-    const fallback = 'lnkdesign2026';
-    const header = request.headers.get('Authorization') || '';
-    if (header === `Bearer ${fallback}`) return true;
-    const alt = request.headers.get('X-Admin-Token') || '';
-    if (alt && alt.trim() === fallback) return true;
-    const url = new URL(request.url);
-    return url.searchParams.get('token') === fallback;
-  }
+  if (!expected) return false;
   const header = request.headers.get('Authorization') || '';
-  if (header === `Bearer ${expected}`) return true;
-  const alt = request.headers.get('X-Admin-Token') || '';
-  if (alt && alt.trim() === expected) return true;
-  const url = new URL(request.url);
-  const qt = url.searchParams.get('token') || '';
-  return qt === expected;
+  return header === `Bearer ${expected}`;
 }
 
 async function migrate(db) {

@@ -1744,9 +1744,9 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 .lnk-marquee {
   overflow: hidden;
   white-space: nowrap;
-  background: var(--dark);
-  border-top: 1px solid rgba(255,249,240,.08);
-  border-bottom: 1px solid rgba(255,249,240,.08);
+  background: var(--coral);
+  border-top: 1px solid rgba(0,26,23,.14);
+  border-bottom: 1px solid rgba(0,26,23,.14);
   padding: 14px 0;
 }
 .lnk-marquee-track {
@@ -1758,10 +1758,10 @@ html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
   font: 800 clamp(14px,2vw,20px)/1 var(--heading);
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: rgba(255,249,240,.5);
+  color: #001A17;
   padding-right: 60px;
 }
-.lnk-marquee-text .dot { color: var(--teal); margin: 0 20px }
+.lnk-marquee-text .dot { color: #001A17; margin: 0 20px }
 @keyframes lnk-marquee-scroll {
   0% { transform: translateX(0) }
   100% { transform: translateX(-50%) }

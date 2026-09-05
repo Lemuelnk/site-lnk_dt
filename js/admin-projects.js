@@ -280,9 +280,9 @@
     const token = sessionStorage.getItem(TOKEN_KEY);
     if (!token) return;
 
-    fetch(`${ENDPOINT}?token=${encodeURIComponent(token)}`, {
+    fetch(ENDPOINT, {
       cache: 'no-store',
-      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}`, 'X-Admin-Token': token }
+      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${token}` }
     })
     .then(res => res.json())
     .then(data => {

@@ -15,12 +15,7 @@ function authorized(request, env){
   const expected = env.REVIEW_ADMIN_TOKEN;
   if(!expected) return false;
   const header = request.headers.get('Authorization') || '';
-  if(header === `Bearer ${expected}`) return true;
-  const alt = request.headers.get('X-Admin-Token') || '';
-  if(alt && alt.trim() === expected) return true;
-  const url = new URL(request.url);
-  const qt = url.searchParams.get('token') || '';
-  return qt === expected;
+  return header === `Bearer ${expected}`;
 }
 
 async function migrate(db) {

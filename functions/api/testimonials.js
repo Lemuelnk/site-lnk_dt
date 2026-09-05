@@ -47,8 +47,9 @@ export async function onRequestPost(context){
     const rating = Number(payload.rating);
     if(name.length < 2 || review.length < 10 || !validRating(rating)) return withCors(json({message:'Nom, témoignage et note valide sont requis.'},400));
     
-    const adminToken = context.env.REVIEW_ADMIN_TOKEN || 'lnkdesign2026';
-    const isAuth = payload.token === adminToken;
+    const adminToken = context.env.REVIEW_ADMIN_TOKEN;
+    const authorization = context.request.headers.get('Authorization') || '';
+    const isAuth = Boolean(adminToken && authorization === `Bearer ${adminToken}`);
     
     if(!isAuth) {
       const ok = await validateTurnstile(payload.turnstileToken, context.env.TURNSTILE_SECRET, context.request.headers.get('CF-Connecting-IP'));

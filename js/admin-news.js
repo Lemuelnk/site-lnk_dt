@@ -23,7 +23,9 @@
       }
       
       // Charger tous les paramètres dynamiques depuis D1
-      const setResp = await fetch(NEWS_API + "?action=get-all&token=" + encodeURIComponent(getToken()));
+      const setResp = await fetch(NEWS_API + "?action=get-all", {
+        headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${getToken()}` }
+      });
       if (setResp.ok) {
         const setData = await setResp.json();
         // Transformer les résultats en objet indexé par file

@@ -1,16 +1,10 @@
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'} });
 
 function authorized(request, env){
-  const expected = env.REVIEW_ADMIN_TOKEN || 'lnkdesign2026';
+  const expected = env.REVIEW_ADMIN_TOKEN;
   if(!expected) return false;
   const header = request.headers.get('Authorization') || '';
-  if(header === `Bearer ${expected}`) return true;
-  // Fallback : header X-Admin-Token ou paramètre ?token= (réseaux/proxys qui suppriment Authorization)
-  const alt = request.headers.get('X-Admin-Token') || '';
-  if(alt && alt.trim() === expected) return true;
-  const url = new URL(request.url);
-  const qt = url.searchParams.get('token') || '';
-  return qt === expected;
+  return header === `Bearer ${expected}`;
 }
 
 /**

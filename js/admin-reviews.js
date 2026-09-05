@@ -202,10 +202,9 @@
   }
 
   async function api(path) {
-    // Double authentification : Authorization + X-Admin-Token (certains réseaux/proxys suppriment le premier)
-    const url = ADMIN_ENDPOINT + (path ? '?' + path : '') + '&token=' + encodeURIComponent(state.token);
+    const url = path ? `${ADMIN_ENDPOINT}?${path}` : ADMIN_ENDPOINT;
     const response = await fetch(url, { cache: 'no-store',
-      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}`, 'X-Admin-Token': state.token }
+      headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}` }
     });
     if (response.status === 401) throw new Error('unauthorized');
     if (!response.ok) throw new Error('network');
@@ -216,16 +215,16 @@
     try {
       const token = sessionStorage.getItem(TOKEN_KEY);
       // 1. Projets
-      const projResp = await fetch('/api/contact?status=new&token=' + encodeURIComponent(token), {
-        headers: { 'Authorization': `Bearer ${token}`, 'X-Admin-Token': token }
+      const projResp = await fetch('/api/contact?status=new', {
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       if (projResp.ok) {
         const { requests } = await projResp.json();
         updateAdminStat('admin-stat-projects', requests.length);
       }
       // 2. Clics Promo
-      const promoResp = await fetch('/api/news-admin?action=get-all&token=' + encodeURIComponent(token), {
-        headers: { 'Authorization': `Bearer ${token}`, 'X-Admin-Token': token }
+      const promoResp = await fetch('/api/news-admin?action=get-all', {
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       if (promoResp.ok) {
         const { results } = await promoResp.json();
