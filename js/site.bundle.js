@@ -158,40 +158,42 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
 })();
 
 /* ===== js/language-switcher.js ===== */
-/* GLOBAL LANGUAGE SWITCHER — single source of truth */
+/* GLOBAL LANGUAGE STATE — single source of truth */
 (()=>{
   'use strict';
 
   const html=document.documentElement;
   const LANG_KEY='lnk-lang';
+  const isHome=()=>location.pathname==='/'||location.pathname.endsWith('/index.html');
+  const valid=lang=>lang==='en'||lang==='fr';
 
-  const currentLanguage=()=>html.getAttribute('data-lang')==='en'||html.lang==='en'?'en':'fr';
+  const routeLanguage=()=>{
+    const query=new URLSearchParams(location.search).get('lang');
+    if(valid(query))return query;
+    if(/(?:^|[-_])en\.html$/i.test(location.pathname))return 'en';
+    return null;
+  };
 
-  const render=(lang=currentLanguage())=>{
-    document.querySelectorAll('.language-switcher').forEach(root=>{
+  const currentLanguage=()=>{
+    const explicit=routeLanguage();
+    if(explicit)return explicit;
+    const saved=localStorage.getItem(LANG_KEY);
+    if(valid(saved))return saved;
+    return html.getAttribute('data-lang')==='en'||html.lang==='en'?'en':'fr';
+  };
+
+  const render=lang=>{
+    if(!isHome())return;
+    document.querySelectorAll('[data-lnk-language]').forEach(root=>{
       root.setAttribute('role','group');
       root.setAttribute('aria-label','Language');
-      root.dataset.lnkLanguage='true';
+      root.classList.add('language-switcher');
       root.innerHTML=`<button type="button" class="language-option${lang==='fr'?' is-active':''}" data-lang="fr" aria-pressed="${lang==='fr'}">FR</button><span aria-hidden="true">|</span><button type="button" class="language-option${lang==='en'?' is-active':''}" data-lang="en" aria-pressed="${lang==='en'}">EN</button>`;
     });
   };
 
-  const ensureMount=()=>{
-    const existing=document.querySelector('.language-switcher');
-    if(existing)return existing;
-    const controls=document.querySelector('.header-controls');
-    const errorHeader=document.querySelector('.error-header .header-inner');
-    const mount=controls||errorHeader;
-    if(!mount)return null;
-    const root=document.createElement('div');
-    root.className='language-switcher';
-    root.dataset.lnkLanguage='true';
-    mount.appendChild(root);
-    return root;
-  };
-
   const apply=(lang,persist=true)=>{
-    const normalized=lang==='en'?'en':'fr';
+    const normalized=valid(lang)?lang:'fr';
     html.setAttribute('data-lang',normalized);
     html.lang=normalized;
     if(persist)localStorage.setItem(LANG_KEY,normalized);
@@ -199,21 +201,18 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     document.dispatchEvent(new CustomEvent('lnk-lang-changed',{detail:normalized}));
   };
 
-  ensureMount();
-  render();
+  // Secondary pages consume the saved preference; only the homepage exposes controls.
+  apply(currentLanguage(),false);
 
-  // Shared fallback behavior for pages without a content-specific language controller.
   document.addEventListener('click',(event)=>{
-    const button=event.target.closest&&event.target.closest('.language-option');
+    const button=event.target.closest&&event.target.closest('[data-lnk-language] .language-option');
     if(!button)return;
     const lang=button.getAttribute('data-lang');
-    if(lang!=='fr'&&lang!=='en')return;
-    const root=button.closest('.language-switcher');
-    if(root)apply(lang,true);
+    if(valid(lang))apply(lang,true);
   });
 
-  document.addEventListener('lnk-lang-render',()=>render());
-  window.LNKLanguage={get:currentLanguage,set:apply,refresh:render};
+  document.addEventListener('lnk-lang-render',()=>render(currentLanguage()));
+  window.LNKLanguage={get:currentLanguage,set:apply,refresh:()=>render(currentLanguage())};
 })();
 
 /* ===== js/announcement.js ===== */
