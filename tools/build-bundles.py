@@ -140,6 +140,23 @@ def remove_legacy_home_language_style(html_text):
     )
 
 
+def remove_legacy_home_preference_scripts(html_text):
+    """Remove inline homepage language/theme controllers now owned by global JS."""
+    text = re.sub(
+        r'\s*<script[^>]*>\s*.*?closest\(\s*["\']\.language-option["\']\s*\).*?</script>',
+        '',
+        html_text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    text = re.sub(
+        r'\s*<script[^>]*>\s*\(function\(\)\s*\{\s*const savedTheme\s*=.*?document\.documentElement\.setAttribute\(\s*["\']data-theme["\'].*?</script>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    return text
+
+
 def ensure_home_assets(html_text, css_digest, js_digest):
     """Add home assets without ever corrupting preload/stylesheet markup."""
     text = html_text
@@ -198,6 +215,8 @@ for html in ROOT.glob('*.html'):
     new = text
     new = normalize_language_switchers(new)
     new = normalize_preference_controls(new, html.name == 'index.html')
+    if html.name == 'index.html':
+        new = remove_legacy_home_preference_scripts(new)
     new = remove_legacy_home_language_style(new)
     new = re.sub(
         r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
