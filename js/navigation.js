@@ -20,6 +20,17 @@
     document.head.appendChild(themeLink);
   }
 
+  const updateMetaThemeColor=(theme)=>{
+    const color=theme==='dark'?'#001A17':'#FFF9F0';
+    let meta=document.querySelector('meta[name="theme-color"]');
+    if(!meta){
+      meta=document.createElement('meta');
+      meta.name='theme-color';
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content',color);
+  };
+
   const updateLogos=(theme)=>{
     document.querySelectorAll('.brand-logo, .footer-logo img').forEach(img=>{
       const src=img.getAttribute('src');
@@ -33,9 +44,10 @@
     const toggle=document.getElementById('theme-toggle');
     if(!toggle)return;
     const dark=theme==='dark';
+    const english=html.lang==='en'||html.getAttribute('data-lang')==='en';
     toggle.setAttribute('aria-pressed',String(dark));
-    toggle.setAttribute('aria-label',dark?'Activer le mode clair':'Activer le mode sombre');
-    toggle.setAttribute('title',dark?'Mode clair':'Mode sombre');
+    toggle.setAttribute('aria-label',dark?(english?'Enable light mode':'Activer le mode clair'):(english?'Enable dark mode':'Activer le mode sombre'));
+    toggle.setAttribute('title',dark?(english?'Light mode':'Mode clair'):(english?'Dark mode':'Mode sombre'));
     toggle.dataset.theme=theme;
     const sun=toggle.querySelector('.sun-icon');
     const moon=toggle.querySelector('.moon-icon');
@@ -48,6 +60,7 @@
     const normalized=theme==='dark'?'dark':'light';
     html.setAttribute('data-theme',normalized);
     if(persist)localStorage.setItem(THEME_KEY,normalized);
+    updateMetaThemeColor(normalized);
     updateLogos(normalized);
     updateThemeButton(normalized);
     document.dispatchEvent(new CustomEvent('lnk-theme-changed',{detail:normalized}));
@@ -77,6 +90,8 @@
     const current=html.getAttribute('data-theme')||getTheme();
     applyTheme(current==='dark'?'light':'dark',true);
   },true);
+
+  document.addEventListener('lnk-lang-changed',()=>updateThemeButton(html.getAttribute('data-theme')||getTheme()));
 
   window.LNKTheme={get:()=>html.getAttribute('data-theme')||getTheme(),set:applyTheme,toggle:()=>applyTheme((html.getAttribute('data-theme')||getTheme())==='dark'?'light':'dark')};
 
