@@ -2,57 +2,6 @@
 <html lang="fr" data-lang="fr" data-turnstile-site-key="0x4AAAAAAEQr5WmuslOhzvrn">
 <head>
 <meta charset="utf-8">
-
-  <script src="js/visual-upgrades.js" defer></script>
-  <script>
-    (function() {
-      const initLucide = () => {
-        if (window.lucide) {
-          window.lucide.createIcons({
-            attrs: {
-              'stroke-width': 2,
-              'stroke-linecap': 'round',
-              'stroke-linejoin': 'round'
-            }
-          });
-        }
-      };
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLucide);
-      } else {
-        initLucide();
-      }
-    })();
-  </script>
-  <script>
-    (function() {
-      function initThemeToggle() {
-        const toggle = document.getElementById('theme-toggle');
-        if (!toggle) return;
-        const newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        newToggle.addEventListener('click', function(e) {
-          e.preventDefault(); e.stopPropagation();
-          const html = document.documentElement;
-          const currentTheme = html.getAttribute('data-theme') || 'light';
-          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-          html.setAttribute('data-theme', newTheme);
-          localStorage.setItem('lnk-theme', newTheme);
-          document.querySelectorAll('.brand-logo, .footer-logo img').forEach(img => {
-            const src = img.getAttribute('src');
-            if (src) {
-              if (newTheme === 'dark') img.setAttribute('src', src.replace('-dark.svg', '-light.svg'));
-              else img.setAttribute('src', src.replace('-light.svg', '-dark.svg'));
-            }
-          });
-          if (window.lucide) window.lucide.createIcons();
-        });
-      }
-      initThemeToggle();
-      document.addEventListener('DOMContentLoaded', initThemeToggle);
-      window.addEventListener('load', initThemeToggle);
-    })();
-  </script>
   <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store"></i></a>
 
 <script src="js/site.bundle.js?v=9f5eade582" defer></script>
