@@ -3,6 +3,7 @@
 
   const html=document.documentElement;
   const THEME_KEY='lnk-theme';
+  const isHome=()=>location.pathname==='/'||location.pathname.endsWith('/index.html');
   const systemTheme=()=>window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
   const getTheme=()=>{
     const saved=localStorage.getItem(THEME_KEY);
@@ -38,9 +39,9 @@
     toggle.dataset.theme=theme;
     const sun=toggle.querySelector('.sun-icon');
     const moon=toggle.querySelector('.moon-icon');
-    if(sun) sun.hidden=!dark;
-    if(moon) moon.hidden=dark;
-    if(window.lucide) window.lucide.createIcons();
+    if(sun)sun.hidden=!dark;
+    if(moon)moon.hidden=dark;
+    if(window.lucide)window.lucide.createIcons();
   };
 
   const applyTheme=(theme,persist=true)=>{
@@ -53,19 +54,19 @@
   };
 
   const ensureThemeToggle=()=>{
+    if(!isHome())return;
     let toggle=document.getElementById('theme-toggle');
-    const controls=document.querySelector('.header-controls');
+    const controls=document.querySelector('[data-lnk-preferences]');
     if(!toggle&&controls){
       toggle=document.createElement('button');
       toggle.id='theme-toggle';
       toggle.className='theme-toggle';
       toggle.type='button';
       toggle.innerHTML='<i data-lucide="sun" class="sun-icon" aria-hidden="true"></i><i data-lucide="moon" class="moon-icon" aria-hidden="true"></i>';
-      const language=controls.querySelector('.language-switcher');
+      const language=controls.querySelector('[data-lnk-language]');
       controls.insertBefore(toggle,language||controls.firstChild);
     }
-    if(!toggle)return;
-    updateThemeButton(html.getAttribute('data-theme')||getTheme());
+    if(toggle)updateThemeButton(html.getAttribute('data-theme')||getTheme());
   };
 
   document.addEventListener('click',(event)=>{
