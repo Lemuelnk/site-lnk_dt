@@ -13,10 +13,6 @@
     .legal-page .site-header{position:fixed;top:0;left:0;width:100%;z-index:100;background:rgba(255,249,240,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,26,23,.09)}
     .legal-page .header-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:68px;padding-inline:var(--gutter)}
     .legal-page .header-controls{display:flex;align-items:center;gap:10px;margin-left:auto}
-    .legal-page .language-switcher{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:2px;border:1px solid rgba(0,26,23,.16);border-radius:999px;background:rgba(255,249,240,.72)}
-    .legal-page .language-option{border:0;background:transparent;color:rgba(0,26,23,.58);font:800 10px/1 var(--heading);letter-spacing:.04em;min-width:29px;min-height:33px;padding:0 7px;border-radius:999px;cursor:pointer}
-    .legal-page .language-option.is-active{color:var(--cream);background:var(--dark)}
-    .legal-page .language-switcher>span{color:rgba(0,26,23,.22);font-size:10px}
     .legal-page .legal-wrap{padding-top:calc(68px + clamp(45px,7vw,90px))}
   </style>
   <link rel="stylesheet" href="css/lucide-overrides.css">
@@ -47,10 +43,6 @@
     <a class="legal-back" href="index.html#top">Retour au site</a>
   </main>
   <a class="lnk-wa-fab" href="https://wa.me/c/243998222431" target="_blank" rel="noopener" aria-label="Catalogue WhatsApp LNK Design Touch"><span class="lnk-wa-pulse" aria-hidden="true"></span><i data-lucide="store" aria-hidden="true"></i></a>
-<script>
-(function(){const html=document.documentElement;const options=document.querySelectorAll('.language-option');options.forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.lang==='en'){location.href='politique-confidentialite-en.html';return;}html.dataset.lang='fr';options.forEach(o=>{const active=o===btn;o.classList.toggle('is-active',active);o.setAttribute('aria-pressed',String(active));});localStorage.setItem('lnk-lang','fr');}));if(window.lucide)window.lucide.createIcons();})();
-</script>
-
 <script src="js/site.bundle.js?v=9f5eade582" defer></script>
 </body>
 </html>
