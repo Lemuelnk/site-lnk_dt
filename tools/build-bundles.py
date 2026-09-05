@@ -101,6 +101,35 @@ def normalize_language_switchers(html_text):
     return pattern.sub('<div class="language-switcher" data-lnk-language></div>', html_text)
 
 
+def normalize_preference_controls(html_text, is_home):
+    """Expose preference controls only on the homepage; secondary pages consume state."""
+    text = html_text
+    if is_home:
+        text = re.sub(
+            r'<div class="header-controls"(?![^>]*data-lnk-preferences)',
+            '<div class="header-controls" data-lnk-preferences',
+            text,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+        return text
+
+    # Secondary pages must not contain duplicate language/theme controls.
+    text = re.sub(
+        r'\s*<div class="language-switcher"[^>]*>.*?</div>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    text = re.sub(
+        r'\s*<button[^>]*id=["\']theme-toggle["\'][^>]*>.*?</button>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    return text
+
+
 def remove_legacy_home_language_style(html_text):
     """Remove the old page-local language CSS now owned by the global component."""
     return re.sub(
@@ -168,6 +197,7 @@ for html in ROOT.glob('*.html'):
     text = html.read_text(encoding='utf-8')
     new = text
     new = normalize_language_switchers(new)
+    new = normalize_preference_controls(new, html.name == 'index.html')
     new = remove_legacy_home_language_style(new)
     new = re.sub(
         r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
