@@ -365,6 +365,8 @@ svg.bi,.lc-icon { background:none !important; -webkit-mask:none !important; mask
 
 @keyframes lnk-wa-pulse { 0%{transform:scale(.9);opacity:.55} 100%{transform:scale(1.25);opacity:0} }
 
+/* Rebuild trigger: canonical FAB source is part of the stable core bundle. */
+
 /* ===== css/footer.css ===== */
 /* STEP 7 — FOOTER */
 .site-footer{
