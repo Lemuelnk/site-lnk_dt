@@ -39,7 +39,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     document.querySelectorAll('.brand-logo, .footer-logo img').forEach(img=>{
       const src=img.getAttribute('src');
       if(!src)return;
-      if(theme==='dark') img.setAttribute('src',src.replace('-dark.svg','-light.svg'));
+      if(theme==='dark')img.setAttribute('src',src.replace('-dark.svg','-light.svg'));
       else img.setAttribute('src',src.replace('-light.svg','-dark.svg'));
     });
   };
@@ -71,7 +71,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
   const ensureThemeToggle=()=>{
     if(!isHome())return;
     let toggle=document.getElementById('theme-toggle');
-    const controls=document.querySelector('[data-lnk-preferences]');
+    const controls=document.querySelector('[data-lnk-preferences]')||document.querySelector('.header-controls');
     if(!toggle&&controls){
       toggle=document.createElement('button');
       toggle.id='theme-toggle';
