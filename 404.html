@@ -25,6 +25,7 @@
     @media(max-width:480px){.lnk-wa-fab{width:50px;height:50px}.lnk-wa-fab svg{width:24px;height:24px}}
     @media(prefers-reduced-motion:reduce){.lnk-wa-fab{transition:none}.lnk-wa-pulse{animation:none}}
   </style>
+<link rel="stylesheet" href="css/site.bundle.css?v=0c425553c1">
 </head>
 <body class="legal-page">
   <header class="error-header">
@@ -42,5 +43,7 @@
 <script>
 (function(){const html=document.documentElement;const options=document.querySelectorAll('.language-option');options.forEach(btn=>btn.addEventListener('click',()=>{const lang=btn.dataset.lang;if(lang==='en'){location.href='/?lang=en';return;}html.dataset.lang='fr';options.forEach(o=>{const active=o===btn;o.classList.toggle('is-active',active);o.setAttribute('aria-pressed',String(active));});localStorage.setItem('lnk-lang','fr');}));if(window.lucide)window.lucide.createIcons();})();
 </script>
+
+<script src="js/site.bundle.js?v=9f5eade582" defer></script>
 </body>
 </html>

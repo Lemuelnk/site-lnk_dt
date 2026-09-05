@@ -28,6 +28,7 @@
     @media(prefers-reduced-motion:reduce){.lnk-wa-fab{transition:none}.lnk-wa-pulse{animation:none}}
   </style>
   <link rel="stylesheet" href="css/lucide-overrides.css">
+<link rel="stylesheet" href="css/site.bundle.css?v=0c425553c1">
 </head>
 <body class="legal-page">
   <header class="site-header">
@@ -57,5 +58,7 @@
 <script>
 (function(){const html=document.documentElement;const options=document.querySelectorAll('.language-option');options.forEach(btn=>btn.addEventListener('click',()=>{if(btn.dataset.lang==='en'){location.href='politique-confidentialite-en.html';return;}html.dataset.lang='fr';options.forEach(o=>{const active=o===btn;o.classList.toggle('is-active',active);o.setAttribute('aria-pressed',String(active));});localStorage.setItem('lnk-lang','fr');}));if(window.lucide)window.lucide.createIcons();})();
 </script>
+
+<script src="js/site.bundle.js?v=9f5eade582" defer></script>
 </body>
 </html>

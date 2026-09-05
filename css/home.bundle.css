@@ -1660,24 +1660,6 @@ body.portfolio-lightbox-open{overflow:hidden}
 html[data-lang="en"] .footer-legal-links .lnk-legal-fr,
 html[data-lang="fr"] .footer-legal-links .lnk-legal-en{display:none}
 
-/* Bouton flottant WhatsApp catalogue — position fixe bas-droite */
-.lnk-wa-fab{
-  position:fixed;bottom:clamp(16px,3vw,28px);right:clamp(16px,3vw,28px);z-index:900;
-  display:flex;align-items:center;justify-content:center;
-  width:56px;height:56px;border-radius:50%;
-  background:var(--dark);color:var(--cream);
-  text-decoration:none;box-shadow:0 6px 18px rgba(0,26,23,.28);
-  transition:transform .25s ease,box-shadow .25s ease,background .25s ease,bottom .3s ease;
-}
-@media(max-width:760px){
-  .lnk-wa-fab{bottom:92px;right:16px;width:52px;height:52px}
-}
-.lnk-wa-fab:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(0,26,23,.32);background:var(--teal)}
-.lnk-wa-fab i,.lnk-wa-fab svg{width:26px;height:26px;stroke-width:2.5}
-.lnk-wa-fab .lnk-wa-pulse{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--teal);opacity:0;animation:lnk-wa-pulse 2.4s ease-out infinite}
-@keyframes lnk-wa-pulse{0%{transform:scale(.9);opacity:.55}100%{transform:scale(1.25);opacity:0}}
-@media(max-width:480px){.lnk-wa-fab{width:50px;height:50px}.lnk-wa-fab svg{width:24px;height:24px}}
-
 /* ===== css/visual-upgrades.css ===== */
 /* ============================================
    VISUAL UPGRADES — LNK Design Touch
