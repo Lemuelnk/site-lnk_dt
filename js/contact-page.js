@@ -1,24 +1,19 @@
 // Contact page (contact.html) — bilingual + form submission
 (function () {
   const html = document.documentElement;
-  const saved = localStorage.getItem('lnk-lang');
   const param = new URLSearchParams(location.search).get('lang');
+  const saved = localStorage.getItem('lnk-lang');
   const initialLang = param === 'en' ? 'en' : (saved === 'en' ? 'en' : 'fr');
   html.setAttribute('data-lang', initialLang);
 
-  // Language toggle elements (defined at top level)
-  const langOptions = document.querySelectorAll('.language-option');
-
   function applyLanguage() {
-    const lang = html.getAttribute('data-lang');
+    const lang = html.getAttribute('data-lang') === 'en' ? 'en' : 'fr';
     const en = lang === 'en';
-    localStorage.setItem('lnk-lang', lang);
+
     document.querySelectorAll('[data-lang-fr][data-lang-en]').forEach(el => {
       const fr = el.getAttribute('data-lang-fr');
       const enText = el.getAttribute('data-lang-en');
-      if (fr && enText) {
-        el.textContent = en ? enText : fr;
-      }
+      if (fr && enText) el.textContent = en ? enText : fr;
     });
     const messageField = document.getElementById('contactMessage');
     if (messageField) messageField.placeholder = en
@@ -26,25 +21,10 @@
       : messageField.getAttribute('data-placeholder-fr');
     const privacyLink = document.querySelector('[data-privacy-link]');
     if (privacyLink) privacyLink.href = en ? 'politique-confidentialite-en.html' : 'politique-confidentialite.html';
-    // Update language button states
-    langOptions.forEach(btn => {
-      if (btn.getAttribute('data-lang') === lang) {
-        btn.classList.add('is-active');
-      } else {
-        btn.classList.remove('is-active');
-      }
-    });
   }
 
   applyLanguage();
-
-  // Language toggle event listeners
-  langOptions.forEach(btn => {
-    btn.addEventListener('click', () => {
-      html.setAttribute('data-lang', btn.getAttribute('data-lang'));
-      applyLanguage();
-    });
-  });
+  document.addEventListener('lnk-lang-changed', applyLanguage);
 
   // Turnstile
   const siteKey = html.getAttribute('data-turnstile-site-key');
