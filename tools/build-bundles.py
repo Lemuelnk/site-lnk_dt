@@ -6,9 +6,6 @@ ROOT = Path(__file__).resolve().parents[1]
 JS = ROOT / 'js'
 CSS = ROOT / 'css'
 
-# Keep source modules separate and compose only a small global bundle plus
-# page-specific bundles. This gives the browser fewer, purpose-built assets
-# without sacrificing maintainability in source.
 JS_CORE = [
     'vendor/lucide.min.js',
     'navigation.js',
@@ -114,7 +111,6 @@ def normalize_preference_controls(html_text, is_home):
         )
         return text
 
-    # Secondary pages must not contain duplicate language/theme controls.
     text = re.sub(
         r'\s*<div class="language-switcher"[^>]*>.*?</div>',
         '',
@@ -131,7 +127,6 @@ def normalize_preference_controls(html_text, is_home):
 
 
 def remove_legacy_home_language_style(html_text):
-    """Remove the old page-local language CSS now owned by the global component."""
     return re.sub(
         r'\s*<style\s+id=["\']lnk-language-style["\'][^>]*>.*?</style>',
         '',
@@ -154,28 +149,45 @@ def remove_legacy_home_preference_scripts(html_text):
         text,
         flags=re.IGNORECASE | re.DOTALL,
     )
+    text = re.sub(
+        r'\s*<script[^>]*>\s*\(function\(\)\s*\{\s*document\.documentElement\.setAttribute\(\s*["\']data-theme["\']\s*,\s*["\']light["\']\s*\)\s*;?\s*\}\)\(\)\s*;?\s*</script>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
     return text
 
 
-def ensure_home_assets(html_text, css_digest, js_digest):
-    """Add home assets without ever corrupting preload/stylesheet markup."""
+def ensure_core_assets(html_text, css_digest, js_digest):
+    """Make the global state/theme controllers available on every root HTML page."""
     text = html_text
-    home_css_digest = hashlib.sha256((CSS / 'home.bundle.css').read_bytes()).hexdigest()[:10]
-
-    text = re.sub(
-        r'<link rel="preload" href="css/site\.bundle\.css\?v=[a-z0-9]+\s*\n<link rel="stylesheet" href="css/home\.bundle\.css\?v=[a-z0-9]+">" as="style">',
-        f'<link rel="preload" href="css/site.bundle.css?v={css_digest}" as="style">\n'
-        f'<link rel="preload" href="css/home.bundle.css?v={home_css_digest}" as="style">',
-        text,
-        flags=re.IGNORECASE,
-    )
-
     text = re.sub(
         r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">',
         f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">',
         text,
         count=1,
+        flags=re.IGNORECASE,
     )
+    if not re.search(r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">', text, re.IGNORECASE):
+        text = text.replace('</head>', f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">\n</head>', 1)
+
+    text = re.sub(
+        r'\s*<script src="js/site\.bundle\.js(?:\?v=[a-z0-9]+)?"[^>]*></script>',
+        '',
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = text.replace(
+        '</body>',
+        f'\n<script src="js/site.bundle.js?v={js_digest}" defer></script>\n</body>',
+        1,
+    )
+    return text
+
+
+def ensure_home_assets(html_text, css_digest, js_digest):
+    text = ensure_core_assets(html_text, css_digest, js_core_digest)
+    home_css_digest = hashlib.sha256((CSS / 'home.bundle.css').read_bytes()).hexdigest()[:10]
 
     home_stylesheet = re.compile(
         r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
@@ -183,19 +195,11 @@ def ensure_home_assets(html_text, css_digest, js_digest):
     )
     if not home_stylesheet.search(text):
         marker = f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">'
-        text = text.replace(
-            marker,
-            marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">',
-            1,
-        )
+        text = text.replace(marker, marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">', 1)
     else:
-        text = home_stylesheet.sub(
-            f'<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">',
-            text,
-            count=1,
-        )
+        text = home_stylesheet.sub(f'<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">', text, count=1)
 
-    text = re.sub(r'\s*<script src="js/home\.bundle\.js(?:\?v=[a-z0-9]+)?" defer></script>', '', text)
+    text = re.sub(r'\s*<script src="js/home\.bundle\.js(?:\?v=[a-z0-9]+)?"[^>]*></script>', '', text, flags=re.IGNORECASE)
     text = text.replace(
         '</body>',
         f'\n<script src="js/home.bundle.js?v={js_digest}" defer></script>\n</body>',
@@ -219,32 +223,26 @@ for html in ROOT.glob('*.html'):
         new = remove_legacy_home_preference_scripts(new)
     new = remove_legacy_home_language_style(new)
     new = re.sub(
-        r'js/site\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
-        f'js/site.bundle.js?v={js_core_digest}',
-        new,
-    )
-    new = re.sub(
-        r'css/site\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?',
-        f'css/site.bundle.css?v={css_core_digest}',
-        new,
-    )
-    new = re.sub(
         r'js/home\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
         f'js/home.bundle.js?v={js_home_digest}',
         new,
+        flags=re.IGNORECASE,
     )
     new = re.sub(
         r'css/home\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?',
         f'css/home.bundle.css?v={css_home_digest}',
         new,
+        flags=re.IGNORECASE,
     )
 
     if html.name == 'index.html':
         new = ensure_home_assets(new, css_core_digest, js_home_digest)
+    else:
+        new = ensure_core_assets(new, css_core_digest, js_core_digest)
 
-    new = re.sub(r'css/brand\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/brand.bundle.css', new)
-    new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new)
-    new = re.sub(r'css/admin-reviews\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/admin-reviews.css', new)
+    new = re.sub(r'css/brand\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/brand.bundle.css', new, flags=re.IGNORECASE)
+    new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new, flags=re.IGNORECASE)
+    new = re.sub(r'css/admin-reviews\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/admin-reviews.css', new, flags=re.IGNORECASE)
 
     if new != text:
         html.write_text(new, encoding='utf-8')
