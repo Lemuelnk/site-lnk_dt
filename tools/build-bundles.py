@@ -111,8 +111,16 @@ def normalize_preference_controls(html_text, is_home):
         )
         return text
 
+    # Secondary pages must not expose any language/theme controls. Remove both
+    # the canonical mount and legacy page-specific variants (brand-language, etc.).
     text = re.sub(
         r'\s*<div class="language-switcher"[^>]*>.*?</div>',
+        '',
+        text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    text = re.sub(
+        r'\s*<div class="brand-language"[^>]*>.*?</div>',
         '',
         text,
         flags=re.IGNORECASE | re.DOTALL,
@@ -175,7 +183,6 @@ def _strip_fab_rules_from_style(style_block):
         return style_block
     prefix, body, suffix = body_match.groups()
 
-    # Remove contiguous FAB declarations, hover/icon/pulse rules, media overrides and keyframes.
     rules = re.compile(
         r'\s*(?:[^{}]*\.)?lnk-wa-fab[^{}]*\{[^{}]*\}\s*'
         r'|\s*\.lnk-wa-pulse\s*\{[^{}]*\}\s*'
@@ -183,8 +190,6 @@ def _strip_fab_rules_from_style(style_block):
         flags=re.IGNORECASE | re.DOTALL,
     )
     cleaned = rules.sub('\n', body)
-
-    # Remove empty media blocks left after deleting only their FAB rule.
     cleaned = re.sub(r'\s*@media\s*\([^{}]+\)\s*\{\s*\}', '', cleaned, flags=re.IGNORECASE)
     if not cleaned.strip():
         return ''
@@ -192,85 +197,40 @@ def _strip_fab_rules_from_style(style_block):
 
 
 def ensure_core_assets(html_text, css_digest, js_digest):
-    """Make the global state/theme controllers available on every root HTML page."""
     text = html_text
-    text = re.sub(
-        r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">',
-        f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">',
-        text,
-        count=1,
-        flags=re.IGNORECASE,
-    )
-    if not re.search(r'<link rel="stylesheet" href="css/site\.bundle\.css(?:\?v=[a-z0-9]+)?">', text, re.IGNORECASE):
-        text = text.replace('</head>', f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">\n</head>', 1)
-
-    text = re.sub(
-        r'\s*<script src="js/site\.bundle\.js(?:\?v=[a-z0-9]+)?"[^>]*></script>',
-        '',
-        text,
-        flags=re.IGNORECASE,
-    )
-    text = text.replace(
-        '</body>',
-        f'\n<script src="js/site.bundle.js?v={js_digest}" defer></script>\n</body>',
-        1,
-    )
+    text = re.sub(r'css/site\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', f'css/site.bundle.css?v={css_digest}', text, flags=re.IGNORECASE)
+    text = re.sub(r'css/site\.bundle\.css(?:\?v=[a-f0-9]+)?', f'css/site.bundle.css?v={css_digest}', text, flags=re.IGNORECASE)
+    text = re.sub(r'js/site\.bundle\.[a-f0-9]+\.js(?:\?v=[a-f0-9]+)?', f'js/site.bundle.js?v={js_digest}', text, flags=re.IGNORECASE)
+    text = re.sub(r'js/site\.bundle\.js(?:\?v=[a-f0-9]+)?', f'js/site.bundle.js?v={js_digest}', text, flags=re.IGNORECASE)
     return text
 
 
 def ensure_home_assets(html_text, css_digest, js_digest):
     text = ensure_core_assets(html_text, css_digest, js_core_digest)
-    home_css_digest = hashlib.sha256((CSS / 'home.bundle.css').read_bytes()).hexdigest()[:10]
-
-    home_stylesheet = re.compile(
-        r'<link rel="stylesheet" href="css/home\.bundle\.css(?:\?v=[a-z0-9]+)?">',
-        flags=re.IGNORECASE,
-    )
-    if not home_stylesheet.search(text):
-        marker = f'<link rel="stylesheet" href="css/site.bundle.css?v={css_digest}">'
-        text = text.replace(marker, marker + f'\n<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">', 1)
+    if re.search(r'js/home\.bundle\.js(?:\?v=[a-f0-9]+)?', text, flags=re.IGNORECASE):
+        text = re.sub(r'js/home\.bundle\.js(?:\?v=[a-f0-9]+)?', f'js/home.bundle.js?v={js_digest}', text, flags=re.IGNORECASE)
     else:
-        text = home_stylesheet.sub(f'<link rel="stylesheet" href="css/home.bundle.css?v={home_css_digest}">', text, count=1)
-
-    text = re.sub(r'\s*<script src="js/home\.bundle\.js(?:\?v=[a-z0-9]+)?"[^>]*></script>', '', text, flags=re.IGNORECASE)
-    text = text.replace(
-        '</body>',
-        f'\n<script src="js/home.bundle.js?v={js_digest}" defer></script>\n</body>',
-        1,
-    )
+        text = text.replace('</body>', f'<script src="js/home.bundle.js?v={js_digest}" defer></script>\n</body>')
     return text
 
 
-js_core_digest = build_stable_bundle(JS, JS_CORE, 'site.bundle.js', 'JavaScript core')
-js_home_digest = build_stable_bundle(JS, JS_HOME, 'home.bundle.js', 'JavaScript home')
+remove_obsolete_generated()
 css_core_digest = build_stable_bundle(CSS, CSS_CORE, 'site.bundle.css', 'CSS core')
 css_home_digest = build_stable_bundle(CSS, CSS_HOME, 'home.bundle.css', 'CSS home')
-remove_obsolete_generated()
+js_core_digest = build_stable_bundle(JS, JS_CORE, 'site.bundle.js', 'JS core')
+js_home_digest = build_stable_bundle(JS, JS_HOME, 'home.bundle.js', 'JS home')
 
-for html in ROOT.glob('*.html'):
-    text = html.read_text(encoding='utf-8')
-    new = text
-    new = normalize_language_switchers(new)
-    new = normalize_preference_controls(new, html.name == 'index.html')
-    if html.name == 'index.html':
-        new = remove_legacy_home_preference_scripts(new)
+for html_path in ROOT.glob('*.html'):
+    original = html_path.read_text(encoding='utf-8')
+    is_home = html_path.name.lower() == 'index.html'
+    new = normalize_language_switchers(original)
+    new = normalize_preference_controls(new, is_home)
     new = remove_legacy_home_language_style(new)
+    new = remove_legacy_home_preference_scripts(new)
     new = remove_inline_fab_styles(new)
-    new = re.sub(
-        r'js/home\.bundle(?:\.[a-z0-9]+)?\.js(?:\?v=[a-z0-9]+)?',
-        f'js/home.bundle.js?v={js_home_digest}',
-        new,
-        flags=re.IGNORECASE,
-    )
-    new = re.sub(
-        r'css/home\.bundle(?:\.[a-z0-9]+)?\.css(?:\?v=[a-z0-9]+)?',
-        f'css/home.bundle.css?v={css_home_digest}',
-        new,
-        flags=re.IGNORECASE,
-    )
 
-    if html.name == 'index.html':
-        new = ensure_home_assets(new, css_core_digest, js_home_digest)
+    if is_home:
+        new = ensure_home_assets(new, css_home_digest, js_home_digest)
     else:
         new = ensure_core_assets(new, css_core_digest, js_core_digest)
 
@@ -278,6 +238,8 @@ for html in ROOT.glob('*.html'):
     new = re.sub(r'css/legal\.bundle\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/legal.bundle.css', new, flags=re.IGNORECASE)
     new = re.sub(r'css/admin-reviews\.[a-f0-9]+\.css(?:\?v=[a-f0-9]+)?', 'css/admin-reviews.css', new, flags=re.IGNORECASE)
 
-    if new != text:
-        html.write_text(new, encoding='utf-8')
-        print(f'HTML mis à jour: {html.name}')
+    if new != original:
+        html_path.write_text(new, encoding='utf-8')
+        print(f'HTML normalisé: {html_path.name}')
+
+print('Build stable terminé.')
