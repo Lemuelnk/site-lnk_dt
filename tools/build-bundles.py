@@ -111,26 +111,9 @@ def normalize_preference_controls(html_text, is_home):
         )
         return text
 
-    # Secondary pages must not expose any language/theme controls. Remove both
-    # the canonical mount and legacy page-specific variants (brand-language, etc.).
-    text = re.sub(
-        r'\s*<div class="language-switcher"[^>]*>.*?</div>',
-        '',
-        text,
-        flags=re.IGNORECASE | re.DOTALL,
-    )
-    text = re.sub(
-        r'\s*<div class="brand-language"[^>]*>.*?</div>',
-        '',
-        text,
-        flags=re.IGNORECASE | re.DOTALL,
-    )
-    text = re.sub(
-        r'\s*<button[^>]*id=["\']theme-toggle["\'][^>]*>.*?</button>',
-        '',
-        text,
-        flags=re.IGNORECASE | re.DOTALL,
-    )
+    text = re.sub(r'\s*<div class="language-switcher"[^>]*>.*?</div>', '', text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r'\s*<div class="brand-language"[^>]*>.*?</div>', '', text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r'\s*<button[^>]*id=["\']theme-toggle["\'][^>]*>.*?</button>', '', text, flags=re.IGNORECASE | re.DOTALL)
     return text
 
 
@@ -146,41 +129,38 @@ def remove_legacy_home_language_style(html_text):
 def remove_legacy_home_preference_scripts(html_text):
     """Remove inline homepage language/theme controllers now owned by global JS."""
     text = re.sub(
-        r'\s*<script[^>]*>\s*.*?closest\(\s*["\']\.language-option["\']\s*\).*?</script>',
+        r'\s*<script[^>]*>\s*(?:(?!</script>)[\s\S])*?closest\(\s*["\']\.language-option["\']\s*\)(?:(?!</script>)[\s\S])*?</script>',
         '',
         html_text,
-        flags=re.IGNORECASE | re.DOTALL,
+        flags=re.IGNORECASE,
     )
     text = re.sub(
-        r'\s*<script[^>]*>\s*\(function\(\)\s*\{\s*const savedTheme\s*=.*?document\.documentElement\.setAttribute\(\s*["\']data-theme["\'].*?</script>',
+        r'\s*<script[^>]*>\s*(?:(?!</script>)[\s\S])*?const savedTheme\s*=\s*localStorage\.getItem\(\s*["\']lnk-theme["\']\s*\)(?:(?!</script>)[\s\S])*?document\.documentElement\.setAttribute\(\s*["\']data-theme["\'](?:(?!</script>)[\s\S])*?</script>',
         '',
         text,
-        flags=re.IGNORECASE | re.DOTALL,
+        flags=re.IGNORECASE,
     )
     text = re.sub(
-        r'\s*<script[^>]*>\s*\(function\(\)\s*\{\s*document\.documentElement\.setAttribute\(\s*["\']data-theme["\']\s*,\s*["\']light["\']\s*\)\s*;?\s*\}\)\(\)\s*;?\s*</script>',
+        r'\s*<script[^>]*>\s*(?:(?!</script>)[\s\S])*?document\.documentElement\.setAttribute\(\s*["\']data-theme["\']\s*,\s*["\']light["\']\s*\)(?:(?!</script>)[\s\S])*?</script>',
         '',
         text,
-        flags=re.IGNORECASE | re.DOTALL,
+        flags=re.IGNORECASE,
     )
-    # Remove older inline theme toggles that clone #theme-toggle and write lnk-theme.
+    # CRITICAL: constrain the match to a single script tag. The previous greedy
+    # expression could cross multiple <script> blocks and delete the homepage body.
     text = re.sub(
-        r'\s*<script[^>]*>(?=[\s\S]*?function\s+initThemeToggle\s*\()(?=[\s\S]*?localStorage\.setItem\(\s*["\']lnk-theme["\'])[^<]*[\s\S]*?</script>',
+        r'\s*<script[^>]*>(?=(?:(?!</script>)[\s\S])*?function\s+initThemeToggle\s*\()(?=(?:(?!</script>)[\s\S])*?localStorage\.setItem\(\s*["\']lnk-theme["\'])(?:(?!</script>)[\s\S])*?</script>',
         '',
         text,
-        flags=re.IGNORECASE | re.DOTALL,
+        flags=re.IGNORECASE,
     )
     return text
 
 
 def remove_inline_fab_styles(html_text):
     """Remove page-local WhatsApp FAB CSS; geometry and behavior are canonical in lucide-overrides.css."""
-    pattern = re.compile(
-        r'\s*<style[^>]*>.*?\.lnk-wa-fab\s*\{.*?</style>',
-        flags=re.IGNORECASE | re.DOTALL,
-    )
-    cleaned = pattern.sub(lambda match: _strip_fab_rules_from_style(match.group(0)), html_text)
-    return cleaned
+    pattern = re.compile(r'\s*<style[^>]*>.*?\.lnk-wa-fab\s*\{.*?</style>', flags=re.IGNORECASE | re.DOTALL)
+    return pattern.sub(lambda match: _strip_fab_rules_from_style(match.group(0)), html_text)
 
 
 def _strip_fab_rules_from_style(style_block):
@@ -189,7 +169,6 @@ def _strip_fab_rules_from_style(style_block):
     if not body_match:
         return style_block
     prefix, body, suffix = body_match.groups()
-
     rules = re.compile(
         r'\s*(?:[^{}]*\.)?lnk-wa-fab[^{}]*\{[^{}]*\}\s*'
         r'|\s*\.lnk-wa-pulse\s*\{[^{}]*\}\s*'
