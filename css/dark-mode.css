@@ -140,6 +140,30 @@ html[data-theme="dark"] .theme-toggle { background: rgba(255, 249, 240, .08) !im
 html[data-theme="dark"] .theme-toggle:hover { background: rgba(0, 150, 136, .18) !important; color: #7de7db !important; border-color: var(--teal) !important; }
 html[data-theme="dark"] .language-switcher { background: rgba(255, 249, 240, .06) !important; border-color: rgba(255, 249, 240, .2) !important; }
 
+/* Standalone contact page: override legacy light-only values. */
+html[data-theme="dark"] .contact-page,
+html[data-theme="dark"] .contact-page .contact-hero,
+html[data-theme="dark"] .contact-page .contact-form-section,
+html[data-theme="dark"] .contact-page .contact-info-section { color: var(--cream); }
+html[data-theme="dark"] .contact-page .contact-hero h1,
+html[data-theme="dark"] .contact-page .contact-form-section h2,
+html[data-theme="dark"] .contact-page .contact-info-section h2,
+html[data-theme="dark"] .contact-page .contact-form-section label { color: var(--cream) !important; }
+html[data-theme="dark"] .contact-page .contact-hero p { color: rgba(255,249,240,.80) !important; }
+html[data-theme="dark"] .contact-page .contact-form-section input,
+html[data-theme="dark"] .contact-page .contact-form-section select,
+html[data-theme="dark"] .contact-page .contact-form-section textarea { background:#071f1c !important; color:var(--cream) !important; border-color:rgba(255,249,240,.22) !important; }
+html[data-theme="dark"] .contact-page .contact-form-section input::placeholder,
+html[data-theme="dark"] .contact-page .contact-form-section textarea::placeholder { color:rgba(255,249,240,.62) !important; }
+html[data-theme="dark"] .contact-page .contact-form-section select { background-color:#071f1c !important; }
+html[data-theme="dark"] .contact-page .contact-info-label,
+html[data-theme="dark"] .contact-page .contact-social-label { color:rgba(255,249,240,.72) !important; }
+html[data-theme="dark"] .contact-page .contact-info-item p,
+html[data-theme="dark"] .contact-page .contact-info-item a { color:rgba(255,249,240,.88) !important; }
+html[data-theme="dark"] .contact-page .contact-info-item .contact-icon { color:#7DE7DB !important; }
+html[data-theme="dark"] .contact-page .contact-social-links a { color:var(--cream) !important; }
+html[data-theme="dark"] .contact-page .form-privacy-note { color:rgba(255,249,240,.70) !important; }
+
 /* Catalogue FAB: theme-specific color only. Geometry and behavior live in the core icon layer. */
 html[data-theme="dark"] .lnk-wa-fab { background: var(--teal) !important; color: var(--cream) !important; }
 
