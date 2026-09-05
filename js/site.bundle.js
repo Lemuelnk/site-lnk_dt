@@ -168,6 +168,8 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
   const isHome=()=>location.pathname==='/'||location.pathname.endsWith('/index.html');
   const valid=lang=>lang==='en'||lang==='fr';
 
+  html.setAttribute('data-lnk-home',String(isHome()));
+
   const routeLanguage=()=>{
     const query=new URLSearchParams(location.search).get('lang');
     if(valid(query))return query;
@@ -181,6 +183,14 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     const saved=localStorage.getItem(LANG_KEY);
     if(valid(saved))return saved;
     return html.getAttribute('data-lang')==='en'||html.lang==='en'?'en':'fr';
+  };
+
+  const translateSharedNodes=lang=>{
+    document.querySelectorAll('[data-lang-fr][data-lang-en]').forEach(node=>{
+      const fr=node.getAttribute('data-lang-fr');
+      const en=node.getAttribute('data-lang-en');
+      if(fr&&en)node.textContent=lang==='en'?en:fr;
+    });
   };
 
   const render=lang=>{
@@ -198,6 +208,7 @@ lucide.createIcons({icons});\``);if(typeof c>"u")throw new Error("`createIcons()
     html.setAttribute('data-lang',normalized);
     html.lang=normalized;
     if(persist)localStorage.setItem(LANG_KEY,normalized);
+    translateSharedNodes(normalized);
     render(normalized);
     document.dispatchEvent(new CustomEvent('lnk-lang-changed',{detail:normalized}));
   };
