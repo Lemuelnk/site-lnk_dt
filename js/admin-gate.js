@@ -1,10 +1,14 @@
 (() => {
   // Portail d'administration discret : 5 taps rapides sur le logo du footer
-  // ouvrent la page de modération des avis avec connexion automatique.
-  // Invisible pour les visiteurs : aucun indicateur visuel, aucun message.
+  // ouvrent la page de modération des avis. Invisible pour les visiteurs :
+  // aucun indicateur visuel, aucun message.
+  //
+  // Sécurité : la clé d'accès n'est plus jamais transmise ou acceptée via
+  // l'URL (ni ?gate=, ni #t=) — elle laisserait une trace dans l'historique
+  // du navigateur et les journaux serveur. Le geste ouvre uniquement la
+  // page de connexion ; la clé se saisit à chaque fois dans le formulaire.
   const TAPS_REQUIRED = 5;
   const TAP_WINDOW_MS = 1800;
-  const token = null; // la clé est transmise uniquement quand le propriétaire la saisit dans l'URL du site (?gate=<clé>)
 
   const taps = [];
 
@@ -14,10 +18,7 @@
     while (taps.length && taps[0] < now - TAP_WINDOW_MS) taps.shift();
     if (taps.length >= TAPS_REQUIRED) {
       taps.length = 0;
-      const params = new URLSearchParams(location.search);
-      const gate = params.get('gate') || '';
-      const target = '/admin-reviews.html' + (gate ? '#t=' + encodeURIComponent(gate) : '');
-      location.href = target;
+      location.href = '/admin-reviews.html';
     }
   }
 
