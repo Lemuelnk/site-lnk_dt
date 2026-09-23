@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Modération des avis — LNK Design Touch</title>
   <link rel="icon" href="assets/images/brand/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/admin-reviews.css">
-<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style>  <link rel="stylesheet" href="css/lucide-overrides.css">
+<style>@font-face{font-family:'Montserrat';font-style:normal;font-weight:400 900;font-display:swap;src:url('assets/fonts/montserrat-variable.woff2') format('woff2')}@font-face{font-family:'Open Sans';font-style:normal;font-weight:300 800;font-display:swap;src:url('assets/fonts/opensans-variable.woff2') format('woff2')}</style>
 <link rel="stylesheet" href="css/site.bundle.css?v=133cc1a65c">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
+<a href="#main" class="skip-link">Aller au contenu principal</a>
   <header class="admin-header">
     <div class="admin-header-inner">
       <p class="admin-title">Modération des avis clients</p>
@@ -17,7 +20,7 @@
     </div>
   </header>
 
-  <main class="admin-main">
+  <main class="admin-main" id="main">
     <section id="admin-login" class="admin-card">
       <h1>Accès réservé</h1>
       <p>Cette page est réservée à l'administrateur de LNK Design Touch.</p>
@@ -212,7 +215,6 @@
     <p id="admin-footer-text">LNK Design Touch — Administration des avis. Cette page n'est pas indexée et ne doit pas être partagée.</p>
   </footer>
 
-  <meta name="robots" content="noindex, nofollow">
   <script src="js/vendor/lucide.min.js"></script>
   <script src="/js/admin-reviews.js"></script>
   <script src="/js/admin-projects.js"></script>

@@ -18,10 +18,11 @@
     .legal-page .header-controls{display:flex;align-items:center;gap:10px;margin-left:auto}
     .legal-page .legal-wrap{padding-top:calc(68px + clamp(45px,7vw,90px))}
   </style>
-  <link rel="stylesheet" href="css/lucide-overrides.css">
 <link rel="stylesheet" href="css/site.bundle.css?v=133cc1a65c">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body class="legal-page">
+<a href="#main" class="skip-link">Aller au contenu principal</a>
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="LNK Design Touch — accueil">
@@ -30,7 +31,7 @@
       <div class="header-controls"></div>
     </div>
   </header>
-  <main class="legal-wrap">
+  <main class="legal-wrap" id="main">
     <p class="legal-kicker">LNK DESIGN TOUCH</p>
     <h1>Mentions légales.</h1>
     <p class="legal-note">Cette page présente les informations actuellement disponibles. Les informations d’identification juridique qui ne sont pas encore confirmées seront complétées avant la mise en ligne définitive du site.</p>
