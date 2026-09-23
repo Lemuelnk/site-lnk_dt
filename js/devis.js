@@ -1,12 +1,7 @@
 // Devis — interactive quote estimator
 (function () {
   const html = document.documentElement;
-  const saved = localStorage.getItem('lnk-lang');
-  const param = new URLSearchParams(location.search).get('lang');
-  const initialLang = param === 'en' ? 'en' : (saved === 'en' ? 'en' : 'fr');
-  html.setAttribute('data-lang', initialLang);
 
-  const langOptions = document.querySelectorAll('.language-option');
   const steps = document.querySelectorAll('.devis-step');
   const nextBtns = document.querySelectorAll('.next-step');
   const prevBtns = document.querySelectorAll('.prev-step');
@@ -33,33 +28,15 @@
   }
   const indicators = document.querySelectorAll('.step-indicator');
 
-  function applyLanguage() {
-    const lang = html.getAttribute('data-lang');
-    const en = lang === 'en';
-    localStorage.setItem('lnk-lang', lang);
-
-    document.querySelectorAll('[data-lang-fr][data-lang-en]').forEach(el => {
-      const fr = el.getAttribute('data-lang-fr');
-      const enText = el.getAttribute('data-lang-en');
-      if (fr && enText) el.textContent = en ? enText : fr;
-    });
-
-    langOptions.forEach(btn => {
-      const active = btn.getAttribute('data-lang') === lang;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-    });
-
+  function syncLanguageDependentState() {
     updateRateDisplay();
     updateResult();
   }
 
-  langOptions.forEach(btn => {
-    btn.addEventListener('click', () => {
-      html.setAttribute('data-lang', btn.getAttribute('data-lang'));
-      applyLanguage();
-    });
-  });
+  document.addEventListener(
+    'lnk-lang-changed',
+    syncLanguageDependentState
+  );
 
   // State
   let selectedService = null;
@@ -291,7 +268,7 @@
 
   // Start on step 1 and then apply language/result state.
   goToStep(1);
-  applyLanguage();
+  syncLanguageDependentState();
   updateResult();
   fetchExchangeRate();
 })();
