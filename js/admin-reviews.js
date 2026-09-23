@@ -11,6 +11,8 @@
       tokenPlaceholder: 'Clé d\u2019accès',
       submit: 'Accéder',
       wrongToken: 'Clé d\u2019accès invalide.',
+      rateLimited: 'Trop de tentatives. Réessayez dans quelques minutes.',
+      sessionExpired: 'Session expirée après inactivité. Reconnectez-vous.',
       loading: 'Chargement\u2026',
       pendingTitle: 'Avis en attente de validation',
       refresh: 'Actualiser',
@@ -62,6 +64,8 @@
       tokenPlaceholder: 'Access key',
       submit: 'Sign in',
       wrongToken: 'Invalid access key.',
+      rateLimited: 'Too many attempts. Please try again in a few minutes.',
+      sessionExpired: 'Session expired after inactivity. Please sign in again.',
       loading: 'Loading\u2026',
       pendingTitle: 'Reviews pending approval',
       refresh: 'Refresh',
@@ -180,17 +184,19 @@
     document.getElementById('admin-panel').hidden = false;
     document.getElementById('admin-logout').hidden = false;
     document.getElementById('admin-refresh').textContent = str('refresh');
+    resetIdleTimer();
     loadAll();
   }
 
   function showLogin(error) {
     state.token = '';
     sessionStorage.removeItem(TOKEN_KEY);
+    if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
     document.getElementById('admin-login').hidden = false;
     document.getElementById('admin-panel').hidden = true;
     document.getElementById('admin-logout').hidden = true;
     const status = document.getElementById('admin-login-status');
-    if (error) setStatus(status, str('wrongToken'), true);
+    if (error) setStatus(status, str(typeof error === 'string' ? error : 'wrongToken'), true);
     else status.textContent = '';
     document.getElementById('admin-token').value = '';
     document.getElementById('admin-token').focus();
@@ -207,6 +213,7 @@
       headers: { 'Accept': 'application/json', 'Authorization': `Bearer ${state.token}` }
     });
     if (response.status === 401) throw new Error('unauthorized');
+    if (response.status === 429) throw new Error('rateLimited');
     if (!response.ok) throw new Error('network');
     return await response.json();
   }
@@ -407,6 +414,11 @@
       showPanel();
     } catch (err) {
       state.token = '';
+      if (err.message === 'rateLimited') {
+        status.textContent = str('rateLimited');
+        showLogin('rateLimited');
+        return;
+      }
       const len = token.length;
       status.textContent = str('wrongToken') + (len ? ` (${len} caractères saisis)` : '');
       showLogin(true);
@@ -419,16 +431,9 @@
     await tryLogin(document.getElementById('admin-token').value.trim());
   });
 
-  // Connexion directe par URL : admin-reviews.html?t=<clé> ou #t=<clé> (le hash survive aux redirections)
-  const params = new URLSearchParams(location.search);
-  const urlToken = params.get('t') || new URLSearchParams(location.hash.replace(/^#/, '')).get('t');
-  if (urlToken) tryLogin(urlToken);
-
-  // Gérer les changements de hash sans rechargement (ex. copie du lien après ouverture)
-  window.addEventListener('hashchange', () => {
-    const hashToken = new URLSearchParams(location.hash.replace(/^#/, '')).get('t');
-    if (hashToken && !state.token) tryLogin(hashToken);
-  });
+  // Sécurité : la connexion se fait uniquement via le formulaire ci-dessus.
+  // Un token passé par ?t= ou #t= resterait dans l'historique du navigateur
+  // et les journaux serveur — ce chemin d'auto-connexion a été retiré.
 
   // ===== CHARTS =====
   function renderCharts(pending, approved, rejected, trash) {
@@ -538,6 +543,24 @@
 
   document.getElementById('admin-logout').addEventListener('click', () => showLogin(false));
   document.getElementById('admin-refresh').addEventListener('click', loadAll);
+
+  // ===== Déconnexion automatique après inactivité =====
+  // sessionStorage garde la session ouverte tant que l'onglet reste ouvert ;
+  // sur un poste partagé, un admin qui oublie l'onglet resterait connecté
+  // indéfiniment. On force une reconnexion après 20 minutes sans activité.
+  const IDLE_TIMEOUT_MS = 20 * 60 * 1000;
+  let idleTimer = null;
+  function resetIdleTimer() {
+    if (!state.token) return;
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      if (state.token) showLogin('sessionExpired');
+    }, IDLE_TIMEOUT_MS);
+  }
+  ['pointerdown', 'keydown', 'visibilitychange'].forEach(evt => {
+    document.addEventListener(evt, resetIdleTimer, { passive: true });
+  });
+
   new MutationObserver(() => {
     document.getElementById('admin-refresh').textContent = str('refresh');
     document.getElementById('admin-panel-title') && (document.querySelector('.admin-panel-title').textContent = str('pendingTitle'));
