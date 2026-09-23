@@ -163,7 +163,8 @@
   opacity:0;
   overflow:hidden;
   padding-top:0;
-  transition:max-height .45s var(--ease), opacity .3s ease, padding-top .45s var(--ease);
+  visibility:hidden;
+  transition:max-height .45s var(--ease), opacity .3s ease, padding-top .45s var(--ease), visibility 0s linear .45s;
 }
 .service-content p{
   max-width:720px;
@@ -178,6 +179,8 @@
   max-height:320px;
   opacity:1;
   padding-top:3px;
+  visibility:visible;
+  transition:max-height .45s var(--ease), opacity .3s ease, padding-top .45s var(--ease), visibility 0s linear 0s;
 }
 .service-card-material .service-content .service-location{
   margin-top:16px;
@@ -219,6 +222,8 @@
     grid-column:1 / -1;
     max-height:0;
     padding-top:0;
+    visibility:hidden;
+    transition:max-height .45s var(--ease), opacity .3s ease, padding-top .45s var(--ease), visibility 0s linear .45s;
   }
   .service-content p{
     font-size:15px;
@@ -227,6 +232,8 @@
   .service-card.is-active .service-content{
     max-height:420px;
     padding-top:12px;
+    visibility:visible;
+    transition:max-height .45s var(--ease), opacity .3s ease, padding-top .45s var(--ease), visibility 0s linear 0s;
   }
   .service-card-material .service-content .service-location{
     margin-top:16px;
