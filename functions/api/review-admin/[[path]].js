@@ -1,10 +1,35 @@
-const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'} });
+const json = (data, status = 200, extraHeaders = {}) => new Response(JSON.stringify(data), { status, headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store', ...extraHeaders} });
 
 function authorized(request, env){
   const expected = env.REVIEW_ADMIN_TOKEN;
   if(!expected) return false;
   const header = request.headers.get('Authorization') || '';
   return header === `Bearer ${expected}`;
+}
+
+// ===== Anti brute-force : limite de tentatives échouées par IP =====
+const RATE_LIMIT_WINDOW_MINUTES = 10;
+const RATE_LIMIT_MAX_ATTEMPTS = 8;
+
+async function ensureAttemptsTable(db){
+  await db.prepare(
+    `CREATE TABLE IF NOT EXISTS login_attempts (id INTEGER PRIMARY KEY AUTOINCREMENT, ip TEXT NOT NULL, created_at TEXT NOT NULL)`
+  ).run().catch(() => {});
+}
+
+async function isRateLimited(db, ip){
+  const row = await db.prepare(
+    `SELECT COUNT(*) as n FROM login_attempts WHERE ip = ? AND created_at >= datetime('now', ?)`
+  ).bind(ip, `-${RATE_LIMIT_WINDOW_MINUTES} minutes`).first().catch(() => null);
+  return !!(row && row.n >= RATE_LIMIT_MAX_ATTEMPTS);
+}
+
+async function recordFailedAttempt(db, ip){
+  await db.prepare(`INSERT INTO login_attempts (ip, created_at) VALUES (?, datetime('now'))`).bind(ip).run().catch(() => {});
+}
+
+async function purgeOldAttempts(db){
+  await db.prepare(`DELETE FROM login_attempts WHERE created_at < datetime('now', '-1 day')`).run().catch(() => {});
 }
 
 /**
@@ -29,11 +54,28 @@ async function purgeTrash(db){
 }
 
 export async function onRequest(context){
-  if(!authorized(context.request, context.env)) return json({message:'Unauthorized.'},401);
   const db = context.env.REVIEWS_DB;
+  const ip = context.request.headers.get('CF-Connecting-IP') || 'unknown';
+
+  if(db){
+    await ensureAttemptsTable(db);
+    if(await isRateLimited(db, ip)){
+      return json(
+        {message:'Trop de tentatives. Réessayez dans quelques minutes.'},
+        429,
+        {'Retry-After': String(RATE_LIMIT_WINDOW_MINUTES * 60)}
+      );
+    }
+  }
+
+  if(!authorized(context.request, context.env)){
+    if(db) await recordFailedAttempt(db, ip);
+    return json({message:'Unauthorized.'},401);
+  }
   if(!db) return json({message:'Reviews database is not configured.'},503);
   await migrate(db);
   await purgeTrash(db);
+  await purgeOldAttempts(db);
   const url = new URL(context.request.url);
   if(context.request.method === 'GET'){
     const status = url.searchParams.get('status') || 'pending';
