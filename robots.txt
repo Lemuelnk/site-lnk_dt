@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
+
 Disallow: /admin/
+Disallow: /admin-reviews.html
 Disallow: /api/
 
 Sitemap: https://lnk-studio.com/sitemap.xml
